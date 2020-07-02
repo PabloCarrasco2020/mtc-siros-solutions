@@ -55,6 +55,7 @@ namespace SIROS.Web
             services.AddScoped<IMunicipalidadDomain, MunicipalidadDomain>();
             services.AddScoped<IMunicipalidadRepository, MunicipalidadRepository>();
 
+            services.AddScoped<ISSOApplication, SSOApplication>();
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
