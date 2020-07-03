@@ -20,22 +20,59 @@ namespace SIROS.Web.Controllers
             this._sSOApplication = sSOApplication;
         }
         // GET: api/values
-        [HttpGet]
-        public async Task<Response<int>> Get()
+        [HttpPost]
+        public async Task<Response<int>> Login(CredencialModel input)
         {
+            var responseLogin = new Response<int>();
+            try
+            {
+                if (1 == 1)
+                {
+                    responseLogin.IsSuccess = true;
+                    responseLogin.Data = 2;
+                    return responseLogin;
+                }
+                //string headerToken = this._sSOApplication.AuthMiddleWare().ToString();
+                string headerToken = await _sSOApplication.AuthMiddleWare();
+                if (string.IsNullOrEmpty(headerToken))
+                {
+                    responseLogin.Message = "No se generó token";
+                    return responseLogin;
+                }
+
+                //var resultModel = await this._sSOApplication.Login(headerToken, "74073994", "SebasCataPad@s3");
+                //Obteniendo Id
+                var resultLoginSSO= await this._sSOApplication.Login(
+                    headerToken,
+                    input.Usuario,//"41403114",
+                    input.Credencial//"123456"
+                    );
+                if (!resultLoginSSO.IsSuccess)
+                {
+                    responseLogin.Message = resultLoginSSO.Message;
+                    return resultLoginSSO;
+                }
+                // Reniec
+
+                responseLogin.IsSuccess = true;
+                responseLogin.Data = 1;
+                return responseLogin;
+            }
+            catch (Exception ex)
+            {
+                // log
+                responseLogin.Message = "ERR-Error en el servidor";
+                return responseLogin;
+            }
             
 
-            //string headerToken = this._sSOApplication.AuthMiddleWare().ToString();
-            String headerToken = await _sSOApplication.AuthMiddleWare();
-            if (string.IsNullOrEmpty(headerToken))
-            {
-                return new Response<int>();
-            }
 
-            //var resultModel = await this._sSOApplication.Login(headerToken, "74073994", "SebasCataPad@s3");
-            var resultModel = await this._sSOApplication.Login(headerToken, "41403114", "123456");
-            return new Response<int>();
+
         }
-
+        public class CredencialModel
+        {
+            public string Usuario { get; set; }
+            public string Credencial { get; set; }
+        }
     }
 }

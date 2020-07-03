@@ -10,8 +10,11 @@ export class OPGuard implements  CanActivate {
   }
   canActivate() {
     // VALIDAR SESION ACTIVA
-
+    //this.router.navigate(['/login']);
     // VALIDAR PERFIL DE OPERADOR
+    
+    //this.router.navigate(['/pages/home'])
+
     return true;
   }
 }

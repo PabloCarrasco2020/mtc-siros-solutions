@@ -56,6 +56,7 @@ namespace Application.Core
         {
             try
             {
+                var responseLogin = new Response<int>();
                 var httpClient = new HttpClient();
                 var requestBody = new
                 {
@@ -75,14 +76,21 @@ namespace Application.Core
 
                 var urlMetodoValidacion = "api/v1/sso/Login";
                 var resultApiService = await httpClient.PostAsync(urlMetodoValidacion, contentRequest);
-                if (resultApiService.IsSuccessStatusCode)
+                if (!resultApiService.IsSuccessStatusCode)
                 {
-                    var readResultado = await resultApiService.Content.ReadAsStringAsync();
-                    //token = JsonConvert.DeserializeObject<ResultModel>(readResultado);
+                    throw new Exception("IsNotSuccessStatusCode: "+ resultApiService.StatusCode);
                 }
-
-
-                return new Response<int>();
+                var readResultado = await resultApiService.Content.ReadAsStringAsync();
+                var ssoModel = JsonConvert.DeserializeObject<ResultModel>(readResultado);
+                if (!ssoModel.Success)
+                {
+                    // vemos que hacemos
+                    responseLogin.Message = ssoModel.Message;
+                    return responseLogin;
+                }
+                responseLogin.IsSuccess = true;
+                responseLogin.Data = ssoModel.Data.IdUsuario;
+                return responseLogin;
             }
             catch (Exception ex)
             {
@@ -92,4 +100,22 @@ namespace Application.Core
         }
 
     }
+
+
+    #region SSO Model
+
+    public class ResultModel
+    {
+        public bool Success { get; set; }
+        public string Message { get; set; }
+        public UsuarioSSO Data { get; set; }
+    }
+
+    public class UsuarioSSO
+    {
+        public int IdUsuario { get; set; }
+    }
+
+    #endregion
+
 }
