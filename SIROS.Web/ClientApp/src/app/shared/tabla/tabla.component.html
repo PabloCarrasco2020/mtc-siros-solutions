@@ -1,0 +1,63 @@
+<div class="container-custome">
+    <div class="row">
+        <div class="col-sm-12 text-center text-black-50">
+            <span class="">Encontrados: {{IndexData.NroItems}} registros</span>
+        </div>
+
+    </div>
+    <div class="table-responsive">
+        <table class="table table-sm table-bordered">
+            <thead>
+                <tr class="text-center">
+                    <th *ngIf="CanSelect"><i class="fa fa-list"></i></th>
+                    <th *ngIf="Column1Name !== null">{{Column1Name}}</th>
+                    <th *ngIf="Column2Name !== null">{{Column2Name}}</th>
+                    <th *ngIf="Column3Name !== null">{{Column3Name}}</th>
+                    <th *ngIf="Column4Name !== null">{{Column4Name}}</th>
+                    <th *ngIf="Column5Name !== null">{{Column5Name}}</th>
+                    <th *ngIf="Column6Name !== null">{{Column6Name}}</th>
+                    <th *ngIf="Column7Name !== null">{{Column7Name}}</th>
+                    <th *ngIf="Column8Name !== null">{{Column8Name}}</th>
+                    <th *ngIf="Column9Name !== null">{{Column9Name}}</th>
+                    <th *ngIf="Column10Name !== null">{{Column10Name}}</th>
+                    <th *ngIf="CanEdit">Editar</th>
+                    <th *ngIf="CanView">Ver</th>
+                    <th *ngIf="CanDelete">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let iLista of IndexData.Items">
+                    <td *ngIf="CanSelect">
+                        <input type="checkbox">
+                    </td>
+                    <td *ngIf="Column1Name !== null">{{iLista.Column1}}</td>
+                    <td *ngIf="Column2Name !== null">{{iLista.Column2}}</td>
+                    <td *ngIf="Column3Name !== null">{{iLista.Column3}}</td>
+                    <td *ngIf="Column4Name !== null">{{iLista.Column4}}</td>
+                    <td *ngIf="Column5Name !== null">{{iLista.Column5}}</td>
+                    <td *ngIf="Column6Name !== null">{{iLista.Column6}}</td>
+                    <td *ngIf="Column7Name !== null">{{iLista.Column7}}</td>
+                    <td *ngIf="Column8Name !== null">{{iLista.Column8}}</td>
+                    <td *ngIf="Column9Name !== null">{{iLista.Column9}}</td>
+                    <td *ngIf="Column10Name !== null">{{iLista.Column10}}</td>
+                    <td *ngIf="CanEdit">
+                        <button class="btn btn-link btn-sm" (click)="btnEdit(iLista.Id)"><i class="fa fa-edit"></i></button>
+                    </td>
+                    <td *ngIf="CanView">
+                        <button class="btn btn-link btn-sm" (click)="btnView(iLista.Id)"><i class="fa fa-eye"></i></button>
+                    </td>
+                    <td *ngIf="CanDelete">
+                        <button class="btn btn-link btn-sm" (click)="btnDelete(iLista.Id)"><i class="fa fa-trash"></i></button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="IndexData.Items.length>0" class="text-center">
+        <span>
+            <button class="btn btn-link" [disabled]="1 >= IndexData.ActualPage " (click)="btnBefore()">Anterior</button> 
+            <span class="badge badge-info">{{IndexData.ActualPage}}</span>
+        <button class="btn btn-link" [disabled]="IndexData.ActualPage>=IndexData.TotalPage || 1>=IndexData.TotalPage" (click)="btnNext()">Siguiente</button>
+        </span>
+    </div>
+</div>

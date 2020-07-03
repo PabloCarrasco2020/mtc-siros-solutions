@@ -6,10 +6,12 @@ import { SharedModule } from '../shared/shared.module';
 import { PagesComponent } from './pages.component';
 import { BlockUIModule } from 'ng-block-ui';
 import { BlockTemplateCmpComponent } from '../block-template-cmp/block-template-cmp.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
-    PagesComponent
+    PagesComponent,
+    HomeComponent
   ],
   exports: [
     PagesComponent
