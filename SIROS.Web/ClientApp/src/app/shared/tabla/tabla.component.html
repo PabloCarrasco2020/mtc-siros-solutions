@@ -1,14 +1,31 @@
-<div class="container-custome">
+<div class="ibox-content">
     <div class="row">
-        <div class="col-sm-12 text-center text-black-50">
-            <span class="">Encontrados: {{IndexData.NroItems}} registros</span>
+        <div class="col-sm-5 m-b-xs">
+            <span class="">Mostrando: {{IndexData.NroItems}} Registros</span>
         </div>
-
+        <div class="col-sm-4 m-b-xs">
+            <div *ngIf="IndexData.Items.length > 0">
+                <span>
+                    <button class="btn btn-link" [disabled]="1 >= IndexData.ActualPage" (click)="btnBefore()">Anterior</button> 
+                    <span class="badge badge-info">{{IndexData.ActualPage}} / {{IndexData.TotalPage}}</span>
+                <button class="btn btn-link" [disabled]="IndexData.ActualPage>=IndexData.TotalPage || 1>=IndexData.TotalPage" (click)="btnNext()">Siguiente</button>
+                </span>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div *ngIf="CanSearch" class="input-group">
+                <input #txtSearch type="text" class="form-control form-control-sm">
+                <span class="input-group-append">
+                    <button class="btn btn-sm btn-primary" (click)="btnSearch(txtSearch.value)">Buscar</button>
+                </span>
+            </div>
+        </div>
     </div>
+
     <div class="table-responsive">
         <table class="table table-sm table-bordered">
             <thead>
-                <tr class="text-center">
+                <tr>
                     <th *ngIf="CanSelect"><i class="fa fa-list"></i></th>
                     <th *ngIf="Column1Name !== null">{{Column1Name}}</th>
                     <th *ngIf="Column2Name !== null">{{Column2Name}}</th>
@@ -52,12 +69,5 @@
                 </tr>
             </tbody>
         </table>
-    </div>
-    <div *ngIf="IndexData.Items.length>0" class="text-center">
-        <span>
-            <button class="btn btn-link" [disabled]="1 >= IndexData.ActualPage " (click)="btnBefore()">Anterior</button> 
-            <span class="badge badge-info">{{IndexData.ActualPage}}</span>
-        <button class="btn btn-link" [disabled]="IndexData.ActualPage>=IndexData.TotalPage || 1>=IndexData.TotalPage" (click)="btnNext()">Siguiente</button>
-        </span>
     </div>
 </div>

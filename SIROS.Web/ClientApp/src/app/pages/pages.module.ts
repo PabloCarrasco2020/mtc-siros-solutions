@@ -7,11 +7,13 @@ import { PagesComponent } from './pages.component';
 import { BlockUIModule } from 'ng-block-ui';
 import { BlockTemplateCmpComponent } from '../block-template-cmp/block-template-cmp.component';
 import { HomeComponent } from './home/home.component';
+import { MunicipalidadComponent } from './municipalidad/municipalidad.component';
 
 @NgModule({
   declarations: [
     PagesComponent,
-    HomeComponent
+    HomeComponent,
+    MunicipalidadComponent
   ],
   exports: [
     PagesComponent

@@ -3,13 +3,25 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TablaComponent } from './tabla/tabla.component';
+import { NavbarComponent } from './navbar/navbar.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { FooterComponent } from './footer/footer.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
-    TablaComponent
+    TablaComponent,
+    NavbarComponent,
+    SidebarComponent,
+    FooterComponent,
+    BreadcrumbComponent
   ],
   exports: [
-    TablaComponent
+    TablaComponent,
+    NavbarComponent,
+    SidebarComponent,
+    FooterComponent,
+    BreadcrumbComponent
   ],
   imports: [
     CommonModule,
