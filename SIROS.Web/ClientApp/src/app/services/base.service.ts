@@ -44,6 +44,6 @@ export class BaseService {
   GetHeaders(): HttpHeaders {
   const token = this.storageService.Get('llave');
   // tslint:disable-next-line: object-literal-key-quotes
-  return new HttpHeaders({ 'Authorization': `Bearer ${token}` });
+  return new HttpHeaders({ 'Authorization': `Bearer ${token}`});
   }
 }

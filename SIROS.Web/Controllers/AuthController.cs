@@ -32,7 +32,8 @@ namespace SIROS.Web.Controllers
                 return new Response<int>();
             }
 
-            var resultModel = await this._sSOApplication.Login(headerToken, "74073994", "SebasCataPad@s3");
+            //var resultModel = await this._sSOApplication.Login(headerToken, "74073994", "SebasCataPad@s3");
+            var resultModel = await this._sSOApplication.Login(headerToken, "41403114", "123456");
             return new Response<int>();
         }
 

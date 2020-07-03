@@ -9,6 +9,7 @@ using Infrastructure.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,6 +40,9 @@ namespace SIROS.Web
 
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
+
+            //OPTIMIZACION GZIP
+            services.AddResponseCompression(options => options.Providers.Add<GzipCompressionProvider>());
 
             // JSON SEREALIZADOR
             services.AddMvc().AddJsonOptions(o =>
@@ -78,6 +82,8 @@ namespace SIROS.Web
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
+
+            app.UseResponseCompression();
 
             //app.UseHttpsRedirection();
             app.UseStaticFiles();
