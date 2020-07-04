@@ -3,6 +3,8 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="container-fluid">
+
+        
         <div class="row">
             <div class="col-lg-12">
                 <div class="ibox ">
@@ -18,13 +20,12 @@
                         </div>
                     </div>
 
-                    <app-tabla 
-                        (eventBefore)="fnBefore($event)" 
-                        (eventNext)="fnNext($event)" 
-                        (eventSearch)="fnBuscar($event)" 
-                        [IndexData]="oIndexData" 
-                        [CanSearch]="true" 
-                        Column1Name="Nombre">
+                    <app-tabla (eventBefore)="fnBefore($event)"
+                               (eventNext)="fnNext($event)"
+                               (eventSearch)="fnBuscar($event)"
+                               [IndexData]="oIndexData"
+                               [CanSearch]="true"
+                               Column1Name="Nombre">
                     </app-tabla>
                 </div>
             </div>
