@@ -15,7 +15,7 @@ const pagesRoutes: Routes = [
     {
          path: 'promovilidad',
       component: PagesComponent,
-      canActivate: [OPGuard],
+      //canActivate: [OPGuard],
         children: [
              {path: 'municipalidad', component: MunicipalidadComponent},
              ]
