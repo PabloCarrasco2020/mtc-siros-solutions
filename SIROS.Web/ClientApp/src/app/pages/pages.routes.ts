@@ -7,18 +7,16 @@ import { OPGuard } from '../guards/op.guard';
 const pagesRoutes: Routes = [
     {
         path: 'pages',
-    component: PagesComponent,
+        component: PagesComponent,
         children: [
             { path: 'home', component: HomeComponent }
         ]
     },
     {
-         path: 'promovilidad',
-      component: PagesComponent,
-      //canActivate: [OPGuard],
+        path: 'promovilidad', component: PagesComponent, //canActivate: [OPGuard],
         children: [
-             {path: 'municipalidad', component: MunicipalidadComponent},
-             ]
+            { path: 'municipalidad', component: MunicipalidadComponent },
+        ]
     }
     // {
     //     path: 'OGTU',

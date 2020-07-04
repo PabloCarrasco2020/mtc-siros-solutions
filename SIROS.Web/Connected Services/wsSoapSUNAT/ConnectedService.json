@@ -1,0 +1,65 @@
+﻿{
+  "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
+  "Version": "15.0.30730.948",
+  "GettingStartedDocument": {
+    "Uri": "https://go.microsoft.com/fwlink/?linkid=858517"
+  },
+  "ExtendedData": {
+    "inputs": [
+      "http://wwss.sunat.gob.pe/jboss-net/services/ConsultaRuc?wsdl"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, wsSoapSUNAT"
+    ],
+    "references": [
+      "AutoMapper, {AutoMapper, 9.0.0}",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Application.Core.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Application.Dto.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Application.Interface.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Domain.Entities.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Domain.Interface.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Domain.Main.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Infrastructure.Data.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Infrastructure.Interface.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Infrastructure.Repository.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Transversal.Common.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\SIROS.Web\\bin\\Debug\\netcoreapp3.0\\Transversal.Mapper.dll",
+      "Dapper, {Dapper, 2.0.35}",
+      "Microsoft.AspNetCore.NodeServices, {Microsoft.AspNetCore.NodeServices, 3.0.0}",
+      "Microsoft.AspNetCore.SpaServices, {Microsoft.AspNetCore.SpaServices, 3.0.0}",
+      "Microsoft.AspNetCore.SpaServices.Extensions, {Microsoft.AspNetCore.SpaServices.Extensions, 3.0.0}",
+      "Microsoft.Extensions.Configuration, {Microsoft.Extensions.Configuration, 3.1.5}",
+      "Microsoft.Extensions.Configuration.Abstractions, {Microsoft.Extensions.Configuration.Abstractions, 3.1.5}",
+      "Microsoft.Extensions.Configuration.Binder, {Microsoft.Extensions.Configuration.Binder, 3.0.0}",
+      "Microsoft.Extensions.DependencyInjection, {Microsoft.Extensions.DependencyInjection, 3.0.0}",
+      "Microsoft.Extensions.DependencyInjection.Abstractions, {Microsoft.Extensions.DependencyInjection.Abstractions, 3.0.0}",
+      "Microsoft.Extensions.FileProviders.Abstractions, {Microsoft.Extensions.FileProviders.Abstractions, 3.0.0}",
+      "Microsoft.Extensions.FileProviders.Physical, {Microsoft.Extensions.FileProviders.Physical, 3.0.0}",
+      "Microsoft.Extensions.FileSystemGlobbing, {Microsoft.Extensions.FileSystemGlobbing, 3.0.0}",
+      "Microsoft.Extensions.Logging, {Microsoft.Extensions.Logging, 3.0.0}",
+      "Microsoft.Extensions.Logging.Abstractions, {Microsoft.Extensions.Logging.Abstractions, 3.0.0}",
+      "Microsoft.Extensions.Logging.Configuration, {Microsoft.Extensions.Logging.Configuration, 3.0.0}",
+      "Microsoft.Extensions.Logging.Console, {Microsoft.Extensions.Logging.Console, 3.0.0}",
+      "Microsoft.Extensions.Options, {Microsoft.Extensions.Options, 3.0.0}",
+      "Microsoft.Extensions.Options.ConfigurationExtensions, {Microsoft.Extensions.Options.ConfigurationExtensions, 3.0.0}",
+      "Microsoft.Extensions.Primitives, {Microsoft.Extensions.Primitives, 3.1.5}",
+      "Newtonsoft.Json, {Newtonsoft.Json, 12.0.3}",
+      "Oracle.ManagedDataAccess, {Oracle.ManagedDataAccess.Core, 2.19.70}",
+      "System.IO, {System.IO, 4.3.0}",
+      "System.Reflection, {System.Reflection, 4.3.0}",
+      "System.Reflection.Emit, {System.Reflection.Emit, 4.3.0}",
+      "System.Reflection.Emit.ILGeneration, {System.Reflection.Emit.ILGeneration, 4.3.0}",
+      "System.Reflection.Primitives, {System.Reflection.Primitives, 4.3.0}",
+      "System.Runtime, {System.Runtime, 4.3.0}",
+      "System.Runtime.CompilerServices.Unsafe, {System.Runtime.CompilerServices.Unsafe, 4.7.1}",
+      "System.Text.Encoding, {System.Text.Encoding, 4.3.0}",
+      "System.Threading.Tasks, {System.Threading.Tasks, 4.3.0}"
+    ],
+    "targetFramework": "netcoreapp3.0",
+    "typeReuseMode": "All"
+  }
+}
