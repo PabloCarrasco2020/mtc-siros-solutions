@@ -23,6 +23,7 @@ export class MunicipalidadComponent implements OnInit {
   }
 
   ngOnInit() {
+    $(document).prop('title', 'SIROS - Municipalidad');
   }
 
   fnBuscar(sFilter: string) {

@@ -1,34 +1,40 @@
+
+<div id="bgImage0" class="cycle-bg-image" style="background-image: url('https://sso.mtc.gob.pe/MTC.STS/Content/img/bg2.jpg');
+        background-repeat: no-repeat; background-size: cover; background-attachment: fixed;
+        position: fixed; left: 0px; top: 0px; right: 0px; bottom: 0px; display: block;">
+
+</div>
 <div class="middle-box text-center loginscreen animated fadeInDown">
     <div>
         <div class="panel panel-default">
             <div class="panel-heading">
                 <img src="https://sso.mtc.gob.pe/MTC.STS/Content/img/logoMTC.png" style="width:95%">
                 <br>
-                <strong>Inicia Sesión para continuar...</strong>
+                <small>Inicia Sesión para continuar...</small>
             </div>
             <div class="panel-body">
-                <div class="col-sm-12 col-md-10  col-md-offset-1 ">
-                    <form class="m-t" role="form" action="index.html">
-                        <div class="form-group">
-                            <div class="input-group m-b">
-                                <input type="text" class="form-control" placeholder="Username" required="" [(ngModel)]="Usuario">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
-                                </div>
+                <div class="col-sm-12">
+                    <!-- <form class="m-t" role="form" action="index.html"> -->
+                    <div class="form-group">
+                        <div class="input-group m-b">
+                            <input type="text" class="form-control" placeholder="Username" required="" [(ngModel)]="Usuario">
+                            <div class="input-group-prepend">
+                                <span class="input-group-addon"><i class="fa fa-user"></i></span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="input-group m-b">
-                                <input type="password" class="form-control" placeholder="Password" required="" [(ngModel)]="Credencial">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group m-b">
+                            <input type="password" class="form-control" placeholder="Password" required="" [(ngModel)]="Credencial">
+                            <div class="input-group-prepend">
+                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary block full-width m-b" (click)="fnLogin()">Iniciar Sesion</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary block full-width m-b" (click)="fnLogin()">Iniciar Sesion</button>
+                    </div>
+                    <!-- </form> -->
                 </div>
             </div>
 
