@@ -21,12 +21,14 @@ export class TablaComponent implements OnInit {
 
   @Input() IndexData: IndexModel =  new IndexModel();
 
+  @Input() CanNew: boolean = false;
   @Input() CanEdit: boolean = false;
   @Input() CanView: boolean = false;
   @Input() CanDelete: boolean = false;
   @Input() CanSelect: boolean = false;
   @Input() CanSearch: boolean = false;
 
+  @Output() eventNew = new EventEmitter<null>();
   @Output() eventRegistrar = new EventEmitter<null>();
   @Output() eventEdit = new EventEmitter<number>();
   @Output() eventDelete = new EventEmitter<number>();
@@ -44,6 +46,10 @@ export class TablaComponent implements OnInit {
 
   btnRegistrar() {
     this.eventRegistrar.emit(null);
+  }
+
+  btnNew() {
+    this.eventNew.emit(null);
   }
 
   btnEdit(id: number) {

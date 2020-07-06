@@ -37,6 +37,10 @@ export class MunicipalidadComponent implements OnInit {
     this.CargarMunicipalidades();
   }
 
+  fnNew() {
+    $('#myModalNew').modal('show');
+  }
+
   fnNext(nPage: number) {
     this.nCurrentPage = nPage;
     this.CargarMunicipalidades();
