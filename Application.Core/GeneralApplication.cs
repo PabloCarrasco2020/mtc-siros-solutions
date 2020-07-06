@@ -14,9 +14,9 @@ namespace Application.Core
     public class GeneralApplication : IGeneralApplication
     {
         private readonly IGeneralDomain _generalDomain;
-        private readonly Mapper _mapper;
+        private readonly IMapper _mapper;
 
-        public GeneralApplication(IGeneralDomain generalDomain, Mapper mapper)
+        public GeneralApplication(IGeneralDomain generalDomain, IMapper mapper)
         {
             this._generalDomain = generalDomain;
             this._mapper = mapper;
