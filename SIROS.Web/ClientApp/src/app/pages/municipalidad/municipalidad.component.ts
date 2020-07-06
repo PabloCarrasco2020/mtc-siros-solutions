@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IndexModel } from 'src/app/models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { MunicipalidadService } from 'src/app/services/services.index';
+import { MunicipalidadService, ComboService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
 declare var $: any;
 
@@ -14,11 +14,18 @@ export class MunicipalidadComponent implements OnInit {
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
+  nCurrentOption: number = 0;
   sFilter: string = '';
+
+  // FORMULARIO
+  sReferencia: string = '';
 
   @BlockUI() oBlockUI: NgBlockUI;
 
-  constructor(private oMunicipalidadService: MunicipalidadService) {
+  constructor(
+    private oMunicipalidadService: MunicipalidadService,
+    private oComboService: ComboService
+    ) {
     this.CargarMunicipalidades();
   }
 
@@ -38,7 +45,8 @@ export class MunicipalidadComponent implements OnInit {
   }
 
   fnNew() {
-    $('#myModalNew').modal('show');
+    this.nCurrentOption = 1;
+    $('#myModalNew').modal({backdrop: 'static', keyboard: false});
   }
 
   fnNext(nPage: number) {
@@ -50,8 +58,6 @@ export class MunicipalidadComponent implements OnInit {
     this.oBlockUI.start('Cargando Municipalidades...');
     this.oMunicipalidadService.GetAllByFilter(this.nCurrentPage, this.sFilter)
     .then((response: ResponseModel) => {
-      console.log('---CargarMunicipalidades');
-      console.log(response);
 
       if (response.IsSuccess) {
         this.oIndexData = response.Data;
@@ -63,5 +69,6 @@ export class MunicipalidadComponent implements OnInit {
       this.oBlockUI.stop();
     });
   }
-
+  LimpiarCampos() {
+  }
 }
