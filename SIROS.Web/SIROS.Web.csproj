@@ -75,6 +75,9 @@
     <Folder Include="ClientApp\src\assets\js\plugins\iCheck\" />
     <Folder Include="ClientApp\src\assets\js\plugins\peity\" />
     <Folder Include="ClientApp\src\assets\fonts\" />
+    <Folder Include="ClientApp\src\assets\css\plugins\" />
+    <Folder Include="ClientApp\src\assets\css\plugins\steps\" />
+    <Folder Include="ClientApp\src\assets\js\plugins\steps\" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
@@ -99,7 +102,7 @@
     <ItemGroup>
       <DistFiles Include="$(SpaRoot)dist\**; $(SpaRoot)dist-server\**" />
       <DistFiles Include="$(SpaRoot)node_modules\**" Condition="'$(BuildServerSideRenderer)' == 'true'" />
-      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <ResolvedFileToPublish Include="@(DistFiles-&gt;'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
         <RelativePath>%(DistFiles.Identity)</RelativePath>
         <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
         <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
