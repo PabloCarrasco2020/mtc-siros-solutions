@@ -11,22 +11,24 @@ using Transversal.Common;
 
 namespace SIROS.Web.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[Controller]/[Action]")]
     public class ComboController : Controller
     {
         private readonly IMunicipalidadApplication _municipalidadApplication;
+        private readonly IGeneralApplication _generalApplication;
 
-        public ComboController(IMunicipalidadApplication municipalidadApplication)
+        public ComboController(IMunicipalidadApplication municipalidadApplication, IGeneralApplication generalApplication)
         {
             this._municipalidadApplication = municipalidadApplication;
+            this._generalApplication = generalApplication;
         }
-        
+        #region Ubigeo
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetMunicipalidades()
+        public async Task<Response<List<ComboModelDto>>> GetDepartamento()
         {
             try
             {
-                return await _municipalidadApplication.GetCombo(null);
+                return await this._generalApplication.GetDepartamento();
             }
             catch (Exception ex)
             {
@@ -37,6 +39,135 @@ namespace SIROS.Web.Controllers
                 };
             }
         }
-       
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto>>> GetProvincia(string sCodDepartamento)
+        {
+            try
+            {
+                return await this._generalApplication.GetProvincia(sCodDepartamento);
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<List<ComboModelDto>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto>>> GetDistrito(string sCodDepartamento, string sCodProvincia)
+        {
+            try
+            {
+                return await this._generalApplication.GetDistrito(sCodDepartamento, sCodProvincia);
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<List<ComboModelDto>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        #endregion
+
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto>>> GetTipoVia()
+        {
+            try
+            {
+                return await this._generalApplication.GetTipoVia();
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<List<ComboModelDto>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto>>> GetCentroPoblado()
+        {
+            try
+            {
+                return await this._generalApplication.GetCentroPoblado();
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<List<ComboModelDto>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto>>> GetNumeroManzana()
+        {
+            try
+            {
+                return await this._generalApplication.GetNumeroManzana();
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<List<ComboModelDto>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto>>> GetLoteInterior()
+        {
+            try
+            {
+                return await this._generalApplication.GetLoteInterior();
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<List<ComboModelDto>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto>>> GetTipoDocRepresentanteLegal()
+        {
+            try
+            {
+                return await this._generalApplication.GetTipoDocRepresentanteLegal();
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<List<ComboModelDto>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto>>> GetCargoRepresentanteLegal()
+        {
+            try
+            {
+                return await this._generalApplication.GetCargoRepresentanteLegal();
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<List<ComboModelDto>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
     }
 }

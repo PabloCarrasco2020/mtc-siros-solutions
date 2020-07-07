@@ -63,6 +63,10 @@ namespace SIROS.Web
             services.AddScoped<ISunatApplication, SunatApplication>();
             services.AddScoped<ISunarpApplication, SunarpApplication>();
 
+            services.AddScoped<IGeneralApplication, GeneralApplication>();
+            services.AddScoped<IGeneralDomain, GeneralDomain>();
+            services.AddScoped<IGeneralRepository, GeneralRepository>();
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
