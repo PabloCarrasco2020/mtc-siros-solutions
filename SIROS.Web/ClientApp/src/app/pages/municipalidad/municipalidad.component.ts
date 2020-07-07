@@ -12,11 +12,23 @@ declare var $: any;
 })
 export class MunicipalidadComponent implements OnInit {
 
+
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
   nCurrentOption: number = 0;
   sFilter: string = '';
 
+  nCurrentSectionModal: number = 1;
+  // COMBOS
+  lstTipoVia: any[] = [];
+  lstCentroPoblado: any[] = [];
+  lstNumeroManzana: any[] = [];
+  lstLoteInterior: any[] = [];
+  lstTipoDocReprLegal: any[] = [];
+  lstTipoCargoReprLegal: any[] = [];
+  lstDepartamento: any[] = [];
+  lstProvincia: any[] = [];
+  lstDistrito: any[] = [];
   // FORMULARIO
   sReferencia: string = '';
 
@@ -46,6 +58,7 @@ export class MunicipalidadComponent implements OnInit {
 
   fnNew() {
     this.nCurrentOption = 1;
+    this.nCurrentSectionModal = 1;
     $('#myModalNew').modal({backdrop: 'static', keyboard: false});
   }
 
@@ -53,6 +66,11 @@ export class MunicipalidadComponent implements OnInit {
     this.nCurrentPage = nPage;
     this.CargarMunicipalidades();
   }
+  // INI - Funciones modal
+  fnSiguienteModal() {
+    this.nCurrentSectionModal = 2;
+  }
+  // END - Funciones modal
 
   CargarMunicipalidades() {
     this.oBlockUI.start('Cargando Municipalidades...');
@@ -67,6 +85,78 @@ export class MunicipalidadComponent implements OnInit {
       }
 
       this.oBlockUI.stop();
+    });
+  }
+  CargarTipoVia() {
+    this.lstTipoVia = [];
+    this.oComboService.GetTipoVia().then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.lstTipoVia = response.Data;
+      }
+    });
+  }
+  CargarCentroPoblado() {
+    this.lstCentroPoblado = [];
+    this.oComboService.GetCentroPoblado().then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.lstCentroPoblado = response.Data;
+      }
+    });
+  }
+  CargarNumeroManzana() {
+    this.lstNumeroManzana = [];
+    this.oComboService.GetNumeroManzana().then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.lstNumeroManzana = response.Data;
+      }
+    });
+  }
+  CargarLoteInterior() {
+    this.lstLoteInterior = [];
+    this.oComboService.GetLoteInterior().then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.lstLoteInterior = response.Data;
+      }
+    });
+  }
+  CargarTipoDocReprLegal() {
+    this.lstTipoDocReprLegal = [];
+    this.oComboService.GetTipoDocRepresentanteLegal().then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.lstTipoDocReprLegal = response.Data;
+      }
+    });
+  }
+  CargarTipoCargoReprLegal() {
+    this.lstTipoCargoReprLegal = [];
+    this.oComboService.GetCargoRepresentanteLegal().then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.lstTipoCargoReprLegal = response.Data;
+      }
+    });
+  }
+  CargarDepartamento() {
+    this.lstDepartamento = [];
+    this.oComboService.GetTipoVia().then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.lstTipoVia = response.Data;
+      }
+    });
+  }
+  CargarProvincia() {
+    this.lstProvincia= [];
+    this.oComboService.GetTipoVia().then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.lstProvincia = response.Data;
+      }
+    });
+  }
+  CargarDistrito() {
+    this.lstDistrito = [];
+    this.oComboService.GetTipoVia().then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.lstDistrito = response.Data;
+      }
     });
   }
   LimpiarCampos() {

@@ -30,103 +30,167 @@
                                     <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
                                     <h4 class="modal-title">Municipalidad</h4>
                                     <small class="font-bold" *ngIf="nCurrentOption===1">Nuevo Registro</small>
-                                    <small class="font-bold" *ngIf="nCurrentOption===2">Nuevo Registro</small>
+                                    <small class="font-bold" *ngIf="nCurrentOption===2">Editar Registro</small>
                                 </div>
                                 <div class="modal-body">
-
-
-                                    <div class="input-group m-b">
-                                        <input type="text" class="form-control" placeholder="Ingrese número de RUC">
-                                        <div class="input-group-append">
-
-                                            <button type="button" class="btn btn-primary">
+                                    <section [hidden]="(nCurrentSectionModal!==1)" class="animated slideInLeft">
+                                        <div class="input-group m-b">
+                                            <h4>Datos de la empresa</h4>
+                                        </div>
+                                        <div class="input-group m-b">
+                                            <input type="text" class="form-control" placeholder="Ingrese RUC...">
+                                            <div class="input-group-append">
+                                                <button type="button" class="btn btn-primary">
+                                                        <i class="fa fa-search"></i> Buscar
+                                                    </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-12 mb-2">
+                                                <label class="titulo-Campos">Razón Social (*)</label>
+                                                <input type="text" placeholder="Nombre Razón Social" class="form-control" disabled>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="titulo-Campos" for="">Tipo de vía (*)</label>
+                                                <select class="form-control form-control-sm">
+                                                    <option>
+                                                        Seleccione tipo de vía
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="titulo-Campos" for="">Nombre de vía (*)</label>
+                                                <input class="form-control" placeholder="Ingrese nombre de vía" />
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="titulo-Campos" for="">Tipo de CCPP (*)</label>
+                                                <select class="form-control form-control-sm">
+                                                    <option>
+                                                        Seleccione tipo de centro poblado
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="titulo-Campos" for="">Nombre CCPP (*)</label>
+                                                <input class="form-control" placeholder="Ingrese nombre de centro poblado" />
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="titulo-Campos" for="">Nro/Mzn/Km (*)</label>
+                                                <select class="form-control form-control-sm">
+                                                    <option>
+                                                        Seleccione
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="titulo-Campos" for="">Nro (*)</label>
+                                                <input class="form-control" placeholder="Ingrese Nro." />
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="titulo-Campos" for="">Lote/Int/Dpto (*)</label>
+                                                <select class="form-control form-control-sm">
+                                                    <option>
+                                                        Seleccione
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <label class="titulo-Campos" for="">Nro (*)</label>
+                                                <input class="form-control" placeholder="Ingrese Nro." />
+                                            </div>
+                                            <div class="col-lg-12 mb-2">
+                                                <label class="titulo-Campos" for="">Referencia (*)</label>
+                                                <input class="form-control" placeholder="Ingrese referencia..." ([ngModel])="sReferencia" />
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="titulo-Campos" for="">Departamento (*)</label>
+                                                <select class="form-control form-control-sm">
+                                                    <option>
+                                                        Seleccione Departamento
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="titulo-Campos" for="">Provincia (*)</label>
+                                                <select class="form-control form-control-sm">
+                                                    <option>
+                                                        Seleccione Provincia
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="titulo-Campos" for="">Distrito (*)</label>
+                                                <select class="form-control form-control-sm">
+                                                    <option>
+                                                        Seleccione Distrito
+                                                    </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section [hidden]="(nCurrentSectionModal!==2)" class="animated slideInRight">
+                                        <div class="input-group m-b">
+                                            <h4>Datos del responsable legal</h4>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="titulo-Campos">Tipo de Documento (*)</label>
+                                                <select class="form-control form-control-sm">
+                                                    <option>
+                                                        Seleccione tipo de documento
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="titulo-Campos" for="">Nro (*)</label>
+                                                <input class="form-control" placeholder="Ingrese Nro de documento" />
+                                            </div>
+                                            <div class="col-lg-12 mb-2">
+                                                <span>&nbsp;</span>
+                                                <button type="button" class="btn btn-primary btn-sm">
                                                     <i class="fa fa-search"></i> Buscar
                                                 </button>
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="titulo-Campos" for="">Apellido Paterno (*)</label>
+                                                <input class="form-control" placeholder="Apellido Paterno" disabled/>
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="titulo-Campos" for="">Apellido Materno(*)</label>
+                                                <input class="form-control" placeholder="Apellido Materno" disabled/>
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="titulo-Campos" for="">Nombres (*)</label>
+                                                <input class="form-control" placeholder="Nombres" disabled/>
+                                            </div>
+                                            <div class="col-lg-4 mb-2">
+                                                <label class="titulo-Campos" for="">Cargo (*)</label>
+                                                <select class="form-control form-control-sm">
+                                                    <option>
+                                                        Seleccione Cargo...
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div class="col-lg-12 mb-2">
+                                                <button type="button" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-user-plus"></i> Agregar
+                                                </button>
 
+                                            </div>
                                         </div>
-                                    </div>
-
-                                    <div class="form-group row">
-                                        <label class="col-lg-2 col-form-label">Razon Social</label>
-
-                                        <div class="col-lg-10">
-                                            <input type="text" placeholder="Razon Social" class="form-control" disabled> <span class="form-text m-b-none">.</span>
+                                        <hr/>
+                                        <div class="input-group m-b">
+                                            <h4>Lista de Representante Legal</h4>
                                         </div>
-                                    </div>
-                                    <div class="row">
-
-                                        <div class="col-lg-6 mb-2">
-                                            <select class="form-control form-control-sm">
-                                                <option>
-                                                    Seleccione tipo de vía
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6 mb-2">
-                                            <input class="form-control" />
-                                        </div>
-                                        <div class="col-lg-6 mb-2">
-                                            <select class="form-control form-control-sm">
-                                                <option>
-                                                    Seleccione tipo de vía
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6 mb-2">
-                                            <input class="form-control" />
-                                        </div>
-                                        <div class="col-lg-6 mb-2">
-                                            <select class="form-control form-control-sm">
-                                                <option>
-                                                    Seleccionar
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6 mb-2">
-                                            <input class="form-control" />
-                                        </div>
-                                        <div class="col-lg-6 mb-2">
-                                            <select class="form-control form-control-sm">
-                                                <option>
-                                                    Seleccionar
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6 mb-2">
-                                            <input class="form-control" placeholder="Ingrese Lote" />
-                                        </div>
-                                        <div class="col-lg-12 mb-2">
-                                            <input class="form-control" placeholder="Ingrese referencia" ([ngModel])="sReferencia" />
-                                        </div>
-                                        <div class="col-lg-4 mb-2">
-                                            <select class="form-control form-control-sm">
-                                                <option>
-                                                    Seleccione Departamento
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4 mb-2">
-                                            <select class="form-control form-control-sm">
-                                                <option>
-                                                    Seleccione Provincia
-                                                </option>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-4 mb-2">
-                                            <select class="form-control form-control-sm">
-                                                <option>
-                                                    Seleccione Distrito
-                                                </option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-
+                                        <app-tabla Column1Name="Nro" Column2Name="DNI" Column3Name="Representante" Column4Name="Cargo"></app-tabla>
+                                    </section>
 
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
-                                    <button type="button" class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i> Siguiente</button>
+                                    <button type="button" [hidden]="nCurrentSectionModal!==1" class="btn btn-white" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+                                    <button type="button" (click)="fnSiguienteModal()" [hidden]="nCurrentSectionModal!==1" class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i> Siguiente</button>
+                                    <button type="button" (click)="nCurrentSectionModal = 1 " [hidden]="nCurrentSectionModal!==2" class="btn btn-white"><i class="fa fa-arrow-circle-left"></i> Anterior</button>
+                                    <button type="button" [hidden]="nCurrentSectionModal!==2" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
                                 </div>
                             </div>
                         </div>
