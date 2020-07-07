@@ -60,8 +60,10 @@ namespace SIROS.Web
             services.AddScoped<IMunicipalidadRepository, MunicipalidadRepository>();
 
             services.AddScoped<ISSOApplication, SSOApplication>();
+
             services.AddScoped<ISunatApplication, SunatApplication>();
             services.AddScoped<ISunarpApplication, SunarpApplication>();
+            services.AddScoped<IReniecApplication, ReniecApplication>();
 
             services.AddScoped<IGeneralApplication, GeneralApplication>();
             services.AddScoped<IGeneralDomain, GeneralDomain>();
