@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Dto;
+using Application.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Transversal.Common;
@@ -12,14 +14,20 @@ namespace SIROS.Web.Controllers
     [ApiController]
     public class SunatController : ControllerBase
     {
+        private readonly ISunatApplication _sunatApplication;
+
+        public SunatController(ISunatApplication sunatApplication)
+        {
+            this._sunatApplication = sunatApplication;
+        }
+
         [HttpGet("ConsultaRuc")]
         public async Task<IActionResult> ConsultaRuc(string sRuc)
         {
             try
             {
-                var wsSunat = new wsSoapSUNAT.DatosRucWSFacadeRemoteClient();
-                var oResult = await wsSunat.getDatosPrincipalesAsync(sRuc);
-                return Ok(oResult);
+                var oResponse = await this._sunatApplication.ConsultaRuc(sRuc);
+                return Ok(oResponse);
             }
             catch (Exception ex)
             {
