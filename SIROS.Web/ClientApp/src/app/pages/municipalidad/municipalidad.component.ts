@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IndexModel } from 'src/app/models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { MunicipalidadService, ComboService } from 'src/app/services/services.index';
+import { MunicipalidadService, ComboService, SunatService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
 declare var $: any;
 
@@ -30,13 +30,28 @@ export class MunicipalidadComponent implements OnInit {
   lstProvincia: any[] = [];
   lstDistrito: any[] = [];
   // FORMULARIO
+  sRuc: string = '';
+  sRazonSocial: string = '';
+  sVia: string = '';
+  nCentroPoblado: number = 0;
+  sCentroPoblado: string = '';
+  nIdNumeroManzana: number = 0;
+  sNumeroManzana: string = '';
+  nIdLoteInterior: number = 0;
+  sLoteInterior: string = '';
   sReferencia: string = '';
+  sCodDepartamento: string = '';
+  sCodProvincia: string = '';
+  sCodDistrito: string = '';
+  sRepresentante: string = '';
+  nTipoVia: number = 0;
 
   @BlockUI() oBlockUI: NgBlockUI;
 
   constructor(
     private oMunicipalidadService: MunicipalidadService,
-    private oComboService: ComboService
+    private oComboService: ComboService,
+    private oSunatService: SunatService
     ) {
     this.CargarMunicipalidades();
   }
@@ -67,6 +82,9 @@ export class MunicipalidadComponent implements OnInit {
     this.CargarMunicipalidades();
   }
   // INI - Funciones modal
+  fnBuscarRuc() {
+    this.ConsultarRuc();
+  }
   fnSiguienteModal() {
     this.nCurrentSectionModal = 2;
   }
@@ -144,7 +162,7 @@ export class MunicipalidadComponent implements OnInit {
     });
   }
   CargarProvincia() {
-    this.lstProvincia= [];
+    this.lstProvincia = [];
     this.oComboService.GetTipoVia().then((response: ResponseModel) => {
       if ( response.IsSuccess) {
         this.lstProvincia = response.Data;
@@ -156,6 +174,20 @@ export class MunicipalidadComponent implements OnInit {
     this.oComboService.GetTipoVia().then((response: ResponseModel) => {
       if ( response.IsSuccess) {
         this.lstDistrito = response.Data;
+      }
+    });
+  }
+  ConsultarRuc() {
+    if (this.sRuc.length !== 12) {
+      return;
+    }
+    this.sRazonSocial = '';
+    this.sCodDepartamento = '0';
+    this.oSunatService.ConsultaRuc(this.sRuc).then((response: ResponseModel) => {
+      if (response.IsSuccess) {
+        this.sRazonSocial = response.Data.sNombre;
+        this.sCodDepartamento = response.Data.sCodDepartamento;
+        this.sReferencia = response.Data.sReferencia;
       }
     });
   }

@@ -40,7 +40,7 @@
                                         <div class="input-group m-b">
                                             <input type="text" class="form-control" placeholder="Ingrese RUC...">
                                             <div class="input-group-append">
-                                                <button type="button" class="btn btn-primary">
+                                                <button type="button" class="btn btn-primary" (click)="fnBuscarRuc()">
                                                         <i class="fa fa-search"></i> Buscar
                                                     </button>
                                             </div>
@@ -48,7 +48,7 @@
                                         <div class="row">
                                             <div class="col-lg-12 mb-2">
                                                 <label class="titulo-Campos">Razón Social (*)</label>
-                                                <input type="text" placeholder="Nombre Razón Social" class="form-control" disabled>
+                                                <input type="text" placeholder="Nombre Razón Social" class="form-control" disabled ([ngModel])="sRazonSocial">
                                             </div>
                                             <div class="col-lg-6 mb-2">
                                                 <label class="titulo-Campos" for="">Tipo de vía (*)</label>
@@ -104,9 +104,12 @@
                                             </div>
                                             <div class="col-lg-4 mb-2">
                                                 <label class="titulo-Campos" for="">Departamento (*)</label>
-                                                <select class="form-control form-control-sm">
-                                                    <option>
+                                                <select class="form-control form-control-sm" ([ngModel])="sCodDepartamento">
+                                                    <option value="0">
                                                         Seleccione Departamento
+                                                    </option>
+                                                    <option *ngFor="let iDepartamento of lstDepartamento" ([ngModel])="iDepartamento.sCodigo">
+                                                        {{iDepartamento.Description}}
                                                     </option>
                                                 </select>
                                             </div>
