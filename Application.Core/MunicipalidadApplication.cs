@@ -23,78 +23,103 @@ namespace Application.Core
 
         public async Task<Response<MunicipalidadDto.RSGet>> Get(string input)
         {
-            try
-            {
-                var responseGet = new Response<MunicipalidadDto.RSGet>();
-                var result = await this._municipalidadDomain.Get(new TM_MUNICIPALIDAD { NID = Int32.Parse(input) });
-                if (result == null)
-                {
-                    responseGet.Message = "No se encontró registro";
-                    return responseGet;
-                }
-                responseGet.IsSuccess = true;
-                responseGet.Data = this._mapper.Map<MunicipalidadDto.RSGet>(result);
-                return responseGet;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            //try
+            //{
+            //    var responseGet = new Response<MunicipalidadDto.RSGet>();
+            //    var result = await this._municipalidadDomain.Get(new TM_MUNICIPALIDAD { NID = Int32.Parse(input) });
+            //    if (result == null)
+            //    {
+            //        responseGet.Message = "No se encontró registro";
+            //        return responseGet;
+            //    }
+            //    responseGet.IsSuccess = true;
+            //    responseGet.Data = this._mapper.Map<MunicipalidadDto.RSGet>(result);
+            //    return responseGet;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+            throw new NotImplementedException();
         }
 
         public async Task<Response<IndexTableModelDto>> GetAllByFilter(int pagina, string filter)
         {
-            try
-            {
-                var responseGetAllByFilter = new Response<IndexTableModelDto>();
-                var result = await this._municipalidadDomain.GetAllByFilter(pagina, filter);
-                if (result.Count > 0)
-                {
-                    responseGetAllByFilter.IsSuccess = true;
-                    responseGetAllByFilter.Data = new IndexTableModelDto();
-                    responseGetAllByFilter.Data.ActualPage = pagina;
-                    responseGetAllByFilter.Data.TotalPage = result[0].NPAGINAS;
-                    responseGetAllByFilter.Data.NroItems = result[0].NREGISTROS;
-                    responseGetAllByFilter.Data.Items = this._mapper.Map<List<TableModel>>(result);
-                }
-                else
-                {
-                    responseGetAllByFilter.Message = "No se encontró registros";
-                }
-                return responseGetAllByFilter;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            throw new NotImplementedException();
+            //try
+            //{
+            //    var responseGetAllByFilter = new Response<IndexTableModelDto>();
+            //    var result = await this._municipalidadDomain.GetAllByFilter(pagina, filter);
+            //    if (result.Count > 0)
+            //    {
+            //        responseGetAllByFilter.IsSuccess = true;
+            //        responseGetAllByFilter.Data = new IndexTableModelDto();
+            //        responseGetAllByFilter.Data.ActualPage = pagina;
+            //        responseGetAllByFilter.Data.TotalPage = result[0].NPAGINAS;
+            //        responseGetAllByFilter.Data.NroItems = result[0].NREGISTROS;
+            //        responseGetAllByFilter.Data.Items = this._mapper.Map<List<TableModel>>(result);
+            //    }
+            //    else
+            //    {
+            //        responseGetAllByFilter.Message = "No se encontró registros";
+            //    }
+            //    return responseGetAllByFilter;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
         }
 
         public async Task<Response<List<ComboModelDto>>> GetCombo(string input)
         {
+            throw new NotImplementedException();
+            //try
+            //{
+            //    var responseGetCombo = new Response<List<ComboModelDto>>();
+            //    var result = await this._municipalidadDomain.GetCombo(new TM_MUNICIPALIDAD { });
+            //    if (result.Count > 0)
+            //    {
+            //        responseGetCombo.IsSuccess = true;
+            //        responseGetCombo.Data = this._mapper.Map<List<ComboModelDto>>(result);
+            //    }
+            //    else
+            //    {
+            //        responseGetCombo.Message = "No se encontró registros";
+            //    }
+            //    return responseGetCombo;
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw ex;
+            //}
+        }
+
+        public async Task<Response<int>> Insert(MunicipalidadDto.RQInsert input)
+        {
             try
             {
-                var responseGetCombo = new Response<List<ComboModelDto>>();
-                var result = await this._municipalidadDomain.GetCombo(new TM_MUNICIPALIDAD { });
-                if (result.Count > 0)
+                var responseInsert = new Response<int>();
+                var modelReq = this._mapper.Map<TM_MUNICIPALIDAD>(input);
+                var result = await this._municipalidadDomain.Insert(modelReq);
+                if(result > 0)
                 {
-                    responseGetCombo.IsSuccess = true;
-                    responseGetCombo.Data = this._mapper.Map<List<ComboModelDto>>(result);
+
+                }else if(result== 0){
+
                 }
                 else
                 {
-                    responseGetCombo.Message = "No se encontró registros";
+                    responseInsert.IsSuccess = true;
+                    responseInsert.Data = result;
                 }
-                return responseGetCombo;
+                return responseInsert;
             }
             catch (Exception ex)
             {
+
                 throw ex;
             }
-        }
-
-        public Task<Response<int>> Insert(MunicipalidadDto.RQInsert input)
-        {
-            throw new NotImplementedException();
         }
 
         public Task<Response<int>> Update(MunicipalidadDto.RQUpdate input)

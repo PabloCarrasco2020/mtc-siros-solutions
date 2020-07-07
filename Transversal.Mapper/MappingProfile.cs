@@ -10,14 +10,29 @@ namespace Transversal.Mapper
         public MappingProfile()
         {
             #region Municipalidad
-            CreateMap<TM_MUNICIPALIDAD, MunicipalidadDto.RSGet>()
-                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NID))
-                .ForMember(destination => destination.Name, source => source.MapFrom(src => src.SNOMBRE))
+            CreateMap<TM_MUNICIPALIDAD, MunicipalidadDto.RQInsert>()
+                .ForMember(destination => destination.sRuc, source => source.MapFrom(src => src.STR_NUMRUC))
+                .ForMember(destination => destination.sRazonSocial, source => source.MapFrom(src => src.STR_RAZONSOCIAL))
+                .ForMember(destination => destination.nTipoVia, source => source.MapFrom(src => src.NUM_IDTPVIA))
+                .ForMember(destination => destination.sVia, source => source.MapFrom(src => src.STR_NOMVIA))
+                .ForMember(destination => destination.nCentroPoblado, source => source.MapFrom(src => src.NUM_IDCCPP))
+                .ForMember(destination => destination.sCentroPoblado, source => source.MapFrom(src => src.STR_NOMCCPP))
+                .ForMember(destination => destination.nIdNumeroManzana, source => source.MapFrom(src => src.NUM_IDNUMAKM))
+                .ForMember(destination => destination.sNumeroManzana, source => source.MapFrom(src => src.STR_NUMMZKIL))
+                .ForMember(destination => destination.nIdLoteInterior, source => source.MapFrom(src => src.NUM_IDLOINDP))
+                .ForMember(destination => destination.sLoteInterior, source => source.MapFrom(src => src.STR_INTLOTE))
+                .ForMember(destination => destination.sReferencia, source => source.MapFrom(src => src.STR_REFERENCIA))
+                .ForMember(destination => destination.sCodDepartamento, source => source.MapFrom(src => src.STR_CDPTO))
+                .ForMember(destination => destination.sCodProvincia, source => source.MapFrom(src => src.STR_CDPROV))
+                .ForMember(destination => destination.sCodDistrito, source => source.MapFrom(src => src.STR_CDDIST))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ForMember(destination => destination.sRepresentante, source => source.MapFrom(src => src.STR_REPRESENTANTE))
                 .ReverseMap();
-            CreateMap<TM_MUNICIPALIDAD, TableModel>()
-                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NID))
-                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.SNOMBRE))
-                .ReverseMap();
+            //CreateMap<TM_MUNICIPALIDAD, TableModel>()
+            //    .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NID))
+            //    .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.SNOMBRE))
+            //    .ReverseMap();
             #endregion
             #region General
             CreateMap<GENERAL.TIPO_VIA, ComboModelDto>()

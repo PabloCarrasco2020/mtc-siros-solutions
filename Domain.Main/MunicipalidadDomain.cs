@@ -51,9 +51,16 @@ namespace Domain.Main
             }
         }
 
-        public Task<int> Insert(TM_MUNICIPALIDAD input)
+        public async Task<int> Insert(TM_MUNICIPALIDAD input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await _municipalidadRepository.Insert(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Task<int> Update(TM_MUNICIPALIDAD input)

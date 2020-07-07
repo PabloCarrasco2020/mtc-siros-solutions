@@ -32,7 +32,7 @@ namespace Infrastructure.Repository
                 return result;
             }
             */
-            return new TM_MUNICIPALIDAD { NID = 1, SNOMBRE = "Test", SDIRECCION = "MTC" };
+            return new TM_MUNICIPALIDAD {  };
         }
 
         public async Task<List<TM_MUNICIPALIDAD>> GetAllByFilter(int pagina, string filter)
@@ -52,9 +52,6 @@ namespace Infrastructure.Repository
                 return result.AsList();
             }*/
             var lst = new List<TM_MUNICIPALIDAD>();
-            lst.Add(new TM_MUNICIPALIDAD { NFILA=1,NPAGINAS=1,NREGISTROS=10,NID=1,SDIRECCION="Direccion",SNOMBRE="Nombre"});
-            lst.Add(new TM_MUNICIPALIDAD { NFILA = 2, NPAGINAS = 1, NREGISTROS = 10, NID = 2, SDIRECCION = "Direccion", SNOMBRE = "Nombre" });
-            lst.Add(new TM_MUNICIPALIDAD { NFILA = 3, NPAGINAS = 1, NREGISTROS = 10, NID = 3, SDIRECCION = "Direccion", SNOMBRE = "Nombre" });
             return lst;
         }
 
@@ -71,15 +68,38 @@ namespace Infrastructure.Repository
                return result.AsList();
            }*/
             var lst = new List<TM_MUNICIPALIDAD>();
-            lst.Add(new TM_MUNICIPALIDAD { NID = 1, SDIRECCION = "Direccion", SNOMBRE = "Nombre" });
-            lst.Add(new TM_MUNICIPALIDAD { NID = 2, SDIRECCION = "Direccion", SNOMBRE = "Nombre" });
-            lst.Add(new TM_MUNICIPALIDAD {NID = 3, SDIRECCION = "Direccion", SNOMBRE = "Nombre" });
             return lst;
         }
 
         public async Task<int> Insert(TM_MUNICIPALIDAD input)
         {
-            return -1;
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("str_numruc_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMRUC);
+                dyParam.Add("str_razonsocial_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_RAZONSOCIAL);
+                dyParam.Add("num_idtpvia_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDTPVIA);
+                dyParam.Add("str_nomvia_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NOMVIA);
+                dyParam.Add("num_idccpp_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDCCPP);
+                dyParam.Add("str_nomccpp_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NOMCCPP);
+                dyParam.Add("num_idnumakm_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDNUMAKM);
+                dyParam.Add("str_nummzkil_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMMZKIL);
+                dyParam.Add("num_idloindp_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDLOINDP);
+                dyParam.Add("str_intlote_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_INTLOTE);
+                dyParam.Add("str_referencia_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_REFERENCIA);
+                dyParam.Add("str_cdpto_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_CDPTO);
+                dyParam.Add("str_cdprov_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_CDPROV);
+                dyParam.Add("str_cddist_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_CDDIST);
+                dyParam.Add("str_usucreacion_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUCREACION);
+                dyParam.Add("num_idsesion_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDSESION);
+                dyParam.Add("str_representante", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_REPRESENTANTE);
+                dyParam.Add("str_mensaje_", OracleDbType.Varchar2, ParameterDirection.Output,size:250);
+                dyParam.Add("str_estadoproceso_", OracleDbType.Int32, ParameterDirection.Output,size:1);
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+                var query = _connectionFactory.GetQueryForSIROS("PKG_MUNICIPALIDAD.SP_RegistrarMunicipalidad");
+                var result = await connection.QueryAsync(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return 1;
+            }
         }
 
         public async Task<int> Update(TM_MUNICIPALIDAD input)

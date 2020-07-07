@@ -11,7 +11,7 @@ using Transversal.Common;
 
 namespace SIROS.Web.Controllers
 {
-    [Route("api/[controller]/[action]")]
+    [Route("api/[Controller]/[Action]")]
     public class MunicipalidadController : Controller
     {
         private readonly IMunicipalidadApplication _municipalidadApplication;
@@ -47,6 +47,22 @@ namespace SIROS.Web.Controllers
             {
                 // Log
                 return new Response<IndexTableModelDto>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpPost]
+        public async Task<Response<int>> Insert(MunicipalidadDto.RQInsert input)
+        {
+            try
+            {
+                return await _municipalidadApplication.Insert(input);
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
