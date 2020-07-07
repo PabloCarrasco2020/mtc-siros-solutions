@@ -24,7 +24,7 @@ namespace SIROS.Web.Controllers
         }
         #region Ubigeo
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetDepartamento()
+        public async Task<Response<List<ComboModelDto.XCodigo>>> GetDepartamento()
         {
             try
             {
@@ -33,14 +33,14 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // Log
-                return new Response<List<ComboModelDto>>
+                return new Response<List<ComboModelDto.XCodigo>>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
             }
         }
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetProvincia(string sCodDepartamento)
+        public async Task<Response<List<ComboModelDto.XCodigo>>> GetProvincia(string sCodDepartamento)
         {
             try
             {
@@ -49,14 +49,14 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // Log
-                return new Response<List<ComboModelDto>>
+                return new Response<List<ComboModelDto.XCodigo>>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
             }
         }
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetDistrito(string sCodDepartamento, string sCodProvincia)
+        public async Task<Response<List<ComboModelDto.XCodigo>>> GetDistrito(string sCodDepartamento, string sCodProvincia)
         {
             try
             {
@@ -65,7 +65,7 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // Log
-                return new Response<List<ComboModelDto>>
+                return new Response<List<ComboModelDto.XCodigo>>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
@@ -74,7 +74,7 @@ namespace SIROS.Web.Controllers
         #endregion
 
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetTipoVia()
+        public async Task<Response<List<ComboModelDto.XId>>> GetTipoVia()
         {
             try
             {
@@ -83,14 +83,14 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // Log
-                return new Response<List<ComboModelDto>>
+                return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
             }
         }
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetCentroPoblado()
+        public async Task<Response<List<ComboModelDto.XId>>> GetCentroPoblado()
         {
             try
             {
@@ -99,14 +99,14 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // Log
-                return new Response<List<ComboModelDto>>
+                return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
             }
         }
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetNumeroManzana()
+        public async Task<Response<List<ComboModelDto.XId>>> GetNumeroManzana()
         {
             try
             {
@@ -115,14 +115,14 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // Log
-                return new Response<List<ComboModelDto>>
+                return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
             }
         }
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetLoteInterior()
+        public async Task<Response<List<ComboModelDto.XId>>> GetLoteInterior()
         {
             try
             {
@@ -131,14 +131,14 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // Log
-                return new Response<List<ComboModelDto>>
+                return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
             }
         }
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetTipoDocRepresentanteLegal()
+        public async Task<Response<List<ComboModelDto.XId>>> GetTipoDocRepresentanteLegal()
         {
             try
             {
@@ -147,14 +147,14 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // Log
-                return new Response<List<ComboModelDto>>
+                return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
             }
         }
         [HttpGet]
-        public async Task<Response<List<ComboModelDto>>> GetCargoRepresentanteLegal()
+        public async Task<Response<List<ComboModelDto.XId>>> GetCargoRepresentanteLegal()
         {
             try
             {
@@ -163,7 +163,7 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // Log
-                return new Response<List<ComboModelDto>>
+                return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };

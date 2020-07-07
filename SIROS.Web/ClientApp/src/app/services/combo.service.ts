@@ -11,7 +11,7 @@ export class ComboService {
     return this.oBaseService.CallGet(`api/Combo/GetDepartamento`);
   }
   GetProvincia(sCodDepartamento: string) {
-    return this.oBaseService.CallGet(`api/Combo/GetProvincia?sCodDepartamento=${sCodDepartamento}]`);
+    return this.oBaseService.CallGet(`api/Combo/GetProvincia?sCodDepartamento=${sCodDepartamento}`);
   }
   GetDistrito(sCodDepartamento: string, sCodProvincia: string) {
     return this.oBaseService.CallGet(`api/Combo/GetDistrito?sCodDepartamento=${sCodDepartamento}&sCodProvincia=${sCodProvincia}`);

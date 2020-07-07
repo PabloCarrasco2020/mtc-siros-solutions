@@ -120,9 +120,17 @@ namespace Domain.Main
             }
         }
 
-        public Task<List<GENERAL.TIPO_VIA>> GetTipoVia()
+        public async Task<List<GENERAL.TIPO_VIA>> GetTipoVia()
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this._generalRepository.GetTipoVia();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
     }
 }

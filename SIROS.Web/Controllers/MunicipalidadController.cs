@@ -53,10 +53,12 @@ namespace SIROS.Web.Controllers
             }
         }
         [HttpPost]
-        public async Task<Response<int>> Insert(MunicipalidadDto.RQInsert input)
+        public async Task<Response<int>> Insert([FromBody]MunicipalidadDto.RQInsert input)
         {
             try
             {
+                input.nIdSession = 333;
+                input.sUsuario = "SIROS_WEB";
                 return await _municipalidadApplication.Insert(input);
             }
             catch (Exception ex)

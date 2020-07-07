@@ -9,14 +9,14 @@ namespace Application.Interface
 {
     public interface IGeneralApplication
     {
-        Task<Response<List<ComboModelDto>>> GetTipoVia();
-        Task<Response<List<ComboModelDto>>> GetCentroPoblado();
-        Task<Response<List<ComboModelDto>>> GetNumeroManzana();
-        Task<Response<List<ComboModelDto>>> GetLoteInterior();
-        Task<Response<List<ComboModelDto>>> GetDepartamento();
-        Task<Response<List<ComboModelDto>>> GetProvincia(string sCodDepartamento);
-        Task<Response<List<ComboModelDto>>> GetDistrito(string sCodDepartamento, string sCodProvincia);
-        Task<Response<List<ComboModelDto>>> GetTipoDocRepresentanteLegal();
-        Task<Response<List<ComboModelDto>>> GetCargoRepresentanteLegal();
+        Task<Response<List<ComboModelDto.XId>>> GetTipoVia();
+        Task<Response<List<ComboModelDto.XId>>> GetCentroPoblado();
+        Task<Response<List<ComboModelDto.XId>>> GetNumeroManzana();
+        Task<Response<List<ComboModelDto.XId>>> GetLoteInterior();
+        Task<Response<List<ComboModelDto.XCodigo>>> GetDepartamento();
+        Task<Response<List<ComboModelDto.XCodigo>>> GetProvincia(string sCodDepartamento);
+        Task<Response<List<ComboModelDto.XCodigo>>> GetDistrito(string sCodDepartamento, string sCodProvincia);
+        Task<Response<List<ComboModelDto.XId>>> GetTipoDocRepresentanteLegal();
+        Task<Response<List<ComboModelDto.XId>>> GetCargoRepresentanteLegal();
     }
 }

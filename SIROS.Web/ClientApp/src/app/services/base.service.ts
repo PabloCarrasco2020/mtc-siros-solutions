@@ -25,8 +25,9 @@ export class BaseService {
 
   CallPost(metodo: string, request: any): any {
     const header = this.GetHeaders();
+    console.log(request);
     return new Promise<any> (resolve => {
-      this.clienteHttp.post(`${this.URL}${metodo}`, request, {observe: 'response' as 'body', headers: header} )
+      this.clienteHttp.post(`${this.URL}${metodo}`, request , {observe: 'response' as 'body', headers: header } )
           .subscribe((response: any) => {
             resolve(response.body);
       }, (err: HttpErrorResponse) => {
@@ -44,6 +45,6 @@ export class BaseService {
   GetHeaders(): HttpHeaders {
   const token = this.storageService.Get('llave');
   // tslint:disable-next-line: object-literal-key-quotes
-  return new HttpHeaders({ 'Authorization': `Bearer ${token}`});
+  return new HttpHeaders({ 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json'});
   }
 }

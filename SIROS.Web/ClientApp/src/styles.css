@@ -1,3 +1,11 @@
+ /* INI - FIX BUG SWAL CON MODAL */
+.swal2-container {
+    display: -webkit-box !important;
+    display: flex !important;
+    position: fixed !important;
+    z-index: 300000 !important;
+  }
+  /* END - FIX BUG SWAL CON MODAL */
 .titulo-Campos {
     font-size: 12px !important;
     color: black;

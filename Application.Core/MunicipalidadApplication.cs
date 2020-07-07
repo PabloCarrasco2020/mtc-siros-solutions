@@ -71,7 +71,7 @@ namespace Application.Core
             //}
         }
 
-        public async Task<Response<List<ComboModelDto>>> GetCombo(string input)
+        public async Task<Response<List<ComboModelDto.XId>>> GetCombo(string input)
         {
             throw new NotImplementedException();
             //try

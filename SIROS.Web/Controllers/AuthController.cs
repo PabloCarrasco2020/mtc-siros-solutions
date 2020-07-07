@@ -21,7 +21,7 @@ namespace SIROS.Web.Controllers
         }
         // GET: api/values
         [HttpPost]
-        public async Task<Response<int>> Login(CredencialModel input)
+        public async Task<Response<int>> Login([FromBody]CredencialModel input)
         {
             var responseLogin = new Response<int>();
             try
