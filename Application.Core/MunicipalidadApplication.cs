@@ -28,17 +28,17 @@ namespace Application.Core
                 var responseDelete = new Response<int>();
                 var modelReq = this._mapper.Map<TM_MUNICIPALIDAD>(input);
                 var result = await this._municipalidadDomain.Delete(modelReq);
-                if (result.STR_ESTADO_PROCESO == "1")
+                if (result.STR_ESTADOPROCESO == "1")
                 {
                     responseDelete.IsSuccess = true;
                     responseDelete.Data = result.NUM_IDENTIDAD.Value;
                     responseDelete.Message = result.STR_MENSAJE;
                 }
-                else if (result.STR_ESTADO_PROCESO == "-1")
+                else if (result.STR_ESTADOPROCESO == "-1")
                 {
                     responseDelete.Message = result.STR_MENSAJE;
                 }
-                else if (result.STR_ESTADO_PROCESO == "0")
+                else if (result.STR_ESTADOPROCESO == "0")
                 {
                     throw new Exception(result.STR_MENSAJE);
                 }
@@ -138,17 +138,17 @@ namespace Application.Core
                 var responseUpdate = new Response<int>();
                 var modelReq = this._mapper.Map<TM_MUNICIPALIDAD>(input);
                 var result = await this._municipalidadDomain.Update(modelReq);
-                if (result.STR_ESTADO_PROCESO == "1")
+                if (result.STR_ESTADOPROCESO == "1")
                 {
                     responseUpdate.IsSuccess = true;
                     responseUpdate.Data = result.NUM_IDENTIDAD.Value;
                     responseUpdate.Message = "Municipalidad ya se encuentra registrada";
                 }
-                else if (result.STR_ESTADO_PROCESO == "-1")
+                else if (result.STR_ESTADOPROCESO == "-1")
                 {
                     responseUpdate.Message = result.STR_MENSAJE;
                 }
-                else if(result.STR_ESTADO_PROCESO == "0")
+                else if(result.STR_ESTADOPROCESO == "0")
                 {
                     throw new Exception(result.STR_MENSAJE);
                 }

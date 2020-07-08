@@ -76,6 +76,10 @@ namespace Transversal.Mapper
                 .ReverseMap();
             CreateMap<TM_MUNICIPALIDAD, TableModel>()
                 .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDENTIDAD))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NUMRUC))
+                .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_RAZONSOCIAL))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_DIRECCION))
                 .ReverseMap();
             #endregion
             #region General

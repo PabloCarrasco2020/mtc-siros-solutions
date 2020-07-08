@@ -11,7 +11,7 @@ export class MunicipalidadService {
   Get(nIdEntidad: number) {
     return this.oBaseService.CallGet(`api/Municipalidad/Get?sInput=${nIdEntidad}`);
   }
-  GetAllByFilter(nPagina: number, sFilter: string) {
+  GetAllByFilter(nPagina: number, sFilter: string = '') {
     return this.oBaseService.CallGet(`api/Municipalidad/GetAllByFilter?nPagina=${nPagina}&sFilter=${sFilter}`);
   }
   Insert(

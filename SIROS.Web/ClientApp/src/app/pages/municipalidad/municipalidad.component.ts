@@ -17,7 +17,6 @@ export class MunicipalidadComponent implements OnInit {
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
   nCurrentOption: number = 0;
-  sFilter: string = '';
   nCurrentSectionModal: number = 1;
 
   oIndexDataRepresentanteLegal: IndexModel = new IndexModel();
@@ -33,6 +32,10 @@ export class MunicipalidadComponent implements OnInit {
   lstDistrito: any[] = [];
 
   lstResponsablesLegales: any[] = [];
+
+  // Busqueda
+  nTipoFiltro: number = 1;
+  sFilter: string = '';
   // FORMULARIO
   nIdEntidad: number = 0;
   sRuc: string = '';
@@ -82,9 +85,8 @@ export class MunicipalidadComponent implements OnInit {
     $(document).prop('title', 'SIROS - Municipalidad');
   }
 
-  fnBuscar(sFilter: string) {
+  fnBuscar() {
     this.nCurrentPage = 1;
-    this.sFilter = sFilter;
     this.CargarMunicipalidades();
   }
 
@@ -115,15 +117,19 @@ export class MunicipalidadComponent implements OnInit {
     this.oMessageService.confirm(this.sTitlePage, '¿Está seguro de eliminar la municipalidad?')
     .then((result) => {
       if (result.value) {
+        this.oBlockUI.start('Eliminando municipalidad.');
         this.oMunicipalidadService.Delete(nId).then((response: ResponseModel<any>) => {
           if (response.IsSuccess) {
             this.oMessageService.success(this.sTitlePage, response.Message);
+            this.oBlockUI.stop();
+            this.CargarMunicipalidades();
           } else {
             if (response.Message.startsWith('ERR-')) {
               this.oMessageService.error(this.sTitlePage, response.Message);
             } else {
               this.oMessageService.warning(this.sTitlePage, response.Message);
             }
+            this.oBlockUI.stop();
           }
         });
       }
@@ -270,7 +276,8 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarMunicipalidades() {
     this.oBlockUI.start('Cargando Municipalidades...');
-    this.oMunicipalidadService.GetAllByFilter(this.nCurrentPage, this.sFilter)
+    console.log(this.sFilter);
+    this.oMunicipalidadService.GetAllByFilter(this.nCurrentPage, `${this.nTipoFiltro}@${this.sFilter}`)
     .then((response: ResponseModel<any>) => {
 
       if (response.IsSuccess) {
@@ -471,6 +478,7 @@ export class MunicipalidadComponent implements OnInit {
     this.oIndexDataRepresentanteLegal = new IndexModel();
     this.oIndexDataRepresentanteLegal.NroItems = this.lstResponsablesLegales.length;
     this.oIndexDataRepresentanteLegal.TotalPage = 1;
+    this.oIndexDataRepresentanteLegal.ActualPage = 1;
     this.oIndexDataRepresentanteLegal.Items = [];
     let iRepresentanteLegal = 0;
     this.lstResponsablesLegales.forEach(responsableLegal => {
