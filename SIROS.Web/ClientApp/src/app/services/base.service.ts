@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpClient } from '@angular/common/http';
 import { ResponseModel } from '../models/ResponseModel';
-import { SessionService } from './services.index';
+import { SessionService } from './session.service';
 
 @Injectable({
   providedIn: 'root'
