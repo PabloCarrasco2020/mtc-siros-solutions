@@ -1,0 +1,27 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Application.Dto
+{
+    public class JwtDto
+    {
+        public class Request
+        {
+            public string sUsername { get; set; }
+            public string sProfile { get; set; }
+        }
+
+        public class Response
+        {
+            public string sToken { get; set; }
+            public DateTime dTokenExpiration { get; set; }
+        }
+
+        public class Settings
+        {
+            public string SecretKey { get; set; }
+            public string HoursExpiration { get; set; }
+        }
+    }
+}

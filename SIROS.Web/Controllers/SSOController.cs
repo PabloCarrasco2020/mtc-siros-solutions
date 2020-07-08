@@ -17,14 +17,20 @@ namespace SIROS.Web.Controllers
     {
         private readonly ISSOApplication _sSOApplication;
         private readonly IAdminApplication _adminApplication;
+        private readonly IJwtApplication _jwtApplication;
         private readonly IConfiguration _configuration;
 
         private List<string> _perfilesPermitidos;
 
-        public SSOController(ISSOApplication sSOApplication, IAdminApplication adminApplication, IConfiguration configuration)
+        public SSOController(
+            ISSOApplication sSOApplication,
+            IAdminApplication adminApplication,
+            IJwtApplication jwtApplication,
+            IConfiguration configuration)
         {
             this._sSOApplication = sSOApplication;
             this._adminApplication = adminApplication;
+            this._jwtApplication = jwtApplication;
             this._configuration = configuration;
 
             string sPerfiles = this._configuration.GetSection("CredencialesSSO").GetSection("Perfiles").Value;
@@ -212,6 +218,18 @@ namespace SIROS.Web.Controllers
                 #endregion
 
                 oUser.Data.nIdSession = oRegistroSesion.Data; //Obtiene del procedure
+
+                #region GENERAR JWT
+
+                var oJwt = new JwtDto.Request();
+                oJwt.sUsername = oUser.Data.IdUsuario.ToString();
+                oJwt.sProfile = oUser.Data.sNombrePerfil;
+
+                var oToken = await this._jwtApplication.GenerateJwtToken(oJwt);
+                oUser.Data.sToken = oToken.Data.sToken;
+                oUser.Data.dTokenExpiration = oToken.Data.dTokenExpiration;
+
+                #endregion
 
                 oResponse.IsSuccess = true;
                 oResponse.Data = oUser.Data;

@@ -164,7 +164,7 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseNew";
+                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseNewRecord";
 
                     var oRequest = new SSODto.EnterpriseNew.Request();
                     oRequest.ApplicationId = this._sApplicationIdSSO;
@@ -223,7 +223,7 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseAttachApp";
+                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseAttachApplication";
 
                     var oRequest = new SSODto.EnterpriseAttachApp.Request();
                     oRequest.ApplicationId = this._sApplicationIdSSO;
@@ -288,7 +288,7 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseAttachApp";
+                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseAddLocal";
 
                     var oRequest = new SSODto.EnterpriseAddLocal.Request();
                     oRequest.ApplicationId = this._sApplicationIdSSO;

@@ -42,4 +42,12 @@ export class SessionService {
         }
         return (sProfile.toUpperCase() === sProfileName.toUpperCase());
     }
+
+    GetToken(): string {
+        const sToken: string = this.oStorageService.Get(SESSION_USER_TOKEN);
+        if (sToken === null) {
+          return null;
+        }
+        return sToken;
+    }
 }

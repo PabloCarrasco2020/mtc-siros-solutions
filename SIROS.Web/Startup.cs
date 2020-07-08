@@ -1,4 +1,5 @@
 using Application.Core;
+using Application.Dto;
 using Application.Interface;
 using AutoMapper;
 using Domain.Interface;
@@ -6,15 +7,17 @@ using Domain.Main;
 using Infrastructure.Data;
 using Infrastructure.Interface;
 using Infrastructure.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Newtonsoft.Json.Serialization;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Text;
 using Transversal.Common;
 using Transversal.Mapper;
 
@@ -50,7 +53,33 @@ namespace SIROS.Web
                 o.JsonSerializerOptions.PropertyNamingPolicy = null;
                 o.JsonSerializerOptions.DictionaryKeyPolicy = null;
             });
-            //
+
+            // JWT
+            var jwtSettingsSection = Configuration.GetSection("JWT");
+            services.Configure<JwtDto.Settings>(jwtSettingsSection);
+
+            var jwtSettings = jwtSettingsSection.Get<JwtDto.Settings>();
+            var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+
+            // SINGLETON
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
 
@@ -60,6 +89,7 @@ namespace SIROS.Web
             services.AddScoped<IMunicipalidadRepository, MunicipalidadRepository>();
 
             services.AddScoped<ISSOApplication, SSOApplication>();
+            services.AddScoped<IJwtApplication, JwtApplication>();
 
             services.AddScoped<ISunatApplication, SunatApplication>();
             services.AddScoped<ISunarpApplication, SunarpApplication>();
@@ -105,6 +135,8 @@ namespace SIROS.Web
             }
 
             app.UseRouting();
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
