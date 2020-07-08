@@ -149,7 +149,7 @@ namespace Application.Core
             }
         }
 
-        public async Task<Response<SSODto.EnterpriseNew.Response>> EnterpriseNew(string ssDocumentNumber)
+        public async Task<Response<SSODto.EnterpriseNew.Response>> EnterpriseNew(string sDocumentNumber)
         {
             const string METHOD_NAME = "EnterpriseNew";
 
@@ -170,13 +170,13 @@ namespace Application.Core
                     oRequest.ApplicationId = this._sApplicationIdSSO;
                     oRequest.TokenUser = this._sTokenUserSSO;
                     oRequest.TokenPassword = this._sTokenPassSSO;
-                    oRequest.DocumentNumber = ssDocumentNumber;
+                    oRequest.DocumentNumber = sDocumentNumber;
 
-                    var oClientResponse = await oHttpClient.CallPostAsync<SSODto.EnterpriseNew.Request, SSODto.EnterpriseNew.Response>(sUrl, oRequest);
+                    var oClientResponse = await oHttpClient.CallPostAsync<SSODto.EnterpriseNew.Request, SSODto.SSOResponse<SSODto.EnterpriseNew.Response>>(sUrl, oRequest);
                     if (oClientResponse.StatusCode == HttpStatusCode.OK)
                     {
-                        oResponse.IsSuccess = true;
-                        oResponse.Data = oClientResponse.Content;
+                        oResponse.IsSuccess = oClientResponse.Content.Success;
+                        oResponse.Data = oClientResponse.Content.Data;
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
@@ -232,11 +232,11 @@ namespace Application.Core
                     oRequest.idEmpresa = sIdEmpresa;
                     oRequest.DocumentNumber = sDocumentNumber;
 
-                    var oClientResponse = await oHttpClient.CallPostAsync<SSODto.EnterpriseAttachApp.Request, SSODto.EnterpriseAttachApp.Response>(sUrl, oRequest);
+                    var oClientResponse = await oHttpClient.CallPostAsync<SSODto.EnterpriseAttachApp.Request, SSODto.SSOResponse<SSODto.EnterpriseAttachApp.Response>>(sUrl, oRequest);
                     if (oClientResponse.StatusCode == HttpStatusCode.OK)
                     {
-                        oResponse.IsSuccess = true;
-                        oResponse.Data = oClientResponse.Content;
+                        oResponse.IsSuccess = oClientResponse.Content.Success;
+                        oResponse.Data = oClientResponse.Content.Data;
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
@@ -300,11 +300,11 @@ namespace Application.Core
                     oRequest.NombreLocal = sNombreLocal;
                     oRequest.DireccionLocal = sDireccionLocal;
 
-                    var oClientResponse = await oHttpClient.CallPostAsync<SSODto.EnterpriseAddLocal.Request, SSODto.EnterpriseAddLocal.Response>(sUrl, oRequest);
+                    var oClientResponse = await oHttpClient.CallPostAsync<SSODto.EnterpriseAddLocal.Request, SSODto.SSOResponse<SSODto.EnterpriseAddLocal.Response>>(sUrl, oRequest);
                     if (oClientResponse.StatusCode == HttpStatusCode.OK)
                     {
-                        oResponse.IsSuccess = true;
-                        oResponse.Data = oClientResponse.Content;
+                        oResponse.IsSuccess = oClientResponse.Content.Success;
+                        oResponse.Data = oClientResponse.Content.Data;
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
