@@ -143,8 +143,6 @@ namespace SIROS.Web.Controllers
                 // ===== SECCION PARA PRUEBAS =====
                 // ================================
                 oPerfiles.Data[0].NombreRol = "Promovilidad";
-                oUser.Data.sToken = "TOKEN";
-                oUser.Data.dTokenExpiration = DateTime.Now.AddHours(2);
 
 #endif
 

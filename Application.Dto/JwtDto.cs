@@ -23,7 +23,7 @@ namespace Application.Dto
         public class Settings
         {
             public string SecretKey { get; set; }
-            public string HoursExpiration { get; set; }
+            public string MinutesExpiration { get; set; }
         }
     }
 }

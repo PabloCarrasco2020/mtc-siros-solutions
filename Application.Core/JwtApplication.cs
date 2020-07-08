@@ -29,7 +29,7 @@ namespace Application.Core
                 var oTokenHandler = new JwtSecurityTokenHandler();
                 var oSecretKey = Encoding.ASCII.GetBytes(this._settings.SecretKey);
                 DateTime dCurrentDate = DateTime.Now;
-                DateTime dTokenExpiration = dCurrentDate.AddHours(Convert.ToInt32(this._settings.HoursExpiration));
+                DateTime dTokenExpiration = dCurrentDate.AddMinutes(Convert.ToInt32(this._settings.MinutesExpiration));
 
                 var oTokenDescriptor = new SecurityTokenDescriptor
                 {

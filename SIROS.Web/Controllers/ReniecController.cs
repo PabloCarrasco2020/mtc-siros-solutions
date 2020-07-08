@@ -21,7 +21,6 @@ namespace SIROS.Web.Controllers
             this._reniecApplication = reniecApplication;
         }
 
-        //[Authorize]
         [HttpGet("ConsultaNumDoc")]
         public async Task<IActionResult> ConsultaNumDoc(string sNumDoc)
         {
