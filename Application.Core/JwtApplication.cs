@@ -36,7 +36,8 @@ namespace Application.Core
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim(ClaimTypes.Name, oItem.sUsername),
-                        new Claim(ClaimTypes.Role, oItem.sProfile)
+                        new Claim(ClaimTypes.Role, oItem.sProfile),
+                        new Claim(ClaimTypes.NameIdentifier, oItem.sIdSession)
                     }),
                     NotBefore = dCurrentDate,
                     Expires = dTokenExpiration,

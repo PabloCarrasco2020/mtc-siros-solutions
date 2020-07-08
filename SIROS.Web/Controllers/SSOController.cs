@@ -224,6 +224,7 @@ namespace SIROS.Web.Controllers
                 var oJwt = new JwtDto.Request();
                 oJwt.sUsername = oUser.Data.IdUsuario.ToString();
                 oJwt.sProfile = oUser.Data.sNombrePerfil;
+                oJwt.sIdSession = oUser.Data.nIdSession.ToString();
 
                 var oToken = await this._jwtApplication.GenerateJwtToken(oJwt);
                 oUser.Data.sToken = oToken.Data.sToken;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Application.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Transversal.Common;
@@ -20,6 +21,7 @@ namespace SIROS.Web.Controllers
             this._reniecApplication = reniecApplication;
         }
 
+        //[Authorize]
         [HttpGet("ConsultaNumDoc")]
         public async Task<IActionResult> ConsultaNumDoc(string sNumDoc)
         {
