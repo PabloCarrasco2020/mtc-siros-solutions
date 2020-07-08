@@ -50,4 +50,12 @@ export class SessionService {
         }
         return sToken;
     }
+
+    GetCurrentUser(): LoginResponseModel {
+        const oCurrentUser: LoginResponseModel = this.oStorageService.GetObj(SESSION_CURRENT_USER);
+        if (oCurrentUser === null) {
+          return null;
+        }
+        return oCurrentUser;
+    }
 }

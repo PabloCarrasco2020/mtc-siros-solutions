@@ -15,7 +15,7 @@ export class StorageService {
 
   Get(name: string): any {
     const sValue = localStorage.getItem(name);
-    if (sValue == null) {
+    if (sValue === null) {
       return null;
     }
     const sDecryptedValue = this.oSecureService.decrypt(sValue);
@@ -29,7 +29,7 @@ export class StorageService {
 
   GetObj(name: string): any {
     const sValue = localStorage.getItem(name);
-    if (sValue == null) {
+    if (sValue === null) {
       return null;
     }
     const sDecryptedValue = this.oSecureService.decrypt(sValue);

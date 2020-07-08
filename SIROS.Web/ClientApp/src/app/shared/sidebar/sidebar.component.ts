@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { SessionService } from 'src/app/services/services.index';
+import { LoginResponseModel } from '../../models/SSO.model';
+
+const PROFILE_PROMOVILIDAD: string = 'Promovilidad';
+const PROFILE_OGTU: string = 'OGTU';
+const PROFILE_OES: string = 'OES';
 
 @Component({
   selector: 'app-sidebar',
@@ -8,25 +13,26 @@ import { SessionService } from 'src/app/services/services.index';
 })
 export class SidebarComponent implements OnInit {
 
-  PROFILE_PROMOVILIDAD: string = 'Promovilidad';
-  PROFILE_OGTU: string = 'OGTU';
-  PROFILE_OES: string = 'OES';
+  public oCurrentUser: LoginResponseModel = new LoginResponseModel();
 
-  constructor(private oSessionService: SessionService) { }
+  constructor(private oSessionService: SessionService) {
+
+  }
 
   ngOnInit() {
+    this.oCurrentUser = this.oSessionService.GetCurrentUser();
   }
 
   HasProfilePromovilidad() {
-    return this.oSessionService.HasSessionProfile(this.PROFILE_PROMOVILIDAD);
+    return this.oSessionService.HasSessionProfile(PROFILE_PROMOVILIDAD);
   }
 
   hasProfileOGTU() {
-    return this.oSessionService.HasSessionProfile(this.PROFILE_OGTU);
+    return this.oSessionService.HasSessionProfile(PROFILE_OGTU);
   }
 
   hasProfileOES() {
-    return this.oSessionService.HasSessionProfile(this.PROFILE_OES);
+    return this.oSessionService.HasSessionProfile(PROFILE_OES);
   }
 
   fnLogout() {

@@ -5,8 +5,10 @@
                 <div class="dropdown profile-element">
                     <img alt="image" class="rounded-circle" src="./assets/img/profile_small.jpg" />
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="block m-t-xs font-bold">Elmer Utrilla</span>
-                        <span class="text-muted text-xs block">OGTI <b class="caret"></b></span>
+                        <span class="block m-t-xs font-bold">{{oCurrentUser.sNombreCompleto}} <b class="caret"></b></span>
+                        <span class="text-muted text-xs block">{{oCurrentUser.sNombreEmpresa}}</span>
+                        <span class="text-muted text-xs block">{{oCurrentUser.sNombreLocal}}</span>
+                        <span class="text-muted text-xs block">( <b>{{oCurrentUser.sNombrePerfil}}</b> )</span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
                         <li><a class="dropdown-item" href="#">Profile</a></li>
