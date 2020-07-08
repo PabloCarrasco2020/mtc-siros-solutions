@@ -115,7 +115,7 @@ export class MunicipalidadComponent implements OnInit {
     this.oMessageService.confirm(this.sTitlePage, '¿Está seguro de eliminar la municipalidad?')
     .then((result) => {
       if (result.value) {
-        this.oMunicipalidadService.Delete(nId).then((response: ResponseModel) => {
+        this.oMunicipalidadService.Delete(nId).then((response: ResponseModel<any>) => {
           if (response.IsSuccess) {
             this.oMessageService.success(this.sTitlePage, response.Message);
           } else {
@@ -242,7 +242,7 @@ export class MunicipalidadComponent implements OnInit {
 
   CargarMunicipalidadXId() {
     this.oBlockUI.start('Cargando Municipalidad...');
-    this.oMunicipalidadService.Get(this.nIdEntidad).then((response: ResponseModel) => {
+    this.oMunicipalidadService.Get(this.nIdEntidad).then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.nIdEntidad = response.Data.nIdEntidad;
         this.sRuc = response.Data.sRuc;
@@ -271,7 +271,7 @@ export class MunicipalidadComponent implements OnInit {
   CargarMunicipalidades() {
     this.oBlockUI.start('Cargando Municipalidades...');
     this.oMunicipalidadService.GetAllByFilter(this.nCurrentPage, this.sFilter)
-    .then((response: ResponseModel) => {
+    .then((response: ResponseModel<any>) => {
 
       if (response.IsSuccess) {
         this.oIndexData = response.Data;
@@ -301,7 +301,7 @@ export class MunicipalidadComponent implements OnInit {
         this.sCodProvincia,
         this.sCodDistrito,
         this.sRepresentante
-      ).then((response: ResponseModel) => {
+      ).then((response: ResponseModel<any>) => {
         if (response.IsSuccess) {
           this.oBlockUI.stop();
           this.LimpiarCampos();
@@ -335,7 +335,7 @@ export class MunicipalidadComponent implements OnInit {
         this.sCodProvincia,
         this.sCodDistrito,
         this.sRepresentante
-      ).then((response: ResponseModel) => {
+      ).then((response: ResponseModel<any>) => {
         if (response.IsSuccess) {
           this.oBlockUI.stop();
           this.LimpiarCampos();
@@ -355,7 +355,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarTipoVia() {
     this.lstTipoVia = [];
-    this.oComboService.GetTipoVia().then((response: ResponseModel) => {
+    this.oComboService.GetTipoVia().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstTipoVia = response.Data;
       }
@@ -363,7 +363,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarCentroPoblado() {
     this.lstCentroPoblado = [];
-    this.oComboService.GetCentroPoblado().then((response: ResponseModel) => {
+    this.oComboService.GetCentroPoblado().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstCentroPoblado = response.Data;
       }
@@ -371,7 +371,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarNumeroManzana() {
     this.lstNumeroManzana = [];
-    this.oComboService.GetNumeroManzana().then((response: ResponseModel) => {
+    this.oComboService.GetNumeroManzana().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstNumeroManzana = response.Data;
       }
@@ -379,7 +379,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarLoteInterior() {
     this.lstLoteInterior = [];
-    this.oComboService.GetLoteInterior().then((response: ResponseModel) => {
+    this.oComboService.GetLoteInterior().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstLoteInterior = response.Data;
       }
@@ -387,7 +387,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarTipoDocReprLegal() {
     this.lstTipoDocReprLegal = [];
-    this.oComboService.GetTipoDocRepresentanteLegal().then((response: ResponseModel) => {
+    this.oComboService.GetTipoDocRepresentanteLegal().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstTipoDocReprLegal = response.Data;
       }
@@ -395,7 +395,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarTipoCargoReprLegal() {
     this.lstTipoCargoReprLegal = [];
-    this.oComboService.GetCargoRepresentanteLegal().then((response: ResponseModel) => {
+    this.oComboService.GetCargoRepresentanteLegal().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstTipoCargoReprLegal = response.Data;
       }
@@ -403,7 +403,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarDepartamento() {
     this.lstDepartamento = [];
-    this.oComboService.GetDepartamento().then((response: ResponseModel) => {
+    this.oComboService.GetDepartamento().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstDepartamento = response.Data;
       }
@@ -411,7 +411,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarProvincia() {
     this.lstProvincia = [];
-    this.oComboService.GetProvincia(this.sCodDepartamento).then((response: ResponseModel) => {
+    this.oComboService.GetProvincia(this.sCodDepartamento).then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstProvincia = response.Data;
       }
@@ -419,7 +419,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarDistrito() {
     this.lstDistrito = [];
-    this.oComboService.GetDistrito(this.sCodDepartamento, this.sCodProvincia).then((response: ResponseModel) => {
+    this.oComboService.GetDistrito(this.sCodDepartamento, this.sCodProvincia).then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstDistrito = response.Data;
       }
@@ -433,7 +433,7 @@ export class MunicipalidadComponent implements OnInit {
     this.oBlockUI.start('Consultando Ruc...');
     this.sRazonSocial = '';
     this.sCodDepartamento = '00';
-    this.oSunatService.ConsultaRuc(this.sRuc).then((response: ResponseModel) => {
+    this.oSunatService.ConsultaRuc(this.sRuc).then((response: ResponseModel<any>) => {
       if (response.IsSuccess) {
         this.sRazonSocial = response.Data.sNombre;
         const ubigeo = response.Data.sUbigeo;
@@ -458,7 +458,7 @@ export class MunicipalidadComponent implements OnInit {
     this.sNombresRepresentanteLegal = '';
     this.sApePaternoRepresentanteLegal = '';
     this.sApeMaternoRepresentanteLegal = '';
-    this.oReniecService.ConsultaNumDoc(this.sNroDocRepresentanteLegal).then((response: ResponseModel) => {
+    this.oReniecService.ConsultaNumDoc(this.sNroDocRepresentanteLegal).then((response: ResponseModel<any>) => {
       if (response.IsSuccess) {
         this.sNombresRepresentanteLegal = response.Data.sNombres;
         this.sApePaternoRepresentanteLegal = response.Data.sApellidoPaterno;
