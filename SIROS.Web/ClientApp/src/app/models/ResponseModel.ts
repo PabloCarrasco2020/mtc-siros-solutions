@@ -1,5 +1,5 @@
-export class ResponseModel {
+export class ResponseModel<T> {
     IsSuccess: boolean;
-    Data?: any;
+    Data?: T;
     Message: string;
 }

@@ -1,8 +1,10 @@
 export { BaseService } from './base.service';
 export { StorageService } from './storage.service';
 export { MunicipalidadService } from './municipalidad.service';
-export { AuthService } from './auth.service';
+export { SSOService } from './sso.service';
 export { ComboService } from './combo.service';
 export { SunatService } from './sunat.service';
 export { MessageService } from './message.service';
+export { SecureService } from './secure.service';
+export { SessionService } from './session.service';
 export { ReniecService } from './reniec.service';

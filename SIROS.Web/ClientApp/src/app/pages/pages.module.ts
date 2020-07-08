@@ -17,6 +17,8 @@ import { RutasComponent } from './rutas/rutas.component';
 import { EmpresasComponent } from './empresas/empresas.component';
 import { VehiculoSucursalComponent } from './vehiculo-sucursal/vehiculo-sucursal.component';
 import { RegistrarControlIEComponent } from './registrar-control-ie/registrar-control-ie.component';
+import { SessionInterceptor } from '../utils/session.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,9 @@ import { RegistrarControlIEComponent } from './registrar-control-ie/registrar-co
     BlockUIModule.forRoot({
       template: BlockTemplateCmpComponent
     })
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: SessionInterceptor, multi: true }
   ],
   entryComponents: [ BlockTemplateCmpComponent ]
 })

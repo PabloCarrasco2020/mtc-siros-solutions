@@ -13,16 +13,23 @@ namespace Transversal.Common
     {
         public WebApiClient()
         {
-            InitHeaders();
+            this.InitHeaders();
+        }
+
+        public WebApiClient(string sBearerToken)
+        {
+            this.InitHeaders(sBearerToken);
         }
 
         private void InitHeaders()
         {
             DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-            //DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Basic",
-            //    Convert.ToBase64String(Encoding.UTF8.GetBytes(
-            //        string.Format("{0}:{1}", "android", "123456"))));
-            //DefaultRequestHeaders.Add("XYZ-API-VERSION", "2.0.0");
+        }
+
+        private void InitHeaders(string sBearerToken)
+        {
+            this.InitHeaders();
+            DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", sBearerToken);
         }
 
         private (HttpStatusCode StatusCode, TResponse Content) ProcessResponse<TResponse>(HttpResponseMessage res)

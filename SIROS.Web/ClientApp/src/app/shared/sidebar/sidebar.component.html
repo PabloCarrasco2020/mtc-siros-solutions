@@ -12,7 +12,7 @@
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li><a class="dropdown-item" href="#">Mailbox</a></li>
                         <li class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Logout</a></li>
+                        <li><a class="dropdown-item" (click)="fnLogout()">Cerrar Sesion</a></li>
                     </ul>
                 </div>
                 <div class="logo-element">
@@ -21,22 +21,22 @@
             </li>
             
             <!-- PROMOVILIDAD -->
-            <li>
+            <li *ngIf="HasProfilePromovilidad()">
                 <a [routerLink]="['/promovilidad/municipalidad']" routerLinkActive="active">
                     <i class="fa fa-university"></i> <span class="nav-label">Municipalidades</span> <span class="fa arrow"></span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="HasProfilePromovilidad()">
                 <a [routerLink]="['/promovilidad/estacionesServicio']" routerLinkActive="active">
                     <i class="fa fa-fax"></i> <span class="nav-label">Estaciones Servicio</span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="HasProfilePromovilidad()">
                 <a [routerLink]="['/promovilidad/periodos']" routerLinkActive="active">
                     <i class="fa fa-calendar"></i> <span class="nav-label">Periodos</span><span class="fa arrow"></span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="HasProfilePromovilidad()">
                 <a [routerLink]="['/promovilidad/combustible']" routerLinkActive="active">
                     <i class="fa fa-flask"></i> <span class="nav-label">Combustible </span>
                 </a>
@@ -44,55 +44,55 @@
 
             <!-- OGTU -->
             
-            <li>
+            <li *ngIf="hasProfileOGTU()">
                 <a [routerLink]="['/OGTU/contratoES']" routerLinkActive="active">
                     <i class="fa fa-files-o"></i> <span class="nav-label">Contrato ES </span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="hasProfileOGTU()">
                 <a [routerLink]="['/OGTU/sucursalES']" routerLinkActive="active">
                     <i class="fa fa-flask"></i> <span class="nav-label">Sucursal ES </span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="hasProfileOGTU()">
                 <a [routerLink]="['/OGTU/rutas']" routerLinkActive="active">
                     <i class="fa fa-map"></i> <span class="nav-label">Rutas </span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="hasProfileOGTU()">
                 <a [routerLink]="['/OGTU/empresas']" routerLinkActive="active">
                     <i class="fa fa-building"></i> <span class="nav-label">Empresas </span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="hasProfileOGTU()">
                 <a [routerLink]="['/OGTU/vehiculoSucursal']" routerLinkActive="active">
                     <i class="fa fa-bus"></i> <span class="nav-label">Vehiculo Sucursal </span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="hasProfileOGTU()">
                 <a href="#">
                     <i class="fa fa-edit"></i> <span class="nav-label">Registrar Formulario </span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="hasProfileOGTU()">
                 <a [routerLink]="['/OGTU/registrarControlIE']" routerLinkActive="active">
                     <i class="fa fa-edit"></i> <span class="nav-label">Registrar Control I/E </span>
                 </a>
             </li>
-            <li>
+            <li *ngIf="hasProfileOGTU()">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i> <span class="nav-label">Reportes </span>
                 </a>
             </li>
 
-            <!-- ES -->
-            <li>
+            <!-- OES -->
+            <li *ngIf="hasProfileOES()">
             <a href="#">
                 <i class="fa fa-edit"></i> <span class="nav-label">Registrar Formulario </span>
             </a>
             </li>
 
-            <li>
+            <li *ngIf="hasProfileOES()">
                 <a href="#">
                     <i class="fa fa-pie-chart"></i> <span class="nav-label">Reportes </span>
                 </a>

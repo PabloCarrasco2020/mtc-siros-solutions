@@ -9,20 +9,9 @@ import { ResponseModel } from 'src/app/models/ResponseModel';
 })
 export class HomeComponent implements OnInit {
 
-  nPagina: number = 1;
-  sFilter: string = 'test';
-
   constructor(private oMunicipalidadService: MunicipalidadService) { }
 
   ngOnInit() {
-  }
-
-  TestService() {
-    this.oMunicipalidadService.GetAllByFilter(this.nPagina, this.sFilter)
-    .then((response: ResponseModel) => {
-      console.log('---GetAllByFilter');
-      console.log(response);
-    });
   }
 
 }
