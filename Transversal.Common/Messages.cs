@@ -15,6 +15,8 @@ namespace Transversal.Common
                 public const string EX003 = "El usuario no tiene ningun local asociado a su empresa en el SSO.";
                 public const string EX004 = "El usuario no tiene ningun perfil asociado en el SSO.";
                 public const string EX005 = "El usuario no tiene el perfil necesario para poder continuar.";
+                public const string EX006 = "No se pudo obtener la información personal del usuario.";
+                public const string EX007 = "No se pudo registrar la sesion del usuario.";
             }
         }
     }

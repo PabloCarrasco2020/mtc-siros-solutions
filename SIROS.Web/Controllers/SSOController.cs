@@ -16,13 +16,15 @@ namespace SIROS.Web.Controllers
     public class SSOController : ControllerBase
     {
         private readonly ISSOApplication _sSOApplication;
+        private readonly IAdminApplication _adminApplication;
         private readonly IConfiguration _configuration;
 
         private List<string> _perfilesPermitidos;
 
-        public SSOController(ISSOApplication sSOApplication, IConfiguration configuration)
+        public SSOController(ISSOApplication sSOApplication, IAdminApplication adminApplication, IConfiguration configuration)
         {
             this._sSOApplication = sSOApplication;
+            this._adminApplication = adminApplication;
             this._configuration = configuration;
 
             string sPerfiles = this._configuration.GetSection("CredencialesSSO").GetSection("Perfiles").Value;
@@ -159,6 +161,57 @@ namespace SIROS.Web.Controllers
                 }
 
                 #endregion
+
+                #region VALIDACION INFORMACION DE USUARIO
+
+                var oUserInfo = await this._sSOApplication.GetUserInfo(oUser.Data.IdUsuario);
+                if (!oUserInfo.IsSuccess)
+                {
+                    oResponse.Message = Messages.SSO.Login.EX006;
+                    return Ok(oResponse);
+                }
+
+                if (oUserInfo.Data == null)
+                {
+                    oResponse.Message = Messages.SSO.Login.EX006;
+                    return Ok(oResponse);
+                }
+
+                if (oUserInfo.Data.PK_eIdUsuario == 0)
+                {
+                    oResponse.Message = Messages.SSO.Login.EX006;
+                    return Ok(oResponse);
+                }
+
+                #endregion
+
+                oUser.Data.sCorreo = oUserInfo.Data.uCorElectronico;
+                oUser.Data.sNombreCompleto = oUserInfo.Data.NombreCompleto;
+
+                #region VALIDACION DE REGISTRO DE SESION EN BD
+
+                var oRequestRegistrarSesion = new AdminDto.RegistrarSesion();
+                oRequestRegistrarSesion.sUsuario = oItem.sUsername;
+                oRequestRegistrarSesion.sUsuarioSSO = oUser.Data.IdUsuario.ToString();
+                oRequestRegistrarSesion.sIp = "0.0.0.0";
+                oRequestRegistrarSesion.sFlag = "1";
+
+                var oRegistroSesion = await this._adminApplication.RegistrarSesion(oRequestRegistrarSesion);
+                if (!oRegistroSesion.IsSuccess)
+                {
+                    oResponse.Message = Messages.SSO.Login.EX007;
+                    return Ok(oResponse);
+                }
+
+                if (oRegistroSesion.Data == 0)
+                {
+                    oResponse.Message = Messages.SSO.Login.EX007;
+                    return Ok(oResponse);
+                }
+
+                #endregion
+
+                oUser.Data.nIdSession = oRegistroSesion.Data; //Obtiene del procedure
 
                 oResponse.IsSuccess = true;
                 oResponse.Data = oUser.Data;

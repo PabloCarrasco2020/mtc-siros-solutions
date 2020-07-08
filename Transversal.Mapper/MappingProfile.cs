@@ -116,6 +116,14 @@ namespace Transversal.Mapper
                .ForMember(destination => destination.sDescription, source => source.MapFrom(src => src.STR_DSCARGO))
                .ReverseMap();
             #endregion
+            #region Admin
+            CreateMap<ADMIN.TM_SESION, AdminDto.RegistrarSesion>()
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUARIO))
+                .ForMember(destination => destination.sUsuarioSSO, source => source.MapFrom(src => src.STR_USERSO))
+                .ForMember(destination => destination.sIp, source => source.MapFrom(src => src.STR_NUMEROIP))
+                .ForMember(destination => destination.sFlag, source => source.MapFrom(src => src.STR_FLAGCR))
+                .ReverseMap();
+            #endregion
         }
     }
 }

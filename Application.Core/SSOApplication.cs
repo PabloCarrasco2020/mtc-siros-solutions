@@ -460,5 +460,67 @@ namespace Application.Core
                 throw new Exception($"({SERVICE_NAME}-{METHOD_NAME}) : " + ex.Message);
             }
         }
+
+        public async Task<Response<SSODto.GetUserInfo.Response>> GetUserInfo(int nUserId)
+        {
+            const string METHOD_NAME = "GetUserInfo";
+
+            try
+            {
+                string sToken = await this.AuthMiddleWare();
+                if (string.IsNullOrEmpty(sToken))
+                    throw new Exception($"({SERVICE_NAME}-{METHOD_NAME}): Metodo Auth devolvio un token vacio o null.");
+
+                var oResponse = new Response<SSODto.GetUserInfo.Response>();
+                oResponse.IsSuccess = false;
+
+                using (WebApiClient oHttpClient = new WebApiClient(sToken))
+                {
+                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/UserInfo";
+
+                    var oRequest = new SSODto.GetUserInfo.Request();
+                    oRequest.ApplicationId = this._sApplicationIdSSO;
+                    oRequest.TokenUser = this._sTokenUserSSO;
+                    oRequest.TokenPassword = this._sTokenPassSSO;
+                    oRequest.UserId = nUserId;
+
+                    var oClientResponse = await oHttpClient.CallPostAsync<SSODto.GetUserInfo.Request, SSODto.SSOResponse<SSODto.GetUserInfo.Response>>(sUrl, oRequest);
+                    if (oClientResponse.StatusCode == HttpStatusCode.OK)
+                    {
+                        if (oClientResponse.Content != null)
+                        {
+                            oResponse.IsSuccess = oClientResponse.Content.Success;
+                            oResponse.Data = oClientResponse.Content.Data;
+                        }
+                    }
+                    else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [400] Petición Invalida.";
+                    }
+                    else if (oClientResponse.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [401] Acceso Denegado.";
+                    }
+                    else if (oClientResponse.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [404] Ruta Invalida.";
+                    }
+                    else if (oClientResponse.StatusCode == HttpStatusCode.InternalServerError)
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [500] Error Interno.";
+                    }
+                    else
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [{(int)oClientResponse.StatusCode}] Error Desconocido.";
+                    }
+                }
+
+                return oResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"({SERVICE_NAME}-{METHOD_NAME}) : " + ex.Message);
+            }
+        }
     }
 }

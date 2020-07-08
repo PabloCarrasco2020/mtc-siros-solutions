@@ -69,6 +69,10 @@ namespace SIROS.Web
             services.AddScoped<IGeneralDomain, GeneralDomain>();
             services.AddScoped<IGeneralRepository, GeneralRepository>();
 
+            services.AddScoped<IAdminApplication, AdminApplication>();
+            services.AddScoped<IAdminDomain, AdminDomain>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
+
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

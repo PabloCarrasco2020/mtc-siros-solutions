@@ -14,4 +14,5 @@ namespace Domain.Entities
         public string STR_ESTADO_PROCESO { get; set; }
         public string STR_MENSAJE { get; set; }
     }
+
 }
