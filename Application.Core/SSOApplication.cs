@@ -121,7 +121,7 @@ namespace Application.Core
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
-                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [400] Petición Invalida.";
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) {oClientResponse.Content.Message}";
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.Unauthorized)
                     {
@@ -180,7 +180,7 @@ namespace Application.Core
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
-                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [400] Petición Invalida.";
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) {oClientResponse.Content.Message}";
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.Unauthorized)
                     {
@@ -240,7 +240,7 @@ namespace Application.Core
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
-                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [400] Petición Invalida.";
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) {oClientResponse.Content.Message}";
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.Unauthorized)
                     {
@@ -308,7 +308,7 @@ namespace Application.Core
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
-                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [400] Petición Invalida.";
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) {oClientResponse.Content.Message}";
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.Unauthorized)
                     {
@@ -370,7 +370,7 @@ namespace Application.Core
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
-                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [400] Petición Invalida.";
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) {oClientResponse.Content.Message}";
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.Unauthorized)
                     {
@@ -433,7 +433,7 @@ namespace Application.Core
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
                     {
-                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [400] Petición Invalida.";
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) {oClientResponse.Content.Message}";
                     }
                     else if (oClientResponse.StatusCode == HttpStatusCode.Unauthorized)
                     {
