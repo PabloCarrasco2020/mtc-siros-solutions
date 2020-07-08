@@ -481,7 +481,7 @@ namespace Application.Core
             }
         }
 
-        public async Task<Response<List<SSODto.Perfiles.Response>>> GetPerfiles(string sPersonId, string sLocalId)
+        public async Task<Response<List<SSODto.Perfiles.Response>>> GetPerfiles(string sDocumentNumber, string sLocalId)
         {
             const string METHOD_NAME = "GetPerfiles";
 
@@ -502,7 +502,7 @@ namespace Application.Core
                     oRequest.ApplicationId = this._sApplicationIdSSO;
                     oRequest.TokenUser = this._sTokenUserSSO;
                     oRequest.TokenPassword = this._sTokenPassSSO;
-                    oRequest.PersonId = sPersonId;
+                    oRequest.PersonId = sDocumentNumber;
                     oRequest.LocalId = sLocalId;
 
                     var oClientResponse = await oHttpClient.CallPostAsync<SSODto.Perfiles.Request, SSODto.SSOResponse<List<SSODto.Perfiles.Response>>>(sUrl, oRequest);

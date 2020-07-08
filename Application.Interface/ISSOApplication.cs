@@ -21,6 +21,6 @@ namespace Application.Interface
             string sNombreLocal,
             string sDireccionLocal);
         Task<Response<List<SSODto.Empresas.Response>>> GetEmpresas(string sDocumentNumber);
-        Task<Response<List<SSODto.Perfiles.Response>>> GetPerfiles(string sPersonId, string sLocalId);
+        Task<Response<List<SSODto.Perfiles.Response>>> GetPerfiles(string sDocumentNumber, string sLocalId);
     }
 }

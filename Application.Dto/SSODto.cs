@@ -46,6 +46,14 @@ namespace Application.Dto
             public class Response
             {
                 public int IdUsuario { get; set; }
+                public int nIdEmpresa { get; set; }
+                public string sNombreEmpresa { get; set; }
+                public int nIdLocal { get; set; }
+                public string sNombreLocal { get; set; }
+                public int nIdPerfil { get; set; }
+                public string sNombrePerfil { get; set; }
+                public string sToken { get; set; }
+                public DateTime dTokenExpiration { get; set; }
             }
         }
 

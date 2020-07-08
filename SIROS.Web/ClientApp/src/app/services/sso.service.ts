@@ -4,11 +4,13 @@ import { BaseService } from './base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class SSOService {
 
   constructor(private oBaseService: BaseService) { }
-  Login(Usuario: string, Credencial: string) {
-    const model = {Usuario, Credencial};
-    return this.oBaseService.CallPost(`api/auth/login`, model);
+
+  Login(sUsername: string, sPassword: string) {
+    const model = { sUsername, sPassword };
+    return this.oBaseService.CallPost(`api/SSO/Login`, model);
   }
+
 }

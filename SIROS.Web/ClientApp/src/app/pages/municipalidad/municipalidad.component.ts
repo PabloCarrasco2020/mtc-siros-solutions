@@ -131,7 +131,7 @@ export class MunicipalidadComponent implements OnInit {
   CargarMunicipalidades() {
     this.oBlockUI.start('Cargando Municipalidades...');
     this.oMunicipalidadService.GetAllByFilter(this.nCurrentPage, this.sFilter)
-    .then((response: ResponseModel) => {
+    .then((response: ResponseModel<any>) => {
 
       if (response.IsSuccess) {
         this.oIndexData = response.Data;
@@ -163,7 +163,7 @@ export class MunicipalidadComponent implements OnInit {
         this.sCodProvincia,
         this.sCodDistrito,
         this.sRepresentante
-      ).then((response: ResponseModel) => {
+      ).then((response: ResponseModel<any>) => {
         console.log(response);
         this.oBlockUI.stop();
         this.LimpiarCampos();
@@ -175,7 +175,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarTipoVia() {
     this.lstTipoVia = [];
-    this.oComboService.GetTipoVia().then((response: ResponseModel) => {
+    this.oComboService.GetTipoVia().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstTipoVia = response.Data;
       }
@@ -183,7 +183,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarCentroPoblado() {
     this.lstCentroPoblado = [];
-    this.oComboService.GetCentroPoblado().then((response: ResponseModel) => {
+    this.oComboService.GetCentroPoblado().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstCentroPoblado = response.Data;
       }
@@ -191,7 +191,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarNumeroManzana() {
     this.lstNumeroManzana = [];
-    this.oComboService.GetNumeroManzana().then((response: ResponseModel) => {
+    this.oComboService.GetNumeroManzana().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstNumeroManzana = response.Data;
       }
@@ -199,7 +199,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarLoteInterior() {
     this.lstLoteInterior = [];
-    this.oComboService.GetLoteInterior().then((response: ResponseModel) => {
+    this.oComboService.GetLoteInterior().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstLoteInterior = response.Data;
       }
@@ -207,7 +207,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarTipoDocReprLegal() {
     this.lstTipoDocReprLegal = [];
-    this.oComboService.GetTipoDocRepresentanteLegal().then((response: ResponseModel) => {
+    this.oComboService.GetTipoDocRepresentanteLegal().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstTipoDocReprLegal = response.Data;
       }
@@ -215,7 +215,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarTipoCargoReprLegal() {
     this.lstTipoCargoReprLegal = [];
-    this.oComboService.GetCargoRepresentanteLegal().then((response: ResponseModel) => {
+    this.oComboService.GetCargoRepresentanteLegal().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstTipoCargoReprLegal = response.Data;
       }
@@ -223,7 +223,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarDepartamento() {
     this.lstDepartamento = [];
-    this.oComboService.GetDepartamento().then((response: ResponseModel) => {
+    this.oComboService.GetDepartamento().then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstDepartamento = response.Data;
       }
@@ -231,7 +231,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarProvincia() {
     this.lstProvincia = [];
-    this.oComboService.GetProvincia(this.sCodDepartamento).then((response: ResponseModel) => {
+    this.oComboService.GetProvincia(this.sCodDepartamento).then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstProvincia = response.Data;
       }
@@ -239,7 +239,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarDistrito() {
     this.lstDistrito = [];
-    this.oComboService.GetDistrito(this.sCodDepartamento, this.sCodProvincia).then((response: ResponseModel) => {
+    this.oComboService.GetDistrito(this.sCodDepartamento, this.sCodProvincia).then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstDistrito = response.Data;
       }
@@ -253,7 +253,7 @@ export class MunicipalidadComponent implements OnInit {
     this.oBlockUI.start('Consultando Ruc...');
     this.sRazonSocial = '';
     this.sCodDepartamento = '00';
-    this.oSunatService.ConsultaRuc(this.sRuc).then((response: ResponseModel) => {
+    this.oSunatService.ConsultaRuc(this.sRuc).then((response: ResponseModel<any>) => {
       if (response.IsSuccess) {
         this.sRazonSocial = response.Data.sNombre;
         const ubigeo = response.Data.sUbigeo;

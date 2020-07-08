@@ -12,6 +12,7 @@ import { RutasComponent } from './rutas/rutas.component';
 import { EmpresasComponent } from './empresas/empresas.component';
 import { VehiculoSucursalComponent } from './vehiculo-sucursal/vehiculo-sucursal.component';
 import { RegistrarControlIEComponent } from './registrar-control-ie/registrar-control-ie.component';
+import { OGTUGuard } from '../guards/ogtu.guard';
 
 const pagesRoutes: Routes = [
     {
@@ -22,7 +23,7 @@ const pagesRoutes: Routes = [
         ]
     },
     {
-        path: 'promovilidad', component: PagesComponent, //canActivate: [OPGuard],
+        path: 'promovilidad', component: PagesComponent, canActivate: [OPGuard],
         children: [
             { path: 'municipalidad', component: MunicipalidadComponent },
             { path: 'estacionesServicio', component: EstacionesServicioComponent },
@@ -31,7 +32,7 @@ const pagesRoutes: Routes = [
         ]
     },
     {
-        path: 'OGTU', component: PagesComponent, //canActivate: [OGTUGuard],
+        path: 'OGTU', component: PagesComponent, canActivate: [OGTUGuard],
         children: [
             { path: 'contratoES', component: ContratoESComponent },
             { path: 'sucursalES', component: SucursalESComponent },

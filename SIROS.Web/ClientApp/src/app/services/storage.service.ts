@@ -1,23 +1,41 @@
 import { Injectable } from '@angular/core';
+import { SecureService } from './secure.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  constructor() { }
+  constructor(private oSecureService: SecureService) { }
+
   Set(name: string, value: any) {
-    localStorage.setItem(name, value);
+    const sEncryptedValue = this.oSecureService.encrypt(value);
+    localStorage.setItem(name, sEncryptedValue);
   }
+
   Get(name: string): any {
-    return localStorage.getItem(name);
+    const sValue = localStorage.getItem(name);
+    if (sValue == null) {
+      return null;
+    }
+    const sDecryptedValue = this.oSecureService.decrypt(sValue);
+    return sDecryptedValue;
   }
+
   SetObj(name: string, value: any) {
-    localStorage.setItem(name, JSON.stringify(value));
+    const sEncryptedValue = this.oSecureService.encrypt(JSON.stringify(value));
+    localStorage.setItem(name, sEncryptedValue);
   }
+
   GetObj(name: string): any {
-    return JSON.parse(localStorage.getItem(name));
+    const sValue = localStorage.getItem(name);
+    if (sValue == null) {
+      return null;
+    }
+    const sDecryptedValue = this.oSecureService.decrypt(sValue);
+    return JSON.parse(sDecryptedValue);
   }
+
   Remove(name: string) {
     localStorage.removeItem(name);
   }

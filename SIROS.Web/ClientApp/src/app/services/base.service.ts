@@ -35,7 +35,7 @@ export class BaseService {
       });
   });
   }
-  handleError(error: HttpErrorResponse): ResponseModel {
+  handleError(error: HttpErrorResponse): ResponseModel<any> {
     const responseError = new ResponseModel();
     responseError.IsSuccess = false;
     responseError.Message = error.message;
@@ -43,8 +43,8 @@ export class BaseService {
   }
 
   GetHeaders(): HttpHeaders {
-  const token = this.storageService.Get('llave');
-  // tslint:disable-next-line: object-literal-key-quotes
-  return new HttpHeaders({ 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json'});
+    const sToken = this.storageService.Get('UserToken');
+    // tslint:disable-next-line: object-literal-key-quotes
+    return new HttpHeaders({ 'Authorization': `Bearer ${sToken}`, 'Content-Type': 'application/json'});
   }
 }
