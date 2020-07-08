@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Domain.Entities
 {
-    public class COMMUN_EXTENSION
+    public class COMMON_EXTENSION
     {
         // propiedades de tabla filtrada
         public int? NUM_FILA { get; set; }
@@ -11,7 +11,7 @@ namespace Domain.Entities
         public string STR_USUCREACION { get; set; }
         public string STR_USUACT { get; set; }
         // propiedades de respuesta de transacción de la bd
-        public string STR_ESTADO_PROCESO { get; set; }
+        public string STR_ESTADOPROCESO { get; set; }
         public string STR_MENSAJE { get; set; }
     }
 

@@ -223,17 +223,22 @@
                         </div>
                     </div>
                     <div class="ibox-content">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button (click)="nTipoFiltro = 1" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === 1, 'btn-white': nTipoFiltro === 2}">Ingresar por RUC</button>
+                            <button (click)="nTipoFiltro = 2" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === 2, 'btn-white': nTipoFiltro === 1}">Ingresar por Razón Social</button>
+                          </div>
                         <div class="row">
                             <div class="col-sm-4">
                     
                                 <div  class="form-group">
-                                    <small>Ingrese:</small>
-                                    <div class="input-group"><input #txtSearch class="form-control form-control-sm" type="text"><span class="input-group-append"><button class="btn btn-sm btn-primary" ><i class="fa fa-search"></i> Buscar</button></span></div>
+                                    <small [hidden]="(nTipoFiltro !== 1)">RUC:</small>
+                                    <small [hidden]="(nTipoFiltro !== 2)">Razón Social:</small>
+                                    <div class="input-group"><input [(ngModel)]="sFilter" class="form-control form-control-sm" type="text"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary" ><i class="fa fa-search"></i> Buscar</button></span></div>
                     
                                 </div>
                             </div>
                         </div>
-                        <app-tabla (eventBefore)="fnBefore($event)" (eventNext)="fnNext($event)"   [IndexData]="oIndexData"  [CanNew]="true" (eventNew)="fnNew()" [CanEdit]="true" (eventEdit)="fnEdit($event)" [CanDelete]="true" (eventDelete)="fnDelete($event)" Column1Name="Nombre">
+                        <app-tabla (eventBefore)="fnBefore($event)" (eventNext)="fnNext($event)"   [IndexData]="oIndexData"  [CanNew]="true" (eventNew)="fnNew()" [CanEdit]="true" (eventEdit)="fnEdit($event)" [CanDelete]="true" (eventDelete)="fnDelete($event)" Column1Name="Nro" Column2Name="RUC" Column3Name="Razón&nbsp;Social" Column4Name="Dirección">
                         </app-tabla>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Domain.Entities
 {
-    public class TM_MUNICIPALIDAD: COMMUN_EXTENSION
+    public class TM_MUNICIPALIDAD: COMMON_EXTENSION
     {
         public int? NUM_IDENTIDAD { get; set; }
         public string STR_NUMRUC { get; set; }
@@ -22,6 +22,7 @@ namespace Domain.Entities
         public string STR_REPRESENTANTE { get; set; }
         public int? NUM_IDENTIDADSSO { get; set; }
         public int? NUM_IDLOCALSSO { get; set; }
+        public string STR_DIRECCION { get; set; }
 
     }
 }
