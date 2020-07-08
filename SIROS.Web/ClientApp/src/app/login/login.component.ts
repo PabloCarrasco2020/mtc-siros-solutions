@@ -10,7 +10,6 @@ import { ResponseModel } from '../models/ResponseModel';
 })
 export class LoginComponent implements OnInit {
 
-
   Usuario: string = '';
   Credencial: string = '';
 

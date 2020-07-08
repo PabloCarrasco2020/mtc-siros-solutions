@@ -2,36 +2,33 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Application.Dto;
 using Application.Interface;
 using Microsoft.AspNetCore.Mvc;
 using Transversal.Common;
 
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-
 namespace SIROS.Web.Controllers
 {
-    [Route("api/[controller]/[action]")]
-    public class AuthController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class SSOController : ControllerBase
     {
         private readonly ISSOApplication _sSOApplication;
 
-        public AuthController(ISSOApplication sSOApplication)
+        public SSOController(ISSOApplication sSOApplication)
         {
             this._sSOApplication = sSOApplication;
         }
-        // GET: api/values
-        [HttpPost]
-        public async Task<Response<int>> Login([FromBody]CredencialModel input)
+
+        [HttpPost("Login")]
+        public async Task<IActionResult> Login(SSODto.Login.RequestModel oItem)
         {
-            var responseLogin = new Response<int>();
             try
             {
-                if (1 == 1)
-                {
-                    responseLogin.IsSuccess = true;
-                    responseLogin.Data = 2;
-                    return responseLogin;
-                }
+                var oResult = await this._sSOApplication.Login(oItem);
+                return Ok(oResult);
+
+                /*
                 //string headerToken = this._sSOApplication.AuthMiddleWare().ToString();
                 string headerToken = await _sSOApplication.AuthMiddleWare();
                 if (string.IsNullOrEmpty(headerToken))
@@ -56,23 +53,13 @@ namespace SIROS.Web.Controllers
 
                 responseLogin.IsSuccess = true;
                 responseLogin.Data = 1;
-                return responseLogin;
+                return responseLogin;*/
             }
             catch (Exception ex)
             {
                 // log
-                responseLogin.Message = "ERR-Error en el servidor";
-                return responseLogin;
+                return Ok(new Response<Object> { Message = "[SSO]: ERR-Fallo en el servidor" });
             }
-            
-
-
-
-        }
-        public class CredencialModel
-        {
-            public string Usuario { get; set; }
-            public string Credencial { get; set; }
         }
     }
 }
