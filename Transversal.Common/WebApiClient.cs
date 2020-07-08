@@ -42,6 +42,27 @@ namespace Transversal.Common
             }
             else
             {
+                try
+                {
+                    if (res.Content != null)
+                    {
+                        var oTmpResult = res.Content.ReadAsStringAsync();
+                        if (oTmpResult != null)
+                        {
+                            string sResult = oTmpResult.Result;
+                            if (!string.IsNullOrEmpty(sResult))
+                            {
+                                var oResponse = JsonConvert.DeserializeObject<TResponse>(sResult);
+                                return (res.StatusCode, oResponse);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return (res.StatusCode, default(TResponse));
+                }
+
                 return (res.StatusCode, default(TResponse));
             }
         }
