@@ -26,7 +26,6 @@ export class TablaComponent implements OnInit {
   @Input() CanView: boolean = false;
   @Input() CanDelete: boolean = false;
   @Input() CanSelect: boolean = false;
-  @Input() CanSearch: boolean = false;
 
   @Output() eventNew = new EventEmitter<null>();
   @Output() eventRegistrar = new EventEmitter<null>();
@@ -34,7 +33,6 @@ export class TablaComponent implements OnInit {
   @Output() eventDelete = new EventEmitter<number>();
   @Output() eventView = new EventEmitter<number>();
   @Output() eventSelect = new EventEmitter<number>();
-  @Output() eventSearch = new EventEmitter<string>();
 
   @Output() eventNext = new EventEmitter<number>();
   @Output() eventBefore = new EventEmitter<number>();
@@ -74,9 +72,5 @@ export class TablaComponent implements OnInit {
 
   btnBefore() {
     this.eventBefore.emit(this.IndexData.ActualPage - 1);
-  }
-
-  btnSearch(sFilter: string) {
-    this.eventSearch.emit(sFilter);
   }
 }

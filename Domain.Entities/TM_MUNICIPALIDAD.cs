@@ -1,7 +1,7 @@
 ﻿using System;
 namespace Domain.Entities
 {
-    public class TM_MUNICIPALIDAD: FILTER_EXTENSION
+    public class TM_MUNICIPALIDAD: COMMUN_EXTENSION
     {
         public int? NUM_IDENTIDAD { get; set; }
         public string STR_NUMRUC { get; set; }
@@ -18,10 +18,10 @@ namespace Domain.Entities
         public string STR_CDPTO { get; set; }
         public string STR_CDPROV { get; set; }
         public string STR_CDDIST { get; set; }
-        public string STR_USUCREACION { get; set; }
-        public string STR_USUACT { get; set; }
         public int? NUM_IDSESION { get; set; }
         public string STR_REPRESENTANTE { get; set; }
+        public int? NUM_IDENTIDADSSO { get; set; }
+        public int? NUM_IDLOCALSSO { get; set; }
 
     }
 }

@@ -31,4 +31,16 @@ export class MessageService {
         text: Message
       });
    }
+   confirm(Title: string, Message: string) {
+    return Swal.fire({
+      title: Title,
+      text: Message,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'No',
+      confirmButtonText: 'Si'
+    });
+  }
 }

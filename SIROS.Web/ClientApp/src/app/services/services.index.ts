@@ -5,3 +5,4 @@ export { AuthService } from './auth.service';
 export { ComboService } from './combo.service';
 export { SunatService } from './sunat.service';
 export { MessageService } from './message.service';
+export { ReniecService } from './reniec.service';

@@ -21,11 +21,12 @@ namespace SIROS.Web.Controllers
             this._municipalidadApplication = municipalidadApplication;
         }
         [HttpGet]
-        public async Task<Response<MunicipalidadDto.RSGet>> Get(string input)
+        public async Task<Response<MunicipalidadDto.RSGet>> Get(string nInput)
         {
             try
             {
-                return await _municipalidadApplication.Get(input);
+                int nCantidadXPagina = 10;
+                return await _municipalidadApplication.Get(nInput);
             }
             catch (Exception ex)
             {
@@ -37,11 +38,12 @@ namespace SIROS.Web.Controllers
             }
         }
         [HttpGet]
-        public async Task<Response<IndexTableModelDto>> GetAllByFilter(int pagina,string filter)
+        public async Task<Response<IndexTableModelDto>> GetAllByFilter(int nPagina,string sFilter)
         {
             try
             {
-                return await _municipalidadApplication.GetAllByFilter(pagina,filter);
+                int nCantidadXPagina = 10;
+                return await _municipalidadApplication.GetAllByFilter(nCantidadXPagina,nPagina,sFilter);
             }
             catch (Exception ex)
             {
@@ -59,6 +61,8 @@ namespace SIROS.Web.Controllers
             {
                 input.nIdSession = 333;
                 input.sUsuario = "SIROS_WEB";
+                input.nIdentidadsso = 233;
+                input.nIdLocalsso = 43;
                 return await _municipalidadApplication.Insert(input);
             }
             catch (Exception ex)
@@ -70,6 +74,41 @@ namespace SIROS.Web.Controllers
                 };
             }
         }
-
+        [HttpPost]
+        public async Task<Response<int>> Update([FromBody]MunicipalidadDto.RQUpdate input)
+        {
+            try
+            {
+                input.nIdSession = 333;
+                input.sUsuario = "SIROS_WEB";
+                return await _municipalidadApplication.Update(input);
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<int>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpPost]
+        public async Task<Response<int>> Delete([FromBody]MunicipalidadDto.RQDelete input)
+        {
+            try
+            {
+                input.nIdSession = 333;
+                input.sUsuario = "SIROS_WEB";
+                return await _municipalidadApplication.Delete(input);
+            }
+            catch (Exception ex)
+            {
+                // Log
+                return new Response<int>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
     }
 }

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IndexModel } from 'src/app/models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { MunicipalidadService, ComboService, SunatService, MessageService } from 'src/app/services/services.index';
+import { MunicipalidadService, ComboService, SunatService, MessageService, ReniecService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
+
 declare var $: any;
 
 @Component({
@@ -11,14 +12,15 @@ declare var $: any;
   styleUrls: ['./municipalidad.component.css']
 })
 export class MunicipalidadComponent implements OnInit {
-  sTitlePage: string = 'Municipalidades';
+  sTitlePage: string = 'Municipalidad';
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
   nCurrentOption: number = 0;
   sFilter: string = '';
-
   nCurrentSectionModal: number = 1;
+
+  oIndexDataRepresentanteLegal: IndexModel = new IndexModel();
   // COMBOS
   lstTipoVia: any[] = [];
   lstCentroPoblado: any[] = [];
@@ -29,7 +31,10 @@ export class MunicipalidadComponent implements OnInit {
   lstDepartamento: any[] = [];
   lstProvincia: any[] = [];
   lstDistrito: any[] = [];
+
+  lstResponsablesLegales: any[] = [];
   // FORMULARIO
+  nIdEntidad: number = 0;
   sRuc: string = '';
   sRazonSocial: string = '';
   nTipoVia: number = 0;
@@ -46,13 +51,22 @@ export class MunicipalidadComponent implements OnInit {
   sCodDistrito: string = '00';
   sRepresentante: string = '';
 
+  nIdRepresentanteLegal: number = 0;
+  nTipDocRepresentanteLegal: number = 0;
+  sNroDocRepresentanteLegal: string = '';
+  sNombresRepresentanteLegal: string = '';
+  sApePaternoRepresentanteLegal: string = '';
+  sApeMaternoRepresentanteLegal: string = '';
+  nCargoRepresentanteLegal: number = 0;
+
   @BlockUI() oBlockUI: NgBlockUI;
 
   constructor(
     private oMunicipalidadService: MunicipalidadService,
     private oComboService: ComboService,
     private oSunatService: SunatService,
-    private oMessageService: MessageService
+    private oMessageService: MessageService,
+    private oReniecService: ReniecService
     ) {
     this.CargarMunicipalidades();
     this.CargarTipoVia();
@@ -60,6 +74,8 @@ export class MunicipalidadComponent implements OnInit {
     this.CargarNumeroManzana();
     this.CargarLoteInterior();
     this.CargarDepartamento();
+    this.CargarTipoDocReprLegal();
+    this.CargarTipoCargoReprLegal();
   }
 
   ngOnInit() {
@@ -81,7 +97,37 @@ export class MunicipalidadComponent implements OnInit {
     this.nCurrentOption = 1;
     this.nCurrentSectionModal = 1;
     this.LimpiarCampos();
+    this.LimpiarRepresentanteLegal();
+    this.LimpiarListaRepresentantes();
     $('#myModalNew').modal({backdrop: 'static', keyboard: false});
+  }
+  fnEdit(nId: number) {
+    this.nCurrentOption = 2;
+    this.nCurrentSectionModal = 1;
+    this.LimpiarCampos();
+    this.LimpiarRepresentanteLegal();
+    this.LimpiarListaRepresentantes();
+    this.nIdEntidad = nId;
+    $('#myModalNew').modal({backdrop: 'static', keyboard: false});
+    this.CargarMunicipalidadXId();
+  }
+  fnDelete(nId: number) {
+    this.oMessageService.confirm(this.sTitlePage, '¿Está seguro de eliminar la municipalidad?')
+    .then((result) => {
+      if (result.value) {
+        this.oMunicipalidadService.Delete(nId).then((response: ResponseModel) => {
+          if (response.IsSuccess) {
+            this.oMessageService.success(this.sTitlePage, response.Message);
+          } else {
+            if (response.Message.startsWith('ERR-')) {
+              this.oMessageService.error(this.sTitlePage, response.Message);
+            } else {
+              this.oMessageService.warning(this.sTitlePage, response.Message);
+            }
+          }
+        });
+      }
+    });
   }
 
   fnNext(nPage: number) {
@@ -118,16 +164,110 @@ export class MunicipalidadComponent implements OnInit {
     }
     this.nCurrentSectionModal = 2;
   }
+  fnBuscarPersonaxDNI() {
+    if ( Number(this.nTipDocRepresentanteLegal) === 1) {
+      this.ConsultarDni();
+    }
+  }
+  fnAgregarRepresentanteLegal() {
+    const warningRepresentanteLegal = this.ValidarRepresentanteLegal();
+    if (warningRepresentanteLegal !== null) {
+      this.oMessageService.warning(this.sTitlePage, warningRepresentanteLegal);
+      return;
+    }
+    // tslint:disable-next-line: triple-equals
+    const documentoRepresentante = this.lstTipoDocReprLegal.find(doc => doc.nId == this.nTipDocRepresentanteLegal);
+    // tslint:disable-next-line: triple-equals
+    const cargoRepresentante = this.lstTipoCargoReprLegal.find(cargo => cargo.nId == this.nCargoRepresentanteLegal);
+    this.lstResponsablesLegales.push(
+      {
+        nIdTipoDocumento: documentoRepresentante.nId,
+        sTipoDocumento: documentoRepresentante.sDescription,
+        sNroDocumento: this.sNroDocRepresentanteLegal,
+        sNombres: this.sNombresRepresentanteLegal,
+        sApePaterno: this.sApePaternoRepresentanteLegal,
+        sApeMaterno: this.sApeMaternoRepresentanteLegal,
+        nIdCargo: cargoRepresentante.nId,
+        sCargo: cargoRepresentante.sDescription
+      });
+    this.LimpiarRepresentanteLegal();
+    this.ParseListToIndexRepresentante();
+  }
+  fnEditarRepresentanteLegal() {
+    // tslint:disable-next-line: triple-equals
+    const documentoRepresentante = this.lstTipoDocReprLegal.find(doc => doc.nId == this.nTipDocRepresentanteLegal);
+    // tslint:disable-next-line: triple-equals
+    const cargoRepresentante = this.lstTipoCargoReprLegal.find(cargo => cargo.nId == this.nCargoRepresentanteLegal);
+    this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].nIdTipoDocumento = documentoRepresentante.nId;
+    this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].sTipoDocumento = documentoRepresentante.sDescription;
+    this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].sNroDocumento = this.sNroDocRepresentanteLegal;
+    this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].sNombres = this.sNombresRepresentanteLegal;
+    this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].sApePaterno = this.sApePaternoRepresentanteLegal;
+    this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].sApeMaterno = this.sApeMaternoRepresentanteLegal;
+    this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].nIdCargo = cargoRepresentante.nId;
+    this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].sCargo = cargoRepresentante.sDescription;
+    this.LimpiarRepresentanteLegal();
+    this.ParseListToIndexRepresentante();
+  }
+  fnCancelarRepresentanteLegal() {
+    this.LimpiarRepresentanteLegal();
+  }
   fnGuardar() {
-    // const warningDatosEmpresa = this.ValidarDatosEmpresa();
-    // if (warningDatosEmpresa !== null) {
-    //   this.oMessageService.warning(this.sTitlePage, warningDatosEmpresa);
-    //   return;
-    // }
+    const warningDatosEmpresa = this.ValidarDatosEmpresa();
+    if (warningDatosEmpresa !== null) {
+      this.oMessageService.warning(this.sTitlePage, warningDatosEmpresa);
+      return;
+    }
+    if (this.lstResponsablesLegales.length === 0) {
+      this.oMessageService.warning(this.sTitlePage, 'Agrege un representante legal.');
+      return;
+    }
     this.Guardar();
+  }
+  fnDeleteRepresentante(id: number) {
+    this.lstResponsablesLegales.splice(id - 1);
+    this.ParseListToIndexRepresentante();
+  }
+  fnUpdateRepresentante(id: number) {
+    this.nIdRepresentanteLegal = id;
+    const datos = this.lstResponsablesLegales[id - 1];
+    this.nTipDocRepresentanteLegal = Number(datos.nIdTipoDocumento);
+    this.sNroDocRepresentanteLegal = datos.sNroDocumento;
+    this.sNombresRepresentanteLegal = datos.sNombres;
+    this.sApePaternoRepresentanteLegal = datos.sApePaterno;
+    this.sApeMaternoRepresentanteLegal = datos.sApeMaterno;
+    this.nCargoRepresentanteLegal = Number(datos.nIdCargo);
   }
   // END - Funciones modal
 
+  CargarMunicipalidadXId() {
+    this.oBlockUI.start('Cargando Municipalidad...');
+    this.oMunicipalidadService.Get(this.nIdEntidad).then((response: ResponseModel) => {
+      if ( response.IsSuccess) {
+        this.nIdEntidad = response.Data.nIdEntidad;
+        this.sRuc = response.Data.sRuc;
+        this.sRazonSocial = response.Data.sRazonSocial;
+        this.nTipoVia = Number(response.Data.nTipoVia);
+        this.sVia = response.Data.sVia;
+        this.nCentroPoblado = Number(response.Data.nCentroPoblado);
+        this.sCentroPoblado = response.Data.sCentroPoblado;
+        this.nIdNumeroManzana = Number(response.Data.nIdNumeroManzana);
+        this.sNumeroManzana = response.Data.sNumeroManzana;
+        this.nIdLoteInterior = Number(response.Data.nIdLoteInterior);
+        this.sLoteInterior = response.Data.sLoteInterior;
+        this.sReferencia = response.Data.sReferencia;
+        this.sCodDepartamento = response.Data.sCodDepartamento;
+        this.sCodProvincia = response.Data.sCodProvincia;
+        this.sCodDistrito = response.Data.sCodDistrito;
+        this.sRepresentante = response.Data.sRepresentante;
+        this.CargarProvincia();
+        this.CargarDistrito();
+      } else {
+
+      }
+      this.oBlockUI.stop();
+    });
+  }
   CargarMunicipalidades() {
     this.oBlockUI.start('Cargando Municipalidades...');
     this.oMunicipalidadService.GetAllByFilter(this.nCurrentPage, this.sFilter)
@@ -137,9 +277,7 @@ export class MunicipalidadComponent implements OnInit {
         this.oIndexData = response.Data;
       } else {
         this.oIndexData = new IndexModel();
-        console.log('>>> Error en el servicio');
       }
-
       this.oBlockUI.stop();
     });
   }
@@ -164,13 +302,55 @@ export class MunicipalidadComponent implements OnInit {
         this.sCodDistrito,
         this.sRepresentante
       ).then((response: ResponseModel) => {
-        console.log(response);
-        this.oBlockUI.stop();
-        this.LimpiarCampos();
-        this.oMessageService.success(this.sTitlePage, 'Se registró municipalidad correctamente');
+        if (response.IsSuccess) {
+          this.oBlockUI.stop();
+          this.LimpiarCampos();
+          $('myModalNew').hide();
+          this.oMessageService.success(this.sTitlePage, response.Message);
+          this.CargarMunicipalidades();
+        } else {
+          if (response.Message.startsWith('ERR-')) {
+            this.oMessageService.error(this.sTitlePage, response.Message);
+          } else {
+            this.oMessageService.warning(this.sTitlePage, response.Message);
+          }
+          this.oBlockUI.stop();
+        }
       });
     } else if (this.nCurrentOption === 2) {
-
+      this.oMunicipalidadService.Update(
+        this.nIdEntidad,
+        this.sRuc,
+        this.sRazonSocial,
+        Number(this.nTipoVia),
+        this.sVia,
+        Number(this.nCentroPoblado),
+        this.sCentroPoblado,
+        Number(this.nIdNumeroManzana),
+        this.sNumeroManzana,
+        Number(this.nIdLoteInterior),
+        this.sLoteInterior,
+        this.sReferencia,
+        this.sCodDepartamento,
+        this.sCodProvincia,
+        this.sCodDistrito,
+        this.sRepresentante
+      ).then((response: ResponseModel) => {
+        if (response.IsSuccess) {
+          this.oBlockUI.stop();
+          this.LimpiarCampos();
+          $('myModalNew').hide();
+          this.oMessageService.success(this.sTitlePage, response.Message);
+          this.CargarMunicipalidades();
+        } else {
+          if (response.Message.startsWith('ERR-')) {
+            this.oMessageService.error(this.sTitlePage, response.Message);
+          } else {
+            this.oMessageService.warning(this.sTitlePage, response.Message);
+          }
+          this.oBlockUI.stop();
+        }
+      });
     }
   }
   CargarTipoVia() {
@@ -269,10 +449,52 @@ export class MunicipalidadComponent implements OnInit {
       this.oBlockUI.stop();
     });
   }
+  ConsultarDni() {
+    if (this.sNroDocRepresentanteLegal.length !== 8) {
+      this.oMessageService.warning(this.sTitlePage, 'Ingrese Número de DNI de 8 dígitos');
+      return;
+    }
+    this.oBlockUI.start('Consultando DNI...');
+    this.sNombresRepresentanteLegal = '';
+    this.sApePaternoRepresentanteLegal = '';
+    this.sApeMaternoRepresentanteLegal = '';
+    this.oReniecService.ConsultaNumDoc(this.sNroDocRepresentanteLegal).then((response: ResponseModel) => {
+      if (response.IsSuccess) {
+        this.sNombresRepresentanteLegal = response.Data.sNombres;
+        this.sApePaternoRepresentanteLegal = response.Data.sApellidoPaterno;
+        this.sApeMaternoRepresentanteLegal = response.Data.sApellidoMaterno;
+      }
+      this.oBlockUI.stop();
+    });
+  }
+  ParseListToIndexRepresentante() {
+    this.oIndexDataRepresentanteLegal = new IndexModel();
+    this.oIndexDataRepresentanteLegal.NroItems = this.lstResponsablesLegales.length;
+    this.oIndexDataRepresentanteLegal.TotalPage = 1;
+    this.oIndexDataRepresentanteLegal.Items = [];
+    let iRepresentanteLegal = 0;
+    this.lstResponsablesLegales.forEach(responsableLegal => {
+      iRepresentanteLegal++;
+      this.oIndexDataRepresentanteLegal.Items.push(
+        {
+          Id: iRepresentanteLegal,
+          Column1: responsableLegal.sNroDocumento,
+          Column2: responsableLegal.sTipoDocumento,
+          Column3: `${responsableLegal.sNombres} ${responsableLegal.sApePaterno} ${responsableLegal.sApeMaterno}`,
+          Column4: responsableLegal.sCargo});
+    });
+  }
   ParseListResponsablesToString() {
-    this.sRepresentante = '1@43171962@Francis arthur poldark@Palomino@Marino@2¢1@43171967@juan jose@condori@pumacahua@8';
+    let sTramaRepresentante = '';
+    this.lstResponsablesLegales.forEach(iResponsable => {
+      // tslint:disable-next-line: max-line-length
+      sTramaRepresentante = `${sTramaRepresentante}¢${iResponsable.nIdTipoDocumento}@${iResponsable.sNombres}@${iResponsable.sApePaterno}@${iResponsable.sApeMaterno}@${iResponsable.nIdCargo}`;
+    });
+    // '1@43171962@Francis arthur poldark@Palomino@Marino@2¢1@43171967@juan jose@condori@pumacahua@8';
+    this.sRepresentante = sTramaRepresentante.substr(1, sTramaRepresentante.length - 1);
   }
   LimpiarCampos() {
+    this.nIdEntidad = 0;
     this.sRuc = '';
     this.sRazonSocial = '';
     this.nTipoVia = 0;
@@ -290,6 +512,20 @@ export class MunicipalidadComponent implements OnInit {
     this.sRepresentante = '';
     this.lstProvincia = [];
     this.lstDistrito = [];
+    this.LimpiarRepresentanteLegal();
+  }
+  LimpiarRepresentanteLegal() {
+    this.nIdRepresentanteLegal = 0;
+    this.nTipDocRepresentanteLegal = 0;
+    this.sNroDocRepresentanteLegal = '';
+    this.sNombresRepresentanteLegal = '';
+    this.sApePaternoRepresentanteLegal = '';
+    this.sApeMaternoRepresentanteLegal = '';
+    this.nCargoRepresentanteLegal = 0;
+  }
+  LimpiarListaRepresentantes() {
+    this.oIndexDataRepresentanteLegal = new IndexModel();
+    this.lstResponsablesLegales = [];
   }
   ValidarDatosEmpresa(): any {
     if (this.sRuc.length !== 11) {
@@ -317,6 +553,27 @@ export class MunicipalidadComponent implements OnInit {
         this.sReferencia.length === 0
       ) {
       return  ' Completar los campos con (*),  son obligatorios';
+    }
+    return null;
+  }
+  ValidarRepresentanteLegal() {
+    if ( this.nTipDocRepresentanteLegal === 0) {
+      return 'Seleccione Tipo de documento.';
+    }
+    if (this.sNroDocRepresentanteLegal.length === 0) {
+      return 'Ingrese número de documento del representante.';
+    }
+    if (this.sNombresRepresentanteLegal.length === 0) {
+      return 'Ingrese nombre del representante.';
+    }
+    if (this.sApePaternoRepresentanteLegal.length === 0) {
+      return 'Ingrese apellido paterno del representante.';
+    }
+    if (this.sApePaternoRepresentanteLegal.length === 0) {
+      return 'Ingrese apellido materno del representante.';
+    }
+    if ( this.nCargoRepresentanteLegal === 0) {
+      return 'Seleccione cargo del representante legal.';
     }
     return null;
   }

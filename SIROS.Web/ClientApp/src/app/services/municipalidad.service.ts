@@ -8,11 +8,11 @@ export class MunicipalidadService {
 
   constructor(private oBaseService: BaseService) { }
 
-  Get(sInput: string) {
-    return this.oBaseService.CallGet(`api/Municipalidad/Get?input=${sInput}`);
+  Get(nIdEntidad: number) {
+    return this.oBaseService.CallGet(`api/Municipalidad/Get?sInput=${nIdEntidad}`);
   }
   GetAllByFilter(nPagina: number, sFilter: string) {
-    return this.oBaseService.CallGet(`api/Municipalidad/GetAllByFilter?pagina=${nPagina}&filter=${sFilter}`);
+    return this.oBaseService.CallGet(`api/Municipalidad/GetAllByFilter?nPagina=${nPagina}&sFilter=${sFilter}`);
   }
   Insert(
     sRuc: string = '',
@@ -49,8 +49,52 @@ export class MunicipalidadService {
       sCodDistrito,
       sRepresentante
     };
-    console.log(req);
     return this.oBaseService.CallPost(`api/Municipalidad/Insert`, req);
   }
-
+  Update(
+    nIdEntidad: number = 0,
+    sRuc: string = '',
+    sRazonSocial: string = '',
+    nTipoVia: number = 0,
+    sVia: string = '',
+    nCentroPoblado: number = 0,
+    sCentroPoblado: string = '',
+    nIdNumeroManzana: number = 0,
+    sNumeroManzana: string = '',
+    nIdLoteInterior: number = 0,
+    sLoteInterior: string = '',
+    sReferencia: string = '',
+    sCodDepartamento: string = '',
+    sCodProvincia: string = '',
+    sCodDistrito: string = '',
+    sRepresentante: string = ''
+  ) {
+    const req = {
+      nIdEntidad,
+      sRuc,
+      sRazonSocial,
+      nTipoVia,
+      sVia,
+      nCentroPoblado,
+      sCentroPoblado,
+      nIdNumeroManzana,
+      sNumeroManzana,
+      nIdLoteInterior,
+      sLoteInterior,
+      sReferencia,
+      sCodDepartamento,
+      sCodProvincia,
+      sCodDistrito,
+      sRepresentante
+    };
+    return this.oBaseService.CallPost(`api/Municipalidad/Update`, req);
+  }
+  Delete(
+    nIdEntidad: number = 0
+  ) {
+    const req = {
+      nIdEntidad
+    };
+    return this.oBaseService.CallPost(`api/Municipalidad/Delete`, req);
+  }
 }
