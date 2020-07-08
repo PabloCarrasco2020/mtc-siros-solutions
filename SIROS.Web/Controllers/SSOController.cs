@@ -222,7 +222,8 @@ namespace SIROS.Web.Controllers
                 #region GENERAR JWT
 
                 var oJwt = new JwtDto.Request();
-                oJwt.sUsername = oUser.Data.IdUsuario.ToString();
+                oJwt.sUsername = oItem.sUsername;
+                oJwt.sUsernameSSO = oUser.Data.IdUsuario.ToString();
                 oJwt.sProfile = oUser.Data.sNombrePerfil;
                 oJwt.sIdSession = oUser.Data.nIdSession.ToString();
 

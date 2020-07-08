@@ -36,6 +36,7 @@ namespace Application.Core
                     Subject = new ClaimsIdentity(new Claim[]
                     {
                         new Claim(ClaimTypes.Name, oItem.sUsername),
+                        new Claim(ClaimTypes.Sid, oItem.sUsernameSSO),
                         new Claim(ClaimTypes.Role, oItem.sProfile),
                         new Claim(ClaimTypes.NameIdentifier, oItem.sIdSession)
                     }),

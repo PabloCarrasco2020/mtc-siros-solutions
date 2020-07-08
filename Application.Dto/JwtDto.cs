@@ -9,6 +9,7 @@ namespace Application.Dto
         public class Request
         {
             public string sUsername { get; set; }
+            public string sUsernameSSO { get; set; }
             public string sProfile { get; set; }
             public string sIdSession { get; set; }
         }
