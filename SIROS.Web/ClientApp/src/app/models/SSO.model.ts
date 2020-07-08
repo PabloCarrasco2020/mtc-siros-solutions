@@ -6,6 +6,9 @@ export class LoginResponseModel {
     sNombreLocal: string;
     nIdPerfil: number;
     sNombrePerfil: string;
+    sCorreo: string;
+    sNombreCompleto: string;
+    nIdSession: number;
     sToken: string;
     dTokenExpiration: Date;
 }

@@ -32,17 +32,17 @@ namespace Application.Core
                 var oResponse = new Response<int>();
                 oResponse.IsSuccess = false;
 
-                if (nResult.STR_ESTADO_PROCESO == "1")
+                if (nResult.STR_ESTADOPROCESO == "1")
                 {
                     oResponse.IsSuccess = true;
                     oResponse.Data = nResult.NUM_IDSESION;
                     oResponse.Message = nResult.STR_MENSAJE;
                 }
-                else if (nResult.STR_ESTADO_PROCESO == "-1")
+                else if (nResult.STR_ESTADOPROCESO == "-1")
                 {
                     oResponse.Message = nResult.STR_MENSAJE;
                 }
-                else if (nResult.STR_ESTADO_PROCESO == "0")
+                else if (nResult.STR_ESTADOPROCESO == "0")
                 {
                     throw new Exception(nResult.STR_MENSAJE);
                 }
