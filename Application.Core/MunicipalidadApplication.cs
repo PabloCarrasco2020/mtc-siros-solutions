@@ -142,7 +142,7 @@ namespace Application.Core
                 {
                     responseUpdate.IsSuccess = true;
                     responseUpdate.Data = result.NUM_IDENTIDAD.Value;
-                    responseUpdate.Message = "Municipalidad ya se encuentra registrada";
+                    responseUpdate.Message = result.STR_MENSAJE;
                 }
                 else if (result.STR_ESTADOPROCESO == "-1")
                 {
