@@ -231,7 +231,7 @@ export class MunicipalidadComponent implements OnInit {
     this.Guardar();
   }
   fnDeleteRepresentante(id: number) {
-    this.lstResponsablesLegales.splice(id - 1);
+    this.lstResponsablesLegales.splice(id - 1, 1);
     this.ParseListToIndexRepresentante();
   }
   fnUpdateRepresentante(id: number) {
@@ -268,6 +268,7 @@ export class MunicipalidadComponent implements OnInit {
         this.sRepresentante = response.Data.sRepresentante;
         this.CargarProvincia();
         this.CargarDistrito();
+        this.ParseStringResponsablesToList();
       } else {
 
       }
@@ -312,7 +313,9 @@ export class MunicipalidadComponent implements OnInit {
         if (response.IsSuccess) {
           this.oBlockUI.stop();
           this.LimpiarCampos();
-          $('myModalNew').hide();
+          this.LimpiarRepresentanteLegal();
+          this.LimpiarListaRepresentantes();
+          this.nCurrentSectionModal = 1;
           this.oMessageService.success(this.sTitlePage, response.Message);
           this.CargarMunicipalidades();
         } else {
@@ -345,8 +348,6 @@ export class MunicipalidadComponent implements OnInit {
       ).then((response: ResponseModel<any>) => {
         if (response.IsSuccess) {
           this.oBlockUI.stop();
-          this.LimpiarCampos();
-          $('myModalNew').hide();
           this.oMessageService.success(this.sTitlePage, response.Message);
           this.CargarMunicipalidades();
         } else {
@@ -496,10 +497,23 @@ export class MunicipalidadComponent implements OnInit {
     let sTramaRepresentante = '';
     this.lstResponsablesLegales.forEach(iResponsable => {
       // tslint:disable-next-line: max-line-length
-      sTramaRepresentante = `${sTramaRepresentante}¢${iResponsable.nIdTipoDocumento}@${iResponsable.sNombres}@${iResponsable.sApePaterno}@${iResponsable.sApeMaterno}@${iResponsable.nIdCargo}`;
+      sTramaRepresentante = `${sTramaRepresentante}¢${iResponsable.nIdTipoDocumento}@${iResponsable.sNroDocumento}@${iResponsable.sNombres}@${iResponsable.sApePaterno}@${iResponsable.sApeMaterno}@${iResponsable.nIdCargo}`;
     });
     // '1@43171962@Francis arthur poldark@Palomino@Marino@2¢1@43171967@juan jose@condori@pumacahua@8';
     this.sRepresentante = sTramaRepresentante.substr(1, sTramaRepresentante.length - 1);
+  }
+  ParseStringResponsablesToList() {
+    const lstResult = this.sRepresentante.split('¢');
+    for (let index = 0; index < lstResult.length; index++) {
+      const eRepresentante = lstResult[index].split('@');
+      this.nTipDocRepresentanteLegal = Number(eRepresentante[0]);
+      this.sNroDocRepresentanteLegal = eRepresentante[1];
+      this.sNombresRepresentanteLegal = eRepresentante[2];
+      this.sApePaternoRepresentanteLegal = eRepresentante[3];
+      this.sApeMaternoRepresentanteLegal = eRepresentante[4];
+      this.nCargoRepresentanteLegal = Number(eRepresentante[5]);
+      this.fnAgregarRepresentanteLegal();
+    }
   }
   LimpiarCampos() {
     this.nIdEntidad = 0;
