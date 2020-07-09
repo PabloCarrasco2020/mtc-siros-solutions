@@ -146,6 +146,8 @@ namespace SIROS.Web.Controllers
 
 #endif
 
+                oPerfiles.Data[0].NombreRol = "Promovilidad";
+
                 int nCantPerfilesValidos = 0;
                 foreach (var item in oPerfiles.Data)
                 {
@@ -238,7 +240,7 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 // log
-                return Ok(new Response<Object> { Message = "[SSO]: ERR-Fallo en el servidor" });
+                return Ok(new Response<Object> { Message = $"[SSO]: ERR-Fallo en el servidor: {ex.StackTrace}" });
             }
         }
     }

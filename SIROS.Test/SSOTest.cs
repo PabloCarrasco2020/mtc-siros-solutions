@@ -22,7 +22,10 @@ namespace SIROS.Test
         [TestMethod]
         public async Task TestEnterpriseNew()
         {
-            var oResult = await this.EnterpriseNew("10707781918");
+            string sDocumentNumber = "20100113610";
+
+            var oResult = await this.EnterpriseNew(sDocumentNumber);
+            var oResult2 = await this.EnterpriseAttachApp(oResult.Data.IdPersona.ToString(), sDocumentNumber);
 
             Assert.IsTrue(true);
         }
@@ -102,6 +105,66 @@ namespace SIROS.Test
                     oRequest.DocumentNumber = sDocumentNumber;
 
                     var oClientResponse = await oHttpClient.CallPostAsync<SSODto.EnterpriseNew.Request, SSODto.SSOResponse<SSODto.EnterpriseNew.Response>>(sUrl, oRequest);
+                    if (oClientResponse.StatusCode == HttpStatusCode.OK)
+                    {
+                        oResponse.IsSuccess = oClientResponse.Content.Success;
+                        oResponse.Data = oClientResponse.Content.Data;
+                    }
+                    else if (oClientResponse.StatusCode == HttpStatusCode.BadRequest)
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) {oClientResponse.Content.Message}";
+                    }
+                    else if (oClientResponse.StatusCode == HttpStatusCode.Unauthorized)
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [401] Acceso Denegado.";
+                    }
+                    else if (oClientResponse.StatusCode == HttpStatusCode.NotFound)
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [404] Ruta Invalida.";
+                    }
+                    else if (oClientResponse.StatusCode == HttpStatusCode.InternalServerError)
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [500] Error Interno.";
+                    }
+                    else
+                    {
+                        oResponse.Message = $"({SERVICE_NAME}-{METHOD_NAME}) [{(int)oClientResponse.StatusCode}] Error Desconocido.";
+                    }
+                }
+
+                return oResponse;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception($"({SERVICE_NAME}-{METHOD_NAME}) : " + ex.Message);
+            }
+        }
+
+        public async Task<Response<SSODto.EnterpriseAttachApp.Response>> EnterpriseAttachApp(string sIdEmpresa, string sDocumentNumber)
+        {
+            const string METHOD_NAME = "EnterpriseAttachApp";
+
+            try
+            {
+                string sToken = await this.AuthMiddleWare();
+                if (string.IsNullOrEmpty(sToken))
+                    throw new Exception($"({SERVICE_NAME}-{METHOD_NAME}): Metodo Auth devolvio un token vacio o null.");
+
+                var oResponse = new Response<SSODto.EnterpriseAttachApp.Response>();
+                oResponse.IsSuccess = false;
+
+                using (WebApiClient oHttpClient = new WebApiClient(sToken))
+                {
+                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseAttachApplication";
+
+                    var oRequest = new SSODto.EnterpriseAttachApp.Request();
+                    oRequest.ApplicationId = this._sApplicationIdSSO;
+                    oRequest.TokenUser = this._sTokenUserSSO;
+                    oRequest.TokenPassword = this._sTokenPassSSO;
+                    oRequest.idEmpresa = sIdEmpresa;
+                    oRequest.DocumentNumber = sDocumentNumber;
+
+                    var oClientResponse = await oHttpClient.CallPostAsync<SSODto.EnterpriseAttachApp.Request, SSODto.SSOResponse<SSODto.EnterpriseAttachApp.Response>>(sUrl, oRequest);
                     if (oClientResponse.StatusCode == HttpStatusCode.OK)
                     {
                         oResponse.IsSuccess = oClientResponse.Content.Success;
