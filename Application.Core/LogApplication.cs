@@ -47,13 +47,20 @@ namespace Application.Core
 
                 if (oLogType == EnumLogType.EMAIL || oLogType == EnumLogType.TEXT_N_EMAIL)
                 {
-                    var oEmail = new EmailDto.Request();
-                    oEmail.sSendTo = this._settings.EmailSendTo;
-                    oEmail.sReplyTo = this._settings.EmailReplyTo;
-                    oEmail.sSubject = string.Format(this._settings.EmailSubject, sName);
-                    oEmail.sMessage = sMessage.Replace("\r\n","<br>");
+                    try
+                    {
+                        var oEmail = new EmailDto.Request();
+                        oEmail.sSendTo = this._settings.EmailSendTo;
+                        oEmail.sReplyTo = this._settings.EmailReplyTo;
+                        oEmail.sSubject = string.Format(this._settings.EmailSubject, sName);
+                        oEmail.sMessage = sMessage.Replace("\r\n", "<br>");
 
-                    _ = this._emailApplication.SendEmail(oEmail);
+                        _ = this._emailApplication.SendEmail(oEmail);
+                    }
+                    catch (Exception ex) 
+                    {
+                        _= this.SetLog(EnumLogType.TEXT, EnumLogCategory.ERROR, "LogApplication-SetLogEmail", ex);
+                    }
                 }
 
                 oResponse.IsSuccess = true;
