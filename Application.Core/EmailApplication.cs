@@ -7,6 +7,7 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading.Tasks;
 using Transversal.Common;
+using Transversal.Common.Enums;
 using Transversal.Common.Helper;
 
 namespace Application.Core
@@ -14,10 +15,12 @@ namespace Application.Core
     public class EmailApplication : IEmailApplication
     {
         private readonly AppSettings.Email _settings;
+        private readonly ILogApplication _logApplication;
 
-        public EmailApplication(IOptions<AppSettings.Email> settings)
+        public EmailApplication(IOptions<AppSettings.Email> settings, ILogApplication logApplication)
         {
             this._settings = settings.Value;
+            this._logApplication = logApplication;
         }
 
         public async Task<Response<EmailDto.Response>> SendEmail(EmailDto.Request oItem)
@@ -92,6 +95,7 @@ namespace Application.Core
             }
             catch (Exception ex)
             {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT, EnumLogCategory.ERROR, "EmailApplication-SendEmail", ex);
                 throw ex;
             }
         }

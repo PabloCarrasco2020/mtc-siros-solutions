@@ -30,10 +30,7 @@ namespace Application.Core
                 oResponse.IsSuccess = false;
 
                 if (!Directory.Exists(this._settings.Path))
-                {
-                    oResponse.Message = $"El Directorio no existe: {this._settings.Path}";
-                    return oResponse;
-                }
+                    Directory.CreateDirectory(this._settings.Path);
 
                 DateTime dtCurrentDate = DateTime.Now;
 
