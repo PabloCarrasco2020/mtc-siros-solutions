@@ -19,6 +19,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Text;
 using Transversal.Common;
+using Transversal.Common.Helper;
 using Transversal.Mapper;
 
 namespace SIROS.Web
@@ -36,11 +37,7 @@ namespace SIROS.Web
         public void ConfigureServices(IServiceCollection services)
         {
             // INSTANCIAR AUTOMAPPER
-            var mappingConfig = new MapperConfiguration(mc =>
-            {
-                mc.AddProfile(new MappingProfile());
-            });
-
+            var mappingConfig = new MapperConfiguration(mc => { mc.AddProfile(new MappingProfile()); });
             IMapper mapper = mappingConfig.CreateMapper();
             services.AddSingleton(mapper);
 
@@ -54,55 +51,10 @@ namespace SIROS.Web
                 o.JsonSerializerOptions.DictionaryKeyPolicy = null;
             });
 
-            // JWT
-            var jwtSettingsSection = Configuration.GetSection("JWT");
-            services.Configure<JwtDto.Settings>(jwtSettingsSection);
-
-            var jwtSettings = jwtSettingsSection.Get<JwtDto.Settings>();
-            var key = Encoding.ASCII.GetBytes(jwtSettings.SecretKey);
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ValidateLifetime = true,
-                    ClockSkew = TimeSpan.Zero
-                };
-            });
-
-            // SINGLETON
-            services.AddSingleton<IConfiguration>(Configuration);
-            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
-
-            // INSTANCIAR OBJETOS
-            services.AddScoped<IMunicipalidadApplication, MunicipalidadApplication>();
-            services.AddScoped<IMunicipalidadDomain, MunicipalidadDomain>();
-            services.AddScoped<IMunicipalidadRepository, MunicipalidadRepository>();
-
-            services.AddScoped<ISSOApplication, SSOApplication>();
-            services.AddScoped<IJwtApplication, JwtApplication>();
-
-            services.AddScoped<ISunatApplication, SunatApplication>();
-            services.AddScoped<ISunarpApplication, SunarpApplication>();
-            services.AddScoped<IReniecApplication, ReniecApplication>();
-
-            services.AddScoped<IGeneralApplication, GeneralApplication>();
-            services.AddScoped<IGeneralDomain, GeneralDomain>();
-            services.AddScoped<IGeneralRepository, GeneralRepository>();
-
-            services.AddScoped<IAdminApplication, AdminApplication>();
-            services.AddScoped<IAdminDomain, AdminDomain>();
-            services.AddScoped<IAdminRepository, AdminRepository>();
+            this.LoadAppSettings(services);
+            this.LoadSingletons(services);
+            this.LoadScopes(services);
+            this.LoadJWT(services);
 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
@@ -128,7 +80,7 @@ namespace SIROS.Web
 
             app.UseResponseCompression();
 
-            //app.UseHttpsRedirection();
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
@@ -159,5 +111,88 @@ namespace SIROS.Web
                 }
             });
         }
+
+        #region CONFIGURACIONES
+
+        private void LoadAppSettings(IServiceCollection services)
+        {
+            var oConnectionStrings = Configuration.GetSection("ConnectionStrings");
+            services.Configure<AppSettings.ConnectionStrings>(oConnectionStrings);
+
+            var oServicios = Configuration.GetSection("Servicios");
+            services.Configure<AppSettings.Servicios>(oServicios);
+
+            var oCredencialesSSO = Configuration.GetSection("CredencialesSSO");
+            services.Configure<AppSettings.CredencialesSSO>(oCredencialesSSO);
+
+            var oCredencialesMiddleWare = Configuration.GetSection("CredencialesMiddleWare");
+            services.Configure<AppSettings.CredencialesMiddleWare>(oCredencialesMiddleWare);
+
+            var oJWT = Configuration.GetSection("JWT");
+            services.Configure<AppSettings.JWT>(oJWT);
+
+            var oEmail = Configuration.GetSection("Email");
+            services.Configure<AppSettings.Email>(oEmail);
+
+            var oLogs = Configuration.GetSection("Logs");
+            services.Configure<AppSettings.Logs>(oLogs);
+        }
+
+        private void LoadSingletons(IServiceCollection services)
+        {
+            services.AddSingleton<IConfiguration>(this.Configuration);
+            services.AddSingleton<IConnectionFactory, ConnectionFactory>();
+            services.AddSingleton<IJwtApplication, JwtApplication>();
+            services.AddSingleton<ISSOApplication, SSOApplication>();
+            services.AddSingleton<IEmailApplication, EmailApplication>();
+            services.AddSingleton<ILogApplication, LogApplication>();
+        }
+
+        private void LoadScopes(IServiceCollection services)
+        {
+            services.AddScoped<IMunicipalidadApplication, MunicipalidadApplication>();
+            services.AddScoped<IMunicipalidadDomain, MunicipalidadDomain>();
+            services.AddScoped<IMunicipalidadRepository, MunicipalidadRepository>();
+            
+            services.AddScoped<ISunatApplication, SunatApplication>();
+            services.AddScoped<ISunarpApplication, SunarpApplication>();
+            services.AddScoped<IReniecApplication, ReniecApplication>();
+
+            services.AddScoped<IGeneralApplication, GeneralApplication>();
+            services.AddScoped<IGeneralDomain, GeneralDomain>();
+            services.AddScoped<IGeneralRepository, GeneralRepository>();
+
+            services.AddScoped<IAdminApplication, AdminApplication>();
+            services.AddScoped<IAdminDomain, AdminDomain>();
+            services.AddScoped<IAdminRepository, AdminRepository>();
+        }
+
+        private void LoadJWT(IServiceCollection services)
+        {
+            var oJWT = Configuration.GetSection("JWT");
+            var oJwtSettings = oJWT.Get<AppSettings.JWT>();
+            var oSecretKey = Encoding.ASCII.GetBytes(oJwtSettings.SecretKey);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(oSecretKey),
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero
+                };
+            });
+        }
+
+        #endregion
     }
 }

@@ -1,41 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 using Application.Dto;
 using Application.Interface;
-using Microsoft.Extensions.Configuration;
-using Newtonsoft.Json;
+using Microsoft.Extensions.Options;
 using Transversal.Common;
+using Transversal.Common.Helper;
 
 namespace Application.Core
 {
     public class SSOApplication : ISSOApplication
     {
-        private readonly IConfiguration _configuration;
-
-        private string _sMiddlewareUrl;
-        private string _sTokenUserMiddleware;
-        private string _sTokenPassMiddleware;
-        private string _sApplicationIdSSO;
-        private string _sTokenUserSSO;
-        private string _sTokenPassSSO;
+        private readonly AppSettings.Servicios _settingsServicios;
+        private readonly AppSettings.CredencialesMiddleWare _settingsMiddleware;
+        private readonly AppSettings.CredencialesSSO _settingsSSO;
 
         private const string SERVICE_NAME = "MiddleWareAPI";
 
-        public SSOApplication(IConfiguration configuration)
+        public SSOApplication(
+            IOptions<AppSettings.Servicios> settingsServicios, 
+            IOptions<AppSettings.CredencialesMiddleWare> settingsMiddleware,
+            IOptions<AppSettings.CredencialesSSO> settingsSSO)
         {
-            this._configuration = configuration;
-            
-            this._sMiddlewareUrl = this._configuration.GetSection("Servicios").GetSection("MiddleWareAPI").Value;
-            this._sApplicationIdSSO = this._configuration.GetSection("CredencialesSSO").GetSection("ApplicationId").Value;
-            this._sTokenUserMiddleware = this._configuration.GetSection("CredencialesMiddleWare").GetSection("TokenUser").Value;
-            this._sTokenPassMiddleware = this._configuration.GetSection("CredencialesMiddleWare").GetSection("TokenPassword").Value;
-            this._sTokenUserSSO = this._configuration.GetSection("CredencialesSSO").GetSection("TokenUser").Value;
-            this._sTokenPassSSO = this._configuration.GetSection("CredencialesSSO").GetSection("TokenPassword").Value;
+            this._settingsServicios = settingsServicios.Value;
+            this._settingsMiddleware = settingsMiddleware.Value;
+            this._settingsSSO = settingsSSO.Value;
         }
         
         public async Task<string> AuthMiddleWare()
@@ -48,11 +38,11 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient())
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/seguridad/authenticate";
+                    string sUrl = this._settingsServicios.MiddleWareAPI + "api/v1/seguridad/authenticate";
 
                     var oRequest = new SSODto.Authenticate.Request();
-                    oRequest.Username = this._sTokenUserMiddleware;
-                    oRequest.Password = this._sTokenPassMiddleware;
+                    oRequest.Username = this._settingsMiddleware.TokenUser;
+                    oRequest.Password = this._settingsMiddleware.TokenPassword;
 
                     var oClientResponse = await oHttpClient.CallPostAsync<SSODto.Authenticate.Request, string>(sUrl, oRequest);
                     if (oClientResponse.StatusCode == HttpStatusCode.OK)
@@ -104,12 +94,12 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/Login";
+                    string sUrl = this._settingsServicios.MiddleWareAPI + "api/v1/sso/Login";
 
                     var oRequest = new SSODto.Login.Request();
-                    oRequest.ApplicationId = this._sApplicationIdSSO;
-                    oRequest.TokenUser = this._sTokenUserSSO;
-                    oRequest.TokenPassword = this._sTokenPassSSO;
+                    oRequest.ApplicationId = this._settingsSSO.ApplicationId;
+                    oRequest.TokenUser =this._settingsSSO.TokenUser;
+                    oRequest.TokenPassword = this._settingsSSO.TokenPassword;
                     oRequest.UserName = oItem.sUsername;
                     oRequest.UserPassword = oItem.sPassword;
 
@@ -164,12 +154,12 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseNewRecord";
+                    string sUrl = this._settingsServicios.MiddleWareAPI + "api/v1/sso/EnterpriseNewRecord";
 
                     var oRequest = new SSODto.EnterpriseNew.Request();
-                    oRequest.ApplicationId = this._sApplicationIdSSO;
-                    oRequest.TokenUser = this._sTokenUserSSO;
-                    oRequest.TokenPassword = this._sTokenPassSSO;
+                    oRequest.ApplicationId = this._settingsSSO.ApplicationId;
+                    oRequest.TokenUser = this._settingsSSO.TokenUser;
+                    oRequest.TokenPassword = this._settingsSSO.TokenPassword;
                     oRequest.DocumentNumber = sDocumentNumber;
 
                     var oClientResponse = await oHttpClient.CallPostAsync<SSODto.EnterpriseNew.Request, SSODto.SSOResponse<SSODto.EnterpriseNew.Response>>(sUrl, oRequest);
@@ -223,12 +213,12 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseAttachApplication";
+                    string sUrl = this._settingsServicios.MiddleWareAPI + "api/v1/sso/EnterpriseAttachApplication";
 
                     var oRequest = new SSODto.EnterpriseAttachApp.Request();
-                    oRequest.ApplicationId = this._sApplicationIdSSO;
-                    oRequest.TokenUser = this._sTokenUserSSO;
-                    oRequest.TokenPassword = this._sTokenPassSSO;
+                    oRequest.ApplicationId = this._settingsSSO.ApplicationId;
+                    oRequest.TokenUser =this._settingsSSO.TokenUser;
+                    oRequest.TokenPassword = this._settingsSSO.TokenPassword;
                     oRequest.idEmpresa = sIdEmpresa;
                     oRequest.DocumentNumber = sDocumentNumber;
 
@@ -288,12 +278,12 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/EnterpriseAddLocal";
+                    string sUrl = this._settingsServicios.MiddleWareAPI + "api/v1/sso/EnterpriseAddLocal";
 
                     var oRequest = new SSODto.EnterpriseAddLocal.Request();
-                    oRequest.ApplicationId = this._sApplicationIdSSO;
-                    oRequest.TokenUser = this._sTokenUserSSO;
-                    oRequest.TokenPassword = this._sTokenPassSSO;
+                    oRequest.ApplicationId = this._settingsSSO.ApplicationId;
+                    oRequest.TokenUser =this._settingsSSO.TokenUser;
+                    oRequest.TokenPassword = this._settingsSSO.TokenPassword;
                     oRequest.idEmpresa = sIdEmpresa;
                     oRequest.DocumentNumber = sDocumentNumber;
                     oRequest.IdAplicacionEmpresa = sIdAplicacionEmpresa;
@@ -351,12 +341,12 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/Empresas";
+                    string sUrl = this._settingsServicios.MiddleWareAPI + "api/v1/sso/Empresas";
 
                     var oRequest = new SSODto.Empresas.Request();
-                    oRequest.ApplicationId = this._sApplicationIdSSO;
-                    oRequest.TokenUser = this._sTokenUserSSO;
-                    oRequest.TokenPassword = this._sTokenPassSSO;
+                    oRequest.ApplicationId = this._settingsSSO.ApplicationId;
+                    oRequest.TokenUser =this._settingsSSO.TokenUser;
+                    oRequest.TokenPassword = this._settingsSSO.TokenPassword;
                     oRequest.DocumentNumber = sDocumentNumber;
 
                     var oClientResponse = await oHttpClient.CallPostAsync<SSODto.Empresas.Request, SSODto.SSOResponse<List<SSODto.Empresas.Response>>>(sUrl, oRequest);
@@ -413,12 +403,12 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/Perfiles";
+                    string sUrl = this._settingsServicios.MiddleWareAPI + "api/v1/sso/Perfiles";
 
                     var oRequest = new SSODto.Perfiles.Request();
-                    oRequest.ApplicationId = this._sApplicationIdSSO;
-                    oRequest.TokenUser = this._sTokenUserSSO;
-                    oRequest.TokenPassword = this._sTokenPassSSO;
+                    oRequest.ApplicationId = this._settingsSSO.ApplicationId;
+                    oRequest.TokenUser =this._settingsSSO.TokenUser;
+                    oRequest.TokenPassword = this._settingsSSO.TokenPassword;
                     oRequest.PersonId = sDocumentNumber;
                     oRequest.LocalId = sLocalId;
 
@@ -476,12 +466,12 @@ namespace Application.Core
 
                 using (WebApiClient oHttpClient = new WebApiClient(sToken))
                 {
-                    string sUrl = this._sMiddlewareUrl + "api/v1/sso/UserInfo";
+                    string sUrl = this._settingsServicios.MiddleWareAPI + "api/v1/sso/UserInfo";
 
                     var oRequest = new SSODto.GetUserInfo.Request();
-                    oRequest.ApplicationId = this._sApplicationIdSSO;
-                    oRequest.TokenUser = this._sTokenUserSSO;
-                    oRequest.TokenPassword = this._sTokenPassSSO;
+                    oRequest.ApplicationId = this._settingsSSO.ApplicationId;
+                    oRequest.TokenUser =this._settingsSSO.TokenUser;
+                    oRequest.TokenPassword = this._settingsSSO.TokenPassword;
                     oRequest.UserId = nUserId;
 
                     var oClientResponse = await oHttpClient.CallPostAsync<SSODto.GetUserInfo.Request, SSODto.SSOResponse<SSODto.GetUserInfo.Response>>(sUrl, oRequest);

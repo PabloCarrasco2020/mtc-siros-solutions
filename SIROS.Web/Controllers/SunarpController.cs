@@ -1,26 +1,24 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Application.Dto;
 using Application.Interface;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Transversal.Common;
-using Transversal.Common.Functions;
 
 namespace SIROS.Web.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SunarpController : ControllerBase
     {
         private readonly ISunarpApplication _sunarpApplication;
+        private readonly ILogApplication _logApplication;
 
-        public SunarpController(ISunarpApplication sunarpApplication)
+        public SunarpController(ISunarpApplication sunarpApplication, ILogApplication logApplication)
         {
             this._sunarpApplication = sunarpApplication;
+            this._logApplication = logApplication;
         }
 
         [HttpGet("ConsultaPlaca")]
@@ -33,7 +31,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("SunarpController-ConsultaPlaca", ex);
                 return Ok(new Response<Object> { Message = "[SUNARP]: ERR-Fallo en el servidor" });
             }
         }

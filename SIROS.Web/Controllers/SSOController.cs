@@ -7,7 +7,9 @@ using Application.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Transversal.Common;
+using Transversal.Common.Helper;
 
 namespace SIROS.Web.Controllers
 {
@@ -18,7 +20,8 @@ namespace SIROS.Web.Controllers
         private readonly ISSOApplication _sSOApplication;
         private readonly IAdminApplication _adminApplication;
         private readonly IJwtApplication _jwtApplication;
-        private readonly IConfiguration _configuration;
+        private readonly ILogApplication _logApplication;
+        private readonly AppSettings.CredencialesSSO _settings;
 
         private List<string> _perfilesPermitidos;
 
@@ -26,14 +29,16 @@ namespace SIROS.Web.Controllers
             ISSOApplication sSOApplication,
             IAdminApplication adminApplication,
             IJwtApplication jwtApplication,
-            IConfiguration configuration)
+            ILogApplication logApplication,
+            IOptions<AppSettings.CredencialesSSO> settings)
         {
             this._sSOApplication = sSOApplication;
             this._adminApplication = adminApplication;
             this._jwtApplication = jwtApplication;
-            this._configuration = configuration;
+            this._logApplication = logApplication;
+            this._settings = settings.Value;
 
-            string sPerfiles = this._configuration.GetSection("CredencialesSSO").GetSection("Perfiles").Value;
+            string sPerfiles = this._settings.Profiles;
             this._perfilesPermitidos = new List<string>();
             this._perfilesPermitidos.AddRange(sPerfiles.Split(';'));
         }
@@ -239,7 +244,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // log
+                _ = this._logApplication.SetLogError("SSOController-Login", ex);
                 return Ok(new Response<Object> { Message = $"[SSO]: ERR-Fallo en el servidor: {ex.StackTrace}" });
             }
         }

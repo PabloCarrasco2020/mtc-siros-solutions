@@ -19,11 +19,5 @@ namespace Application.Dto
             public string sToken { get; set; }
             public DateTime dTokenExpiration { get; set; }
         }
-
-        public class Settings
-        {
-            public string SecretKey { get; set; }
-            public string MinutesExpiration { get; set; }
-        }
     }
 }

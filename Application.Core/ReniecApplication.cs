@@ -1,24 +1,23 @@
 ﻿using Application.Dto;
 using Application.Interface;
-using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
-using System.Collections.Generic;
 using System.Net;
-using System.Text;
 using System.Threading.Tasks;
 using Transversal.Common;
+using Transversal.Common.Helper;
 
 namespace Application.Core
 {
     public class ReniecApplication : IReniecApplication
     {
-        private readonly IConfiguration _configuration;
+        private readonly AppSettings.Servicios _settings;
         private string _sReniecUrl;
 
-        public ReniecApplication(IConfiguration configuration)
+        public ReniecApplication(IOptions<AppSettings.Servicios> settings)
         {
-            this._configuration = configuration;
-            this._sReniecUrl = this._configuration.GetSection("Servicios").GetSection("ReniecAPI").Value + "Reniec/{0}";
+            this._settings = settings.Value;
+            this._sReniecUrl = this._settings.ReniecAPI + "Reniec/{0}";
         }
 
         public async Task<Response<ReniecDto.ConsultaNumDocResponseModel>> ConsultaNumDoc(string sNumDoc)
@@ -27,7 +26,7 @@ namespace Application.Core
             {
                 var oResponse = new Response<ReniecDto.ConsultaNumDocResponseModel>();
                 oResponse.IsSuccess = false;
-
+                
                 using (WebApiClient oHttpClient = new WebApiClient())
                 {
                     string sUrl = string.Format(this._sReniecUrl, sNumDoc);

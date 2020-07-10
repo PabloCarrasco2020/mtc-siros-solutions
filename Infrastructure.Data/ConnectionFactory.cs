@@ -1,32 +1,34 @@
 ﻿using System;
 using System.Data;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Oracle.ManagedDataAccess.Client;
 using Transversal.Common;
+using Transversal.Common.Helper;
 
 namespace Infrastructure.Data
 {
     public class ConnectionFactory:IConnectionFactory
     {
-        private readonly IConfiguration _configuration;
+        private readonly AppSettings.ConnectionStrings _settings;
 
-        public ConnectionFactory(IConfiguration configuration)
+        public ConnectionFactory(IOptions<AppSettings.ConnectionStrings> settings)
         {
-            this._configuration = configuration;
+            this._settings = settings.Value;
         }
 
         public IDbConnection GetConnectionSIROS()
         {
                 var dbConnection = new OracleConnection();
                 if (dbConnection == null) return null;
-                dbConnection.ConnectionString = _configuration.GetSection("ConnectionStrings").GetSection("SIROSConnection").Value;
+                dbConnection.ConnectionString = this._settings.SIROSConnection;
                 dbConnection.Open();
                 return dbConnection;
             
         }
         public string GetQueryForSIROS(string pProcedureName)
         {
-            var esquema = _configuration.GetSection("schemaDB").GetSection("SIROS").Value;
+            var esquema = this._settings.SchemaDB;
             return string.Format("{0}.{1}", esquema, pProcedureName);
         }
     }

@@ -4,8 +4,8 @@ using Transversal.Common;
 
 namespace Application.Interface
 {
-    public interface IAdminApplication
+    public interface IEmailApplication
     {
-        Task<Response<int>> RegistrarSesion(AdminDto.RegistrarSesion oItem);
+        Task<Response<EmailDto.Response>> SendEmail(EmailDto.Request oItem);
     }
 }
