@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Dto;
 using Application.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Transversal.Common;
 
@@ -11,16 +12,22 @@ using Transversal.Common;
 
 namespace SIROS.Web.Controllers
 {
+    [Authorize]
     [Route("api/[Controller]/[Action]")]
-    public class ComboController : Controller
+    public class ComboController : ControllerBase
     {
         private readonly IMunicipalidadApplication _municipalidadApplication;
         private readonly IGeneralApplication _generalApplication;
+        private readonly ILogApplication _logApplication;
 
-        public ComboController(IMunicipalidadApplication municipalidadApplication, IGeneralApplication generalApplication)
+        public ComboController(
+            IMunicipalidadApplication municipalidadApplication,
+            IGeneralApplication generalApplication,
+            ILogApplication logApplication)
         {
             this._municipalidadApplication = municipalidadApplication;
             this._generalApplication = generalApplication;
+            this._logApplication = logApplication;
         }
         #region Ubigeo
         [HttpGet]
@@ -32,7 +39,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("ComboController-GetDepartamento", ex);
                 return new Response<List<ComboModelDto.XCodigo>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -48,7 +55,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("ComboController-GetProvincia", ex);
                 return new Response<List<ComboModelDto.XCodigo>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -64,7 +71,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("ComboController-GetDistrito", ex);
                 return new Response<List<ComboModelDto.XCodigo>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -82,7 +89,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("ComboController-GetTipoVia", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -98,7 +105,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("ComboController-GetCentroPoblado", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -114,7 +121,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("ComboController-GetNumeroManzana", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -130,7 +137,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("ComboController-GetLoteInterior", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -146,7 +153,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("ComboController-GetTipoDocRepresentanteLegal", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -162,7 +169,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("ComboController-GetCargoRepresentanteLegal", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"

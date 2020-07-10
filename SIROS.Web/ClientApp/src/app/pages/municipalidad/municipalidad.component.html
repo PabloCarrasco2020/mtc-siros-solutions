@@ -18,7 +18,7 @@
                                 <h4>Datos de la empresa</h4>
                             </div>
                             <div class="input-group m-b">
-                                <input type="text" class="form-control" placeholder="Ingrese RUC..." [(ngModel)]="sRuc">
+                                <input type="text" class="form-control" placeholder="Ingrese RUC..." [(ngModel)]="sRuc" maxlength="11">
                                 <div class="input-group-append">
                                     <button type="button" class="btn btn-primary" (click)="fnBuscarRuc()">
                                             <i class="fa fa-search"></i> Buscar
@@ -43,7 +43,7 @@
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Nombre de vía (*)</label>
-                                    <input class="form-control" placeholder="Ingrese nombre de vía" [(ngModel)]="sVia"/>
+                                    <input class="form-control" placeholder="Ingrese nombre de vía" [(ngModel)]="sVia" maxlength="100"/>
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Tipo de CCPP (*)</label>
@@ -58,7 +58,7 @@
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Nombre CCPP (*)</label>
-                                    <input class="form-control" placeholder="Ingrese nombre de centro poblado" [(ngModel)]="sCentroPoblado"/>
+                                    <input class="form-control" placeholder="Ingrese nombre de centro poblado" [(ngModel)]="sCentroPoblado" maxlength="100"/>
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Nro/Mzn/Km (*)</label>
@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Nro (*)</label>
-                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sNumeroManzana"/>
+                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sNumeroManzana" maxlength="20"/>
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Lote/Int/Dpto (*)</label>
@@ -88,11 +88,11 @@
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Nro (*)</label>
-                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sLoteInterior"/>
+                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sLoteInterior" maxlength="50"/>
                                 </div>
                                 <div class="col-lg-12 mb-2">
                                     <label class="titulo-Campos" for="">Referencia (*)</label>
-                                    <input class="form-control" placeholder="Ingrese referencia..." [(ngModel)]="sReferencia" />
+                                    <input class="form-control" placeholder="Ingrese referencia..." [(ngModel)]="sReferencia"  maxlength="150"/>
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                     <label class="titulo-Campos" for="">Departamento (*)</label>

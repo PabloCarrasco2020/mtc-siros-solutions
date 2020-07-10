@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Dto;
 using Application.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Transversal.Common;
 
@@ -11,16 +12,26 @@ using Transversal.Common;
 
 namespace SIROS.Web.Controllers
 {
+    [Authorize]
     [Route("api/[Controller]/[Action]")]
-    public class MunicipalidadController : Controller
+    public class MunicipalidadController : ControllerBase
     {
         private readonly IMunicipalidadApplication _municipalidadApplication;
         private readonly ISSOApplication _sSOApplication;
+        private readonly ILogApplication _logApplication;
+        private readonly IJwtApplication _jwtApplication;
 
-        public MunicipalidadController(IMunicipalidadApplication municipalidadApplication, ISSOApplication sSOApplication)
+        public MunicipalidadController(
+            IMunicipalidadApplication municipalidadApplication,
+            ISSOApplication sSOApplication,
+            ILogApplication logApplication,
+            IJwtApplication jwtApplication
+            )
         {
             this._municipalidadApplication = municipalidadApplication;
             this._sSOApplication = sSOApplication;
+            this._logApplication = logApplication;
+            this._jwtApplication = jwtApplication;
         }
         [HttpGet]
         public async Task<Response<MunicipalidadDto.RSGet>> Get(string sInput)
@@ -31,7 +42,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("MunicipalidadController-Get", ex);
                 return new Response<MunicipalidadDto.RSGet>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -48,40 +59,27 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("MunicipalidadController-GetAllByFilter", ex);
                 return new Response<IndexTableModelDto>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
             }
         }
-        [HttpGet]
-        public async Task<int> Test(string sRuc)
-        {
-            try
-            {
-                
-                // TRAER INFORMACIÓN DE MUNICIPALIDAD CREADA 
-                var rGetEmpresas = await this._sSOApplication.GetEmpresas(sRuc);
-                if (!rGetEmpresas.IsSuccess)
-                {
-                    return -2;
-                }
-
-                
-                
-                return 1;
-            }
-            catch (Exception ex)
-            {
-                return 0;
-            }
-        }
+        
         [HttpPost]
         public async Task<Response<int>> Insert([FromBody]MunicipalidadDto.RQInsert input)
         {
             try
             {
+                input.nIdSession = 0;
+                input.sUsuario = "";
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
+                    input.sUsuario = oUserInfo.Data.sUsername;
+                }
                 var responseInsert = new Response<int>();
                 // INSERTAR MUNICIPALIDAD EN EL SSO 58930 60288
                 var rEnterpriseNew = await this._sSOApplication.EnterpriseNew(input.sRuc);
@@ -117,15 +115,13 @@ namespace SIROS.Web.Controllers
                     responseInsert.Message = rEnterpriseAddLocal.Message;
                     return responseInsert;
                 }
-                input.nIdSession = 333;
-                input.sUsuario = "SIROS_WEB";
                 input.nIdentidadsso = rEnterpriseNew.Data.IdPersona;
                 input.nIdLocalsso = Int32.Parse(rEnterpriseAddLocal.Data.Value);
                 return await _municipalidadApplication.Insert(input);
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("MunicipalidadController-Insert", ex);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -137,13 +133,19 @@ namespace SIROS.Web.Controllers
         {
             try
             {
-                input.nIdSession = 333;
-                input.sUsuario = "SIROS_WEB";
+                input.nIdSession = 0;
+                input.sUsuario = "";
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
+                    input.sUsuario = oUserInfo.Data.sUsername;
+                }
                 return await _municipalidadApplication.Update(input);
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("MunicipalidadController-Update", ex);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -155,13 +157,19 @@ namespace SIROS.Web.Controllers
         {
             try
             {
-                input.nIdSession = 333;
-                input.sUsuario = "SIROS_WEB";
+                input.nIdSession = 0;
+                input.sUsuario = "";
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
+                    input.sUsuario = oUserInfo.Data.sUsername;
+                }
                 return await _municipalidadApplication.Delete(input);
             }
             catch (Exception ex)
             {
-                // Log
+                _ = this._logApplication.SetLogError("MunicipalidadController-Delete", ex);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"

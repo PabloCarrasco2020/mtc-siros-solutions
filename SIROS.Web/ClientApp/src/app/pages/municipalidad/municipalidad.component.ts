@@ -453,6 +453,8 @@ export class MunicipalidadComponent implements OnInit {
           this.CargarDistrito();
         }
         this.sReferencia = response.Data.sReferencia;
+      } else {
+        this.oMessageService.warning(this.sTitlePage, response.Message);
       }
       this.oBlockUI.stop();
     });
@@ -471,6 +473,8 @@ export class MunicipalidadComponent implements OnInit {
         this.sNombresRepresentanteLegal = response.Data.sNombres;
         this.sApePaternoRepresentanteLegal = response.Data.sApellidoPaterno;
         this.sApeMaternoRepresentanteLegal = response.Data.sApellidoMaterno;
+      } else {
+        this.oMessageService.warning(this.sTitlePage, response.Message);
       }
       this.oBlockUI.stop();
     });
@@ -554,7 +558,7 @@ export class MunicipalidadComponent implements OnInit {
       return 'Ingrese el Número de RUC correctamente';
     }
     if (this.sRazonSocial.length === 0) {
-      return 'Ingrese el Ruc válido';
+      return 'Realice la búsqueda del Ruc para completar el campo Razón Social';
     }
     if (
       this.nTipoVia === 0 ||
@@ -596,6 +600,12 @@ export class MunicipalidadComponent implements OnInit {
     }
     if ( this.nCargoRepresentanteLegal === 0) {
       return 'Seleccione cargo del representante legal.';
+    }
+    if ( this.lstResponsablesLegales.length > 0) {
+      const existe: any = this.lstResponsablesLegales.find(representante => representante.sNroDocumento == this.sNroDocRepresentanteLegal );
+      if (existe !== undefined) {
+        return 'Representante legal ya se encuentra agregado a la lista inferior.';
+      }
     }
     return null;
   }
