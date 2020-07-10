@@ -3,6 +3,7 @@ import { IndexModel } from 'src/app/models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MunicipalidadService, ComboService, SunatService, MessageService, ReniecService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
+import { timeStamp } from 'console';
 
 declare var $: any;
 
@@ -40,13 +41,13 @@ export class MunicipalidadComponent implements OnInit {
   nIdEntidad: number = 0;
   sRuc: string = '';
   sRazonSocial: string = '';
-  nTipoVia: number = 0;
+  nTipoVia: number = -1;
   sVia: string = '';
-  nCentroPoblado: number = 0;
+  nCentroPoblado: number = -1;
   sCentroPoblado: string = '';
-  nIdNumeroManzana: number = 0;
+  nIdNumeroManzana: number = -1;
   sNumeroManzana: string = '';
-  nIdLoteInterior: number = 0;
+  nIdLoteInterior: number = -1;
   sLoteInterior: string = '';
   sReferencia: string = '';
   sCodDepartamento: string = '00';
@@ -254,13 +255,13 @@ export class MunicipalidadComponent implements OnInit {
         this.sRuc = response.Data.sRuc;
         this.sRazonSocial = response.Data.sRazonSocial;
         this.nTipoVia = Number(response.Data.nTipoVia);
-        this.sVia = response.Data.sVia;
+        this.sVia = response.Data.sVia === null ? '' : response.Data.sVia;
         this.nCentroPoblado = Number(response.Data.nCentroPoblado);
-        this.sCentroPoblado = response.Data.sCentroPoblado;
+        this.sCentroPoblado = response.Data.sCentroPoblado === null ? '' : response.Data.sCentroPoblado;
         this.nIdNumeroManzana = Number(response.Data.nIdNumeroManzana);
-        this.sNumeroManzana = response.Data.sNumeroManzana;
+        this.sNumeroManzana = response.Data.sNumeroManzana === null ? '' : response.Data.sNumeroManzana;
         this.nIdLoteInterior = Number(response.Data.nIdLoteInterior);
-        this.sLoteInterior = response.Data.sLoteInterior;
+        this.sLoteInterior = response.Data.sLoteInterior === null ? '' : response.Data.sLoteInterior;
         this.sReferencia = response.Data.sReferencia;
         this.sCodDepartamento = response.Data.sCodDepartamento;
         this.sCodProvincia = response.Data.sCodProvincia;
@@ -524,13 +525,13 @@ export class MunicipalidadComponent implements OnInit {
     this.nIdEntidad = 0;
     this.sRuc = '';
     this.sRazonSocial = '';
-    this.nTipoVia = 0;
+    this.nTipoVia = -1;
     this.sVia = '';
-    this.nCentroPoblado = 0;
+    this.nCentroPoblado = -1;
     this.sCentroPoblado = '';
-    this.nIdNumeroManzana = 0;
+    this.nIdNumeroManzana = -1;
     this.sNumeroManzana = '';
-    this.nIdLoteInterior = 0;
+    this.nIdLoteInterior = -1;
     this.sLoteInterior = '';
     this.sReferencia = '';
     this.sCodDepartamento = '00';
@@ -562,10 +563,10 @@ export class MunicipalidadComponent implements OnInit {
       return 'Realice la búsqueda del Ruc para completar el campo Razón Social';
     }
     if (
-      this.nTipoVia === 0 ||
-      this.nCentroPoblado === 0 ||
-      this.nIdNumeroManzana === 0 ||
-      this.nIdLoteInterior === 0 ||
+      this.nTipoVia === -1 ||
+      this.nCentroPoblado === -1 ||
+      this.nIdNumeroManzana === -1 ||
+      this.nIdLoteInterior === -1 ||
       this.sCodDepartamento === '00' ||
       this.sCodProvincia === '00' ||
       this.sCodDistrito === '00'
@@ -573,10 +574,19 @@ export class MunicipalidadComponent implements OnInit {
       return 'Seleccione los campos con (*), son obligatorios';
     }
     if (
-        this.sVia.length === 0 ||
-        this.sCentroPoblado.length === 0 ||
-        this.sNumeroManzana.length === 0 ||
-        this.sLoteInterior.length === 0 ||
+      (this.sVia === null && Number(this.nTipoVia) !== 0) ||
+      (this.sCentroPoblado === null && Number(this.nCentroPoblado) !== 0) ||
+      (this.sNumeroManzana === null && Number(this.nIdNumeroManzana) !== 0) ||
+      (this.sLoteInterior === null && Number(this.nIdLoteInterior) !== 0) ||
+      this.sReferencia === null
+    ) {
+      return  ' Completar los campos con (*),  son obligatorios';
+    }
+    if (
+        (this.sVia.length === 0 && Number(this.nTipoVia) !== 0) ||
+        (this.sCentroPoblado.length === 0 && Number(this.nCentroPoblado) !== 0) ||
+        (this.sNumeroManzana.length === 0 && Number(this.nIdNumeroManzana) !== 0) ||
+        (this.sLoteInterior.length === 0 && Number(this.nIdLoteInterior) !== 0) ||
         this.sReferencia.length === 0
       ) {
       return  ' Completar los campos con (*),  son obligatorios';

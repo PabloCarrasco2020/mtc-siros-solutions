@@ -33,7 +33,7 @@
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Tipo de vía (*)</label>
                                     <select class="form-control form-control-sm" [(ngModel)]="nTipoVia">
-                                        <option value="0">
+                                        <option value="-1">
                                             Seleccione tipo de vía
                                         </option>
                                         <option *ngFor="let iTipoVia of lstTipoVia" [value]="iTipoVia.nId">
@@ -42,13 +42,13 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6 mb-2">
-                                    <label class="titulo-Campos" for="">Nombre de vía (*)</label>
-                                    <input class="form-control" placeholder="Ingrese nombre de vía" [(ngModel)]="sVia" maxlength="100"/>
+                                    <label class="titulo-Campos" for="">Nombre de vía <span [hidden]="nTipoVia == 0">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese nombre de vía" [(ngModel)]="sVia" maxlength="100" [disabled]="nTipoVia == 0"/>
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Tipo de CCPP (*)</label>
                                     <select class="form-control form-control-sm" [(ngModel)]="nCentroPoblado">
-                                        <option value="0">
+                                        <option value="-1">
                                             Seleccione tipo de centro poblado
                                         </option>
                                         <option *ngFor="let iCentroPoblado of lstCentroPoblado" [value]="iCentroPoblado.nId">
@@ -57,13 +57,13 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6 mb-2">
-                                    <label class="titulo-Campos" for="">Nombre CCPP (*)</label>
-                                    <input class="form-control" placeholder="Ingrese nombre de centro poblado" [(ngModel)]="sCentroPoblado" maxlength="100"/>
+                                    <label class="titulo-Campos" for="">Nombre CCPP <span [hidden]="nCentroPoblado == 0">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese nombre de centro poblado" [(ngModel)]="sCentroPoblado" maxlength="100" [disabled]="nCentroPoblado == 0"/>
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Nro/Mzn/Km (*)</label>
                                     <select class="form-control form-control-sm" [(ngModel)]="nIdNumeroManzana">
-                                        <option value="0">
+                                        <option value="-1">
                                             Seleccione
                                         </option>
                                         <option *ngFor="let iNum of lstNumeroManzana" [value]="iNum.nId">
@@ -72,13 +72,13 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6 mb-2">
-                                    <label class="titulo-Campos" for="">Nro (*)</label>
-                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sNumeroManzana" maxlength="20"/>
+                                    <label class="titulo-Campos" for="">Nro <span [hidden]="nIdNumeroManzana == 0">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sNumeroManzana" maxlength="20" [disabled]="nIdNumeroManzana == 0"/>
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Lote/Int/Dpto (*)</label>
                                     <select class="form-control form-control-sm" [(ngModel)]="nIdLoteInterior">
-                                        <option value="0">
+                                        <option value="-1">
                                             Seleccione
                                         </option>
                                         <option *ngFor="let iLtInt of lstLoteInterior" [value]="iLtInt.nId">
@@ -87,8 +87,8 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6 mb-2">
-                                    <label class="titulo-Campos" for="">Nro (*)</label>
-                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sLoteInterior" maxlength="50"/>
+                                    <label class="titulo-Campos" for="">Nro <span [hidden]="nIdLoteInterior == 0">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sLoteInterior" maxlength="50" [disabled]="nIdLoteInterior == 0"/>
                                 </div>
                                 <div class="col-lg-12 mb-2">
                                     <label class="titulo-Campos" for="">Referencia (*)</label>
