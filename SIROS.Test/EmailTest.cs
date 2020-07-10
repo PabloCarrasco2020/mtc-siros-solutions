@@ -14,7 +14,8 @@ namespace SIROS.Test
         private string SenderPassword = "Tram1t3";
         private string SenderDisplay = "test";
         private string SmtpHot = "correo.mtc.gob.pe";
-        private int SmtpPort = 25;
+        private int SmtpPort = 2525;
+        private bool SmtpSSL = false;
 
         [TestMethod]
         public async Task TestEmail()
@@ -91,7 +92,7 @@ namespace SIROS.Test
                     oSmtpClient.Host = SmtpHot;
                     oSmtpClient.UseDefaultCredentials = false;
                     oSmtpClient.Credentials = oNetworkCredential;
-                    oSmtpClient.EnableSsl = true;
+                    oSmtpClient.EnableSsl = SmtpSSL;
                     oSmtpClient.Port = SmtpPort;
                     await oSmtpClient.SendMailAsync(oMessage);
                 }

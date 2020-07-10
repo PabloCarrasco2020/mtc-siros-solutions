@@ -12,7 +12,7 @@ using Transversal.Common;
 
 namespace SIROS.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "Promovilidad")]
     [Route("api/[Controller]/[Action]")]
     public class MunicipalidadController : ControllerBase
     {

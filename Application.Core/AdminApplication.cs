@@ -35,7 +35,7 @@ namespace Application.Core
                 if (nResult.STR_ESTADOPROCESO == "1")
                 {
                     oResponse.IsSuccess = true;
-                    oResponse.Data = nResult.NUM_IDSESION;
+                    oResponse.Data = nResult.NUM_IDSESION; //Devuelve Id Sesion del SIRO
                     oResponse.Message = nResult.STR_MENSAJE;
                 }
                 else if (nResult.STR_ESTADOPROCESO == "-1")

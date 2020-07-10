@@ -45,7 +45,7 @@ namespace Application.Core
                         Directory.CreateDirectory(sNewPathFolder);
 
                     string sFilename = $@"{sNewPathFolder}\LOG_{dtCurrentDate.Day.ToString("00")}-{dtCurrentDate.Month.ToString("00")}-{dtCurrentDate.Year}.log";
-                    File.AppendAllText(sFilename, sMessage);
+                    File.AppendAllText(sFilename, sMessage, Encoding.UTF8);
                 }
 
                 if (oLogType == EnumLogType.EMAIL || oLogType == EnumLogType.TEXT_N_EMAIL)
@@ -54,7 +54,7 @@ namespace Application.Core
                     oEmail.sSendTo = this._settings.EmailSendTo;
                     oEmail.sReplyTo = this._settings.EmailReplyTo;
                     oEmail.sSubject = string.Format(this._settings.EmailSubject, sName);
-                    oEmail.sMessage = sMessage;
+                    oEmail.sMessage = sMessage.Replace("\r\n","<br>");
 
                     _ = this._emailApplication.SendEmail(oEmail);
                 }
@@ -82,7 +82,7 @@ namespace Application.Core
 
                 StringBuilder sb = new StringBuilder();
                 sb.AppendLine($"---------------------------------------------");
-                sb.AppendLine($"[Type]: <{sLogType}>");
+                sb.AppendLine($"[Type]: {sLogType}");
                 sb.AppendLine($"[Date]: {DateTime.Now.ToString("dd/MM/yyyy - HH:mm:ss")}");
                 sb.AppendLine($"[Name]: {sName}");
                 sb.AppendLine($"[Message]: {oException.Message}");

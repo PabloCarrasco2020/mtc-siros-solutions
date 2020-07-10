@@ -45,7 +45,7 @@ namespace Application.Core
                     return oResponse;
                 }
 
-                MailAddress oSendFrom = new MailAddress("notificaciones_dgatr@mtc.gob.pe", this._settings.SenderDisplayName);
+                MailAddress oSendFrom = new MailAddress(this._settings.SenderEmail, this._settings.SenderDisplayName);
                 MailAddress oSendTo = new MailAddress(oItem.sSendTo);
                 MailMessage oMessage = new MailMessage(oSendFrom, oSendTo);
                 oMessage.Subject = oItem.sSubject;
@@ -80,11 +80,11 @@ namespace Application.Core
                     oNetworkCredential.Password = this._settings.SenderPassword;
 
                     oSmtpClient.Host = this._settings.SmtpHost;
-                    oSmtpClient.UseDefaultCredentials = false;
-                    oSmtpClient.Credentials = oNetworkCredential;
                     oSmtpClient.EnableSsl = this._settings.SmtpEnableSSL.Equals("1");
                     oSmtpClient.Port = int.Parse(this._settings.SmtpPort);
-                    await oSmtpClient.SendMailAsync(oMessage);
+                    oSmtpClient.UseDefaultCredentials = false;
+                    oSmtpClient.Credentials = oNetworkCredential;
+                    oSmtpClient.Send(oMessage);
                 }
 
                 oResponse.IsSuccess = true;

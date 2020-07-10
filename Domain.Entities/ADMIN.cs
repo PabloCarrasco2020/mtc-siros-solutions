@@ -13,6 +13,7 @@ namespace Domain.Entities
             public string STR_USERSO { get; set; }
             public string STR_NUMEROIP { get; set; }
             public string STR_FLAGCR { get; set; }
+            public int NUM_IDSESIONSSO { get; set; }
             public DateTime? DTE_FECHAINICIO { get; set; }
             public DateTime? DTE_FECHAFIN { get; set; }
         }
