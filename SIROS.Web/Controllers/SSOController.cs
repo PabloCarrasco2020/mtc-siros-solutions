@@ -203,9 +203,10 @@ namespace SIROS.Web.Controllers
 
                 var oRequestRegistrarSesion = new AdminDto.RegistrarSesion();
                 oRequestRegistrarSesion.sUsuario = oItem.sUsername;
-                oRequestRegistrarSesion.sUsuarioSSO = oUser.Data.IdUsuario.ToString();
+                oRequestRegistrarSesion.sUsuarioSSO = null;
                 oRequestRegistrarSesion.sIp = "0.0.0.0";
                 oRequestRegistrarSesion.sFlag = "1";
+                oRequestRegistrarSesion.nIdSessionSSO = oUser.Data.IdUsuario;
 
                 var oRegistroSesion = await this._adminApplication.RegistrarSesion(oRequestRegistrarSesion);
                 if (!oRegistroSesion.IsSuccess)
@@ -222,7 +223,7 @@ namespace SIROS.Web.Controllers
 
                 #endregion
 
-                oUser.Data.nIdSession = oRegistroSesion.Data; //Obtiene del procedure
+                oUser.Data.nIdSession = oRegistroSesion.Data; //Obtiene Id Sesion del SIRO
 
                 #region GENERAR JWT
 

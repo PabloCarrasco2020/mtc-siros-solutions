@@ -64,14 +64,26 @@ namespace Application.Core
 
         public async Task<Response<JwtDto.Request>> GetUserInfo(ClaimsPrincipal oUser)
         {
+            var oResponse = new Response<JwtDto.Request>();
+            oResponse.IsSuccess = false;
+
             try
             {
-                var oResponse = new Response<JwtDto.Request>();
-                oResponse.IsSuccess = false;
-
                 if (!oUser.Identity.IsAuthenticated)
                 {
                     oResponse.Message = "El Usuario no esta conectado.";
+                    return oResponse;
+                }
+
+                if (oUser.Claims == null)
+                {
+                    oResponse.Message = "El Usuario no tiene datos.";
+                    return oResponse;
+                }
+
+                if (oUser.Claims.Count() == 0)
+                {
+                    oResponse.Message = "El Usuario no tiene datos.";
                     return oResponse;
                 }
 
@@ -87,7 +99,7 @@ namespace Application.Core
             }
             catch (Exception ex)
             {
-                throw ex;
+                return oResponse;
             }
         }
     }

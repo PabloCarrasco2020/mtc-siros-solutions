@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json.Serialization;
 
 namespace Application.Dto
 {
@@ -104,18 +105,26 @@ namespace Application.Dto
 
             public class Response
             {
+                [JsonIgnore]
                 public int IdUsuario { get; set; }
 
+                [JsonIgnore]
                 public int nIdEmpresa { get; set; }
                 public string sNombreEmpresa { get; set; }
+
+                [JsonIgnore]
                 public int nIdLocal { get; set; }
                 public string sNombreLocal { get; set; }
+
+                [JsonIgnore]
                 public int nIdPerfil { get; set; }
                 public string sNombrePerfil { get; set; }
 
+                [JsonIgnore]
                 public string sCorreo { get; set; }
                 public string sNombreCompleto { get; set; }
 
+                [JsonIgnore]
                 public int nIdSession { get; set; }
 
                 public string sToken { get; set; }

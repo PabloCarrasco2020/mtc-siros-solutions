@@ -126,6 +126,7 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.sUsuarioSSO, source => source.MapFrom(src => src.STR_USERSO))
                 .ForMember(destination => destination.sIp, source => source.MapFrom(src => src.STR_NUMEROIP))
                 .ForMember(destination => destination.sFlag, source => source.MapFrom(src => src.STR_FLAGCR))
+                .ForMember(destination => destination.nIdSessionSSO, source => source.MapFrom(src => src.NUM_IDSESIONSSO))
                 .ReverseMap();
             #endregion
         }

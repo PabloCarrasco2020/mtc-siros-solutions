@@ -12,6 +12,7 @@ namespace Application.Dto
             public string sUsuarioSSO { get; set; }
             public string sIp { get; set; }
             public string sFlag { get; set; }
+            public int nIdSessionSSO { get; set; }
         }
     }
 }
