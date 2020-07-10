@@ -8,3 +8,4 @@ export { MessageService } from './message.service';
 export { SecureService } from './secure.service';
 export { SessionService } from './session.service';
 export { ReniecService } from './reniec.service';
+export { EstacionServicioService } from './estacion-servicio.service';

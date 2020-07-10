@@ -153,7 +153,11 @@ namespace SIROS.Web
             services.AddScoped<IMunicipalidadApplication, MunicipalidadApplication>();
             services.AddScoped<IMunicipalidadDomain, MunicipalidadDomain>();
             services.AddScoped<IMunicipalidadRepository, MunicipalidadRepository>();
-            
+
+            services.AddScoped<IEstacionServicioApplication, EstacionServicioApplication>();
+            services.AddScoped<IEstacionServicioDomain, EstacionServicioDomain>();
+            services.AddScoped<IEstacionServicioRepository, EstacionServicioRepository>();
+
             services.AddScoped<ISunatApplication, SunatApplication>();
             services.AddScoped<ISunarpApplication, SunarpApplication>();
             services.AddScoped<IReniecApplication, ReniecApplication>();

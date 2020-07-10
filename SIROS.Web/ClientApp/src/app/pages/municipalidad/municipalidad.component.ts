@@ -508,6 +508,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   ParseStringResponsablesToList() {
     const lstResult = this.sRepresentante.split('¢');
+    // tslint:disable-next-line: prefer-for-of
     for (let index = 0; index < lstResult.length; index++) {
       const eRepresentante = lstResult[index].split('@');
       this.nTipDocRepresentanteLegal = Number(eRepresentante[0]);
@@ -602,9 +603,10 @@ export class MunicipalidadComponent implements OnInit {
       return 'Seleccione cargo del representante legal.';
     }
     if ( this.lstResponsablesLegales.length > 0) {
+      // tslint:disable-next-line: triple-equals
       const existe: any = this.lstResponsablesLegales.find(representante => representante.sNroDocumento == this.sNroDocRepresentanteLegal );
       if (existe !== undefined) {
-        return 'Representante legal ya se encuentra agregado a la lista inferior.';
+        return 'Representante legal ya se encuentra agregado en la lista inferior.';
       }
     }
     return null;

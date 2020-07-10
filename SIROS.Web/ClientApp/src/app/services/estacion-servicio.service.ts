@@ -4,15 +4,14 @@ import { BaseService } from './base.service';
 @Injectable({
   providedIn: 'root'
 })
-export class MunicipalidadService {
+export class EstacionServicioService {
 
   constructor(private oBaseService: BaseService) { }
-
   Get(nIdEntidad: number) {
-    return this.oBaseService.CallGet(`api/Municipalidad/Get?sInput=${nIdEntidad}`);
+    return this.oBaseService.CallGet(`api/EstacionServicio/Get?sInput=${nIdEntidad}`);
   }
   GetAllByFilter(nPagina: number, sFilter: string = '') {
-    return this.oBaseService.CallGet(`api/Municipalidad/GetAllByFilter?nPagina=${nPagina}&sFilter=${sFilter}`);
+    return this.oBaseService.CallGet(`api/EstacionServicio/GetAllByFilter?nPagina=${nPagina}&sFilter=${sFilter}`);
   }
   Insert(
     sRuc: string = '',
@@ -29,6 +28,7 @@ export class MunicipalidadService {
     sCodDepartamento: string = '',
     sCodProvincia: string = '',
     sCodDistrito: string = '',
+    sNroSucursales: string = '',
     sRepresentante: string = ''
   ) {
     const req = {
@@ -46,12 +46,13 @@ export class MunicipalidadService {
       sCodDepartamento,
       sCodProvincia,
       sCodDistrito,
+      sNroSucursales,
       sRepresentante
     };
-    return this.oBaseService.CallPost(`api/Municipalidad/Insert`, req);
+    return this.oBaseService.CallPost(`api/EstacionServicio/Insert`, req);
   }
   Update(
-    nIdEntidad: number = 0,
+    nIdEstServicio: number = 0,
     sRuc: string = '',
     sRazonSocial: string = '',
     nTipoVia: number = 0,
@@ -66,10 +67,11 @@ export class MunicipalidadService {
     sCodDepartamento: string = '',
     sCodProvincia: string = '',
     sCodDistrito: string = '',
+    sNroSucursales: string = '',
     sRepresentante: string = ''
   ) {
     const req = {
-      nIdEntidad,
+      nIdEstServicio,
       sRuc,
       sRazonSocial,
       nTipoVia,
@@ -84,16 +86,18 @@ export class MunicipalidadService {
       sCodDepartamento,
       sCodProvincia,
       sCodDistrito,
+      sNroSucursales,
       sRepresentante
     };
-    return this.oBaseService.CallPost(`api/Municipalidad/Update`, req);
+    return this.oBaseService.CallPost(`api/EstacionServicio/Update`, req);
   }
   Delete(
-    nIdEntidad: number = 0
+    nIdEstServicio: number = 0
   ) {
     const req = {
-      nIdEntidad
+      nIdEstServicio
     };
-    return this.oBaseService.CallPost(`api/Municipalidad/Delete`, req);
+    return this.oBaseService.CallPost(`api/EstacionServicio/Delete`, req);
   }
 }
+
