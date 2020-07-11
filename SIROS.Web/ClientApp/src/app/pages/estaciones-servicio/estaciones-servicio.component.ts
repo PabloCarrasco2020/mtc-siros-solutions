@@ -250,7 +250,7 @@ sTitlePage: string = 'Estación de servicio';
     this.oBlockUI.start('Cargando estación de servicio...');
     this.oEstacionServicioService.Get(this.nIdEstServicio).then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
-        this.nIdEstServicio = response.Data.nIdEntidad;
+        this.nIdEstServicio = response.Data.nIdEstServicio;
         this.sRuc = response.Data.sRuc;
         this.sRazonSocial = response.Data.sRazonSocial;
         this.nTipoVia = Number(response.Data.nTipoVia);
