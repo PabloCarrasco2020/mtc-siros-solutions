@@ -6,7 +6,6 @@ using Application.Dto;
 using Application.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Transversal.Common;
 using Transversal.Common.Helper;
