@@ -12,9 +12,12 @@ import { NgBlockUI, BlockUI } from 'ng-block-ui';
   styles: []
 })
 export class LoginComponent implements OnInit {
+  private api: string = "/api/SSO";
+  private captchaUrl: string = `${this.api}/captcha`;
 
   sUsername: string = '';
   sPassword: string = '';
+  sCaptcha: string = '';
 
   @BlockUI() oBlockUI: NgBlockUI;
 
@@ -25,6 +28,11 @@ export class LoginComponent implements OnInit {
     ) { }
 
   ngOnInit() {
+  }
+
+  fnCaptchaReset() {
+    this.sCaptcha = "";
+    this.captchaUrl = `${this.api}/captcha?${Date.now()}`;
   }
 
   fnLogin() {

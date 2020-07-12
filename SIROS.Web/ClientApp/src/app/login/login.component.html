@@ -33,6 +33,14 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <div class="input-group m-b">
+                            <input type="text" class="form-control captcha" placeholder="Captcha" required="" [(ngModel)]="sCaptcha" [ngStyle]="{'background-image': 'url(' + captchaUrl + ')'}">
+                            <div class="input-group-prepend">
+                                <span class="input-group-addon"><i class="fa fa-refresh" (click)="fnCaptchaReset()"></i></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <button type="submit" class="btn btn-primary block full-width m-b" (click)="fnLogin()">Iniciar Sesion</button>
                     </div>
                     <!-- </form> -->

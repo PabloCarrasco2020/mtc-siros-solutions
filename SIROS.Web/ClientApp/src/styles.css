@@ -10,3 +10,7 @@
     font-size: 12px !important;
     color: black;
 }
+.captcha {
+  background-repeat: no-repeat;
+  background-position: 98% 50%;
+}

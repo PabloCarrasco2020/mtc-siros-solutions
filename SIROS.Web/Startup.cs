@@ -144,12 +144,14 @@ namespace SIROS.Web
             services.AddSingleton<IConnectionFactory, ConnectionFactory>();
             services.AddSingleton<IJwtApplication, JwtApplication>();
             services.AddSingleton<ISSOApplication, SSOApplication>();
+            services.AddSingleton<ICaptchaApplication, CaptchaApplication>();
             services.AddSingleton<IEmailApplication, EmailApplication>();
             services.AddSingleton<ILogApplication, LogApplication>();
         }
 
         private void LoadScopes(IServiceCollection services)
         {
+            services.AddScoped<ICaptchaApplication, CaptchaApplication>();
             services.AddScoped<IMunicipalidadApplication, MunicipalidadApplication>();
             services.AddScoped<IMunicipalidadDomain, MunicipalidadDomain>();
             services.AddScoped<IMunicipalidadRepository, MunicipalidadRepository>();
