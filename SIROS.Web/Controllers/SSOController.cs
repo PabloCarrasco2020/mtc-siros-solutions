@@ -21,6 +21,7 @@ namespace SIROS.Web.Controllers
         private readonly IAdminApplication _adminApplication;
         private readonly IJwtApplication _jwtApplication;
         private readonly ILogApplication _logApplication;
+        private readonly ICaptchaApplication _captchaApplication;
         private readonly AppSettings.CredencialesSSO _settings;
 
         private List<string> _perfilesPermitidos;
@@ -30,18 +31,22 @@ namespace SIROS.Web.Controllers
             IAdminApplication adminApplication,
             IJwtApplication jwtApplication,
             ILogApplication logApplication,
+            ICaptchaApplication captchaApplication,
             IOptions<AppSettings.CredencialesSSO> settings)
         {
             this._sSOApplication = sSOApplication;
             this._adminApplication = adminApplication;
             this._jwtApplication = jwtApplication;
             this._logApplication = logApplication;
+            this._captchaApplication = captchaApplication;
             this._settings = settings.Value;
 
             string sPerfiles = this._settings.Profiles;
             this._perfilesPermitidos = new List<string>();
             this._perfilesPermitidos.AddRange(sPerfiles.Split(';'));
         }
+
+       
 
         [AllowAnonymous]
         [HttpPost("Login")]
@@ -248,6 +253,16 @@ namespace SIROS.Web.Controllers
                 _ = this._logApplication.SetLogError("SSOController-Login", ex);
                 return Ok(new Response<Object> { Message = $"[SSO]: ERR-Fallo en el servidor: {ex.StackTrace}" });
             }
+        }
+
+        [Route("captcha")]
+        [HttpGet]
+        public ActionResult GetCaptcha()
+        {
+            var randomText = _captchaApplication.GenerateRandomText(4);
+            //Guardar en las HttpSession como un MD5
+            //CaptchaHash = _captchaApplication.ComputeMd5Hash(randomText);
+            return File(_captchaApplication.GenerateCaptchaImage(randomText), "image/gif");
         }
     }
 }
