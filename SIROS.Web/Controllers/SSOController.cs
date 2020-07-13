@@ -233,7 +233,7 @@ namespace SIROS.Web.Controllers
                 #region VALIDACION DE REGISTRO DE SESION EN BD
 
                 var oRequestRegistrarSesion = new AdminDto.RegistrarSesion();
-                oRequestRegistrarSesion.sUsuario = oItem.sUsername;
+                oRequestRegistrarSesion.sUsuario = oItem.sUsername.ToUpper();
                 oRequestRegistrarSesion.sUsuarioSSO = null;
                 oRequestRegistrarSesion.sIp = "0.0.0.0";
                 oRequestRegistrarSesion.sFlag = "1";
@@ -259,7 +259,7 @@ namespace SIROS.Web.Controllers
                 #region GENERAR JWT
 
                 var oJwt = new JwtDto.Request();
-                oJwt.sUsername = oItem.sUsername;
+                oJwt.sUsername = oItem.sUsername.ToUpper(); //Forzar mayuscula
                 oJwt.sUsernameSSO = oUser.Data.IdUsuario.ToString();
                 oJwt.sProfile = oUser.Data.sNombrePerfil;
                 oJwt.sIdSession = oUser.Data.nIdSession.ToString();

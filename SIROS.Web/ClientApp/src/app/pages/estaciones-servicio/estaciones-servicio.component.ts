@@ -11,7 +11,7 @@ declare var $: any;
   styleUrls: ['./estaciones-servicio.component.css']
 })
 export class EstacionesServicioComponent implements OnInit {
-sTitlePage: string = 'Estación de servicio';
+  sTitlePage: string = 'Estación de servicio';
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
