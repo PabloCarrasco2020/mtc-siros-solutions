@@ -140,6 +140,20 @@ sTitlePage: string = 'Estación de servicio';
     this.nCurrentPage = nPage;
     this.CargarEstaciones();
   }
+  onChangeSinDato() {
+    if ( Number(this.nTipoVia) === 0) {
+      this.sVia = '';
+    }
+    if ( Number(this.nCentroPoblado) === 0) {
+      this.sCentroPoblado = '';
+    }
+    if ( Number(this.nIdNumeroManzana) === 0) {
+      this.sNumeroManzana = '';
+    }
+    if ( Number(this.nIdLoteInterior) === 0) {
+      this.sLoteInterior = '';
+    }
+  }
   onChangeDepartamento() {
     this.sCodProvincia = '00';
     this.sCodDistrito = '00';
@@ -200,6 +214,19 @@ sTitlePage: string = 'Estación de servicio';
     this.ParseListToIndexRepresentante();
   }
   fnEditarRepresentanteLegal() {
+    let count: number = 0;
+    for (let index = 0; index < this.lstResponsablesLegales.length; index++) {
+      if (this.lstResponsablesLegales[index].sNroDocumento === this.sNroDocRepresentanteLegal) {
+        if (index !== this.nIdRepresentanteLegal - 1) {
+          count++;
+        }
+      }
+    }
+    if ( count > 0) {
+      this.oMessageService.warning(this.sTitlePage, 'Representante legal ya se encuentra agregado en la lista inferior.');
+      return;
+    }
+
     // tslint:disable-next-line: triple-equals
     const documentoRepresentante = this.lstTipoDocReprLegal.find(doc => doc.nId == this.nTipDocRepresentanteLegal);
     // tslint:disable-next-line: triple-equals
