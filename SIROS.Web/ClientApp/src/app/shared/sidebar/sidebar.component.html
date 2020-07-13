@@ -11,9 +11,11 @@
                         <span class="text-muted text-xs block">( <b>{{oCurrentUser.sNombrePerfil}}</b> )</span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                        <!--
                         <li><a class="dropdown-item" href="#">Profile</a></li>
                         <li><a class="dropdown-item" href="#">Mailbox</a></li>
                         <li class="dropdown-divider"></li>
+                        -->
                         <li><a class="dropdown-item" (click)="fnLogout()">Cerrar Sesion</a></li>
                     </ul>
                 </div>
@@ -33,10 +35,10 @@
                     <i class="fa fa-fax"></i> <span class="nav-label">Estaciones Servicio</span>
                 </a>
             </li>
+            <!--
             <li *ngIf="HasProfilePromovilidad()">
                 <a [routerLink]="['/promovilidad/periodos']" routerLinkActive="active">
                     <i class="fa fa-calendar"></i> <span class="nav-label">Periodos</span>
-                    <!-- <span class="fa arrow"></span> -->
                 </a>
             </li>
             <li *ngIf="HasProfilePromovilidad()">
@@ -44,7 +46,7 @@
                     <i class="fa fa-flask"></i> <span class="nav-label">Combustible </span>
                 </a>
             </li>
-
+            -->
             <!-- OGTU -->
             
             <li *ngIf="hasProfileOGTU()">
