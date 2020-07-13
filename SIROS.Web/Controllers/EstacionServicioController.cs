@@ -1,5 +1,6 @@
 ﻿using Application.Dto;
 using Application.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using Transversal.Common.Enums;
 
 namespace SIROS.Web.Controllers
 {
+    [Authorize]
     [Route("api/[Controller]/[Action]")]
     [ApiController]
     public class EstacionServicioController : ControllerBase
