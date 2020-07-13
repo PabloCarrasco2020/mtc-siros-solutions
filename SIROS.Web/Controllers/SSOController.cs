@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Transversal.Common;
+using Transversal.Common.Enums;
 using Transversal.Common.Helper;
 
 namespace SIROS.Web.Controllers
@@ -249,7 +250,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("SSOController-Login", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "SSO-Login", ex, oItem);
                 return Ok(new Response<Object> { Message = $"[SSO]: ERR-Fallo en el servidor: {ex.StackTrace}" });
             }
         }

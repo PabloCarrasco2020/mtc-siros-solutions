@@ -7,6 +7,7 @@ using Application.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Transversal.Common;
+using Transversal.Common.Enums;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -42,7 +43,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("MunicipalidadController-Get", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Municipalidad-Get", ex, sInput);
                 return new Response<MunicipalidadDto.RSGet>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -59,7 +60,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("MunicipalidadController-GetAllByFilter", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Municipalidad-GetAllByFilter", ex, nPagina, sFilter);
                 return new Response<IndexTableModelDto>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -121,7 +122,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("MunicipalidadController-Insert", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Municipalidad-Insert", ex, input);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -145,7 +146,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("MunicipalidadController-Update", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Municipalidad-Update", ex, input);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -169,7 +170,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("MunicipalidadController-Delete", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Municipalidad-Delete", ex, input);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"

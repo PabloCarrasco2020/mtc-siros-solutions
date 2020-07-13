@@ -7,6 +7,7 @@ using Application.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Transversal.Common;
+using Transversal.Common.Enums;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,7 +40,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ComboController-GetDepartamento", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetDepartamento", ex);
                 return new Response<List<ComboModelDto.XCodigo>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -55,7 +56,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ComboController-GetProvincia", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetProvincia", ex, sCodDepartamento);
                 return new Response<List<ComboModelDto.XCodigo>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -71,7 +72,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ComboController-GetDistrito", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetDistrito", ex, sCodDepartamento, sCodProvincia);
                 return new Response<List<ComboModelDto.XCodigo>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -89,7 +90,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ComboController-GetTipoVia", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetTipoVia", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -105,7 +106,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ComboController-GetCentroPoblado", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetCentroPoblado", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -121,7 +122,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ComboController-GetNumeroManzana", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetNumeroManzana", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -137,7 +138,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ComboController-GetLoteInterior", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetLoteInterior", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -153,7 +154,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ComboController-GetTipoDocRepresentanteLegal", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetTipoDocRepresentanteLegal", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -169,7 +170,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ComboController-GetCargoRepresentanteLegal", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetCargoRepresentanteLegal", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"

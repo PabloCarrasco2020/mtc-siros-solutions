@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
 using Transversal.Common;
+using Transversal.Common.Enums;
 
 namespace SIROS.Web.Controllers
 {
@@ -37,7 +38,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("EstacionServicioController-Get", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "EstacionServicio-Get", ex, sInput);
                 return new Response<EstacionServicioDto.RSGet>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -54,7 +55,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("EstacionServicioController-GetAllByFilter", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "EstacionServicio-GetAllByFilter", ex, nPagina, sFilter);
                 return new Response<IndexTableModelDto>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -116,7 +117,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("EstacionServicioController-Insert", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "EstacionServicio-Insert", ex, input);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -140,7 +141,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("EstacionServicioController-Update", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "EstacionServicio-Update", ex, input);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -164,7 +165,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("EstacionServicioController-Delete", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "EstacionServicio-Delete", ex, input);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"

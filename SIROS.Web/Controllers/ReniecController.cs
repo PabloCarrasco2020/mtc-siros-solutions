@@ -4,6 +4,7 @@ using Application.Interface;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Transversal.Common;
+using Transversal.Common.Enums;
 
 namespace SIROS.Web.Controllers
 {
@@ -31,7 +32,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLogError("ReniecController-ConsultaNumDoc", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Reniec-ConsultaNumDoc", ex, sNumDoc);
                 return Ok(new Response<Object> { Message = "[RENIEC]: ERR-Fallo en el servidor" });
             }
         }
