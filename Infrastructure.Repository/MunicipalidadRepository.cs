@@ -56,7 +56,7 @@ namespace Infrastructure.Repository
                 var splFilter = filter.Split('@');
                 var dyParam = new OracleDynamicParameters();
                 dyParam.Add("num_filtrotipo_", OracleDbType.Varchar2, ParameterDirection.Input, splFilter[0]);
-                dyParam.Add("str_filtrovalor_", OracleDbType.Varchar2, ParameterDirection.Input,splFilter[1]);
+                dyParam.Add("str_filtrovalor_", OracleDbType.Varchar2, ParameterDirection.Input,splFilter[1].ToUpper());
                 dyParam.Add("num_pagina_", OracleDbType.Varchar2, ParameterDirection.Input, pagina);
                 dyParam.Add("num_registros_", OracleDbType.Varchar2, ParameterDirection.Input, cantidadXPagina);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
