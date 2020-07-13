@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { StorageService } from './storage.service';
 import { LoginResponseModel } from '../models/SSO.model';
+import { Router } from '@angular/router';
 
 const SESSION_USER_TOKEN: string = '000001';
 const SESSION_USER_PROFILE: string = '000002';
@@ -11,7 +12,9 @@ const SESSION_CURRENT_USER: string = '000003';
 })
 export class SessionService {
 
-    constructor(private oStorageService: StorageService) { }
+    constructor(
+      private router: Router,
+      private oStorageService: StorageService) { }
 
     SaveSession(oUser: LoginResponseModel) {
         this.oStorageService.Set(SESSION_USER_TOKEN, oUser.sToken);
@@ -23,7 +26,7 @@ export class SessionService {
         this.oStorageService.Remove(SESSION_USER_TOKEN);
         this.oStorageService.Remove(SESSION_USER_PROFILE);
         this.oStorageService.Remove(SESSION_CURRENT_USER);
-        window.location.reload();
+        this.router.navigate(['/login']);
     }
 
     IsSessionActive(): boolean {

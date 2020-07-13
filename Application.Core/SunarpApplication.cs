@@ -30,8 +30,18 @@ namespace Application.Core
         {
             try
             {
+                var oResponse = new Response<SunarpDto.SunarpMtcResponseModel>();
+                oResponse.IsSuccess = false;
+
                 var wsSunarp = new wsSoapSUNARP.WSVehicularMtcDelegateClient();
                 var oResult = await wsSunarp.getConsultaxPlacaMTCAsync(sPlaca);
+
+                if (oResult == null)
+                {
+                    oResponse.Message = "No se encontro información de la PLACA ingresada.";
+                    return oResponse;
+                }
+                
                 var sJson = FuncConvert.XmlToJson(oResult.Body.@return);
 
                 // DEBIDO A QUE EL SERVICIO RESPONDE DE DOS MANERAS SE ESTA USANDO UN METODO QUE NOS AYUDA A CONVERTIR DE JSON A OBJETO
@@ -64,7 +74,6 @@ namespace Application.Core
                     }
                 }
 
-                var oResponse = new Response<SunarpDto.SunarpMtcResponseModel>();
                 oResponse.IsSuccess = true;
                 oResponse.Data = oInfo;
                 return oResponse;

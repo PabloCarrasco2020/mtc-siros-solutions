@@ -19,8 +19,17 @@ namespace Application.Core
         {
             try
             {
+                var oResponse = new Response<SunatDto.ConsultaRucResponseModel>();
+                oResponse.IsSuccess = false;
+
                 var wsSunat = new wsSoapSUNAT.DatosRucWSFacadeRemoteClient();
                 var oResult = await wsSunat.getDatosPrincipalesAsync(sRuc);
+
+                if (oResult == null)
+                {
+                    oResponse.Message = "No se encontro información del RUC ingresado.";
+                    return oResponse;
+                }
 
                 var oResp = new SunatDto.ConsultaRucResponseModel();
                 oResp.sTipoPersona = oResult.desc_identi.Trim();
@@ -63,7 +72,6 @@ namespace Application.Core
                     oResp.sDireccion = sb.ToString().Trim();
                 }
 
-                var oResponse = new Response<SunatDto.ConsultaRucResponseModel>();
                 oResponse.IsSuccess = true;
                 oResponse.Data = oResp;
                 return oResponse;

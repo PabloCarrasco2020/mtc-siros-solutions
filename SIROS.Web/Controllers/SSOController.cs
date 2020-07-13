@@ -173,17 +173,17 @@ namespace SIROS.Web.Controllers
                     return Ok(oResponse);
                 }
 
+
+                oPerfiles.Data[0].NombreRol = "Promovilidad";
 #if DEBUG
 
                 // ================================
                 // ===== SECCION PARA PRUEBAS =====
                 // ================================
-                oPerfiles.Data[0].NombreRol = "Promovilidad";
+                oPerfiles.Data[0].NombreRol = "OGTU";
 
 #endif
-
-                oPerfiles.Data[0].NombreRol = "Promovilidad";
-
+                
                 int nCantPerfilesValidos = 0;
                 foreach (var item in oPerfiles.Data)
                 {
