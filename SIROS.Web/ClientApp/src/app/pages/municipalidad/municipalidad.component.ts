@@ -648,4 +648,16 @@ export class MunicipalidadComponent implements OnInit {
     }
     return null;
   }
+  KeyUpNumber(event: any) {
+    const code: string = event.code;
+    if (code.startsWith('Key') || code.startsWith('Space')) {
+      event.preventDefault();
+    }
+  }
+  KeyUpLetter(event: any) {
+    const code: string = event.code;
+    if (code.startsWith('Digit')) {
+      event.preventDefault();
+    }
+  }
 }
