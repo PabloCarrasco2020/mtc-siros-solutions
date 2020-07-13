@@ -17,6 +17,8 @@ namespace Transversal.Common
                 public const string EX005 = "El usuario no tiene el perfil necesario para poder continuar.";
                 public const string EX006 = "No se pudo obtener la información personal del usuario.";
                 public const string EX007 = "No se pudo registrar la sesion del usuario.";
+                public const string EX008 = "Porfavor complete el Captcha correctamente.";
+                public const string EX009 = "Los valores del Captcha no coinciden con los ingresados.";
             }
         }
     }

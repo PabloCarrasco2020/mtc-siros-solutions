@@ -101,6 +101,7 @@ namespace Application.Dto
             {
                 public string sUsername { get; set; }
                 public string sPassword { get; set; }
+                public string sCode { get; set; }
             }
 
             public class Response

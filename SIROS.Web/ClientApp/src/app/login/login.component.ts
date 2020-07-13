@@ -12,11 +12,11 @@ import { NgBlockUI, BlockUI } from 'ng-block-ui';
   styles: []
 })
 export class LoginComponent implements OnInit {
-  private api: string = "/api/SSO";
-  private captchaUrl: string = `${this.api}/captcha`;
 
   sUsername: string = '';
   sPassword: string = '';
+
+  sCaptchaUrl: string = '';
   sCaptcha: string = '';
 
   @BlockUI() oBlockUI: NgBlockUI;
@@ -25,17 +25,28 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private oSSOService: SSOService,
     private oSessionService: SessionService
-    ) { }
+    ) {
+      this.fnCaptchaReset();
+    }
 
   ngOnInit() {
   }
 
   fnCaptchaReset() {
-    this.sCaptcha = "";
-    this.captchaUrl = `${this.api}/captcha?${Date.now()}`;
+    this.sCaptcha = '';
+    this.sCaptchaUrl = this.oSSOService.GetCaptchaUrl();
   }
 
   fnLogin() {
+    if (!this.sCaptcha) {
+      Swal.fire({
+        icon: 'error',
+        title: 'ERROR',
+        text: 'Porfavor complete el Captcha.'
+      });
+      return;
+    }
+
     if (!this.sUsername) {
       Swal.fire({
         icon: 'error',
@@ -69,8 +80,10 @@ export class LoginComponent implements OnInit {
     }
 
     this.oBlockUI.start('Iniciando Sesion...');
-    this.oSSOService.Login(this.sUsername, this.sPassword)
+    this.oSSOService.Login(this.sUsername, this.sPassword, this.sCaptcha)
       .then((oResponse: ResponseModel<LoginResponseModel>) => {
+
+      this.fnCaptchaReset();
 
       if (!oResponse) {
         this.oBlockUI.stop();

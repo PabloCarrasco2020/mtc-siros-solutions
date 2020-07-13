@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Application.Dto;
 using Application.Interface;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Transversal.Common;
@@ -26,6 +27,13 @@ namespace SIROS.Web.Controllers
 
         private List<string> _perfilesPermitidos;
 
+        private string _sCaptchaHashKey = "C4PTCH4H4SH2020";
+        private string CaptchaHash
+        {
+            get { return HttpContext.Session.GetString(_sCaptchaHashKey) as string; }
+            set { HttpContext.Session.SetString(_sCaptchaHashKey, value); }
+        }
+        
         public SSOController(
             ISSOApplication sSOApplication,
             IAdminApplication adminApplication,
@@ -45,9 +53,7 @@ namespace SIROS.Web.Controllers
             this._perfilesPermitidos = new List<string>();
             this._perfilesPermitidos.AddRange(sPerfiles.Split(';'));
         }
-
-       
-
+        
         [AllowAnonymous]
         [HttpPost("Login")]
         public async Task<IActionResult> Login(SSODto.Login.RequestModel oItem)
@@ -56,6 +62,26 @@ namespace SIROS.Web.Controllers
             {
                 var oResponse = new Response<SSODto.Login.Response>();
                 oResponse.IsSuccess = false;
+
+                #region VALIDACION DE CAPTCHA
+
+                if (string.IsNullOrEmpty(oItem.sCode))
+                {
+                    oResponse.Message = Messages.SSO.Login.EX008;
+                    return Ok(oResponse);
+                }
+
+                if (!this._captchaApplication.ComputeMd5Hash(oItem.sCode).Equals(CaptchaHash))
+                {
+                    HttpContext.Session.Remove(this._sCaptchaHashKey);
+                    oResponse.Message = Messages.SSO.Login.EX009;
+                    return Ok(oResponse);
+                }
+
+                if (CaptchaHash != null)
+                    HttpContext.Session.Remove(this._sCaptchaHashKey);
+
+                #endregion
 
                 #region VALIDACION DE USUARIO
 
@@ -255,14 +281,14 @@ namespace SIROS.Web.Controllers
             }
         }
 
-        [Route("captcha")]
+        [AllowAnonymous]
+        [Route("GetCaptcha")]
         [HttpGet]
         public ActionResult GetCaptcha()
         {
-            var randomText = _captchaApplication.GenerateRandomText(4);
-            //Guardar en las HttpSession como un MD5
-            //CaptchaHash = _captchaApplication.ComputeMd5Hash(randomText);
-            return File(_captchaApplication.GenerateCaptchaImage(randomText), "image/gif");
+            var randomText = this._captchaApplication.GenerateRandomText(4);
+            CaptchaHash = this._captchaApplication.ComputeMd5Hash(randomText);
+            return File(this._captchaApplication.GenerateCaptchaImage(randomText), "image/gif");
         }
     }
 }

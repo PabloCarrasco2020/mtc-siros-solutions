@@ -57,6 +57,9 @@ namespace SIROS.Web
             this.LoadJWT(services);
 
             services.AddControllersWithViews();
+            services.AddResponseCaching();
+            services.AddSession();
+
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -90,6 +93,7 @@ namespace SIROS.Web
             app.UseRouting();
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
@@ -151,7 +155,6 @@ namespace SIROS.Web
 
         private void LoadScopes(IServiceCollection services)
         {
-            services.AddScoped<ICaptchaApplication, CaptchaApplication>();
             services.AddScoped<IMunicipalidadApplication, MunicipalidadApplication>();
             services.AddScoped<IMunicipalidadDomain, MunicipalidadDomain>();
             services.AddScoped<IMunicipalidadRepository, MunicipalidadRepository>();
