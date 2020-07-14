@@ -158,6 +158,20 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_DIRECCION))
                 .ReverseMap();
             #endregion
+
+            #region Combustible
+        
+            CreateMap<TM_COMBUSTIBLE, CombustibleDto.RSGet>()
+                .ForMember(destination => destination.nIdCombustible, source => source.MapFrom(src => src.NUM_IDCOMBUSTIBLE))
+                .ForMember(destination => destination.sDsCombustible, source => source.MapFrom(src => src.STR_DSCOMBUSTIBLE))
+                .ReverseMap();
+            CreateMap<TM_COMBUSTIBLE, TableModel>()
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDCOMBUSTIBLE))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_IDCOMBUSTIBLE))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_DSCOMBUSTIBLE))
+                .ReverseMap();
+            #endregion
+
             #region General
             CreateMap<GENERAL.TIPO_VIA, ComboModelDto.XId>()
                 .ForMember(destination => destination.nId, source => source.MapFrom(src => src.NUM_IDTPVIA))
