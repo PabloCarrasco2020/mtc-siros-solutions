@@ -26,6 +26,8 @@ namespace Domain.Entities
         public int? NUM_IDENTIDADUSUARIO { get; set; }
         public int? NUM_IDENTIDADSSO { get; set; }
         public int? NUM_IDLOCALSSO { get; set; }
+        public string STR_NUMRUC { get; set; }
+        public string STR_RAZONSOCIAL { get; set; }
         public string STR_DIRECCION { get; set; }
     }
 }

@@ -34,4 +34,7 @@ export class ComboService {
   GetCargoRepresentanteLegal() {
     return this.oBaseService.CallGet(`api/Combo/GetCargoRepresentanteLegal`);
   }
+  GetEstacionServicio() {
+    return this.oBaseService.CallGet(`api/Combo/GetEstacionServicio`);
+  }
 }

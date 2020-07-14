@@ -55,7 +55,14 @@ namespace Domain.Main
 
         public async Task<List<TM_ESTACIONSERVICIO>> GetCombo(TM_ESTACIONSERVICIO input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this._estacionServicioRepository.GetCombo(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<TM_ESTACIONSERVICIO> Insert(TM_ESTACIONSERVICIO input)

@@ -8,9 +8,8 @@ namespace Application.Dto
     {
         public class RSGet
         {
+            public int? nIdSucursalxES { get; set; }
             public int? nIdEstServicio { get; set; }
-            public string sRuc { get; set; }
-            public string sRazonSocial { get; set; }
             public int? nTipoVia { get; set; }
             public string sVia { get; set; }
             public int? nCentroPoblado { get; set; }
@@ -23,13 +22,12 @@ namespace Application.Dto
             public string sCodDepartamento { get; set; }
             public string sCodProvincia { get; set; }
             public string sCodDistrito { get; set; }
-            public string sNroSucursales { get; set; }
-            public string sRepresentante { get; set; }
+            public string sLatitud { get; set; }
+            public string sLongitud { get; set; }
         }
         public class RQInsert
         {
-            public string sRuc { get; set; }
-            public string sRazonSocial { get; set; }
+            public int? nIdEstServicio { get; set; }
             public int? nTipoVia { get; set; }
             public string sVia { get; set; }
             public int? nCentroPoblado { get; set; }
@@ -42,18 +40,19 @@ namespace Application.Dto
             public string sCodDepartamento { get; set; }
             public string sCodProvincia { get; set; }
             public string sCodDistrito { get; set; }
-            public string sNroSucursales { get; set; }
+            public string sLatitud { get; set; }
+            public string sLongitud { get; set; }
             public string sUsuario { get; set; }
             public int? nIdSession { get; set; }
-            public string sRepresentante { get; set; }
+            public int? nIdentidadUsuario { get; set; }
             public int? nIdentidadsso { get; set; }
             public int? nIdLocalsso { get; set; }
+            public string sRucEstacionServicio { get; set; }
+            public string sDireccionSucursal { get; set; }
         }
         public class RQUpdate
         {
-            public int? nIdEstServicio { get; set; }
-            public string sRuc { get; set; }
-            public string sRazonSocial { get; set; }
+            public int? nIdSucursalxES { get; set; }
             public int? nTipoVia { get; set; }
             public string sVia { get; set; }
             public int? nCentroPoblado { get; set; }
@@ -66,14 +65,14 @@ namespace Application.Dto
             public string sCodDepartamento { get; set; }
             public string sCodProvincia { get; set; }
             public string sCodDistrito { get; set; }
-            public string sNroSucursales { get; set; }
+            public string sLatitud { get; set; }
+            public string sLongitud { get; set; }
             public string sUsuario { get; set; }
             public int? nIdSession { get; set; }
-            public string sRepresentante { get; set; }
         }
         public class RQDelete
         {
-            public int? nIdEstServicio { get; set; }
+            public int? nIdSucursalxES { get; set; }
             public string sUsuario { get; set; }
             public int? nIdSession { get; set; }
         }

@@ -53,6 +53,11 @@ namespace SIROS.Web.Controllers
             try
             {
                 int nCantidadXPagina = 10;
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    sFilter = $"{sFilter}@{oUserInfo.Data.nIdEmpresa}";
+                }
                 return await _sucursalESApplication.GetAllByFilter(nCantidadXPagina, nPagina, sFilter);
             }
             catch (Exception ex)
@@ -77,10 +82,11 @@ namespace SIROS.Web.Controllers
                 {
                     input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
                     input.sUsuario = oUserInfo.Data.sUsername;
+                    input.nIdentidadUsuario = oUserInfo.Data.nIdEmpresa;
                 }
                 var responseInsert = new Response<int>();
                 // INSERTAR MUNICIPALIDAD EN EL SSO 58930 60288
-                var rEnterpriseNew = await this._sSOApplication.EnterpriseNew(input.sRuc);
+                var rEnterpriseNew = await this._sSOApplication.EnterpriseNew(input.sRucEstacionServicio);
                 if (!rEnterpriseNew.IsSuccess)
                 {
                     responseInsert.Message = rEnterpriseNew.Message;
@@ -94,7 +100,7 @@ namespace SIROS.Web.Controllers
                 // ASIGNAR APLICATIVO A MUNICIPALIDAD EN EL SSO 75066
                 var rEnterpriseAttachApp = await this._sSOApplication.EnterpriseAttachApp(
                     rEnterpriseNew.Data.IdPersona.ToString(),
-                    input.sRuc);
+                    input.sRucEstacionServicio);
                 if (!rEnterpriseAttachApp.IsSuccess)
                 {
                     responseInsert.Message = rEnterpriseAttachApp.Message;
@@ -103,10 +109,10 @@ namespace SIROS.Web.Controllers
                 // CREAR LOCAL DE MUNICIPALIDAD EN EL SSO 6213
                 var rEnterpriseAddLocal = await this._sSOApplication.EnterpriseAddLocal(
                     rEnterpriseNew.Data.IdPersona.ToString(),
-                    input.sRuc,
+                    input.sRucEstacionServicio,
                     rEnterpriseAttachApp.Data.Value,
-                    "LOCAL PRINCIPAL",
-                    "-"
+                    input.sDireccionSucursal,
+                    input.sDireccionSucursal
                     );
                 if (!rEnterpriseAddLocal.IsSuccess)
                 {
@@ -119,7 +125,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "SucursalESController-Insert", ex, input);
+                //_ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "SucursalESController-Insert", ex, input);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
