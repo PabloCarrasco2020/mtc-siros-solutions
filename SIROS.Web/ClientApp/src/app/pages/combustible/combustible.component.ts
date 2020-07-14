@@ -39,6 +39,21 @@ export class CombustibleComponent implements OnInit {
     //$(document).prop('title', 'SIROS - Combustible');
   }
 
+  fnBefore(nPage: number) {
+  }
+
+  fnNew() {
+  }
+
+  fnEdit(nId: number) {
+  }
+
+  fnDelete(nId: number) {
+  }
+
+  fnNext(nPage: number) {
+  }
+
   CargarCombustible() {
     this.oBlockUI.start('Cargando Municipalidades...');
     console.log(this.sFilter);

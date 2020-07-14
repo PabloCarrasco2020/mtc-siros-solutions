@@ -180,7 +180,7 @@ namespace SIROS.Web.Controllers
                 // ===== SECCION PARA PRUEBAS =====
                 // ================================
                 //oPerfiles.Data[0].NombreRol = "OGTU";
-                oPerfiles.Data[0].NombreRol = "Promovilidad";
+                //oPerfiles.Data[0].NombreRol = "Promovilidad";
 #endif
 
                 int nCantPerfilesValidos = 0;
