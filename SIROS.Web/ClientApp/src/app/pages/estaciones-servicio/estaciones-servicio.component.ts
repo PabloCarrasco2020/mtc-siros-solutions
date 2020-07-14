@@ -598,10 +598,10 @@ export class EstacionesServicioComponent implements OnInit {
       return 'Realice la búsqueda del Ruc para completar el campo Razón Social';
     }
     if (
-      this.nTipoVia === -1 ||
-      this.nCentroPoblado === -1 ||
-      this.nIdNumeroManzana === -1 ||
-      this.nIdLoteInterior === -1 ||
+      Number(this.nTipoVia) === -1 ||
+      Number(this.nCentroPoblado) === -1 ||
+      Number(this.nIdNumeroManzana) === -1 ||
+      Number(this.nIdLoteInterior) === -1 ||
       this.sCodDepartamento === '00' ||
       this.sCodProvincia === '00' ||
       this.sCodDistrito === '00'
@@ -631,7 +631,7 @@ export class EstacionesServicioComponent implements OnInit {
     return null;
   }
   ValidarRepresentanteLegal() {
-    if ( this.nTipDocRepresentanteLegal === 0) {
+    if ( Number(this.nTipDocRepresentanteLegal) === 0) {
       return 'Seleccione Tipo de documento.';
     }
     if (this.sNroDocRepresentanteLegal.length === 0) {

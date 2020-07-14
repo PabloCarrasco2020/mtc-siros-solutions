@@ -504,7 +504,6 @@ export class ContratoESComponent implements OnInit {
       this.oBlockUI.stop();
     });
   }
-  
   ParseListResponsablesToString() {
     let sTramaRepresentante = '';
     this.lstResponsablesLegales.forEach(iResponsable => {
@@ -546,7 +545,6 @@ export class ContratoESComponent implements OnInit {
     this.sApeMaternoRepresentanteLegal = '';
     this.nCargoRepresentanteLegal = 0;
   }
-  
   ValidarDatosEmpresa(): any {
     if (this.sRuc.length !== 11) {
       return 'Ingrese el Número de RUC correctamente';
@@ -555,10 +553,10 @@ export class ContratoESComponent implements OnInit {
       return 'Realice la búsqueda del Ruc para completar el campo Razón Social';
     }
     if (
-      this.nTipoVia === -1 ||
-      this.nCentroPoblado === -1 ||
-      this.nIdNumeroManzana === -1 ||
-      this.nIdLoteInterior === -1 ||
+      Number(this.nTipoVia) === -1 ||
+      Number(this.nCentroPoblado) === -1 ||
+      Number(this.nIdNumeroManzana) === -1 ||
+      Number(this.nIdLoteInterior) === -1 ||
       this.sCodDepartamento === '00' ||
       this.sCodProvincia === '00' ||
       this.sCodDistrito === '00'
@@ -588,7 +586,7 @@ export class ContratoESComponent implements OnInit {
     return null;
   }
   ValidarRepresentanteLegal() {
-    if ( this.nTipDocRepresentanteLegal === 0) {
+    if ( Number(this.nTipDocRepresentanteLegal) === 0) {
       return 'Seleccione Tipo de documento.';
     }
     if (this.sNroDocRepresentanteLegal.length === 0) {
