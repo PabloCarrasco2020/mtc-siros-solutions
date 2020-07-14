@@ -173,8 +173,6 @@ namespace SIROS.Web.Controllers
                     return Ok(oResponse);
                 }
 
-
-                oPerfiles.Data[0].NombreRol = "Promovilidad";
 #if DEBUG
 
                 // ================================
