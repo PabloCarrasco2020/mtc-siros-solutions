@@ -1,6 +1,7 @@
 ﻿using Application.Dto;
 using Application.Interface;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Interface;
 using System;
 using System.Collections.Generic;
@@ -21,34 +22,144 @@ namespace Application.Core
             this._mapper = mapper;
         }
 
-        public Task<Response<int>> Delete(ContratoEsDto.RQDelete input)
+        public async Task<Response<int>> Delete(ContratoEsDto.RQDelete input)
+        {
+            try
+            {
+                var responseDelete = new Response<int>();
+                var modelReq = this._mapper.Map<TM_CONTRATOES>(input);
+                var result = await this._contratoEsDomain.Delete(modelReq);
+                if (result.STR_ESTADOPROCESO == "1")
+                {
+                    responseDelete.IsSuccess = true;
+                    responseDelete.Data = result.NUM_IDESTSERVICIOXENT.Value;
+                    responseDelete.Message = result.STR_MENSAJE;
+                }
+                else if (result.STR_ESTADOPROCESO == "-1")
+                {
+                    responseDelete.Message = result.STR_MENSAJE;
+                }
+                else if (result.STR_ESTADOPROCESO == "0")
+                {
+                    throw new Exception(result.STR_MENSAJE);
+                }
+                return responseDelete;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Response<ContratoEsDto.RSGet>> Get(string input)
+        {
+            try
+            {
+                var responseGet = new Response<ContratoEsDto.RSGet>();
+                var result = await this._contratoEsDomain.Get(new TM_CONTRATOES { NUM_IDESTSERVICIOXENT = Int32.Parse(input) });
+                if (result == null)
+                {
+                    responseGet.Message = "No se encontró registro";
+                    return responseGet;
+                }
+                responseGet.IsSuccess = true;
+                responseGet.Data = this._mapper.Map<ContratoEsDto.RSGet>(result);
+                return responseGet;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Response<IndexTableModelDto>> GetAllByFilter(int cantidadXPagina, int pagina, string filter)
+        {
+            try
+            {
+                var responseGetAllByFilter = new Response<IndexTableModelDto>();
+                var result = await this._contratoEsDomain.GetAllByFilter(cantidadXPagina, pagina, filter);
+                if (result.Count > 0)
+                {
+                    responseGetAllByFilter.IsSuccess = true;
+                    responseGetAllByFilter.Data = new IndexTableModelDto();
+                    responseGetAllByFilter.Data.ActualPage = pagina;
+                    responseGetAllByFilter.Data.TotalPage = result[0].NUM_PAGINAS;
+                    responseGetAllByFilter.Data.NroItems = result[0].NUM_REGISTROS;
+                    responseGetAllByFilter.Data.Items = this._mapper.Map<List<TableModel>>(result);
+                }
+                else
+                {
+                    responseGetAllByFilter.Message = "No se encontró registros";
+                }
+                return responseGetAllByFilter;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public async Task<Response<List<ComboModelDto.XId>>> GetCombo(string input)
         {
             throw new NotImplementedException();
         }
 
-        public Task<Response<ContratoEsDto.RSGet>> Get(string input)
+        public async Task<Response<int>> Insert(ContratoEsDto.RQInsert input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var responseInsert = new Response<int>();
+                var modelReq = this._mapper.Map<TM_CONTRATOES>(input);
+                var result = await this._contratoEsDomain.Insert(modelReq);
+                if (result.NUM_IDESTSERVICIOXENT == -1)
+                {
+                    responseInsert.Message = result.STR_MENSAJE;
+                }
+                else if (result.NUM_IDESTSERVICIOXENT == 0)
+                {
+                    throw new Exception(result.STR_MENSAJE);
+                }
+                else
+                {
+                    responseInsert.IsSuccess = true;
+                    responseInsert.Data = result.NUM_IDESTSERVICIOXENT.Value;
+                    responseInsert.Message = result.STR_MENSAJE;
+                }
+                return responseInsert;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task<Response<IndexTableModelDto>> GetAllByFilter(int cantidadXPagina, int pagina, string filter)
+        public async Task<Response<int>> Update(ContratoEsDto.RQUpdate input)
         {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<List<ComboModelDto.XId>>> GetCombo(string input)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<int>> Insert(ContratoEsDto.RQInsert input)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<Response<int>> Update(ContratoEsDto.RQUpdate input)
-        {
-            throw new NotImplementedException();
+            try
+            {
+                var responseUpdate = new Response<int>();
+                var modelReq = this._mapper.Map<TM_CONTRATOES>(input);
+                var result = await this._contratoEsDomain.Update(modelReq);
+                if (result.STR_ESTADOPROCESO == "1")
+                {
+                    responseUpdate.IsSuccess = true;
+                    responseUpdate.Data = result.NUM_IDESTSERVICIOXENT.Value;
+                    responseUpdate.Message = result.STR_MENSAJE;
+                }
+                else if (result.STR_ESTADOPROCESO == "-1")
+                {
+                    responseUpdate.Message = result.STR_MENSAJE;
+                }
+                else if (result.STR_ESTADOPROCESO == "0")
+                {
+                    throw new Exception(result.STR_MENSAJE);
+                }
+                return responseUpdate;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

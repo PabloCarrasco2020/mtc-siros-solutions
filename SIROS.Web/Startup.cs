@@ -163,6 +163,10 @@ namespace SIROS.Web
             services.AddScoped<IEstacionServicioDomain, EstacionServicioDomain>();
             services.AddScoped<IEstacionServicioRepository, EstacionServicioRepository>();
 
+            services.AddScoped<IContratoEsApplication, ContratoEsApplication>();
+            services.AddScoped<IContratoEsDomain, ContratoEsDomain>();
+            services.AddScoped<IContratoEsRepository, ContratoEsRepository>();
+
             services.AddScoped<ICombustibleApplication, CombustibleApplication>();
             services.AddScoped<ICombustibleDomain, CombustibleDomain>();
             services.AddScoped<ICombustibleRepository, CombustibleRepository>();
