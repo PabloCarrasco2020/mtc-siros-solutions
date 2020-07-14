@@ -69,7 +69,6 @@ namespace Application.Core
             {
                 throw ex;
             }
-            throw new NotImplementedException();
         }
 
         public async Task<Response<IndexTableModelDto>> GetAllByFilter(int cantidadXPagina,int pagina, string filter)

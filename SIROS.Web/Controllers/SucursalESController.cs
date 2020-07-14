@@ -9,7 +9,7 @@ using Transversal.Common.Enums;
 
 namespace SIROS.Web.Controllers
 {
-    [Authorize]
+    [Authorize(Roles = "OGTU")]
     [Route("api/[Controller]/[Action]")]
     [ApiController]
     public class SucursalESController : ControllerBase

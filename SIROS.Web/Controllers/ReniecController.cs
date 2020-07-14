@@ -15,11 +15,13 @@ namespace SIROS.Web.Controllers
     {
         private readonly IReniecApplication _reniecApplication;
         private readonly ILogApplication _logApplication;
+        private readonly IJwtApplication _jwtApplication;
 
         public ReniecController(IReniecApplication reniecApplication, ILogApplication logApplication, IJwtApplication jwtApplication)
         {
             this._reniecApplication = reniecApplication;
             this._logApplication = logApplication;
+            this._jwtApplication = jwtApplication;
         }
 
         [HttpGet("ConsultaNumDoc")]

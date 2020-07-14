@@ -162,7 +162,47 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.sDescription, source => source.MapFrom(src => $"{src.STR_NUMRUC}-{src.STR_RAZONSOCIAL}"))
                 .ReverseMap();
             #endregion
-
+            #region Contrato de Estacion de Servicio
+            CreateMap<TM_CONTRATOES, ContratoEsDto.RQInsert>()
+               .ForMember(destination => destination.nIdEstServicio, source => source.MapFrom(src => src.NUM_IDESTSERVICIO))
+               .ForMember(destination => destination.nIdentidad, source => source.MapFrom(src => src.NUM_IDENTIDAD))
+               .ForMember(destination => destination.sNumContrato, source => source.MapFrom(src => src.STR_NUMCONTRATO))
+               .ForMember(destination => destination.dFecContrato, source => source.MapFrom(src => src.DTE_FECCONTRATO))
+               .ForMember(destination => destination.dFecIniVigencia, source => source.MapFrom(src => src.DTE_FECINIVIG))
+               .ForMember(destination => destination.dFecFinVigencia, source => source.MapFrom(src => src.DTE_FECVENVIG))
+               .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+               .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+               .ReverseMap();
+            CreateMap<TM_CONTRATOES, ContratoEsDto.RQUpdate>()
+                .ForMember(destination => destination.nIdEstServicioEnt, source => source.MapFrom(src => src.NUM_IDESTSERVICIOXENT))
+                .ForMember(destination => destination.sNumContrato, source => source.MapFrom(src => src.STR_NUMCONTRATO))
+                .ForMember(destination => destination.dFecContrato, source => source.MapFrom(src => src.DTE_FECCONTRATO))
+                .ForMember(destination => destination.dFecIniVigencia, source => source.MapFrom(src => src.DTE_FECINIVIG))
+                .ForMember(destination => destination.dFecFinVigencia, source => source.MapFrom(src => src.DTE_FECVENVIG))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_CONTRATOES, ContratoEsDto.RQDelete>()
+                .ForMember(destination => destination.nIdEstServicioEnt, source => source.MapFrom(src => src.NUM_IDESTSERVICIOXENT))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_CONTRATOES, ContratoEsDto.RSGet>()
+                .ForMember(destination => destination.nIdEstServicioEnt, source => source.MapFrom(src => src.NUM_IDESTSERVICIOXENT))
+                .ForMember(destination => destination.nIdEstServicio, source => source.MapFrom(src => src.NUM_IDESTSERVICIO))
+                .ForMember(destination => destination.nIdentidad, source => source.MapFrom(src => src.NUM_IDENTIDAD))
+                .ForMember(destination => destination.sNumContrato, source => source.MapFrom(src => src.STR_NUMCONTRATO))
+                .ForMember(destination => destination.dFecContrato, source => source.MapFrom(src => src.DTE_FECCONTRATO))
+                .ForMember(destination => destination.dFecIniVigencia, source => source.MapFrom(src => src.DTE_FECINIVIG))
+                .ForMember(destination => destination.dFecFinVigencia, source => source.MapFrom(src => src.DTE_FECVENVIG))
+                .ReverseMap();
+            CreateMap<TM_CONTRATOES, TableModel>()
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDESTSERVICIOXENT))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.STR_NUMRUC))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_RAZONSOCIAL))
+                .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_NUMCONTRATO))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.DTE_FECCONTRATO))
+                .ReverseMap();
+            #endregion
             #region Combustible
 
             CreateMap<TM_COMBUSTIBLE, CombustibleDto.RSGet>()

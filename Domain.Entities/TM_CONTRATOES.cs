@@ -15,5 +15,8 @@ namespace Domain.Entities
        public DateTime? DTE_FECVENVIG { get; set; }
        public int? NUM_IDSESION { get; set; }
        public string STR_ELIMINAR { get; set; }
+
+        public string STR_NUMRUC { get; set; }
+        public string STR_RAZONSOCIAL { get; set; }
     }
 }
