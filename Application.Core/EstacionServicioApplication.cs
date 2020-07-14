@@ -69,7 +69,6 @@ namespace Application.Core
             {
                 throw ex;
             }
-            throw new NotImplementedException();
         }
 
         public async Task<Response<IndexTableModelDto>> GetAllByFilter(int cantidadXPagina, int pagina, string filter)
@@ -101,7 +100,25 @@ namespace Application.Core
 
         public async Task<Response<List<ComboModelDto.XId>>> GetCombo(string input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var responseGetCombo = new Response<List<ComboModelDto.XId>>();
+                var result = await this._estacionServicioDomain.GetCombo(new TM_ESTACIONSERVICIO { });
+                if (result.Count > 0)
+                {
+                    responseGetCombo.IsSuccess = true;
+                    responseGetCombo.Data = this._mapper.Map<List<ComboModelDto.XId>>(result);
+                }
+                else
+                {
+                    responseGetCombo.Message = "No se encontró registros";
+                }
+                return responseGetCombo;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<Response<int>> Insert(EstacionServicioDto.RQInsert input)

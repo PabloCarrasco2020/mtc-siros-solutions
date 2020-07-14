@@ -66,9 +66,16 @@ namespace Infrastructure.Repository
             }
         }
 
-        public Task<List<TM_ESTACIONSERVICIO>> GetCombo(TM_ESTACIONSERVICIO input)
+        public async Task<List<TM_ESTACIONSERVICIO>> GetCombo(TM_ESTACIONSERVICIO input)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+                var query = _connectionFactory.GetQueryForSIROS("PKG_ESTACIONSERVICIO.SP_GetListaComboEstacion");
+                var result = await connection.QueryAsync<TM_ESTACIONSERVICIO>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result.AsList();
+            }
         }
 
         public async Task<TM_ESTACIONSERVICIO> Insert(TM_ESTACIONSERVICIO input)

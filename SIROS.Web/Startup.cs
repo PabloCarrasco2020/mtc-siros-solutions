@@ -167,6 +167,10 @@ namespace SIROS.Web
             services.AddScoped<ICombustibleDomain, CombustibleDomain>();
             services.AddScoped<ICombustibleRepository, CombustibleRepository>();
 
+            services.AddScoped<ISucursalESApplication, SucursalESApplication>();
+            services.AddScoped<ISucursalESDomain, SucursalESDomain>();
+            services.AddScoped<ISucursalESRepository, SucursalESRepository>();
+
             services.AddScoped<ISunatApplication, SunatApplication>();
             services.AddScoped<ISunarpApplication, SunarpApplication>();
             services.AddScoped<IReniecApplication, ReniecApplication>();

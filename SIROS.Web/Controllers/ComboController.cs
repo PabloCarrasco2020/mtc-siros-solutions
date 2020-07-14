@@ -17,16 +17,16 @@ namespace SIROS.Web.Controllers
     [Route("api/[Controller]/[Action]")]
     public class ComboController : ControllerBase
     {
-        private readonly IMunicipalidadApplication _municipalidadApplication;
+        private readonly IEstacionServicioApplication _estacionServicioApplication;
         private readonly IGeneralApplication _generalApplication;
         private readonly ILogApplication _logApplication;
 
         public ComboController(
-            IMunicipalidadApplication municipalidadApplication,
+            IEstacionServicioApplication estacionServicioApplication,
             IGeneralApplication generalApplication,
             ILogApplication logApplication)
         {
-            this._municipalidadApplication = municipalidadApplication;
+            this._estacionServicioApplication = estacionServicioApplication;
             this._generalApplication = generalApplication;
             this._logApplication = logApplication;
         }
@@ -171,6 +171,22 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetCargoRepresentanteLegal", ex);
+                return new Response<List<ComboModelDto.XId>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto.XId>>> GetEstacionServicio()
+        {
+            try
+            {
+                return await this._estacionServicioApplication.GetCombo(null);
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetEstacionServicio", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
