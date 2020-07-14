@@ -11,3 +11,4 @@ export { ReniecService } from './reniec.service';
 export { EstacionServicioService } from './estacion-servicio.service';
 export { CombustibleService } from './combustible.service';
 export { ContratoEsService } from './contrato-es.service';
+export { SucursalEsService } from './sucursal-es.service';
