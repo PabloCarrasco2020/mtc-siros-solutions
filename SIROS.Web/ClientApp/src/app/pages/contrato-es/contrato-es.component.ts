@@ -3,6 +3,7 @@ import { IndexModel } from '../../models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { EstacionServicioService, ComboService, SunatService, MessageService, ReniecService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
+import { ContratoEsRequestModel } from 'src/app/models/contrato-es.model';
 
 declare var $: any;
 @Component({
@@ -12,14 +13,14 @@ declare var $: any;
 })
 export class ContratoESComponent implements OnInit {
 
-  sTitlePage: string = 'Estación de servicio';
+  sTitlePage: string = 'Contrato de Estación de Servicios';
+  oRequestModel: ContratoEsRequestModel = new ContratoEsRequestModel();
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
   nCurrentOption: number = 0;
   nCurrentSectionModal: number = 1;
 
-  oIndexDataRepresentanteLegal: IndexModel = new IndexModel();
   // COMBOS
   lstTipoVia: any[] = [];
   lstCentroPoblado: any[] = [];
@@ -101,7 +102,6 @@ export class ContratoESComponent implements OnInit {
     this.nCurrentSectionModal = 1;
     this.LimpiarCampos();
     this.LimpiarRepresentanteLegal();
-    this.LimpiarListaRepresentantes();
     $('#myModalNew').modal({backdrop: 'static', keyboard: false});
   }
   fnEdit(nId: number) {
@@ -109,7 +109,6 @@ export class ContratoESComponent implements OnInit {
     this.nCurrentSectionModal = 1;
     this.LimpiarCampos();
     this.LimpiarRepresentanteLegal();
-    this.LimpiarListaRepresentantes();
     this.nIdEstServicio = nId;
     $('#myModalNew').modal({backdrop: 'static', keyboard: false});
     this.CargarEstacionXId();
@@ -212,7 +211,6 @@ export class ContratoESComponent implements OnInit {
         sCargo: cargoRepresentante.sDescription
       });
     this.LimpiarRepresentanteLegal();
-    this.ParseListToIndexRepresentante();
   }
   fnEditarRepresentanteLegal() {
     let count: number = 0;
@@ -241,7 +239,6 @@ export class ContratoESComponent implements OnInit {
     this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].nIdCargo = cargoRepresentante.nId;
     this.lstResponsablesLegales[this.nIdRepresentanteLegal - 1].sCargo = cargoRepresentante.sDescription;
     this.LimpiarRepresentanteLegal();
-    this.ParseListToIndexRepresentante();
   }
   fnCancelarRepresentanteLegal() {
     this.LimpiarRepresentanteLegal();
@@ -260,7 +257,6 @@ export class ContratoESComponent implements OnInit {
   }
   fnDeleteRepresentante(id: number) {
     this.lstResponsablesLegales.splice(id - 1, 1);
-    this.ParseListToIndexRepresentante();
   }
   fnUpdateRepresentante(id: number) {
     this.nIdRepresentanteLegal = id;
@@ -297,7 +293,6 @@ export class ContratoESComponent implements OnInit {
         this.sRepresentante = response.Data.sRepresentante;
         this.CargarProvincia();
         this.CargarDistrito();
-        this.ParseStringResponsablesToList();
       } else {
 
       }
@@ -344,7 +339,6 @@ export class ContratoESComponent implements OnInit {
           this.oBlockUI.stop();
           this.LimpiarCampos();
           this.LimpiarRepresentanteLegal();
-          this.LimpiarListaRepresentantes();
           this.nCurrentSectionModal = 1;
           this.oMessageService.success(this.sTitlePage, response.Message);
           this.CargarEstaciones();
@@ -510,24 +504,7 @@ export class ContratoESComponent implements OnInit {
       this.oBlockUI.stop();
     });
   }
-  ParseListToIndexRepresentante() {
-    this.oIndexDataRepresentanteLegal = new IndexModel();
-    this.oIndexDataRepresentanteLegal.NroItems = this.lstResponsablesLegales.length;
-    this.oIndexDataRepresentanteLegal.TotalPage = 1;
-    this.oIndexDataRepresentanteLegal.ActualPage = 1;
-    this.oIndexDataRepresentanteLegal.Items = [];
-    let iRepresentanteLegal = 0;
-    this.lstResponsablesLegales.forEach(responsableLegal => {
-      iRepresentanteLegal++;
-      this.oIndexDataRepresentanteLegal.Items.push(
-        {
-          Id: iRepresentanteLegal,
-          Column1: responsableLegal.sNroDocumento,
-          Column2: responsableLegal.sTipoDocumento,
-          Column3: `${responsableLegal.sNombres} ${responsableLegal.sApePaterno} ${responsableLegal.sApeMaterno}`,
-          Column4: responsableLegal.sCargo});
-    });
-  }
+  
   ParseListResponsablesToString() {
     let sTramaRepresentante = '';
     this.lstResponsablesLegales.forEach(iResponsable => {
@@ -537,25 +514,7 @@ export class ContratoESComponent implements OnInit {
     // '1@43171962@Francis arthur poldark@Palomino@Marino@2¢1@43171967@juan jose@condori@pumacahua@8';
     this.sRepresentante = sTramaRepresentante.substr(1, sTramaRepresentante.length - 1);
   }
-  ParseStringResponsablesToList() {
-    if (this.sRepresentante === null) {
-      this.lstResponsablesLegales = [];
-      this.oIndexDataRepresentanteLegal = new IndexModel();
-      return;
-    }
-    const lstResult = this.sRepresentante.split('¢');
-    // tslint:disable-next-line: prefer-for-of
-    for (let index = 0; index < lstResult.length; index++) {
-      const eRepresentante = lstResult[index].split('@');
-      this.nTipDocRepresentanteLegal = Number(eRepresentante[0]);
-      this.sNroDocRepresentanteLegal = eRepresentante[1];
-      this.sNombresRepresentanteLegal = eRepresentante[2];
-      this.sApePaternoRepresentanteLegal = eRepresentante[3];
-      this.sApeMaternoRepresentanteLegal = eRepresentante[4];
-      this.nCargoRepresentanteLegal = Number(eRepresentante[5]);
-      this.fnAgregarRepresentanteLegal();
-    }
-  }
+
   LimpiarCampos() {
     this.nIdEstServicio = 0;
     this.sRuc = '';
@@ -587,10 +546,7 @@ export class ContratoESComponent implements OnInit {
     this.sApeMaternoRepresentanteLegal = '';
     this.nCargoRepresentanteLegal = 0;
   }
-  LimpiarListaRepresentantes() {
-    this.oIndexDataRepresentanteLegal = new IndexModel();
-    this.lstResponsablesLegales = [];
-  }
+  
   ValidarDatosEmpresa(): any {
     if (this.sRuc.length !== 11) {
       return 'Ingrese el Número de RUC correctamente';
