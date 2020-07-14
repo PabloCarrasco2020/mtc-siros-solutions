@@ -9,7 +9,9 @@ namespace Domain.Entities
         public int? NUM_PAGINAS { get; set; }
         // propiedades de usuario
         public string STR_USUCREACION { get; set; }
+        public DateTime? DTE_FECCREACION { get; set; }
         public string STR_USUACT { get; set; }
+        public DateTime? DTE_FECACT { get; set; }
         // propiedades de respuesta de transacción de la bd
         public string STR_ESTADOPROCESO { get; set; }
         public string STR_MENSAJE { get; set; }

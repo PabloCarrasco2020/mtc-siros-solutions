@@ -13,6 +13,7 @@ import { EmpresasComponent } from './empresas/empresas.component';
 import { VehiculoSucursalComponent } from './vehiculo-sucursal/vehiculo-sucursal.component';
 import { RegistrarControlIEComponent } from './registrar-control-ie/registrar-control-ie.component';
 import { OGTUGuard } from '../guards/ogtu.guard';
+import { InGuard } from '../guards/in.guard';
 
 const pagesRoutes: Routes = [
     {
@@ -20,7 +21,7 @@ const pagesRoutes: Routes = [
         component: PagesComponent,
         children: [
             { path: 'home', component: HomeComponent }
-        ]
+        ], canActivate: [InGuard]
     },
     {
         path: 'promovilidad', component: PagesComponent, canActivate: [OPGuard],

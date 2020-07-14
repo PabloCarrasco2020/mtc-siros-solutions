@@ -12,6 +12,8 @@ namespace Application.Dto
             public string sUsernameSSO { get; set; }
             public string sProfile { get; set; }
             public string sIdSession { get; set; }
+            public int nIdEmpresa { get; set; }
+            public int nIdLocal { get; set; }
         }
 
         public class Response

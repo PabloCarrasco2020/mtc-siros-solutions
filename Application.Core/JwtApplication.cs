@@ -38,7 +38,9 @@ namespace Application.Core
                         new Claim(ClaimTypes.Name, oItem.sUsername),
                         new Claim(ClaimTypes.Sid, oItem.sUsernameSSO),
                         new Claim(ClaimTypes.Role, oItem.sProfile),
-                        new Claim(ClaimTypes.NameIdentifier, oItem.sIdSession)
+                        new Claim(ClaimTypes.NameIdentifier, oItem.sIdSession),
+                        new Claim("nIdEmpresa", oItem.nIdEmpresa.ToString()),
+                        new Claim("nIdLocal", oItem.nIdLocal.ToString())
                     }),
                     NotBefore = dCurrentDate,
                     Expires = dTokenExpiration,
@@ -92,6 +94,8 @@ namespace Application.Core
                 oResult.sUsernameSSO = oUser.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Sid)) ? .Value;
                 oResult.sProfile = oUser.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.Role)) ? .Value;
                 oResult.sIdSession = oUser.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.NameIdentifier)) ? .Value;
+                oResult.nIdEmpresa = Convert.ToInt32(oUser.Claims.FirstOrDefault(x => x.Type.Equals("nIdEmpresa"))?.Value);
+                oResult.nIdLocal = Convert.ToInt32(oUser.Claims.FirstOrDefault(x => x.Type.Equals("nIdLocal"))?.Value);
 
                 oResponse.IsSuccess = true;
                 oResponse.Data = oResult;
