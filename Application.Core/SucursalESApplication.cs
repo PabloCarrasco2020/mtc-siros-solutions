@@ -146,7 +146,7 @@ namespace Application.Core
                 if (result.STR_ESTADOPROCESO == "1")
                 {
                     responseUpdate.IsSuccess = true;
-                    responseUpdate.Data = result.NUM_IDESTSERVICIO.Value;
+                    responseUpdate.Data = result.NUM_IDSUCURSALXES.Value;
                     responseUpdate.Message = result.STR_MENSAJE;
                 }
                 else if (result.STR_ESTADOPROCESO == "-1")

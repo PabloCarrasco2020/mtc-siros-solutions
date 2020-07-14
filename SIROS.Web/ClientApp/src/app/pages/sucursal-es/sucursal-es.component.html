@@ -20,7 +20,7 @@
                             <div class="row">
                                 <div class="col-lg-12 mb-2">
                                     <label class="titulo-Campos" for="">Estación de servicio (*)</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="nIdEstServicio">
+                                    <select class="form-control form-control-sm" [(ngModel)]="nIdEstServicio" [disabled]="nCurrentOption===2">
                                         <option value="-1">
                                             Seleccione estación de servicio
                                         </option>
