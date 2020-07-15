@@ -18,6 +18,13 @@ export class TablaComponent implements OnInit {
   @Input() Column8Name: string = null;
   @Input() Column9Name: string = null;
   @Input() Column10Name: string = null;
+  @Input() FunctionName1: string = null;
+  @Input() FunctionName2: string = null;
+  @Input() FunctionName3: string = null;
+
+  @Input() FunctionIcon1: string = null;
+  @Input() FunctionIcon2: string = null;
+  @Input() FunctionIcon3: string = null;
 
   @Input() IndexData: IndexModel =  new IndexModel();
 
@@ -33,6 +40,10 @@ export class TablaComponent implements OnInit {
   @Output() eventDelete = new EventEmitter<number>();
   @Output() eventView = new EventEmitter<number>();
   @Output() eventSelect = new EventEmitter<number>();
+
+  @Output() eventFunction1 = new EventEmitter<number>();
+  @Output() eventFunction2 = new EventEmitter<number>();
+  @Output() eventFunction3 = new EventEmitter<number>();
 
   @Output() eventNext = new EventEmitter<number>();
   @Output() eventBefore = new EventEmitter<number>();
@@ -73,4 +84,15 @@ export class TablaComponent implements OnInit {
   btnBefore() {
     this.eventBefore.emit(this.IndexData.ActualPage - 1);
   }
+
+  bntFunction1(id: number) {
+   this.eventFunction1.emit(id) ;
+  }
+  bntFunction2(id: number) {
+   this.eventFunction2.emit(id) ;
+  }
+  bntFunction3(id: number) {
+   this.eventFunction3.emit(id) ;
+  }
+
 }

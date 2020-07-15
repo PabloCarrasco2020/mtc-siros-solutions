@@ -88,6 +88,9 @@ export class SucursalESComponent implements OnInit {
     this.LimpiarCampos();
     $('#myModalNew').modal({backdrop: 'static', keyboard: false});
   }
+  fnOperadores(id: number) {
+    console.log(id);
+  }
   fnEdit(nId: number) {
     this.nCurrentOption = 2;
     this.LimpiarCampos();

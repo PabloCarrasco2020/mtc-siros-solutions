@@ -186,7 +186,7 @@
                                 </div>
                             </div>
                         </div>
-                        <app-tabla (eventBefore)="fnBefore($event)" (eventNext)="fnNext($event)"   [IndexData]="oIndexData"  [CanNew]="true" (eventNew)="fnNew()" [CanEdit]="true" (eventEdit)="fnEdit($event)" [CanDelete]="true" (eventDelete)="fnDelete($event)" Column1Name="Nro" Column2Name="RUC" Column3Name="Razón&nbsp;Social" Column4Name="Dirección">
+                        <app-tabla FunctionName1="Operadores" FunctionIcon1="fa-address-book" (eventFunction1)="fnOperadores($event)" (eventBefore)="fnBefore($event)" (eventNext)="fnNext($event)"   [IndexData]="oIndexData"  [CanNew]="true" (eventNew)="fnNew()" [CanEdit]="true" (eventEdit)="fnEdit($event)" [CanDelete]="true" (eventDelete)="fnDelete($event)" Column1Name="Nro" Column2Name="RUC" Column3Name="Razón&nbsp;Social" Column4Name="Dirección">
                         </app-tabla>
                     </div>
                 </div>

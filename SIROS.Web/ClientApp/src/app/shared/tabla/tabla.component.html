@@ -35,6 +35,9 @@
                     <th *ngIf="Column8Name !== null">{{Column8Name}}</th>
                     <th *ngIf="Column9Name !== null">{{Column9Name}}</th>
                     <th *ngIf="Column10Name !== null">{{Column10Name}}</th>
+                    <th *ngIf="FunctionName1 !== null">{{FunctionName1}}</th>
+                    <th *ngIf="FunctionName2 !== null">{{FunctionName2}}</th>
+                    <th *ngIf="FunctionName3 !== null">{{FunctionName3}}</th>
                     <th *ngIf="CanEdit || CanView || CanDelete">Acción</th>
                 </tr>
             </thead>
@@ -53,6 +56,9 @@
                     <td *ngIf="Column8Name !== null">{{iLista.Column8}}</td>
                     <td *ngIf="Column9Name !== null">{{iLista.Column9}}</td>
                     <td *ngIf="Column10Name !== null">{{iLista.Column10}}</td>
+                    <th *ngIf="FunctionName1 !== null" style="text-align: center;"><a (click)="bntFunction1(iLista.Id)" class="btn  btn-default"><i  class="fa" [ngClass]="FunctionIcon1"></i></a></th>
+                    <th *ngIf="FunctionName2 !== null" style="text-align: center;"><a (click)="bntFunction2(iLista.Id)" class="btn  btn-default"><i  class="fa" [ngClass]="FunctionIcon2"></i></a></th>
+                    <th *ngIf="FunctionName3 !== null" style="text-align: center;"><a (click)="bntFunction3(iLista.Id)" class="btn  btn-default"><i  class="fa" [ngClass]="FunctionIcon3"></i></a></th>
                     <td *ngIf="CanEdit || CanView || CanDelete">
 
                         <div class="btn-group">
