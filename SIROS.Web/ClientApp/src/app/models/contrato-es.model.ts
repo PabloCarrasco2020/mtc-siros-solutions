@@ -1,13 +1,13 @@
-export class ContratoEsRequestModel {
+export class ContratoEsModel {
 
     nIdEstServicioEnt?: number;
     nIdEstServicio?: number;
-    nIdentidad?: number;
-    sNumContrato?: string;
+    nIdEntidad?: number;
+    sNumContrato: string;
     dFecContrato?: Date;
     dFecIniVigencia?: Date;
     dFecFinVigencia?: Date;
-    sUsuario?: string;
+    sUsuario: string;
     nIdSession?: number;
 
 }

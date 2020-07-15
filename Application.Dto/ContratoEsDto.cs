@@ -10,7 +10,7 @@ namespace Application.Dto
         {
             public int nIdEstServicioEnt { get; set; }
             public int nIdEstServicio { get; set; }
-            public int nIdentidad { get; set; }
+            public int nIdEntidad { get; set; }
             public string sNumContrato { get; set; }
             public DateTime? dFecContrato { get; set; }
             public DateTime? dFecIniVigencia { get; set; }
@@ -20,7 +20,7 @@ namespace Application.Dto
         public class RQInsert
         {
             public int? nIdEstServicio { get; set; }
-            public int? nIdentidad { get; set; }
+            public int? nIdEntidad { get; set; }
             public string sNumContrato { get; set; }
             public DateTime? dFecContrato { get; set; }
             public DateTime? dFecIniVigencia { get; set; }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
-import { ContratoEsRequestModel } from '../models/contrato-es.model';
+import { ContratoEsModel } from '../models/contrato-es.model';
 
 @Injectable({providedIn: 'root'})
 export class ContratoEsService {
@@ -15,11 +15,11 @@ export class ContratoEsService {
         return this.oBaseService.CallGet(`api/ContratoEs/GetAllByFilter?nPagina=${nPagina}&sFilter=${sFilter}`);
     }
 
-    Insert(oItem: ContratoEsRequestModel) {
+    Insert(oItem: ContratoEsModel) {
         return this.oBaseService.CallPost(`api/ContratoEs/Insert`, oItem);
     }
 
-    Update(oItem: ContratoEsRequestModel) {
+    Update(oItem: ContratoEsModel) {
         return this.oBaseService.CallPost(`api/ContratoEs/Update`, oItem);
     }
 

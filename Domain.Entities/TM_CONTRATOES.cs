@@ -10,9 +10,9 @@ namespace Domain.Entities
        public int? NUM_IDESTSERVICIO { get; set; }
        public int? NUM_IDENTIDAD { get; set; }
        public string STR_NUMCONTRATO { get; set; }
-       public DateTime? DTE_FECCONTRATO { get; set; }
-       public DateTime? DTE_FECINIVIG { get; set; }
-       public DateTime? DTE_FECVENVIG { get; set; }
+       public string DTE_FECCONTRATO { get; set; }
+       public string DTE_FECINIVIG { get; set; }
+       public string DTE_FECVENVIG { get; set; }
        public int? NUM_IDSESION { get; set; }
        public string STR_ELIMINAR { get; set; }
 
