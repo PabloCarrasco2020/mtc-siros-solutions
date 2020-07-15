@@ -84,7 +84,10 @@ namespace Application.Core
                     oSmtpClient.Port = int.Parse(this._settings.SmtpPort);
                     oSmtpClient.UseDefaultCredentials = false;
                     oSmtpClient.Credentials = oNetworkCredential;
+
+#if RELEASE
                     oSmtpClient.Send(oMessage);
+#endif
                 }
 
                 oResponse.IsSuccess = true;

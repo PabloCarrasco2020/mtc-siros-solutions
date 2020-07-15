@@ -2,6 +2,7 @@
 using Application.Dto;
 using AutoMapper;
 using Domain.Entities;
+using Transversal.Common.Extensions;
 
 namespace Transversal.Mapper
 {
@@ -165,23 +166,38 @@ namespace Transversal.Mapper
             #region Contrato de Estacion de Servicio
             CreateMap<TM_CONTRATOES, ContratoEsDto.RQInsert>()
                .ForMember(destination => destination.nIdEstServicio, source => source.MapFrom(src => src.NUM_IDESTSERVICIO))
-               .ForMember(destination => destination.nIdentidad, source => source.MapFrom(src => src.NUM_IDENTIDAD))
+               .ForMember(destination => destination.nIdEntidad, source => source.MapFrom(src => src.NUM_IDENTIDAD))
                .ForMember(destination => destination.sNumContrato, source => source.MapFrom(src => src.STR_NUMCONTRATO))
-               .ForMember(destination => destination.dFecContrato, source => source.MapFrom(src => src.DTE_FECCONTRATO))
-               .ForMember(destination => destination.dFecIniVigencia, source => source.MapFrom(src => src.DTE_FECINIVIG))
-               .ForMember(destination => destination.dFecFinVigencia, source => source.MapFrom(src => src.DTE_FECVENVIG))
+               .ForMember(destination => destination.dFecContrato, source => source.MapFrom(src => src.DTE_FECCONTRATO.GetSirosDateTime()))
+               .ForMember(destination => destination.dFecIniVigencia, source => source.MapFrom(src => src.DTE_FECINIVIG.GetSirosDateTime()))
+               .ForMember(destination => destination.dFecFinVigencia, source => source.MapFrom(src => src.DTE_FECVENVIG.GetSirosDateTime()))
                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
-               .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
-               .ReverseMap();
+               .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION));
+            CreateMap<ContratoEsDto.RQInsert, TM_CONTRATOES>()
+               .ForMember(destination => destination.NUM_IDESTSERVICIO, source => source.MapFrom(src => src.nIdEstServicio))
+               .ForMember(destination => destination.NUM_IDENTIDAD, source => source.MapFrom(src => src.nIdEntidad))
+               .ForMember(destination => destination.STR_NUMCONTRATO, source => source.MapFrom(src => src.sNumContrato))
+               .ForMember(destination => destination.DTE_FECCONTRATO, source => source.MapFrom(src => src.dFecContrato.GetSirosDateString()))
+               .ForMember(destination => destination.DTE_FECINIVIG, source => source.MapFrom(src => src.dFecIniVigencia.GetSirosDateString()))
+               .ForMember(destination => destination.DTE_FECVENVIG, source => source.MapFrom(src => src.dFecFinVigencia.GetSirosDateString()))
+               .ForMember(destination => destination.STR_USUCREACION, source => source.MapFrom(src => src.sUsuario))
+               .ForMember(destination => destination.NUM_IDSESION, source => source.MapFrom(src => src.nIdSession));
             CreateMap<TM_CONTRATOES, ContratoEsDto.RQUpdate>()
                 .ForMember(destination => destination.nIdEstServicioEnt, source => source.MapFrom(src => src.NUM_IDESTSERVICIOXENT))
                 .ForMember(destination => destination.sNumContrato, source => source.MapFrom(src => src.STR_NUMCONTRATO))
-                .ForMember(destination => destination.dFecContrato, source => source.MapFrom(src => src.DTE_FECCONTRATO))
-                .ForMember(destination => destination.dFecIniVigencia, source => source.MapFrom(src => src.DTE_FECINIVIG))
-                .ForMember(destination => destination.dFecFinVigencia, source => source.MapFrom(src => src.DTE_FECVENVIG))
+                .ForMember(destination => destination.dFecContrato, source => source.MapFrom(src => src.DTE_FECCONTRATO.GetSirosDateTime()))
+                .ForMember(destination => destination.dFecIniVigencia, source => source.MapFrom(src => src.DTE_FECINIVIG.GetSirosDateTime()))
+                .ForMember(destination => destination.dFecFinVigencia, source => source.MapFrom(src => src.DTE_FECVENVIG.GetSirosDateTime()))
                 .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
-                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
-                .ReverseMap();
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION));
+            CreateMap<ContratoEsDto.RQUpdate, TM_CONTRATOES>()
+               .ForMember(destination => destination.NUM_IDESTSERVICIOXENT, source => source.MapFrom(src => src.nIdEstServicioEnt))
+               .ForMember(destination => destination.STR_NUMCONTRATO, source => source.MapFrom(src => src.sNumContrato))
+               .ForMember(destination => destination.DTE_FECCONTRATO, source => source.MapFrom(src => src.dFecContrato.GetSirosDateString()))
+               .ForMember(destination => destination.DTE_FECINIVIG, source => source.MapFrom(src => src.dFecIniVigencia.GetSirosDateString()))
+               .ForMember(destination => destination.DTE_FECVENVIG, source => source.MapFrom(src => src.dFecFinVigencia.GetSirosDateString()))
+               .ForMember(destination => destination.STR_USUACT, source => source.MapFrom(src => src.sUsuario))
+               .ForMember(destination => destination.NUM_IDSESION, source => source.MapFrom(src => src.nIdSession));
             CreateMap<TM_CONTRATOES, ContratoEsDto.RQDelete>()
                 .ForMember(destination => destination.nIdEstServicioEnt, source => source.MapFrom(src => src.NUM_IDESTSERVICIOXENT))
                 .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
@@ -189,7 +205,7 @@ namespace Transversal.Mapper
             CreateMap<TM_CONTRATOES, ContratoEsDto.RSGet>()
                 .ForMember(destination => destination.nIdEstServicioEnt, source => source.MapFrom(src => src.NUM_IDESTSERVICIOXENT))
                 .ForMember(destination => destination.nIdEstServicio, source => source.MapFrom(src => src.NUM_IDESTSERVICIO))
-                .ForMember(destination => destination.nIdentidad, source => source.MapFrom(src => src.NUM_IDENTIDAD))
+                .ForMember(destination => destination.nIdEntidad, source => source.MapFrom(src => src.NUM_IDENTIDAD))
                 .ForMember(destination => destination.sNumContrato, source => source.MapFrom(src => src.STR_NUMCONTRATO))
                 .ForMember(destination => destination.dFecContrato, source => source.MapFrom(src => src.DTE_FECCONTRATO))
                 .ForMember(destination => destination.dFecIniVigencia, source => source.MapFrom(src => src.DTE_FECINIVIG))
@@ -197,10 +213,11 @@ namespace Transversal.Mapper
                 .ReverseMap();
             CreateMap<TM_CONTRATOES, TableModel>()
                 .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDESTSERVICIOXENT))
-                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.STR_NUMRUC))
-                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_RAZONSOCIAL))
-                .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_NUMCONTRATO))
-                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.DTE_FECCONTRATO))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NUMRUC))
+                .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_RAZONSOCIAL))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_NUMCONTRATO))
+                .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.DTE_FECCONTRATO))
                 .ReverseMap();
             #endregion
             #region Combustible

@@ -10,5 +10,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Application.Dto\Application.Dto.csproj" />
     <ProjectReference Include="..\Domain.Entities\Domain.Entities.csproj" />
+    <ProjectReference Include="..\Transversal.Common\Transversal.Common.csproj" />
   </ItemGroup>
 </Project>

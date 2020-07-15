@@ -13,7 +13,7 @@ using Transversal.Common.Enums;
 namespace SIROS.Web.Controllers
 {
     [Authorize(Roles = "OGTU")]
-    [Route("api/[controller]/[action]")]
+    [Route("api/[controller]")]
     [ApiController]
     public class ContratoEsController : ControllerBase
     {
@@ -31,7 +31,7 @@ namespace SIROS.Web.Controllers
             this._jwtApplication = jwtApplication;
         }
 
-        [HttpGet]
+        [HttpGet("Get")]
         public async Task<IActionResult> Get(string sInput)
         {
             try
@@ -46,7 +46,7 @@ namespace SIROS.Web.Controllers
             }
         }
 
-        [HttpGet]
+        [HttpGet("GetAllByFilter")]
         public async Task<IActionResult> GetAllByFilter(int nPagina, string sFilter)
         {
             try
@@ -62,7 +62,7 @@ namespace SIROS.Web.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("Insert")]
         public async Task<IActionResult> Insert(ContratoEsDto.RQInsert oItem)
         {
             try
@@ -73,6 +73,13 @@ namespace SIROS.Web.Controllers
                 
                 oItem.nIdSession = int.Parse(oUserInfo.Data.sIdSession);
                 oItem.sUsuario = oUserInfo.Data.sUsername;
+                oItem.nIdEntidad = oUserInfo.Data.nIdEmpresa;
+
+#if DEBUG
+                // PARA PRUEBA
+                oItem.nIdEntidad = 1166;
+#endif
+
                 var oResult = await this._contratoEsApplication.Insert(oItem);
                 return Ok(oResult);
             }
@@ -83,7 +90,7 @@ namespace SIROS.Web.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("Update")]
         public async Task<IActionResult> Update(ContratoEsDto.RQUpdate oItem)
         {
             try
@@ -104,7 +111,7 @@ namespace SIROS.Web.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("Delete")]
         public async Task<IActionResult> Delete(ContratoEsDto.RQDelete oItem)
         {
             try
