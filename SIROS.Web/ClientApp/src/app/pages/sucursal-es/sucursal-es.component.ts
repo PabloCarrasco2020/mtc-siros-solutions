@@ -170,6 +170,7 @@ export class SucursalESComponent implements OnInit {
     this.oSucursalEsService.Get(this.nIdSucursalxES).then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.nIdSucursalxES = response.Data.nIdSucursalxES;
+        this.nIdEstServicio = Number(response.Data.nIdEstServicio);
         this.sRuc = response.Data.sRuc;
         this.nTipoVia = Number(response.Data.nTipoVia);
         this.sVia = response.Data.sVia === null ? '' : response.Data.sVia;
