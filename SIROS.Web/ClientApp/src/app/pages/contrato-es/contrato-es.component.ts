@@ -211,7 +211,7 @@ export class ContratoESComponent implements OnInit {
   }
 
   ValidarDatosFormulario(): string {
-    if (this.oModel.nIdEstServicio === -1) {
+    if (Number(this.oModel.nIdEstServicio) === -1) {
       return 'Debe seleccionar una Estacion de Servicio.';
     }
     if (this.oModel.sNumContrato.length === 0) {
