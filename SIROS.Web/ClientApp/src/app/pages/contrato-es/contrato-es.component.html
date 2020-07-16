@@ -85,7 +85,8 @@
                                     <small [hidden]="(nTipoFiltro !== FILTRO_X_RUC)">RUC:</small>
                                     <small [hidden]="(nTipoFiltro !== FILTRO_X_RAZON_SOCIAL)">Razón Social:</small>
                                     <div class="input-group">
-                                        <input [(ngModel)]="sFilter" class="form-control form-control-sm" type="text">
+                                        <input *ngIf="(nTipoFiltro === FILTRO_X_RUC)" [(ngModel)]="sFilter" appDigitOnly class="form-control form-control-sm" type="text" maxlength="11">
+                                        <input *ngIf="(nTipoFiltro === FILTRO_X_RAZON_SOCIAL)" [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="300">
                                         <span class="input-group-append">
                                             <button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary" >
                                                 <i class="fa fa-search"></i> Buscar

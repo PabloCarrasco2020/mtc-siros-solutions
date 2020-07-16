@@ -20,6 +20,7 @@ import { RegistrarControlIEComponent } from './registrar-control-ie/registrar-co
 import { SessionInterceptor } from '../utils/session.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OperadorEsComponent } from './operador-es/operador-es.component';
+import { DigitOnlyDirective } from '../directives/digit-only.directive';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { OperadorEsComponent } from './operador-es/operador-es.component';
     EmpresasComponent,
     VehiculoSucursalComponent,
     RegistrarControlIEComponent,
-    OperadorEsComponent
+    OperadorEsComponent,
+    DigitOnlyDirective
   ],
   exports: [
     PagesComponent

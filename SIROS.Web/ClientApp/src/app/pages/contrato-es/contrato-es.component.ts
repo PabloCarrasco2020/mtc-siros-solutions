@@ -226,6 +226,14 @@ export class ContratoESComponent implements OnInit {
     if (this.oModel.dFecFinVigencia === null) {
       return 'Debe ingresar la Fecha Fin.';
     }
+
+    if (this.oModel.dFecIniVigencia > this.oModel.dFecFinVigencia) {
+      return 'La Fecha Inicio no puede ser mayor que la Fecha Fin.';
+    }
+    if (this.oModel.dFecFinVigencia < this.oModel.dFecIniVigencia) {
+      return 'La Fecha Fin no puede ser menor que la Fecha Inicio.';
+    }
+
     return null;
   }
 

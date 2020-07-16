@@ -151,6 +151,9 @@ namespace SIROS.Web
             services.AddSingleton<ICaptchaApplication, CaptchaApplication>();
             services.AddSingleton<IEmailApplication, EmailApplication>();
             services.AddSingleton<ILogApplication, LogApplication>();
+            services.AddSingleton<ISunatApplication, SunatApplication>();
+            services.AddSingleton<ISunarpApplication, SunarpApplication>();
+            services.AddSingleton<IReniecApplication, ReniecApplication>();
         }
 
         private void LoadScopes(IServiceCollection services)
@@ -179,9 +182,9 @@ namespace SIROS.Web
             services.AddScoped<IRutaDomain, RutaDomain>();
             services.AddScoped<IRutaRepository, RutaRepository>();
 
-            services.AddScoped<ISunatApplication, SunatApplication>();
-            services.AddScoped<ISunarpApplication, SunarpApplication>();
-            services.AddScoped<IReniecApplication, ReniecApplication>();
+            services.AddScoped<IEmpresaApplication, EmpresaApplication>();
+            services.AddScoped<IEmpresaDomain, EmpresaDomain>();
+            services.AddScoped<IEmpresaRepository, EmpresaRepository>();
 
             services.AddScoped<IGeneralApplication, GeneralApplication>();
             services.AddScoped<IGeneralDomain, GeneralDomain>();

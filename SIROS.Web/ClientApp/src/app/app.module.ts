@@ -10,6 +10,8 @@ import { SharedModule } from './shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BlockUIModule } from 'ng-block-ui';
+import { DigitOnlyDirective } from './directives/digit-only.directive';
+
 @NgModule({
   declarations: [
     AppComponent,
