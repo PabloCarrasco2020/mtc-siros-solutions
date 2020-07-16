@@ -445,9 +445,12 @@ export class SucursalESComponent implements OnInit {
     return null;
   }
   KeyUpNumber(event: any) {
+    console.log(event);
     const code: string = event.code;
     if (code.startsWith('Key') || code.startsWith('Space')) {
-      event.preventDefault();
+      if (code !== 'Comma') {
+        event.preventDefault();
+      }
     }
   }
   KeyUpLetter(event: any) {

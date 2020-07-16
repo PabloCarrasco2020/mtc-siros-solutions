@@ -125,7 +125,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                //_ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "SucursalESController-Insert", ex, input);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "SucursalESController-Insert", ex, input);
                 return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"

@@ -136,11 +136,11 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Latitud (*)</label>
-                                    <input class="form-control" placeholder="Ingrese Latitud..." [(ngModel)]="sLatitud" maxlength=""/>
+                                    <input (keypress)="KeyUpNumber($event)" class="form-control" placeholder="Ingrese Latitud..." [(ngModel)]="sLatitud" maxlength=""/>
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Longitud (*)</label>
-                                    <input class="form-control" placeholder="Ingrese Longitud..." [(ngModel)]="sLongitud" maxlength=""/>
+                                    <input (keypress)="KeyUpNumber($event)" class="form-control" placeholder="Ingrese Longitud..." [(ngModel)]="sLongitud" maxlength=""/>
                                 </div>
                             </div>
 
