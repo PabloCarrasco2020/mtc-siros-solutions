@@ -1,1 +1,64 @@
-<p>rutas works!</p>
+<block-ui></block-ui>
+<app-breadcrumb CurrentPage="Rutas"></app-breadcrumb>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="container-fluid">
+        
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Listado de Rutas</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a *ngIf="false" class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button (click)="nTipoFiltro = FILTRO_X_RUC" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RUC, 'btn-white': nTipoFiltro === FILTRO_X_RAZON_SOCIAL}">Ingresar por Nro de Ruta</button>
+                            <button (click)="nTipoFiltro = FILTRO_X_RAZON_SOCIAL" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RAZON_SOCIAL, 'btn-white': nTipoFiltro === FILTRO_X_RUC}">Ingresar por Nombre de Ruta</button>
+                          </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div  class="form-group">
+                                    <small [hidden]="(nTipoFiltro !== FILTRO_X_RUC)">Nro de Ruta:</small>
+                                    <small [hidden]="(nTipoFiltro !== FILTRO_X_RAZON_SOCIAL)">Nombre de Ruta:</small>
+                                    <div class="input-group">
+                                        <input [(ngModel)]="sFilter" class="form-control form-control-sm" type="text">
+                                        <span class="input-group-append">
+                                            <button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary" >
+                                                <i class="fa fa-search"></i> Buscar
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <app-tabla 
+                            (eventBefore)="fnBefore($event)" 
+                            (eventNext)="fnNext($event)"   
+                            [IndexData]="oIndexData"  
+                            [CanNew]="true" (eventNew)="fnNew()" 
+                            [CanEdit]="true"  (eventEdit)="fnEdit($event)" 
+                            [CanDelete]="true" (eventDelete)="fnDelete($event)" 
+                            Column1Name="Nro" 
+                            Column2Name="Ruta" 
+                            Column3Name="Itinerario" 
+                            Column4Name="Kilometros"
+                            Column5Name="Coordenadas">
+                        </app-tabla>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

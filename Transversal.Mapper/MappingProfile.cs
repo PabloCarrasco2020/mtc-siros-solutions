@@ -83,6 +83,7 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_DIRECCION))
                 .ReverseMap();
             #endregion
+
             #region Estacion de Servicio
             CreateMap<TM_ESTACIONSERVICIO, EstacionServicioDto.RQInsert>()
                .ForMember(destination => destination.sRuc, source => source.MapFrom(src => src.STR_NUMRUC))
@@ -163,6 +164,7 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.sDescription, source => source.MapFrom(src => $"{src.STR_NUMRUC}-{src.STR_RAZONSOCIAL}"))
                 .ReverseMap();
             #endregion
+
             #region Contrato de Estacion de Servicio
             CreateMap<TM_CONTRATOES, ContratoEsDto.RQInsert>()
                .ForMember(destination => destination.nIdEstServicio, source => source.MapFrom(src => src.NUM_IDESTSERVICIO))
@@ -220,6 +222,7 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.DTE_FECCONTRATO))
                 .ReverseMap();
             #endregion
+
             #region Combustible
 
             CreateMap<TM_COMBUSTIBLE, CombustibleDto.RSGet>()
@@ -231,6 +234,26 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_IDCOMBUSTIBLE))
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_DSCOMBUSTIBLE))
                 .ReverseMap();
+            #endregion
+
+            #region Rutas
+
+            CreateMap<TM_RUTA, RutaDto.RSGet>()
+                .ForMember(destination => destination.nIdRuta, source => source.MapFrom(src => src.NUM_IDRUTA))
+                .ForMember(destination => destination.sNroRuta, source => source.MapFrom(src => src.STR_NRORUTA))
+                .ForMember(destination => destination.sNombreRuta, source => source.MapFrom(src => src.STR_NOMBRERUTA))
+                .ForMember(destination => destination.sItinerario, source => source.MapFrom(src => src.STR_ITINERARIO))
+                .ForMember(destination => destination.sKilometro, source => source.MapFrom(src => src.STR_KILOMETRO))
+                .ReverseMap();
+            CreateMap<TM_RUTA, TableModel>()
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDRUTA))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_IDRUTA))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NRORUTA))
+                .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_NOMBRERUTA))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_ITINERARIO))
+                .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.STR_KILOMETRO))
+                .ReverseMap();
+
             #endregion
 
             #region Sucursal Estacion de Servicio
@@ -345,6 +368,7 @@ namespace Transversal.Mapper
                .ForMember(destination => destination.sDescription, source => source.MapFrom(src => src.STR_DSCARGO))
                .ReverseMap();
             #endregion
+
             #region Admin
             CreateMap<ADMIN.TM_SESION, AdminDto.RegistrarSesion>()
                 .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUARIO))

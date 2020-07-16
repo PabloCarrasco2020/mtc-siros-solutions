@@ -39,7 +39,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Municipalidad-GetAllByFilter", ex, nPagina, sFilter);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combustible-GetAllByFilter", ex, nPagina, sFilter);
                 return new Response<IndexTableModelDto>
                 {
                     Message = "ERR-Fallo en el servidor"
