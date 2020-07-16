@@ -14,6 +14,7 @@ import { VehiculoSucursalComponent } from './vehiculo-sucursal/vehiculo-sucursal
 import { RegistrarControlIEComponent } from './registrar-control-ie/registrar-control-ie.component';
 import { OGTUGuard } from '../guards/ogtu.guard';
 import { InGuard } from '../guards/in.guard';
+import { OperadorEsComponent } from './operador-es/operador-es.component';
 
 const pagesRoutes: Routes = [
     {
@@ -37,6 +38,7 @@ const pagesRoutes: Routes = [
         children: [
             { path: 'contratoES', component: ContratoESComponent },
             { path: 'sucursalES', component: SucursalESComponent },
+            { path: 'operadorES', component: OperadorEsComponent },
             { path: 'rutas', component: RutasComponent },
             { path: 'empresas', component: EmpresasComponent },
             { path: 'vehiculoSucursal', component: VehiculoSucursalComponent },

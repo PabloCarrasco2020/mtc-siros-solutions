@@ -19,6 +19,7 @@ import { VehiculoSucursalComponent } from './vehiculo-sucursal/vehiculo-sucursal
 import { RegistrarControlIEComponent } from './registrar-control-ie/registrar-control-ie.component';
 import { SessionInterceptor } from '../utils/session.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { OperadorEsComponent } from './operador-es/operador-es.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     RutasComponent,
     EmpresasComponent,
     VehiculoSucursalComponent,
-    RegistrarControlIEComponent
+    RegistrarControlIEComponent,
+    OperadorEsComponent
   ],
   exports: [
     PagesComponent
