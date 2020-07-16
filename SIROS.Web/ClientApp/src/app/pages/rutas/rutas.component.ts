@@ -18,13 +18,17 @@ export class RutasComponent implements OnInit {
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
   nCurrentOption: number = 0;
-  nCurrentSectionModal: number = 1;
 
   oIndexDataRepresentanteLegal: IndexModel = new IndexModel();
 
   // Busqueda
   nTipoFiltro: number = 1;
   sFilter: string = '';
+
+// FORMULARIO
+sNombreRuta: string = '';
+sItinerario: string = '';
+sKilometro: string = '';
 
   @BlockUI() oBlockUI: NgBlockUI;
   constructor(
@@ -35,22 +39,39 @@ export class RutasComponent implements OnInit {
   }
 
   ngOnInit() {
-    //$(document).prop('title', 'SIROS - Ruta');
+    $(document).prop('title', 'SIROS - Ruta');
+  }
+
+  fnBuscar() {
+    this.nCurrentPage = 1;
+    this.CargarRuta();
   }
 
   fnBefore(nPage: number) {
+    this.nCurrentPage = nPage;
+    this.CargarRuta();
   }
 
   fnNew() {
+    this.nCurrentOption = 1;
+    this.LimpiarCampos();
+    $('#myModalNew').modal({backdrop: 'static', keyboard: false});
   }
 
   fnEdit(nId: number) {
+    this.nCurrentOption = 2;
+    this.LimpiarCampos();
+    //this.nIdSucursalxES = nId;
+    $('#myModalNew').modal({backdrop: 'static', keyboard: false});
+    //this.CargarSucursalXId();
   }
 
   fnDelete(nId: number) {
   }
 
   fnNext(nPage: number) {
+    this.nCurrentPage = nPage;
+    this.CargarRuta();
   }
 
   CargarRuta() {
@@ -66,6 +87,10 @@ export class RutasComponent implements OnInit {
         }
         this.oBlockUI.stop();
       });
+  }
+
+  LimpiarCampos() {
+
   }
 
 }
