@@ -425,7 +425,7 @@ export class EstacionesServicioComponent implements OnInit {
   }
   CargarTipoDocReprLegal() {
     this.lstTipoDocReprLegal = [];
-    this.oComboService.GetTipoDocRepresentanteLegal().then((response: ResponseModel<any>) => {
+    this.oComboService.GetTipoDoc('ES').then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstTipoDocReprLegal = response.Data;
       }

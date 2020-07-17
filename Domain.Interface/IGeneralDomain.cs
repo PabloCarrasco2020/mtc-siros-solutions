@@ -15,7 +15,8 @@ namespace Domain.Interface
         Task<List<GENERAL.DEPARTAMENTO>> GetDepartamento();
         Task<List<GENERAL.PROVINCIA>> GetProvincia(string sCodDepartamento);
         Task<List<GENERAL.DISTRITO>> GetDistrito(string sCodDepartamento, string sCodProvincia);
-        Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoDocRepresentanteLegal();
+        Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoDoc(string sTipoConsulta);
+        Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoOperador(string sTipoConsulta);
         Task<List<GENERAL.CARGO_REPRESENTANTELEGAL>> GetCargoRepresentanteLegal();
     }
 }

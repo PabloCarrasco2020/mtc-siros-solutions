@@ -423,7 +423,7 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarTipoDocReprLegal() {
     this.lstTipoDocReprLegal = [];
-    this.oComboService.GetTipoDocRepresentanteLegal().then((response: ResponseModel<any>) => {
+    this.oComboService.GetTipoDoc('MUN').then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
         this.lstTipoDocReprLegal = response.Data;
       }

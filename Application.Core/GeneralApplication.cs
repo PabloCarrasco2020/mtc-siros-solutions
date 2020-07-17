@@ -189,12 +189,12 @@ namespace Application.Core
             }
         }
 
-        public async Task<Response<List<ComboModelDto.XId>>> GetTipoDocRepresentanteLegal()
+        public async Task<Response<List<ComboModelDto.XId>>> GetTipoDoc(string sTipoConsulta)
         {
             try
             {
                 var response = new Response<List<ComboModelDto.XId>>();
-                var result = await this._generalDomain.GetTipoDocRepresentanteLegal();
+                var result = await this._generalDomain.GetTipoDoc(sTipoConsulta);
                 if (result.Count > 0)
                 {
                     response.IsSuccess = true;
@@ -212,7 +212,29 @@ namespace Application.Core
                 throw ex;
             }
         }
+        public async Task<Response<List<ComboModelDto.XId>>> GetTipoOperador(string sTipoConsulta)
+        {
+            try
+            {
+                var response = new Response<List<ComboModelDto.XId>>();
+                var result = await this._generalDomain.GetTipoOperador(sTipoConsulta);
+                if (result.Count > 0)
+                {
+                    response.IsSuccess = true;
+                    response.Data = this._mapper.Map<List<ComboModelDto.XId>>(result);
+                }
+                else
+                {
+                    response.Message = "0 Registros encontrados";
+                }
+                return response;
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+        }
         public async Task<Response<List<ComboModelDto.XId>>> GetTipoVia()
         {
             try

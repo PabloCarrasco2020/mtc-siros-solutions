@@ -145,16 +145,51 @@ namespace SIROS.Web.Controllers
                 };
             }
         }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sTipoConsulta">
+        /// 'MUN' = Representante legal de Municipalidad 
+        /// 'ES' = Representante legal de Estacion de servicio
+        /// 'EMP' = Representante legal de Empresa
+        /// 'OPESUC' =  Operador de sucursal de estacion de servicio
+        /// 'OPEEMP' = Operador de empresa
+        ///</param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<Response<List<ComboModelDto.XId>>> GetTipoDocRepresentanteLegal()
+        public async Task<Response<List<ComboModelDto.XId>>> GetTipoDoc(string sTipoConsulta)
         {
             try
             {
-                return await this._generalApplication.GetTipoDocRepresentanteLegal();
+                return await this._generalApplication.GetTipoDoc(sTipoConsulta);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetTipoDocRepresentanteLegal", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetTipoDoc", ex);
+                return new Response<List<ComboModelDto.XId>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sTipoConsulta">
+        /// 'OPESUC' =  Operador de sucursal de estacion de servicio
+        /// 'OPEEMP' = Operador de empresa
+        ///</param>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto.XId>>> GetTipoOperador(string sTipoConsulta)
+        {
+            try
+            {
+                return await this._generalApplication.GetTipoOperador(sTipoConsulta);
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetTipoOperador", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"

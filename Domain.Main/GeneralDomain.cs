@@ -107,11 +107,11 @@ namespace Domain.Main
             }
         }
 
-        public async Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoDocRepresentanteLegal()
+        public async Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoDoc(string sTipoConsulta)
         {
             try
             {
-                return await this._generalRepository.GetTipoDocRepresentanteLegal();
+                return await this._generalRepository.GetTipoDoc(sTipoConsulta);
             }
             catch (Exception ex)
             {
@@ -119,7 +119,18 @@ namespace Domain.Main
                 throw ex;
             }
         }
+        public async Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoOperador(string sTipoConsulta)
+        {
+            try
+            {
+                return await this._generalRepository.GetTipoOperador(sTipoConsulta);
+            }
+            catch (Exception ex)
+            {
 
+                throw ex;
+            }
+        }
         public async Task<List<GENERAL.TIPO_VIA>> GetTipoVia()
         {
             try

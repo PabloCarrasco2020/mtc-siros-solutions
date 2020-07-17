@@ -28,8 +28,11 @@ export class ComboService {
   GetLoteInterior() {
     return this.oBaseService.CallGet(`api/Combo/GetLoteInterior`);
   }
-  GetTipoDocRepresentanteLegal() {
-    return this.oBaseService.CallGet(`api/Combo/GetTipoDocRepresentanteLegal`);
+  GetTipoDoc(sTipoConsulta: string) {
+    return this.oBaseService.CallGet(`api/Combo/GetTipoDoc?sTipoConsulta=${sTipoConsulta}`);
+  }
+  GetTipoOperador(sTipoConsulta: string) {
+    return this.oBaseService.CallGet(`api/Combo/GetTipoOperador?sTipoConsulta=${sTipoConsulta}`);
   }
   GetCargoRepresentanteLegal() {
     return this.oBaseService.CallGet(`api/Combo/GetCargoRepresentanteLegal`);

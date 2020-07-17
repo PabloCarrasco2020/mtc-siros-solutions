@@ -16,7 +16,8 @@ namespace Application.Interface
         Task<Response<List<ComboModelDto.XCodigo>>> GetDepartamento();
         Task<Response<List<ComboModelDto.XCodigo>>> GetProvincia(string sCodDepartamento);
         Task<Response<List<ComboModelDto.XCodigo>>> GetDistrito(string sCodDepartamento, string sCodProvincia);
-        Task<Response<List<ComboModelDto.XId>>> GetTipoDocRepresentanteLegal();
+        Task<Response<List<ComboModelDto.XId>>> GetTipoDoc(string sTipoConsulta);
+        Task<Response<List<ComboModelDto.XId>>> GetTipoOperador(string sTipoConsulta);
         Task<Response<List<ComboModelDto.XId>>> GetCargoRepresentanteLegal();
     }
 }

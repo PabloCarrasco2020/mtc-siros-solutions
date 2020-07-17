@@ -106,14 +106,26 @@ namespace Infrastructure.Repository
                 return result.AsList();
             }
         }
-
-        public async Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoDocRepresentanteLegal()
+        public async Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoDoc(string sTipoConsulta)
         {
             using (var connection = _connectionFactory.GetConnectionSIROS())
             {
                 var dyParam = new OracleDynamicParameters();
+                dyParam.Add("str_tipoconsulta_", OracleDbType.Varchar2, ParameterDirection.Input, sTipoConsulta);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
                 var query = _connectionFactory.GetQueryForSIROS("PKG_GENERAL.SP_GetTipoDocRpte");
+                var result = await connection.QueryAsync<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result.AsList();
+            }
+        }
+        public async Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoOperador(string sTipoConsulta)
+        {
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("str_tipoconsulta_", OracleDbType.Varchar2, ParameterDirection.Input, sTipoConsulta);
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+                var query = _connectionFactory.GetQueryForSIROS("PKG_GENERAL.SP_GetTipoOper");
                 var result = await connection.QueryAsync<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>(query, param: dyParam, commandType: CommandType.StoredProcedure);
                 return result.AsList();
             }
