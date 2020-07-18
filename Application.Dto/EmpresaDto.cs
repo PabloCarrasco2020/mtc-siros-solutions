@@ -39,7 +39,7 @@ namespace Application.Dto
             public int nIdNroMzKm { get; set; }
             public string sNroMzKm { get; set; }
             public int nIdLoteIntDpto { get; set; }
-            public int sLoteIntDpto { get; set; }
+            public string sLoteIntDpto { get; set; }
             public string sReferencia { get; set; }
             // public string sDireccion { get; set; }
             public string sCodDistrito { get; set; }
