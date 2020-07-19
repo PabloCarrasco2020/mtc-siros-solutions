@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { BaseService } from './base.service';
-import { ContratoEsModel } from '../models/contrato-es.model';
+import { EmpresaModel } from '../models/empresa.model';
 
-const CONTROLLER = 'ContratoEs';
+const CONTROLLER = 'Empresa';
 
 @Injectable({providedIn: 'root'})
-export class ContratoEsService {
+export class EmpresaService {
 
     constructor(private oBaseService: BaseService) { }
 
@@ -17,11 +17,11 @@ export class ContratoEsService {
         return this.oBaseService.CallGet(`api/${CONTROLLER}/GetAllByFilter?nPagina=${nPagina}&sFilter=${sFilter}`);
     }
 
-    Insert(oItem: ContratoEsModel) {
+    Insert(oItem: EmpresaModel) {
         return this.oBaseService.CallPost(`api/${CONTROLLER}/Insert`, oItem);
     }
 
-    Update(oItem: ContratoEsModel) {
+    Update(oItem: EmpresaModel) {
         return this.oBaseService.CallPost(`api/${CONTROLLER}/Update`, oItem);
     }
 
@@ -29,4 +29,5 @@ export class ContratoEsService {
         const oRequest = { nIdEstServicioEnt };
         return this.oBaseService.CallPost(`api/${CONTROLLER}/Delete`, oRequest);
     }
+
 }

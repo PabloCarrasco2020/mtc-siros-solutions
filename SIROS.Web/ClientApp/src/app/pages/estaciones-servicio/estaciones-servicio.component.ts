@@ -305,7 +305,6 @@ export class EstacionesServicioComponent implements OnInit {
   }
   CargarEstaciones() {
     this.oBlockUI.start('Cargando Estaciones de servicios...');
-    console.log(this.sFilter);
     this.oEstacionServicioService.GetAllByFilter(this.nCurrentPage, `${this.nTipoFiltro}@${this.sFilter}`)
     .then((response: ResponseModel<any>) => {
 

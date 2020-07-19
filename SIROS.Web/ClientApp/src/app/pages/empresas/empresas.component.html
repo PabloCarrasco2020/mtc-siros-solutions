@@ -1,1 +1,298 @@
-<p>empresas works!</p>
+<block-ui></block-ui>
+<app-breadcrumb CurrentPage="{{sTitlePage}}"></app-breadcrumb>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="container-fluid">
+        <div class="modal inmodal" id="myModalNew" tabindex="-1" role="dialog" aria-modal="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content animated flipInY">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Empresa</h4>
+                        <small class="font-bold" *ngIf="nCurrentOption === OPTION_NUEVO">Nuevo Registro</small>
+                        <small class="font-bold" *ngIf="nCurrentOption === OPTION_EDITAR">Editar Registro</small>
+                    </div>
+                    <div class="modal-body">
+                        <section *ngIf="nCurrentSectionModal === MODAL_PAGINA_01" class="animated slideInLeft">
+                            <div class="input-group m-b">
+                                <h4>Datos de la empresa</h4>
+                            </div>
+                            <div class="input-group m-b">
+                                <input type="text" class="form-control" appDigitOnly placeholder="Ingrese RUC..." [(ngModel)]="oModel.sRuc" maxlength="11">
+                                <div class="input-group-append">
+                                    <button type="button" class="btn btn-primary" (click)="fnBuscarRuc()">
+                                            <i class="fa fa-search"></i> Buscar
+                                        </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 mb-2">
+                                    <label class="titulo-Campos">Razón Social (*)</label>
+                                    <input type="text" placeholder="Nombre Razón Social" class="form-control" disabled [(ngModel)]="oModel.sRazonSocial">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos" for="">Tipo de vía (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.nIdTipoVia" (change)="onChangeSinDato()">
+                                        <option value="-1">
+                                            [ Seleccione Tipo de Vía ]
+                                        </option>
+                                        <option *ngFor="let item of lstTipoVia" [value]="item.nId">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos" for="">Nombre de vía <span [hidden]="oModel.nIdTipoVia === COMBO_SIN_DATO">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese nombre de vía" [(ngModel)]="oModel.sNombreVia" maxlength="100" [disabled]="oModel.nIdTipoVia === COMBO_SIN_DATO"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos" for="">Tipo de CCPP (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.nIdCcpp" (change)="onChangeSinDato()">
+                                        <option value="-1">
+                                            [ Seleccione Tipo de Centro Poblado ]
+                                        </option>
+                                        <option *ngFor="let item of lstCentroPoblado" [value]="item.nId">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos" for="">Nombre CCPP <span [hidden]="oModel.nIdCcpp === COMBO_SIN_DATO">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese nombre de centro poblado" [(ngModel)]="oModel.sNombreCcpp" maxlength="100" [disabled]="oModel.nIdCcpp === COMBO_SIN_DATO"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos" for="">Nro/Mzn/Km (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.nIdNroMzKm" (change)="onChangeSinDato()">
+                                        <option value="-1">
+                                            [ Seleccione ]
+                                        </option>
+                                        <option *ngFor="let item of lstNumeroManzana" [value]="item.nId">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos" for="">Nro <span [hidden]="oModel.nIdNroMzKm === COMBO_SIN_DATO">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="oModel.sNroMzKm" maxlength="20" [disabled]="oModel.nIdNroMzKm === COMBO_SIN_DATO"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos" for="">Lote/Int/Dpto (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.nIdLoteIntDpto" (change)="onChangeSinDato()">
+                                        <option value="-1">
+                                            [ Seleccione ]
+                                        </option>
+                                        <option *ngFor="let item of lstLoteInterior" [value]="item.nId">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos" for="">Nro <span [hidden]="oModel.nIdLoteIntDpto === COMBO_SIN_DATO">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="oModel.sLoteIntDpto" maxlength="50" [disabled]="oModel.nIdLoteIntDpto === COMBO_SIN_DATO"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 mb-2">
+                                    <label class="titulo-Campos" for="">Referencia (*)</label>
+                                    <input class="form-control" placeholder="Ingrese referencia..." [(ngModel)]="oModel.sReferencia"  maxlength="150"/>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Departamento (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.sCodDepartamento" (change)="onChangeDepartamento()">
+                                        <option value="00">
+                                            [ Seleccione Departamento ]
+                                        </option>
+                                        <option *ngFor="let item of lstDepartamento" [value]="item.sCodigo">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Provincia (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.sCodProvincia"  (change)="onChangeProvincia()">
+                                        <option value="00">
+                                            [ Seleccione Provincia ]
+                                        </option>
+                                        <option *ngFor="let item of lstProvincia" [value]="item.sCodigo">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Distrito (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.sCodDistrito">
+                                        <option value="00">
+                                            [ Seleccione Distrito ]
+                                        </option>
+                                        <option *ngFor="let item of lstDistrito" [value]="item.sCodigo">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Telefono (*)</label>
+                                    <input class="form-control" placeholder="Ingrese Telefono..." [(ngModel)]="oModel.sTelefono"  maxlength="150"/>
+                                </div>
+                            </div>
+                        </section>
+                        <section *ngIf="nCurrentSectionModal === MODAL_PAGINA_02" class="animated slideInRight">
+                            <div class="input-group m-b">
+                                <h4>Datos del responsable legal</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos">Tipo de Documento (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModelRepLegal.nIdTipDoc" >
+                                        <option value="-1">
+                                            [ Seleccione Tipo de Documento ]
+                                        </option>
+                                        <option *ngFor="let item of lstTipoDocReprLegal" [value]="item.nId">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Nro (*)</label>
+                                    <input class="form-control" appDigitOnly placeholder="Ingrese Nro de documento" [(ngModel)]="oModelRepLegal.sNroDoc" maxlength="8"/>
+                                </div>
+                                <div class="col-lg-12 mb-2">
+                                    <span>&nbsp;</span>
+                                    <button (click)="fnBuscarPersonaxDNI()" [disabled]="oModelRepLegal.nIdTipDoc === -1" type="button" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-search"></i> Buscar
+                                    </button>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Apellido Paterno (*)</label>
+                                    <input class="form-control" placeholder="Apellido Paterno" [disabled]="oModelRepLegal.nIdTipDoc === -1" [(ngModel)]="oModelRepLegal.sApePaterno"/>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Apellido Materno(*)</label>
+                                    <input class="form-control" placeholder="Apellido Materno" [disabled]="oModelRepLegal.nIdTipDoc === -1" [(ngModel)]="oModelRepLegal.sApeMaterno"/>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Nombres (*)</label>
+                                    <input class="form-control" placeholder="Nombres" [disabled]="oModelRepLegal.nIdTipDoc === -1"  [(ngModel)]="oModelRepLegal.sNombres"/>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Cargo (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModelRepLegal.nCargo">
+                                        <option value="-1">
+                                            [ Seleccione Cargo ]
+                                        </option>
+                                        <option *ngFor="let item of lstTipoCargoReprLegal" [value]="item.nId">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-12 mb-2">
+                                    <button *ngIf="(oModelRepLegal.nId === 0)" (click)="fnAgregarRepresentanteLegal()" type="button" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-user-plus"></i> Agregar
+                                    </button>
+                                    <button *ngIf="(oModelRepLegal.nId !== 0)" (click)="fnEditarRepresentanteLegal()" type="button" class="btn btn-primary btn-sm mr-2">
+                                        <i class="fa fa-save"></i> Guardar 
+                                    </button>
+                                    <button *ngIf="(oModelRepLegal.nId !== 0)" (click)="fnCancelarRepresentanteLegal()" type="button" class="btn btn-secondary btn-sm">
+                                        <i class="fa fa-user-plus"></i> Cancelar
+                                    </button>
+                                </div>
+                            </div>
+                            <hr/>
+                            <div class="input-group m-b">
+                                <h4>Lista de Representante Legal</h4>
+                            </div>
+                            <app-tabla 
+                                [IndexData]="oIndexDataRepresentanteLegal" 
+                                Column1Name="Nro" 
+                                Column2Name="Tipo Documento" 
+                                Column3Name="Representante" 
+                                Column4Name="Cargo" 
+                                CanDelete="true" 
+                                (eventDelete)="fnDeleteRepresentante($event)" 
+                                CanEdit="true" 
+                                (eventEdit)="fnUpdateRepresentante($event)"></app-tabla>
+                        </section>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" *ngIf="nCurrentSectionModal === MODAL_PAGINA_01" class="btn btn-white" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+                        <button type="button" *ngIf="nCurrentSectionModal === MODAL_PAGINA_01" (click)="fnSiguienteModal()" class="btn btn-primary"><i class="fa fa-arrow-circle-right"></i> Siguiente</button>
+                        <button type="button" *ngIf="nCurrentSectionModal === MODAL_PAGINA_02" (click)="nCurrentSectionModal = MODAL_PAGINA_01" class="btn btn-white"><i class="fa fa-arrow-circle-left"></i> Anterior</button>
+                        <button type="button" *ngIf="nCurrentSectionModal === MODAL_PAGINA_02" (click)="fnGuardar()" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Listado de Empresas</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a *ngIf="false" class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button (click)="nTipoFiltro = FILTRO_X_RUC" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RUC, 'btn-white': nTipoFiltro === FILTRO_X_RAZON_SOCIAL}">Ingresar por RUC</button>
+                            <button (click)="nTipoFiltro = FILTRO_X_RAZON_SOCIAL" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RAZON_SOCIAL, 'btn-white': nTipoFiltro === FILTRO_X_RUC}">Ingresar por Razón Social</button>
+                          </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div  class="form-group">
+                                    <small [hidden]="(nTipoFiltro !== FILTRO_X_RUC)">RUC:</small>
+                                    <small [hidden]="(nTipoFiltro !== FILTRO_X_RAZON_SOCIAL)">Razón Social:</small>
+                                    <div class="input-group">
+                                        <input *ngIf="(nTipoFiltro === FILTRO_X_RUC)" [(ngModel)]="sFilter" appDigitOnly class="form-control form-control-sm" type="text" maxlength="11">
+                                        <input *ngIf="(nTipoFiltro === FILTRO_X_RAZON_SOCIAL)" [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="300">
+                                        <span class="input-group-append">
+                                            <button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary" >
+                                                <i class="fa fa-search"></i> Buscar
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-tabla 
+                            (eventBefore)="fnBefore($event)" 
+                            (eventNext)="fnNext($event)"   
+                            [IndexData]="oIndexData"  
+                            [CanNew]="true" (eventNew)="fnNew()" 
+                            [CanEdit]="true"  (eventEdit)="fnEdit($event)" 
+                            [CanDelete]="true" (eventDelete)="fnDelete($event)" 
+                            Column1Name="Nro" 
+                            Column2Name="RUC" 
+                            Column3Name="Razón&nbsp;Social" 
+                            Column4Name="Dirección"
+                            Column5Name="Teléfono"
+                            FunctionName1="Rutas" 
+                            FunctionIcon1="fa-map" 
+                            (eventFunction1)="fnRutas($event)"
+                            FunctionName2="Operador de Empresa" 
+                            FunctionIcon2="fa-user" 
+                            (eventFunction2)="fnOperadorEmpresa($event)">
+                        </app-tabla>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

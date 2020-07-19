@@ -14,3 +14,4 @@ export { ContratoEsService } from './contrato-es.service';
 export { SucursalEsService } from './sucursal-es.service';
 export { OperadorEsService } from './operador-es.service';
 export { RutaService } from './ruta.service';
+export { EmpresaService } from './empresa.service';
