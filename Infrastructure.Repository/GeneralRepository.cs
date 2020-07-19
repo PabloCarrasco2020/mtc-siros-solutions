@@ -118,7 +118,7 @@ namespace Infrastructure.Repository
                 return result.AsList();
             }
         }
-        public async Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoOperador(string sTipoConsulta)
+        public async Task<List<GENERAL.TIPO_OPERADOR>> GetTipoOperador(string sTipoConsulta)
         {
             using (var connection = _connectionFactory.GetConnectionSIROS())
             {
@@ -126,7 +126,7 @@ namespace Infrastructure.Repository
                 dyParam.Add("str_tipoconsulta_", OracleDbType.Varchar2, ParameterDirection.Input, sTipoConsulta);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
                 var query = _connectionFactory.GetQueryForSIROS("PKG_GENERAL.SP_GetTipoOper");
-                var result = await connection.QueryAsync<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                var result = await connection.QueryAsync<GENERAL.TIPO_OPERADOR>(query, param: dyParam, commandType: CommandType.StoredProcedure);
                 return result.AsList();
             }
         }

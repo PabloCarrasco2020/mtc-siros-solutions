@@ -330,6 +330,53 @@ namespace Transversal.Mapper
                 .ReverseMap();
             #endregion
 
+            #region Operador de Sucursal de estacion de servicio
+            CreateMap<TM_OPERADOR_ES, OperadorESDto.RQInsert>()
+              .ForMember(destination => destination.nIdSucursalxES, source => source.MapFrom(src => src.NUM_IDSUCURSALXES))
+              .ForMember(destination => destination.nIdTpDocumento, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTO))
+              .ForMember(destination => destination.sNroDocumento, source => source.MapFrom(src => src.STR_NUMDOCUMENTO))
+              .ForMember(destination => destination.sApePaterno, source => source.MapFrom(src => src.STR_APEPATERNO))
+              .ForMember(destination => destination.sApeMaterno, source => source.MapFrom(src => src.STR_APEMATERNO))
+              .ForMember(destination => destination.sNombre, source => source.MapFrom(src => src.STR_NOMBRE))
+              .ForMember(destination => destination.nIdTipoOper, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
+              .ForMember(destination => destination.sFecNacimiento, source => source.MapFrom(src => src.DTE_FECNACIMIENTO))
+              .ForMember(destination => destination.sFoto, source => source.MapFrom(src => src.STR_FOTO))
+              .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+              .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+              .ReverseMap();
+            CreateMap<TM_OPERADOR_ES, OperadorESDto.RQUpdate>()
+                .ForMember(destination => destination.nIdNominaXSucursal, source => source.MapFrom(src => src.NUM_IDNOMINAXSUCURSAL))
+                .ForMember(destination => destination.nIdTipoOper, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
+                .ForMember(destination => destination.sFecNacimiento, source => source.MapFrom(src => src.DTE_FECNACIMIENTO))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_OPERADOR_ES, OperadorESDto.RQDelete>()
+                .ForMember(destination => destination.nIdNominaXSucursal, source => source.MapFrom(src => src.NUM_IDNOMINAXSUCURSAL))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_OPERADOR_ES, OperadorESDto.RSGet>()
+                .ForMember(destination => destination.nIdNominaXSucursal, source => source.MapFrom(src => src.NUM_IDNOMINAXSUCURSAL))
+                .ForMember(destination => destination.nIdSucursalxES, source => source.MapFrom(src => src.NUM_IDSUCURSALXES))
+                .ForMember(destination => destination.nIdTpDocumento, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTO))
+                .ForMember(destination => destination.sNroDocumento, source => source.MapFrom(src => src.STR_NUMDOCUMENTO))
+                .ForMember(destination => destination.sApePaterno, source => source.MapFrom(src => src.STR_APEPATERNO))
+                .ForMember(destination => destination.sApeMaterno, source => source.MapFrom(src => src.STR_APEMATERNO))
+                .ForMember(destination => destination.sNombre, source => source.MapFrom(src => src.STR_NOMBRE))
+                .ForMember(destination => destination.nIdTipoOper, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
+                .ForMember(destination => destination.sFecNacimiento, source => source.MapFrom(src => src.DTE_FECNACIMIENTO.ToAppSirosDate()))
+                .ForMember(destination => destination.sFoto, source => source.MapFrom(src => src.STR_FOTO))
+                .ReverseMap();
+            CreateMap<TM_OPERADOR_ES, TableModel>()
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDNOMINAXSUCURSAL))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NUMDOCUMENTO))
+                .ForMember(destination => destination.Column3, source => source.MapFrom(src => $"{src.STR_NOMBRE} {src.STR_APEPATERNO} {src.STR_APEMATERNO}"))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_DSTIPOOPER))
+                .ReverseMap();
+            #endregion
+
             #region Empresa
 
             CreateMap<TM_EMPRESA, EmpresaDto.RQInsert>()
@@ -447,6 +494,10 @@ namespace Transversal.Mapper
             CreateMap<GENERAL.CARGO_REPRESENTANTELEGAL, ComboModelDto.XId>()
                .ForMember(destination => destination.nId, source => source.MapFrom(src => src.NUM_IDCARGO))
                .ForMember(destination => destination.sDescription, source => source.MapFrom(src => src.STR_DSCARGO))
+               .ReverseMap();
+            CreateMap<GENERAL.TIPO_OPERADOR, ComboModelDto.XId>()
+               .ForMember(destination => destination.nId, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
+               .ForMember(destination => destination.sDescription, source => source.MapFrom(src => src.STR_DSTIPOOPER))
                .ReverseMap();
             #endregion
 

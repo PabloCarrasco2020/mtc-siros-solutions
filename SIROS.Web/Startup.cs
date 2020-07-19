@@ -177,6 +177,10 @@ namespace SIROS.Web
             services.AddScoped<ISucursalESApplication, SucursalESApplication>();
             services.AddScoped<ISucursalESDomain, SucursalESDomain>();
             services.AddScoped<ISucursalESRepository, SucursalESRepository>();
+            
+            services.AddScoped<IOperadorESApplication, OperadorESApplication>();
+            services.AddScoped<IOperadorESDomain, OperadorESDomain>();
+            services.AddScoped<IOperadorESRepository, OperadorESRepository>();
 
             services.AddScoped<IRutaApplication, RutaApplication>();
             services.AddScoped<IRutaDomain, RutaDomain>();

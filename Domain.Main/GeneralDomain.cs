@@ -119,7 +119,7 @@ namespace Domain.Main
                 throw ex;
             }
         }
-        public async Task<List<GENERAL.TIPO_DOCUMENTO_REPRESENTANTELEGAL>> GetTipoOperador(string sTipoConsulta)
+        public async Task<List<GENERAL.TIPO_OPERADOR>> GetTipoOperador(string sTipoConsulta)
         {
             try
             {

@@ -14,5 +14,19 @@ namespace Transversal.Common.Extensions
 
             return DateTime.ParseExact(sDate, "dd/MM/yyyy", new CultureInfo("en-US"));
         }
+        public static string ToBDSirosDate(this string sDate)
+        {
+            if (string.IsNullOrEmpty(sDate))
+                return null;
+            var tp2 = sDate.Replace("-", "");
+            return tp2;
+        }
+        public static string ToAppSirosDate(this string sDate)
+        {
+            if (string.IsNullOrEmpty(sDate))
+                return null;
+
+            return DateTime.ParseExact(sDate, "dd/MM/yyyy", new CultureInfo("en-US")).ToString("yyyy-MM-dd");
+        }
     }
 }

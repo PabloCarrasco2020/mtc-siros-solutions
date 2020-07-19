@@ -14,86 +14,46 @@ export class OperadorEsService {
     return this.oBaseService.CallGet(`api/OperadorES/GetAllByFilter?nPagina=${nPagina}&sFilter=${sFilter}`);
   }
   Insert(
-    nIdEstServicio: number,
-    nTipoVia: number,
-    sVia: string,
-    nCentroPoblado: number,
-    sCentroPoblado: string,
-    nIdNumeroManzana: number,
-    sNumeroManzana: string,
-    nIdLoteInterior: number,
-    sLoteInterior: string,
-    sReferencia: string,
-    sCodDepartamento: string,
-    sCodProvincia: string,
-    sCodDistrito: string,
-    sLatitud: string,
-    sLongitud: string,
-    sRucEstacionServicio: string,
-    sDireccionSucursal: string
+    nIdSucursalxES: number,
+    nIdTpDocumento: number,
+    sNroDocumento: string,
+    sApePaterno: string,
+    sApeMaterno: string,
+    sNombre: string,
+    nIdTipoOper: number,
+    sFecNacimiento: string,
+    sFoto: string
   ) {
     const req = {
-    nIdEstServicio,
-    nTipoVia,
-    sVia,
-    nCentroPoblado,
-    sCentroPoblado,
-    nIdNumeroManzana,
-    sNumeroManzana,
-    nIdLoteInterior,
-    sLoteInterior,
-    sReferencia,
-    sCodDepartamento,
-    sCodProvincia,
-    sCodDistrito,
-    sLatitud,
-    sLongitud,
-    sRucEstacionServicio,
-    sDireccionSucursal
+      nIdSucursalxES,
+      nIdTpDocumento,
+      sNroDocumento,
+      sApePaterno,
+      sApeMaterno,
+      sNombre,
+      nIdTipoOper,
+      sFecNacimiento,
+      sFoto
     };
     return this.oBaseService.CallPost(`api/OperadorES/Insert`, req);
   }
   Update(
-    nIdSucursalxES: number,
-    nTipoVia: number,
-    sVia: string,
-    nCentroPoblado: number,
-    sCentroPoblado: string,
-    nIdNumeroManzana: number,
-    sNumeroManzana: string,
-    nIdLoteInterior: number,
-    sLoteInterior: string,
-    sReferencia: string,
-    sCodDepartamento: string,
-    sCodProvincia: string,
-    sCodDistrito: string,
-    sLatitud: string,
-    sLongitud: string
+    nIdNominaXSucursal: number,
+    nIdTipoOper: number,
+    sFecNacimiento: string
   ) {
     const req = {
-      nIdSucursalxES,
-      nTipoVia,
-      sVia,
-      nCentroPoblado,
-      sCentroPoblado,
-      nIdNumeroManzana,
-      sNumeroManzana,
-      nIdLoteInterior,
-      sLoteInterior,
-      sReferencia,
-      sCodDepartamento,
-      sCodProvincia,
-      sCodDistrito,
-      sLatitud,
-      sLongitud
+      nIdNominaXSucursal,
+      nIdTipoOper,
+      sFecNacimiento
     };
     return this.oBaseService.CallPost(`api/OperadorES/Update`, req);
   }
   Delete(
-    nIdSucursalxES: number = 0
+    nIdNominaXSucursal: number = 0
   ) {
     const req = {
-      nIdSucursalxES
+      nIdNominaXSucursal
     };
     return this.oBaseService.CallPost(`api/OperadorES/Delete`, req);
   }

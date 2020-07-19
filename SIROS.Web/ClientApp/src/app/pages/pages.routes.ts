@@ -38,7 +38,7 @@ const pagesRoutes: Routes = [
         children: [
             { path: 'contratoES', component: ContratoESComponent },
             { path: 'sucursalES', component: SucursalESComponent },
-            { path: 'operadorES', component: OperadorEsComponent },
+            { path: 'operadorES/:id', component: OperadorEsComponent },
             { path: 'rutas', component: RutasComponent },
             { path: 'empresas', component: EmpresasComponent },
             { path: 'vehiculoSucursal', component: VehiculoSucursalComponent },

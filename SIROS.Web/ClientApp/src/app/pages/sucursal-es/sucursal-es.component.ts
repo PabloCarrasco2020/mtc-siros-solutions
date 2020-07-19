@@ -3,6 +3,7 @@ import { IndexModel } from '../../models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ComboService, SunatService, MessageService, ReniecService, SucursalEsService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
+import { Router } from '@angular/router';
 
 declare var $: any;
 @Component({
@@ -58,7 +59,8 @@ export class SucursalESComponent implements OnInit {
     private oSucursalEsService: SucursalEsService,
     private oComboService: ComboService,
     private oSunatService: SunatService,
-    private oMessageService: MessageService
+    private oMessageService: MessageService,
+    private oRouter: Router
     ) {
     this.CargarSucursales();
     this.CargarEstacionServicio();
@@ -89,7 +91,7 @@ export class SucursalESComponent implements OnInit {
     $('#myModalNew').modal({backdrop: 'static', keyboard: false});
   }
   fnOperadores(id: number) {
-    console.log(id);
+    this.oRouter.navigate(['/OGTU/operadorES/', id]);
   }
   fnEdit(nId: number) {
     this.nCurrentOption = 2;

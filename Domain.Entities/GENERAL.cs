@@ -51,5 +51,10 @@ namespace Domain.Entities
             public int? NUM_IDCARGO { get; set; }
             public string STR_DSCARGO { get; set; }
         }
+        public class TIPO_OPERADOR
+        { 
+            public int? NUM_IDTIPOOPER { get; set; }
+            public string STR_DSTIPOOPER { get; set; }
+        }
     }
 }

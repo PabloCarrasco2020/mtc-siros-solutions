@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Application.Dto;
 using Application.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Transversal.Common;
@@ -11,6 +12,7 @@ using Transversal.Common.Enums;
 
 namespace SIROS.Web.Controllers
 {
+    [Authorize]
     [Route("api/[Controller]/[Action]")]
     [ApiController]
     public class OperadorESController : ControllerBase
@@ -76,43 +78,10 @@ namespace SIROS.Web.Controllers
                     input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
                     input.sUsuario = oUserInfo.Data.sUsername;
                 }
+                // AGREGANDO LINEA DE CODIGO HASTA QUE DEFINAN COMO GUARDARAN LA FOTO QUE VIENE EN BASE 64
+                input.sFoto = "";
+                // END
                 var responseInsert = new Response<int>();
-                // INSERTAR MUNICIPALIDAD EN EL SSO 58930 60288
-                //var rEnterpriseNew = await this._sSOApplication.EnterpriseNew(input.sRuc);
-                //if (!rEnterpriseNew.IsSuccess)
-                //{
-                //    responseInsert.Message = rEnterpriseNew.Message;
-                //    return responseInsert;
-                //}
-                //if (rEnterpriseNew.Data.IdPersona == 0)
-                //{
-                //    responseInsert.Message = "Ya se encuentra registrado.";
-                //    return responseInsert;
-                //}
-                // ASIGNAR APLICATIVO A MUNICIPALIDAD EN EL SSO 75066
-                //var rEnterpriseAttachApp = await this._sSOApplication.EnterpriseAttachApp(
-                //    rEnterpriseNew.Data.IdPersona.ToString(),
-                //    input.sRuc);
-                //if (!rEnterpriseAttachApp.IsSuccess)
-                //{
-                //    responseInsert.Message = rEnterpriseAttachApp.Message;
-                //    return responseInsert;
-                //}
-                // CREAR LOCAL DE MUNICIPALIDAD EN EL SSO 6213
-                //var rEnterpriseAddLocal = await this._sSOApplication.EnterpriseAddLocal(
-                //    rEnterpriseNew.Data.IdPersona.ToString(),
-                //    input.sRuc,
-                //    rEnterpriseAttachApp.Data.Value,
-                //    "LOCAL PRINCIPAL",
-                //    "-"
-                //    );
-                //if (!rEnterpriseAddLocal.IsSuccess)
-                //{
-                //    responseInsert.Message = rEnterpriseAddLocal.Message;
-                //    return responseInsert;
-                //}
-                //input.nIdentidadsso = rEnterpriseNew.Data.IdPersona;
-                //input.nIdLocalsso = Int32.Parse(rEnterpriseAddLocal.Data.Value);
                 return await this._operadorESApplication.Insert(input);
             }
             catch (Exception ex)
