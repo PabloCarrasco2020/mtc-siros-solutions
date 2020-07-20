@@ -29,7 +29,7 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                    <input class="form-control" placeholder="Ingrese número de documento" [(ngModel)]="sNroDocumento" [disabled]="nCurrentOption===2" maxlength="15" />
+                                    <input (keypress)="KeyUpNumber($event)" class="form-control" placeholder="Ingrese número de documento" [(ngModel)]="sNroDocumento" [disabled]="nCurrentOption===2" maxlength="15"  />
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                     <button type="button" class="btn btn-primary" (click)="ConsultarDni()" [disabled]="nIdTpDocumento != DNI_VALUE || nCurrentOption===2">
