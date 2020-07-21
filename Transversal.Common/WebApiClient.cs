@@ -99,7 +99,7 @@ namespace Transversal.Common
             requestContent.Add(imageContent, contentName, fileName);
             if (extraContent != null)
                 requestContent.Add(extraContent, extraName);
-            var res = await PostAsync(url, requestContent);
+            var res = await PostAsync(url, requestContent).ConfigureAwait(false);
             return ProcessResponse<TResponse>(res);
         }
     }

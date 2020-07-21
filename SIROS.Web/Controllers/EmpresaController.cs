@@ -22,11 +22,11 @@ namespace SIROS.Web.Controllers
         private readonly IJwtApplication _jwtApplication;
 
         public EmpresaController(
-            IEmpresaApplication contratoEsApplication,
+            IEmpresaApplication empresaApplication,
             ILogApplication logApplication,
             IJwtApplication jwtApplication)
         {
-            this._empresaApplication = contratoEsApplication;
+            this._empresaApplication = empresaApplication;
             this._logApplication = logApplication;
             this._jwtApplication = jwtApplication;
         }
@@ -82,7 +82,7 @@ namespace SIROS.Web.Controllers
 
 #if DEBUG
                 // PARA PRUEBA
-                oItem.nIdEntidadSSO = 1166;
+                // oItem.nIdEntidadSSO = 1166;
 #endif
 
                 var oResult = await this._empresaApplication.Insert(oItem);

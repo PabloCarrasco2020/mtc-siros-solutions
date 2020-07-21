@@ -15,18 +15,18 @@ namespace SIROS.Web.Controllers
     [Authorize(Roles = "OGTU")]
     [Route("api/[controller]")]
     [ApiController]
-    public class ContratoEsController : ControllerBase
+    public class OperadorEmpresaController : ControllerBase
     {
-        private readonly IContratoEsApplication _contratoEsApplication;
+        private readonly IOperadorEmpresaApplication _operadorEmpresaApplication;
         private readonly ILogApplication _logApplication;
         private readonly IJwtApplication _jwtApplication;
 
-        public ContratoEsController(
-            IContratoEsApplication contratoEsApplication,
+        public OperadorEmpresaController(
+            IOperadorEmpresaApplication operadorEmpresaApplication,
             ILogApplication logApplication,
             IJwtApplication jwtApplication)
         {
-            this._contratoEsApplication = contratoEsApplication;
+            this._operadorEmpresaApplication = operadorEmpresaApplication;
             this._logApplication = logApplication;
             this._jwtApplication = jwtApplication;
         }
@@ -36,12 +36,12 @@ namespace SIROS.Web.Controllers
         {
             try
             {
-                var oResult = await this._contratoEsApplication.Get(sInput);
+                var oResult = await this._operadorEmpresaApplication.Get(sInput);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-Get", ex, sInput);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "OperadorEmpresa-Get", ex, sInput);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
@@ -57,46 +57,41 @@ namespace SIROS.Web.Controllers
                     return Ok(oUserInfo);
 
                 sFilter = $"{sFilter}@{oUserInfo.Data.nIdEmpresa}";
-                var oResult = await this._contratoEsApplication.GetAllByFilter(nCantidadXPagina,nPagina,sFilter);
+                var oResult = await this._operadorEmpresaApplication.GetAllByFilter(nCantidadXPagina, nPagina, sFilter);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-GetAllByFilter", ex, nPagina, sFilter);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "OperadorEmpresa-GetAllByFilter", ex, nPagina, sFilter);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
 
         [HttpPost("Insert")]
-        public async Task<IActionResult> Insert(ContratoEsDto.RQInsert oItem)
+        public async Task<IActionResult> Insert(OperadorEmpresaDto.RQInsert oItem)
         {
             try
             {
                 var oUserInfo = await this._jwtApplication.GetUserInfo(User);
                 if (!oUserInfo.IsSuccess)
                     return Ok(oUserInfo);
-                
+
                 oItem.nIdSession = int.Parse(oUserInfo.Data.sIdSession);
                 oItem.sUsuario = oUserInfo.Data.sUsername;
-                oItem.nIdEntidad = oUserInfo.Data.nIdEmpresa;
+                oItem.sFoto = "";
 
-#if DEBUG
-                // PARA PRUEBA
-                // oItem.nIdEntidad = 1166;
-#endif
-
-                var oResult = await this._contratoEsApplication.Insert(oItem);
+                var oResult = await this._operadorEmpresaApplication.Insert(oItem);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-Insert", ex, oItem);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "OperadorEmpresa-Insert", ex, oItem);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
 
         [HttpPost("Update")]
-        public async Task<IActionResult> Update(ContratoEsDto.RQUpdate oItem)
+        public async Task<IActionResult> Update(OperadorEmpresaDto.RQUpdate oItem)
         {
             try
             {
@@ -106,18 +101,18 @@ namespace SIROS.Web.Controllers
 
                 oItem.nIdSession = int.Parse(oUserInfo.Data.sIdSession);
                 oItem.sUsuario = oUserInfo.Data.sUsername;
-                var oResult = await this._contratoEsApplication.Update(oItem);
+                var oResult = await this._operadorEmpresaApplication.Update(oItem);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-Update", ex, oItem);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "OperadorEmpresa-Update", ex, oItem);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
 
         [HttpPost("Delete")]
-        public async Task<IActionResult> Delete(ContratoEsDto.RQDelete oItem)
+        public async Task<IActionResult> Delete(OperadorEmpresaDto.RQDelete oItem)
         {
             try
             {
@@ -126,12 +121,13 @@ namespace SIROS.Web.Controllers
                     return Ok(oUserInfo);
 
                 oItem.nIdSession = int.Parse(oUserInfo.Data.sIdSession);
-                var oResult = await this._contratoEsApplication.Delete(oItem);
+                oItem.sUsuario = oUserInfo.Data.sUsername;
+                var oResult = await this._operadorEmpresaApplication.Delete(oItem);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-Delete", ex, oItem);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "OperadorEmpresa-Delete", ex, oItem);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
