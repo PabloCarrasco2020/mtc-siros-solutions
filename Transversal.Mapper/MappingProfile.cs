@@ -458,6 +458,53 @@ namespace Transversal.Mapper
 
             #endregion
 
+            #region Operador Empresa
+
+            CreateMap<TM_OPERADOR_EMPRESA, OperadorEmpresaDto.RQInsert>()
+              .ForMember(destination => destination.nIdTpDocumento, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTO))
+              .ForMember(destination => destination.sNroDocumento, source => source.MapFrom(src => src.STR_NUMDOCUMENTO))
+              .ForMember(destination => destination.sApePaterno, source => source.MapFrom(src => src.STR_APEPATERNO))
+              .ForMember(destination => destination.sApeMaterno, source => source.MapFrom(src => src.STR_APEMATERNO))
+              .ForMember(destination => destination.sNombre, source => source.MapFrom(src => src.STR_NOMBRE))
+              .ForMember(destination => destination.nIdTipoOper, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
+              .ForMember(destination => destination.sFecNacimiento, source => source.MapFrom(src => src.DTE_FECNACIMIENTO))
+              .ForMember(destination => destination.sFoto, source => source.MapFrom(src => src.STR_FOTO))
+              .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+              .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+              .ReverseMap();
+            CreateMap<TM_OPERADOR_EMPRESA, OperadorEmpresaDto.RQUpdate>()
+                .ForMember(destination => destination.nIdNominaXEmpresa, source => source.MapFrom(src => src.NUM_IDNOMINAXEMP))
+                .ForMember(destination => destination.nIdTipoOper, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
+                .ForMember(destination => destination.sFecNacimiento, source => source.MapFrom(src => src.DTE_FECNACIMIENTO))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_OPERADOR_EMPRESA, OperadorEmpresaDto.RQDelete>()
+                .ForMember(destination => destination.nIdNominaXEmpresa, source => source.MapFrom(src => src.NUM_IDNOMINAXEMP))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_OPERADOR_EMPRESA, OperadorEmpresaDto.RSGet>()
+                .ForMember(destination => destination.nIdNominaXEmpresa, source => source.MapFrom(src => src.NUM_IDNOMINAXEMP))
+                .ForMember(destination => destination.nIdTpDocumento, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTO))
+                .ForMember(destination => destination.sNroDocumento, source => source.MapFrom(src => src.STR_NUMDOCUMENTO))
+                .ForMember(destination => destination.sApePaterno, source => source.MapFrom(src => src.STR_APEPATERNO))
+                .ForMember(destination => destination.sApeMaterno, source => source.MapFrom(src => src.STR_APEMATERNO))
+                .ForMember(destination => destination.sNombre, source => source.MapFrom(src => src.STR_NOMBRE))
+                .ForMember(destination => destination.nIdTipoOper, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
+                .ForMember(destination => destination.sFecNacimiento, source => source.MapFrom(src => src.DTE_FECNACIMIENTO.ToAppSirosDate()))
+                .ForMember(destination => destination.sFoto, source => source.MapFrom(src => src.STR_FOTO))
+                .ReverseMap();
+            CreateMap<TM_OPERADOR_EMPRESA, TableModel>()
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDNOMINAXEMP))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NUMDOCUMENTO))
+                .ForMember(destination => destination.Column3, source => source.MapFrom(src => $"{src.STR_NOMBRE} {src.STR_APEPATERNO} {src.STR_APEMATERNO}"))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_DSTIPOOPER))
+                .ReverseMap();
+
+            #endregion
+
             #region General
             CreateMap<GENERAL.TIPO_VIA, ComboModelDto.XId>()
                 .ForMember(destination => destination.nId, source => source.MapFrom(src => src.NUM_IDTPVIA))
