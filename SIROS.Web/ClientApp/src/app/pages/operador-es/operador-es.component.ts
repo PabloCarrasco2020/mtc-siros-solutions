@@ -15,6 +15,7 @@ declare var $: any;
 export class OperadorEsComponent implements OnInit {
 
   sTitlePage: string = 'Sucursal de estación de servicio';
+  sSucursalName: string = '';
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
@@ -52,6 +53,7 @@ export class OperadorEsComponent implements OnInit {
     private oReniecService: ReniecService
     ) {
       this.nIdSucursalxES = Number(this.activatedRoute.snapshot.params.id);
+      this.sSucursalName = this.activatedRoute.snapshot.params.sucursal;
       this.CargarOperadores();
       this.CargarTipoDocumento();
       this.CargarTipoOperador();

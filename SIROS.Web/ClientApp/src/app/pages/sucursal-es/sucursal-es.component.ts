@@ -91,7 +91,8 @@ export class SucursalESComponent implements OnInit {
     $('#myModalNew').modal({backdrop: 'static', keyboard: false});
   }
   fnOperadores(id: number) {
-    this.oRouter.navigate(['/OGTU/operadorES/', id]);
+    const dataSucursal = this.oIndexData.Items.find( suc => Number(suc.Id) === Number(id));
+    this.oRouter.navigate(['/OGTU/operadorES/', id, `${dataSucursal.Column3} - ${dataSucursal.Column4}`]);
   }
   fnEdit(nId: number) {
     this.nCurrentOption = 2;

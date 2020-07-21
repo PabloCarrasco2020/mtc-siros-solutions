@@ -1,13 +1,19 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>{{CurrentPage}}</h2>
+        <h3>{{DependencyName}}</h3>
         <ol class="breadcrumb">
-            <li class="breadcrumb-item">
-                <a [routerLink]="['/pages/home']" routerLinkActive="active">Home</a>
+            <li class="breadcrumb-item" *ngIf="RouterName1 !== null">
+                <a [routerLink]="[RouteTo1]" routerLinkActive="active">{{RouterName1}}</a>
             </li>
-
-            <li class="breadcrumb-item">
-                <a>{{CurrentPage}}</a>
+            <li class="breadcrumb-item" *ngIf="RouterName2 !== null">
+                <a [routerLink]="RouteTo2" routerLinkActive="active">{{RouterName2}}</a>
+            </li>
+            <li class="breadcrumb-item" *ngIf="RouterName3 !== null">
+                <a [routerLink]="RouteTo3" routerLinkActive="active">{{RouterName3}}</a>
+            </li>
+            <li class="breadcrumb-item" *ngIf="RouterName4 !== null">
+                <a [routerLink]="RouteTo4" routerLinkActive="active">{{RouterName4}}</a>
             </li>
         </ol>
     </div>

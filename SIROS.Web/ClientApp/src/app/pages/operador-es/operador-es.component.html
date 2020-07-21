@@ -1,5 +1,5 @@
 <block-ui></block-ui>
-<app-breadcrumb CurrentPage="Operadores de estación de servicio"></app-breadcrumb>
+<app-breadcrumb CurrentPage="Operadores de estación de servicio" [DependencyName]="sSucursalName" RouterName1="Estación de servicio" RouteTo1="/OGTU/sucursalES" RouterName2="Operadores" RouteTo2="/OGTU/operadorES/{{nIdSucursalxES}}"></app-breadcrumb>
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="container-fluid">
@@ -91,7 +91,7 @@
             <div class="col-lg-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>Listado de operadores de estaciones de servicios -  </h5>
+                        <h5>Listado de operadores</h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
