@@ -108,11 +108,12 @@ $(document).ready(function () {
 
     // Append config box / Only for demo purpose
     // Uncomment on server mode to enable XHR calls
+    /*
     $.get("skin-config2.html", function (data) {
        if (!$('body').hasClass('no-skin-config'))
            $('body').append(data);
     });
-
+    */
     // Minimalize menu
     $('.navbar-minimalize').on('click', function (event) {
         event.preventDefault();

@@ -30,7 +30,30 @@ namespace SIROS.Web.Controllers
             this._logApplication = logApplication;
             this._jwtApplication = jwtApplication;
         }
+        [HttpGet]
+        public async Task<Response<RutaDto.RSGet>> Get(string sInput)
+        {
+            try
+            {
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    //sFilter = $"{sFilter}@{oUserInfo.Data.nIdEmpresa}";
+                    sInput = $"{sInput}@1166";
+                }
+                return await _rutaApplication.Get(sInput);
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "RutaController-Get", ex, sInput);
+                return new Response<RutaDto.RSGet>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
 
+        [HttpGet]
         public async Task<Response<IndexTableModelDto>> GetAllByFilter(int nPagina, string sFilter)
         {
             try
@@ -48,6 +71,56 @@ namespace SIROS.Web.Controllers
             {
                 _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Ruta-GetAllByFilter", ex, nPagina, sFilter);
                 return new Response<IndexTableModelDto>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+
+        [HttpPost]
+        public async Task<Response<int>> Update([FromBody] RutaDto.RQUpdate input)
+        {
+            try
+            {
+                input.nIdSession = 0;
+                input.sUsuario = "";
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
+                    input.sUsuario = oUserInfo.Data.sUsername;
+                }
+                return await _rutaApplication.Update(input);
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "RutaController-Update", ex, input);
+                return new Response<int>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+
+        [HttpPost]
+        public async Task<Response<int>> Delete([FromBody] RutaDto.RQDelete input)
+        {
+            try
+            {
+                input.nIdSession = 0;
+                input.sUsuario = "";
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
+                    input.sUsuario = oUserInfo.Data.sUsername;
+                }
+                return await _rutaApplication.Delete(input);
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "RutaController-Delete", ex, input);
+                return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
