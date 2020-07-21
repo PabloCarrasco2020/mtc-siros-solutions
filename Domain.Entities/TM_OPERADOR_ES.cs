@@ -15,7 +15,6 @@ namespace Domain.Entities
         public string STR_NOMBRE { get; set; }
         public int? NUM_IDTIPOOPER { get; set; }
         public string DTE_FECNACIMIENTO { get; set; }
-        public string STR_FOTO { get; set; }
         public int? NUM_IDSESION { get; set; }
         public string STR_DSTIPOOPER { get; set; }
     }

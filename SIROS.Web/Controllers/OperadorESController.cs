@@ -18,16 +18,19 @@ namespace SIROS.Web.Controllers
     public class OperadorESController : ControllerBase
     {
         private readonly IOperadorESApplication _operadorESApplication;
+        private readonly IReniecApplication _reniecApplication;
         private readonly ILogApplication _logApplication;
         private readonly IJwtApplication _jwtApplication;
 
         public OperadorESController(
             IOperadorESApplication operadorESApplication,
+            IReniecApplication reniecApplication,
             ILogApplication logApplication,
             IJwtApplication jwtApplication
             )
         {
             this._operadorESApplication = operadorESApplication;
+            this._reniecApplication = reniecApplication;
             this._logApplication = logApplication;
             this._jwtApplication = jwtApplication;
         }
@@ -36,7 +39,20 @@ namespace SIROS.Web.Controllers
         {
             try
             {
-                return await this._operadorESApplication.Get(sInput);
+                var ResultGetOperador = await this._operadorESApplication.Get(sInput);
+                if (!ResultGetOperador.IsSuccess)
+                {
+                    return ResultGetOperador;
+                }
+                if (ResultGetOperador.Data.nIdTpDocumento.Value == 1)
+                {
+                    var ResultReniec = await this._reniecApplication.ConsultaNumDoc(ResultGetOperador.Data.sNroDocumento);
+                    if (ResultReniec.IsSuccess)
+                    {
+                        ResultGetOperador.Data.sFoto = ResultReniec.Data.sFoto;
+                    }
+                }
+                return ResultGetOperador;
             }
             catch (Exception ex)
             {

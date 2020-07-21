@@ -84,7 +84,6 @@ namespace Infrastructure.Repository
                 dyParam.Add("str_nombre_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NOMBRE);
                 dyParam.Add("num_idtipooper_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDTIPOOPER);
                 dyParam.Add("dte_fecnacimiento_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECNACIMIENTO.ToBDSirosDate());
-                dyParam.Add("str_foto_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_FOTO);
                 dyParam.Add("str_usucreacion_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUCREACION);
                 dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);

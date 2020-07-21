@@ -340,7 +340,6 @@ namespace Transversal.Mapper
               .ForMember(destination => destination.sNombre, source => source.MapFrom(src => src.STR_NOMBRE))
               .ForMember(destination => destination.nIdTipoOper, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
               .ForMember(destination => destination.sFecNacimiento, source => source.MapFrom(src => src.DTE_FECNACIMIENTO))
-              .ForMember(destination => destination.sFoto, source => source.MapFrom(src => src.STR_FOTO))
               .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
               .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
               .ReverseMap();
@@ -366,7 +365,6 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.sNombre, source => source.MapFrom(src => src.STR_NOMBRE))
                 .ForMember(destination => destination.nIdTipoOper, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
                 .ForMember(destination => destination.sFecNacimiento, source => source.MapFrom(src => src.DTE_FECNACIMIENTO.ToAppSirosDate()))
-                .ForMember(destination => destination.sFoto, source => source.MapFrom(src => src.STR_FOTO))
                 .ReverseMap();
             CreateMap<TM_OPERADOR_ES, TableModel>()
                 .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDNOMINAXSUCURSAL))

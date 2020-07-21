@@ -28,17 +28,18 @@ namespace Application.Core
                 var responseDelete = new Response<int>();
                 var modelReq = this._mapper.Map<TM_ESTACIONSERVICIO>(input);
                 var result = await this._estacionServicioDomain.Delete(modelReq);
-                if (result.STR_ESTADOPROCESO == "1")
+                var nestadoProceso = Int32.Parse(result.STR_ESTADOPROCESO);
+                if (nestadoProceso == 1)
                 {
                     responseDelete.IsSuccess = true;
                     responseDelete.Data = result.NUM_IDESTSERVICIO.Value;
                     responseDelete.Message = result.STR_MENSAJE;
                 }
-                else if (result.STR_ESTADOPROCESO == "-1")
+                else if (nestadoProceso > 1)
                 {
                     responseDelete.Message = result.STR_MENSAJE;
                 }
-                else if (result.STR_ESTADOPROCESO == "0")
+                else if (nestadoProceso == 0)
                 {
                     throw new Exception(result.STR_MENSAJE);
                 }
@@ -128,19 +129,21 @@ namespace Application.Core
                 var responseInsert = new Response<int>();
                 var modelReq = this._mapper.Map<TM_ESTACIONSERVICIO>(input);
                 var result = await this._estacionServicioDomain.Insert(modelReq);
-                if (result.NUM_IDESTSERVICIO == -1)
-                {
-                    responseInsert.Message = result.STR_MENSAJE;
-                }
-                else if (result.NUM_IDESTSERVICIO == 0)
-                {
-                    throw new Exception(result.STR_MENSAJE);
-                }
-                else
+                var nestadoProceso = Int32.Parse(result.STR_ESTADOPROCESO);
+
+                if (nestadoProceso == 1)
                 {
                     responseInsert.IsSuccess = true;
                     responseInsert.Data = result.NUM_IDESTSERVICIO.Value;
                     responseInsert.Message = result.STR_MENSAJE;
+                }
+                else if (nestadoProceso > 1)
+                {
+                    responseInsert.Message = result.STR_MENSAJE;
+                }
+                else if (nestadoProceso == 0)
+                {
+                    throw new Exception(result.STR_MENSAJE);
                 }
                 return responseInsert;
             }
@@ -157,17 +160,18 @@ namespace Application.Core
                 var responseUpdate = new Response<int>();
                 var modelReq = this._mapper.Map<TM_ESTACIONSERVICIO>(input);
                 var result = await this._estacionServicioDomain.Update(modelReq);
-                if (result.STR_ESTADOPROCESO == "1")
+                var nestadoProceso = Int32.Parse(result.STR_ESTADOPROCESO);
+                if (nestadoProceso == 1)
                 {
                     responseUpdate.IsSuccess = true;
                     responseUpdate.Data = result.NUM_IDESTSERVICIO.Value;
                     responseUpdate.Message = result.STR_MENSAJE;
                 }
-                else if (result.STR_ESTADOPROCESO == "-1")
+                else if (nestadoProceso > 1)
                 {
                     responseUpdate.Message = result.STR_MENSAJE;
                 }
-                else if (result.STR_ESTADOPROCESO == "0")
+                else if (nestadoProceso == 0)
                 {
                     throw new Exception(result.STR_MENSAJE);
                 }
