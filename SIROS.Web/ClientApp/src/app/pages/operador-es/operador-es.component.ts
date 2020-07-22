@@ -5,6 +5,7 @@ import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ComboService, MessageService, ReniecService, SucursalEsService} from 'src/app/services/services.index';
 import { OperadorEsService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
+import { defaultCipherList } from 'constants';
 
 declare var $: any;
 @Component({
@@ -16,6 +17,7 @@ export class OperadorEsComponent implements OnInit {
 
   sTitlePage: string = 'Sucursal de estación de servicio';
   sSucursalName: string = '';
+  dNow: Date = new Date();
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
@@ -278,6 +280,15 @@ export class OperadorEsComponent implements OnInit {
         this.sFecNacimiento.length === 0
       ) {
       return  ' Completar los campos con (*),  son obligatorios';
+    }
+    const dFecNacimiento: Date = new Date(this.sFecNacimiento);
+    dFecNacimiento.setFullYear(dFecNacimiento.getFullYear() + 18);
+    if (  dFecNacimiento > this.dNow ) {
+      return 'Fecha de nacimiento ingresado no corresponde a un mayor de edad';
+    }
+    const dDifFec = this.dNow.getFullYear() - dFecNacimiento.getFullYear();
+    if (Number(dDifFec) > 90) {
+      return 'Ingrese fecha de nacimiento correctamente.';
     }
     return null;
   }

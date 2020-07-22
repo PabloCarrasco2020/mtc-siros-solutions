@@ -54,7 +54,7 @@
                                             <input class="form-control" placeholder="Ingrese nombres" [(ngModel)]="sNombre" maxlength="100" [disabled]="nIdTpDocumento == DNI_VALUE || nCurrentOption===2"/>
                                         </div>
                                         <div class="col-lg-12 mb-2">
-                                            <label class="titulo-Campos" for="">Cargo:</label>
+                                            <label class="titulo-Campos" for="">Cargo (*):</label>
                                             <select class="form-control form-control-sm" [(ngModel)]="nIdTipoOper">
                                                 <option value="-1">
                                                     Seleccione cargo
@@ -65,8 +65,8 @@
                                             </select>
                                         </div>
                                         <div class="col-lg-12 mb-2">
-                                            <label class="titulo-Campos" for="">Fecha Nacimiento:</label>
-                                            <input type="date" class="form-control"  [(ngModel)]="sFecNacimiento" />
+                                            <label class="titulo-Campos" for="">Fecha Nacimiento (*):</label>
+                                            <input type="date" class="form-control"  [(ngModel)]="sFecNacimiento" min='1900-01-01' max='9999-12-31'/>
                                         </div>
                                     </div>
                                 </div>
