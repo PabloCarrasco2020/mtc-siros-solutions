@@ -12,9 +12,9 @@ namespace Application.Dto
             public int nIdEstServicio { get; set; }
             public int nIdEntidad { get; set; }
             public string sNumContrato { get; set; }
-            public DateTime? dFecContrato { get; set; }
-            public DateTime? dFecIniVigencia { get; set; }
-            public DateTime? dFecFinVigencia { get; set; }
+            public string sFecContrato { get; set; }
+            public string sFecIniVigencia { get; set; }
+            public string sFecFinVigencia { get; set; }
         }
 
         public class RQInsert
@@ -22,9 +22,9 @@ namespace Application.Dto
             public int? nIdEstServicio { get; set; }
             public int? nIdEntidad { get; set; }
             public string sNumContrato { get; set; }
-            public DateTime? dFecContrato { get; set; }
-            public DateTime? dFecIniVigencia { get; set; }
-            public DateTime? dFecFinVigencia { get; set; }
+            public string sFecContrato { get; set; }
+            public string sFecIniVigencia { get; set; }
+            public string sFecFinVigencia { get; set; }
             public string sUsuario { get; set; }
             public int? nIdSession { get; set; }
         }
@@ -33,9 +33,9 @@ namespace Application.Dto
         {
             public int? nIdEstServicioEnt { get; set; }
             public string sNumContrato { get; set; }
-            public DateTime? dFecContrato { get; set; }
-            public DateTime? dFecIniVigencia { get; set; }
-            public DateTime? dFecFinVigencia { get; set; }
+            public string sFecContrato { get; set; }
+            public string sFecIniVigencia { get; set; }
+            public string sFecFinVigencia { get; set; }
             public string sUsuario { get; set; }
             public int? nIdSession { get; set; }
         }

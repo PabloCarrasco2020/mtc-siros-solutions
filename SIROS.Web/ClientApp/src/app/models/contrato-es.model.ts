@@ -4,9 +4,9 @@ export class ContratoEsModel {
     nIdEstServicio?: number;
     nIdEntidad?: number;
     sNumContrato: string;
-    dFecContrato?: Date;
-    dFecIniVigencia?: Date;
-    dFecFinVigencia?: Date;
+    sFecContrato?: string;
+    sFecIniVigencia?: string;
+    sFecFinVigencia?: string;
     sUsuario: string;
     nIdSession?: number;
 

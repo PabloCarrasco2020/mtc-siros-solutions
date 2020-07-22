@@ -37,17 +37,17 @@
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Fecha de Contrato (*)</label>
-                                    <input type="date" placeholder="" class="form-control" [ngModel]="oModel.dFecContrato  | date:'yyyy-MM-dd'" (ngModelChange)="oModel.dFecContrato = $event">
+                                    <input type="date" class="form-control" [(ngModel)]="oModel.sFecContrato">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Fecha Inicio (*)</label>
-                                    <input type="date" placeholder="" class="form-control" [ngModel]="oModel.dFecIniVigencia | date:'yyyy-MM-dd'" (ngModelChange)="oModel.dFecIniVigencia = $event">
+                                    <input type="date" class="form-control" [(ngModel)]="oModel.sFecIniVigencia">
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Fecha Fin (*)</label>
-                                    <input type="date" placeholder="" class="form-control" [ngModel]="oModel.dFecFinVigencia  | date:'yyyy-MM-dd'" (ngModelChange)="oModel.dFecFinVigencia = $event">
+                                    <input type="date" class="form-control" [(ngModel)]="oModel.sFecFinVigencia">
                                 </div>
                             </div>
                         </section>

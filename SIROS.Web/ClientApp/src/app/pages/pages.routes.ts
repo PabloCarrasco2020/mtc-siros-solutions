@@ -15,6 +15,9 @@ import { RegistrarControlIEComponent } from './registrar-control-ie/registrar-co
 import { OGTUGuard } from '../guards/ogtu.guard';
 import { InGuard } from '../guards/in.guard';
 import { OperadorEsComponent } from './operador-es/operador-es.component';
+import { OperadorEmpresaComponent } from './operador-empresa/operador-empresa.component';
+import { RutasEmpresaComponent } from './rutas-empresa/rutas-empresa.component';
+import { RutasVehiculoEmpresaComponent } from './rutas-vehiculo-empresa/rutas-vehiculo-empresa.component';
 
 const pagesRoutes: Routes = [
     {
@@ -41,6 +44,9 @@ const pagesRoutes: Routes = [
             { path: 'operadorES/:id/:sucursal', component: OperadorEsComponent },
             { path: 'rutas', component: RutasComponent },
             { path: 'empresas', component: EmpresasComponent },
+            { path: 'operadorEmpresa/:nIdEmpresa/:sEmpresa', component: OperadorEmpresaComponent },
+            { path: 'rutasEmpresa/:nIdEmpresa/:sEmpresa', component: RutasEmpresaComponent },
+            { path: 'rutasVehiculoEmpresa', component: RutasVehiculoEmpresaComponent },
             { path: 'vehiculoSucursal', component: VehiculoSucursalComponent },
             { path: 'registrarControlIE', component: RegistrarControlIEComponent }
         ]

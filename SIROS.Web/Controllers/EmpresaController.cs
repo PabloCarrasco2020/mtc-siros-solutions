@@ -80,11 +80,6 @@ namespace SIROS.Web.Controllers
                 oItem.sUsuario = oUserInfo.Data.sUsername;
                 oItem.nIdEntidadSSO = oUserInfo.Data.nIdEmpresa;
 
-#if DEBUG
-                // PARA PRUEBA
-                // oItem.nIdEntidadSSO = 1166;
-#endif
-
                 var oResult = await this._empresaApplication.Insert(oItem);
                 return Ok(oResult);
             }

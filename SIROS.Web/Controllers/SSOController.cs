@@ -265,6 +265,13 @@ namespace SIROS.Web.Controllers
                 oJwt.nIdEmpresa = oUser.Data.nIdEmpresa;
                 oJwt.nIdLocal = oUser.Data.nIdLocal;
 
+#if DEBUG
+                // ================================
+                // ===== SECCION PARA PRUEBAS =====
+                // ================================
+                oJwt.nIdEmpresa = 1166;
+#endif
+
                 var oToken = await this._jwtApplication.GenerateJwtToken(oJwt);
                 oUser.Data.sToken = oToken.Data.sToken;
                 oUser.Data.dTokenExpiration = oToken.Data.dTokenExpiration;

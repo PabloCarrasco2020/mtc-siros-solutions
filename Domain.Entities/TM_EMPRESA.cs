@@ -6,7 +6,7 @@ namespace Domain.Entities
 {
     public class TM_EMPRESA : COMMON_EXTENSION
     {
-        public int NUM_IDEMPRESA { get; set; }
+        public int? NUM_IDEMPRESA { get; set; }
         public int NUM_IDENTIDAD { get; set; }
         public string STR_NUMRUC { get; set; }
         public string STR_RAZONSOCIAL { get; set; }

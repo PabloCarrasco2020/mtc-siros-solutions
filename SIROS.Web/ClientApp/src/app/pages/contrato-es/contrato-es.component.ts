@@ -129,9 +129,8 @@ export class ContratoESComponent implements OnInit {
   }
 
   fnGuardar() {
-    console.log('model', this.oModel);
     const warningDatosFormulario = this.ValidarDatosFormulario();
-    if (warningDatosFormulario !== null) {
+    if (warningDatosFormulario) {
       this.oMessageService.warning(this.sTitlePage, warningDatosFormulario);
       return;
     }
@@ -142,9 +141,8 @@ export class ContratoESComponent implements OnInit {
     this.oBlockUI.start('Cargando Contrato de Estación de Servicio...');
     this.oContratoEsService.Get(this.oModel.nIdEstServicioEnt)
     .then((oResponse: ResponseModel<ContratoEsModel>) => {
-      if ( oResponse.IsSuccess) {
+      if (oResponse.IsSuccess) {
         this.oModel = oResponse.Data;
-        // fechas viene: dd-MM-yyyy
       } else {
 
       }
@@ -155,7 +153,6 @@ export class ContratoESComponent implements OnInit {
   Guardar() {
     this.oBlockUI.start('Guardando Contrato...');
     this.oModel.nIdEstServicio = Number(this.oModel.nIdEstServicio);
-    // enviar fechas: yyyy-MM-dd
     if (this.nCurrentOption === this.OPTION_NUEVO) {
       this.oContratoEsService.Insert(this.oModel).then((response: ResponseModel<any>) => {
         if (response.IsSuccess) {
@@ -205,33 +202,34 @@ export class ContratoESComponent implements OnInit {
     this.oModel.nIdEstServicioEnt = 0;
     this.oModel.nIdEstServicio = -1;
     this.oModel.sNumContrato = '';
-    this.oModel.dFecContrato = null;
-    this.oModel.dFecIniVigencia = null;
-    this.oModel.dFecFinVigencia = null;
+    this.oModel.sFecContrato = '';
+    this.oModel.sFecIniVigencia = '';
+    this.oModel.sFecFinVigencia = '';
   }
 
   ValidarDatosFormulario(): string {
     if (Number(this.oModel.nIdEstServicio) === -1) {
       return 'Debe seleccionar una Estacion de Servicio.';
     }
-    if (this.oModel.sNumContrato.length === 0) {
-      return 'Debe ingresar el Numero de Contrato.';
-    }
-    if (this.oModel.dFecContrato === null) {
-      return 'Debe ingresar la Fecha de Contrato.';
-    }
-    if (this.oModel.dFecIniVigencia === null) {
-      return 'Debe ingresar la Fecha Inicio.';
-    }
-    if (this.oModel.dFecFinVigencia === null) {
-      return 'Debe ingresar la Fecha Fin.';
+
+    if (
+      this.oModel.sNumContrato.length === 0 ||
+      this.oModel.sFecContrato.length === 0 ||
+      this.oModel.sFecIniVigencia.length === 0 ||
+      this.oModel.sFecFinVigencia.length === 0
+    ) {
+      return  ' Completar los campos con (*),  son obligatorios';
     }
 
-    if (this.oModel.dFecIniVigencia > this.oModel.dFecFinVigencia) {
-      return 'La Fecha Inicio no puede ser mayor que la Fecha Fin.';
+    const dFecContrato = new Date(this.oModel.sFecContrato);
+    const dFecIniVigencia = new Date(this.oModel.sFecIniVigencia);
+    const sFecFinVigencia = new Date(this.oModel.sFecFinVigencia);
+
+    if (!(dFecIniVigencia >= dFecContrato)) {
+      return 'La Fecha de Inicio debe ser mayor o igual a la Fecha de Contrato.';
     }
-    if (this.oModel.dFecFinVigencia < this.oModel.dFecIniVigencia) {
-      return 'La Fecha Fin no puede ser menor que la Fecha Inicio.';
+    if (!(sFecFinVigencia > dFecIniVigencia)) {
+      return 'La Fecha Fin debe ser mayor que la Fecha de Inicio.';
     }
 
     return null;

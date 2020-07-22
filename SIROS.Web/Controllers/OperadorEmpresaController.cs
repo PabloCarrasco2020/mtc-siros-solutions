@@ -18,15 +18,18 @@ namespace SIROS.Web.Controllers
     public class OperadorEmpresaController : ControllerBase
     {
         private readonly IOperadorEmpresaApplication _operadorEmpresaApplication;
+        private readonly IReniecApplication _reniecApplication;
         private readonly ILogApplication _logApplication;
         private readonly IJwtApplication _jwtApplication;
 
         public OperadorEmpresaController(
             IOperadorEmpresaApplication operadorEmpresaApplication,
+            IReniecApplication reniecApplication,
             ILogApplication logApplication,
             IJwtApplication jwtApplication)
         {
             this._operadorEmpresaApplication = operadorEmpresaApplication;
+            this._reniecApplication = reniecApplication;
             this._logApplication = logApplication;
             this._jwtApplication = jwtApplication;
         }
@@ -37,6 +40,18 @@ namespace SIROS.Web.Controllers
             try
             {
                 var oResult = await this._operadorEmpresaApplication.Get(sInput);
+                if (!oResult.IsSuccess)
+                    return Ok(oResult);
+                
+                if (oResult.Data.nIdTpDocumento.Value == 1)
+                {
+                    var oResultReniec = await this._reniecApplication.ConsultaNumDoc(oResult.Data.sNroDocumento);
+                    if (oResultReniec.IsSuccess)
+                    {
+                        oResult.Data.sFoto = oResultReniec.Data.sFoto;
+                    }
+                }
+
                 return Ok(oResult);
             }
             catch (Exception ex)

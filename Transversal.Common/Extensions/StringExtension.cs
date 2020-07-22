@@ -7,13 +7,6 @@ namespace Transversal.Common.Extensions
 {
     public static partial class StringExtensions
     {
-        public static DateTime? GetSirosDateTime(this string sDate)
-        {
-            if (string.IsNullOrEmpty(sDate))
-                return null;
-
-            return DateTime.ParseExact(sDate, "dd/MM/yyyy", new CultureInfo("en-US"));
-        }
         public static string ToBDSirosDate(this string sDate)
         {
             if (string.IsNullOrEmpty(sDate))

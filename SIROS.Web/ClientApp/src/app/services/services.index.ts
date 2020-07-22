@@ -15,3 +15,5 @@ export { SucursalEsService } from './sucursal-es.service';
 export { OperadorEsService } from './operador-es.service';
 export { RutaService } from './ruta.service';
 export { EmpresaService } from './empresa.service';
+export { OperadorEmpresaService } from './operador-empresa.service';
+export { DateService } from './date.service';

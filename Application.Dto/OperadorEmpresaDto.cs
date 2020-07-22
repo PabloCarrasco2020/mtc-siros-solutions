@@ -20,6 +20,7 @@ namespace Application.Dto
         }
         public class RQInsert
         {
+            public int? nIdEmpresa { get; set; }
             public int? nIdTpDocumento { get; set; }
             public string sNroDocumento { get; set; }
             public string sApePaterno { get; set; }

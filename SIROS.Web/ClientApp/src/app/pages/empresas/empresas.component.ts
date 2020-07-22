@@ -6,6 +6,7 @@ import { ResponseModel } from 'src/app/models/ResponseModel';
 import { EmpresaService } from '../../services/empresa.service';
 import { EmpresaModel } from '../../models/empresa.model';
 import { RepresentanteLegalModel } from 'src/app/models/representante-legal.model';
+import { Router } from '@angular/router';
 
 declare var $: any;
 
@@ -69,7 +70,8 @@ export class EmpresasComponent implements OnInit {
     private oComboService: ComboService,
     private oMessageService: MessageService,
     private oSunatService: SunatService,
-    private oReniecService: ReniecService
+    private oReniecService: ReniecService,
+    private oRouter: Router
     ) {
       this.CargarEmpresas();
       this.CargarTipoVia();
@@ -637,12 +639,14 @@ export class EmpresasComponent implements OnInit {
     return null;
   }
 
-  fnRutas() {
-
+  fnRutas(nIdEmpresa: number) {
+    const oData = this.oIndexData.Items.find(x => Number(x.Id) === Number(nIdEmpresa));
+    this.oRouter.navigate(['/OGTU/rutasEmpresa/', nIdEmpresa, `${oData.Column2} — ${oData.Column3}`]);
   }
 
-  fnOperadorEmpresa() {
-
+  fnOperadorEmpresa(nIdEmpresa: number) {
+    const oData = this.oIndexData.Items.find(x => Number(x.Id) === Number(nIdEmpresa));
+    this.oRouter.navigate(['/OGTU/operadorEmpresa/', nIdEmpresa, `${oData.Column2} — ${oData.Column3}`]);
   }
 
 }

@@ -81,9 +81,9 @@ namespace Infrastructure.Repository
                 dyParam.Add("num_idestservicio_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDESTSERVICIO);
                 dyParam.Add("num_identidadusuario_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDENTIDAD);
                 dyParam.Add("str_numcontrato_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMCONTRATO);
-                dyParam.Add("dte_feccontrato_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECCONTRATO);
-                dyParam.Add("dte_fecinivig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECINIVIG);
-                dyParam.Add("dte_fecvenvig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECVENVIG);
+                dyParam.Add("dte_feccontrato_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECCONTRATO.ToBDSirosDate());
+                dyParam.Add("dte_fecinivig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECINIVIG.ToBDSirosDate());
+                dyParam.Add("dte_fecvenvig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECVENVIG.ToBDSirosDate());
                 dyParam.Add("str_usucreacion_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUCREACION);
                 dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
@@ -101,9 +101,9 @@ namespace Infrastructure.Repository
                 var dyParam = new OracleDynamicParameters();
                 dyParam.Add("num_idestservicioxent_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDESTSERVICIOXENT);
                 dyParam.Add("str_numcontrato_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMCONTRATO);
-                dyParam.Add("dte_feccontrato_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECCONTRATO);
-                dyParam.Add("dte_fecinivig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECINIVIG);
-                dyParam.Add("dte_fecvenvig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECVENVIG);
+                dyParam.Add("dte_feccontrato_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECCONTRATO.ToBDSirosDate());
+                dyParam.Add("dte_fecinivig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECINIVIG.ToBDSirosDate());
+                dyParam.Add("dte_fecvenvig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECVENVIG.ToBDSirosDate());
                 dyParam.Add("str_usuact_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUACT);
                 dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);

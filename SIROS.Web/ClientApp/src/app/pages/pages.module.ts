@@ -21,6 +21,9 @@ import { SessionInterceptor } from '../utils/session.interceptor';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { OperadorEsComponent } from './operador-es/operador-es.component';
 import { DigitOnlyDirective } from '../directives/digit-only.directive';
+import { OperadorEmpresaComponent } from './operador-empresa/operador-empresa.component';
+import { RutasEmpresaComponent } from './rutas-empresa/rutas-empresa.component';
+import { RutasVehiculoEmpresaComponent } from './rutas-vehiculo-empresa/rutas-vehiculo-empresa.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +40,10 @@ import { DigitOnlyDirective } from '../directives/digit-only.directive';
     VehiculoSucursalComponent,
     RegistrarControlIEComponent,
     OperadorEsComponent,
-    DigitOnlyDirective
+    DigitOnlyDirective,
+    OperadorEmpresaComponent,
+    RutasEmpresaComponent,
+    RutasVehiculoEmpresaComponent
   ],
   exports: [
     PagesComponent
