@@ -1,6 +1,7 @@
 ﻿using Application.Dto;
 using Application.Interface;
 using AutoMapper;
+using Domain.Entities;
 using Domain.Interface;
 using System;
 using System.Collections.Generic;
@@ -21,14 +22,60 @@ namespace Application.Core
             this._mapper = mapper;
         }
     
-        public Task<Response<int>> Delete(RutaDto.RQDelete input)
+        public async Task<Response<int>> Delete(RutaDto.RQDelete input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var responseDelete = new Response<int>();
+                var modelReq = this._mapper.Map<TM_RUTA>(input);
+                var result = await this._rutaDomain.Delete(modelReq);
+                if (result.STR_ESTADOPROCESO == "1")
+                {
+                    responseDelete.IsSuccess = true;
+                    responseDelete.Data = result.NUM_IDRUTA.Value;
+                    responseDelete.Message = result.STR_MENSAJE;
+                }
+                else if (result.STR_ESTADOPROCESO == "-1")
+                {
+                    responseDelete.Message = result.STR_MENSAJE;
+                }
+                else if (result.STR_ESTADOPROCESO == "2")
+                {
+                    responseDelete.Message = result.STR_MENSAJE;
+                }
+                else if (result.STR_ESTADOPROCESO == "0")
+                {
+                    throw new Exception(result.STR_MENSAJE);
+                }
+                return responseDelete;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task<Response<RutaDto.RSGet>> Get(string input)
+        public async Task<Response<RutaDto.RSGet>> Get(string input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var splFilter = input.Split('@');
+
+                var responseGet = new Response<RutaDto.RSGet>();
+                var result = await this._rutaDomain.Get(new TM_RUTA { NUM_IDRUTA = Int32.Parse(splFilter[0]), NUM_IDENTIDADUSUARIO = Int32.Parse(splFilter[1]) });
+                if (result == null)
+                {
+                    responseGet.Message = "No se encontró registro";
+                    return responseGet;
+                }
+                responseGet.IsSuccess = true;
+                responseGet.Data = this._mapper.Map<RutaDto.RSGet>(result);
+                return responseGet;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<Response<IndexTableModelDto>> GetAllByFilter(int cantidadXPagina, int pagina, string filter)
@@ -63,14 +110,62 @@ namespace Application.Core
             throw new NotImplementedException();
         }
 
-        public Task<Response<int>> Insert(RutaDto.RQInsert input)
+        public async Task<Response<int>> Insert(RutaDto.RQInsert input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var responseInsert = new Response<int>();
+                var modelReq = this._mapper.Map<TM_RUTA>(input);
+                var result = await this._rutaDomain.Insert(modelReq);
+                if (result.NUM_IDRUTA == -1)
+                {
+                    responseInsert.Message = result.STR_MENSAJE;
+                }
+                else if (result.NUM_IDRUTA == 0)
+                {
+                    throw new Exception(result.STR_MENSAJE);
+                }
+                else
+                {
+                    responseInsert.IsSuccess = true;
+                    responseInsert.Data = result.NUM_IDRUTA.Value;
+                    responseInsert.Message = result.STR_MENSAJE;
+                }
+                return responseInsert;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task<Response<int>> Update(RutaDto.RQUpdate input)
+        public async Task<Response<int>> Update(RutaDto.RQUpdate input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var responseUpdate = new Response<int>();
+                var modelReq = this._mapper.Map<TM_RUTA>(input);
+                var result = await this._rutaDomain.Update(modelReq);
+                if (result.STR_ESTADOPROCESO == "1")
+                {
+                    responseUpdate.IsSuccess = true;
+                    responseUpdate.Data = result.NUM_IDRUTA.Value;
+                    responseUpdate.Message = result.STR_MENSAJE;
+                }
+                else if (result.STR_ESTADOPROCESO == "-1")
+                {
+                    responseUpdate.Message = result.STR_MENSAJE;
+                }
+                else if (result.STR_ESTADOPROCESO == "0")
+                {
+                    throw new Exception(result.STR_MENSAJE);
+                }
+                return responseUpdate;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

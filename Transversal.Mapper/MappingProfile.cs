@@ -222,7 +222,11 @@ namespace Transversal.Mapper
             #endregion
 
             #region Rutas
-
+            CreateMap<TM_RUTA, RutaDto.RQDelete>()
+                .ForMember(destination => destination.nIdRuta, source => source.MapFrom(src => src.NUM_IDRUTA))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
             CreateMap<TM_RUTA, RutaDto.RSGet>()
                 .ForMember(destination => destination.nIdRuta, source => source.MapFrom(src => src.NUM_IDRUTA))
                 .ForMember(destination => destination.sNroRuta, source => source.MapFrom(src => src.STR_NRORUTA))

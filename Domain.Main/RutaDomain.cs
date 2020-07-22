@@ -17,14 +17,29 @@ namespace Domain.Main
             this._rutaRepository = rutaRepository;
         }
 
-        public Task<TM_RUTA> Delete(TM_RUTA input)
+        public async Task<TM_RUTA> Delete(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this._rutaRepository.Delete(input);
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
         }
 
-        public Task<TM_RUTA> Get(TM_RUTA input)
+        public async Task<TM_RUTA> Get(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this._rutaRepository.Get(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<List<TM_RUTA>> GetAllByFilter(int cantidadXPagina, int pagina, string filter)
@@ -44,14 +59,28 @@ namespace Domain.Main
             throw new NotImplementedException();
         }
 
-        public Task<TM_RUTA> Insert(TM_RUTA input)
+        public async Task<TM_RUTA> Insert(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this._rutaRepository.Insert(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
-        public Task<TM_RUTA> Update(TM_RUTA input)
+        public async Task<TM_RUTA> Update(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this._rutaRepository.Update(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

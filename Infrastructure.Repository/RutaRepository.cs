@@ -18,14 +18,34 @@ namespace Infrastructure.Repository
             this._connectionFactory = connectionFactory;
         }
 
-        public Task<TM_RUTA> Delete(TM_RUTA input)
+        public async Task<TM_RUTA> Delete(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("num_idruta_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDRUTA);
+                dyParam.Add("num_identidadusuario_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDENTIDADUSUARIO);
+                dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+
+                var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_EliminarRuta");
+                var result = await connection.QueryFirstOrDefaultAsync<TM_RUTA>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result;
+            }
         }
 
-        public Task<TM_RUTA> Get(TM_RUTA input)
+        public async Task<TM_RUTA> Get(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("num_idruta_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDRUTA);
+                dyParam.Add("num_identidadusuario_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDENTIDADUSUARIO);
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+                var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_GetListaRutaxId");
+                var result = await connection.QueryFirstOrDefaultAsync<TM_RUTA>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result;
+            }
         }
 
         public async Task<List<TM_RUTA>> GetAllByFilter(int cantidadXPagina, int pagina, string filter)
@@ -52,14 +72,43 @@ namespace Infrastructure.Repository
             throw new NotImplementedException();
         }
 
-        public Task<TM_RUTA> Insert(TM_RUTA input)
+        public async Task<TM_RUTA> Insert(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("str_nombreruta_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NOMBRERUTA);
+                dyParam.Add("str_itinerario_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_ITINERARIO);
+                dyParam.Add("str_kilometro_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_KILOMETRO);
+                dyParam.Add("str_estado_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_ESTADO);
+                dyParam.Add("num_identidadusuario_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDENTIDADUSUARIO);
+                dyParam.Add("str_usucreacion_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUCREACION);
+                dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+
+                var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_RegistrarRuta");
+                var result = await connection.QueryFirstOrDefaultAsync<TM_RUTA>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result;
+            }
         }
 
-        public Task<TM_RUTA> Update(TM_RUTA input)
+        public async Task<TM_RUTA> Update(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("num_idruta_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDRUTA);
+                dyParam.Add("str_itinerario_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_ITINERARIO); 
+                dyParam.Add("str_kilometro_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_ITINERARIO);
+                dyParam.Add("str_estado_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_ESTADO);
+                dyParam.Add("num_identidadusuario_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDENTIDADUSUARIO);
+                dyParam.Add("str_usuact_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUACT);
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+
+                var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_ActualizarRuta");
+                var result = await connection.QueryFirstOrDefaultAsync<TM_RUTA>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result;
+            }
         }
     }
 }
