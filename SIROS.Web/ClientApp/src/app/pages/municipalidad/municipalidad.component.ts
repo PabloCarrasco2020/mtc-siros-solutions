@@ -3,8 +3,6 @@ import { IndexModel } from 'src/app/models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { MunicipalidadService, ComboService, SunatService, MessageService, ReniecService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
-import { timeStamp } from 'console';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare var $: any;
 
@@ -305,7 +303,6 @@ export class MunicipalidadComponent implements OnInit {
   }
   CargarMunicipalidades() {
     this.oBlockUI.start('Cargando Municipalidades...');
-    console.log(this.sFilter);
     this.oMunicipalidadService.GetAllByFilter(this.nCurrentPage, `${this.nTipoFiltro}@${this.sFilter}`)
     .then((response: ResponseModel<any>) => {
 

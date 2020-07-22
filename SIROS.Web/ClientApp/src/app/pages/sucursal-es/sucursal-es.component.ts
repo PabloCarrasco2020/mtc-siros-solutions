@@ -202,7 +202,6 @@ export class SucursalESComponent implements OnInit {
   }
   CargarSucursales() {
     this.oBlockUI.start('Cargando Estaciones de servicios...');
-    console.log(this.sFilter);
     this.oSucursalEsService.GetAllByFilter(this.nCurrentPage, `${this.nTipoFiltro}@${this.sFilter}`)
     .then((response: ResponseModel<any>) => {
 
@@ -448,7 +447,6 @@ export class SucursalESComponent implements OnInit {
     return null;
   }
   KeyUpNumber(event: any) {
-    console.log(event);
     const code: string = event.code;
     if (code.startsWith('Key') || code.startsWith('Space')) {
       if (code !== 'Comma') {

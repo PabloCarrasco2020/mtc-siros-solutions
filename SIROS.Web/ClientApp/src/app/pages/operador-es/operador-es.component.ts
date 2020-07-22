@@ -154,7 +154,6 @@ export class OperadorEsComponent implements OnInit {
   }
   CargarOperadores() {
     this.oBlockUI.start('Cargando operadores...');
-    console.log(this.sFilter);
     this.oOperadorEsService.GetAllByFilter(this.nCurrentPage, `${this.nTipoFiltro}@${this.sFilter}@${this.nIdSucursalxES}`)
     .then((response: ResponseModel<any>) => {
 
@@ -244,7 +243,6 @@ export class OperadorEsComponent implements OnInit {
     this.sFecNacimiento = '';
     this.oReniecService.ConsultaNumDoc(this.sNroDocumento).then((response: ResponseModel<any>) => {
       if (response.IsSuccess) {
-        console.log(response.Data);
         this.sNombre = response.Data.sNombres;
         this.sApeMaterno = response.Data.sApellidoMaterno;
         this.sApePaterno = response.Data.sApellidoPaterno;
@@ -293,7 +291,6 @@ export class OperadorEsComponent implements OnInit {
     return null;
   }
   KeyUpNumber(event: any) {
-    console.log(event);
     const code: string = event.code;
     if (code.startsWith('Key') || code.startsWith('Space')) {
       if (code !== 'Comma') {
