@@ -2,10 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IndexModel } from '../../models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { ComboService, MessageService, ReniecService, SucursalEsService} from 'src/app/services/services.index';
+import { ComboService, MessageService, ReniecService, SucursalEsService, ONGEIService } from 'src/app/services/services.index';
 import { OperadorEsService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
-import { defaultCipherList } from 'constants';
 
 declare var $: any;
 @Component({
@@ -24,6 +23,7 @@ export class OperadorEsComponent implements OnInit {
   nCurrentOption: number = 0;
 
   DNI_VALUE = 1;
+  CE_VALUE = 2;
   // COMBOS
   lstTipoDocumento: any[] = [];
   lstTipoOperador: any[] = [];
@@ -49,6 +49,7 @@ export class OperadorEsComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private oOperadorEsService: OperadorEsService,
+    private oONGEIService: ONGEIService,
     private oSucursalEsService: SucursalEsService,
     private oComboService: ComboService,
     private oMessageService: MessageService,
@@ -67,6 +68,21 @@ export class OperadorEsComponent implements OnInit {
   fnBuscar() {
     this.nCurrentPage = 1;
     this.CargarOperadores();
+  }
+  fnBuscarDocumento() {
+    if (Number(this.nIdTpDocumento) === this.DNI_VALUE) {
+      if (this.sNroDocumento.length !== 8 ) {
+        this.oMessageService.warning(this.sTitlePage, 'Ingrese Número de DNI de 8 dígitos');
+        return;
+      }
+      this.ConsultarDni();
+    } else if (Number(this.nIdTpDocumento) === this.CE_VALUE) {
+      if (this.sNroDocumento.length !== 9 ) {
+        this.oMessageService.warning(this.sTitlePage, 'Ingrese Número de CE de 9 dígitos');
+        return;
+      }
+      this.ConsultarCE();
+    }
   }
 
   fnBefore(nPage: number) {
@@ -230,6 +246,25 @@ export class OperadorEsComponent implements OnInit {
       }
     });
   }
+  ConsultarCE() {
+    this.oBlockUI.start('Consultando CE...');
+    this.sNombre = '';
+    this.sApeMaterno = '';
+    this.sApePaterno = '';
+    this.sFoto = '';
+    this.sFecNacimiento = '';
+
+    this.oONGEIService.ConsultaCarnetExt(this.sNroDocumento).then((response: ResponseModel<any>) => {
+      if (response.IsSuccess) {
+        this.sNombre = response.Data.sNombres;
+        this.sApePaterno = response.Data.sPrimerApellido;
+        this.sApeMaterno = response.Data.sSegundoApellido;
+      } else {
+        this.oMessageService.warning(this.sTitlePage, response.Message);
+      }
+      this.oBlockUI.stop();
+    });
+  }
   ConsultarDni() {
     if (this.sNroDocumento.length !== 8) {
       this.oMessageService.warning(this.sTitlePage, 'Ingrese Número de DNI de 8 dígitos');
@@ -246,6 +281,7 @@ export class OperadorEsComponent implements OnInit {
         this.sNombre = response.Data.sNombres;
         this.sApeMaterno = response.Data.sApellidoMaterno;
         this.sApePaterno = response.Data.sApellidoPaterno;
+        this.sFecNacimiento = response.Data.sFechaNacimiento;
         this.sFoto = `${response.Data.sFoto}`;
       } else {
         this.oMessageService.warning(this.sTitlePage, response.Message);
