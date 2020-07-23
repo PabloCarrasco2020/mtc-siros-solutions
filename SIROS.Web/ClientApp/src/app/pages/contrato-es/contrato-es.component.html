@@ -33,21 +33,21 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Nro. de Contrato (*)</label>
-                                    <input type="text" placeholder="" class="form-control" [(ngModel)]="oModel.sNumContrato" maxlength="100">
+                                    <input type="text" placeholder="" class="form-control" [(ngModel)]="oModel.sNumContrato">
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Fecha de Contrato (*)</label>
-                                    <input type="date" class="form-control" [(ngModel)]="oModel.sFecContrato">
+                                    <input type="date" class="form-control" [(ngModel)]="oModel.sFecContrato" min='1900-01-01' max='9999-12-31'>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Fecha Inicio (*)</label>
-                                    <input type="date" class="form-control" [(ngModel)]="oModel.sFecIniVigencia">
+                                    <input type="date" class="form-control" [(ngModel)]="oModel.sFecIniVigencia" min='1900-01-01' max='9999-12-31'>
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Fecha Fin (*)</label>
-                                    <input type="date" class="form-control" [(ngModel)]="oModel.sFecFinVigencia">
+                                    <input type="date" class="form-control" [(ngModel)]="oModel.sFecFinVigencia" min='1900-01-01' max='9999-12-31'>
                                 </div>
                             </div>
                         </section>
