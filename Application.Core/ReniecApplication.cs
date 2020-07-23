@@ -46,6 +46,9 @@ namespace Application.Core
                                 oResult.sDireccion = oClientResponse.Content.result.address;
                                 oResult.sEstado = oClientResponse.Content.result.status;
                                 oResult.sFoto = oClientResponse.Content.result.photo;
+                                oResult.nIdSexo = Convert.ToInt32(oClientResponse.Content.result.codeSex);
+                                oResult.sSexo = oClientResponse.Content.result.sex;
+                                oResult.sFechaNacimiento = oClientResponse.Content.result.birthDate;
 
                                 oResponse.IsSuccess = true;
                                 oResponse.Data = oResult;

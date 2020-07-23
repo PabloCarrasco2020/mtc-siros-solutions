@@ -18,6 +18,9 @@ namespace Application.Dto
             public string sDireccion { get; set; }
             public string sEstado { get; set; }
             public string sFoto { get; set; }
+            public int nIdSexo { get; set; }
+            public string sSexo { get; set; }
+            public string sFechaNacimiento { get; set; }
         }
 
         #endregion
@@ -39,6 +42,9 @@ namespace Application.Dto
             public string address { get; set; }
             public string status { get; set; }
             public string photo { get; set; }
+            public string codeSex { get; set; }
+            public string sex { get; set; }
+            public string birthDate { get; set; }
             public DateTime inserted { get; set; }
         }
     }
