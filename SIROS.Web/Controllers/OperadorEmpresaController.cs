@@ -19,17 +19,20 @@ namespace SIROS.Web.Controllers
     {
         private readonly IOperadorEmpresaApplication _operadorEmpresaApplication;
         private readonly IReniecApplication _reniecApplication;
+        private readonly IOngeiApplication _ongeiApplication;
         private readonly ILogApplication _logApplication;
         private readonly IJwtApplication _jwtApplication;
 
         public OperadorEmpresaController(
             IOperadorEmpresaApplication operadorEmpresaApplication,
+            IOngeiApplication ongeiApplication,
             IReniecApplication reniecApplication,
             ILogApplication logApplication,
             IJwtApplication jwtApplication)
         {
             this._operadorEmpresaApplication = operadorEmpresaApplication;
             this._reniecApplication = reniecApplication;
+            this._ongeiApplication = ongeiApplication;
             this._logApplication = logApplication;
             this._jwtApplication = jwtApplication;
         }
@@ -43,7 +46,7 @@ namespace SIROS.Web.Controllers
                 if (!oResult.IsSuccess)
                     return Ok(oResult);
                 
-                if (oResult.Data.nIdTpDocumento.Value == 1)
+                if (oResult.Data.nIdTpDocumento.Value == (int)EnumTipoDocumento.DNI)
                 {
                     var oResultReniec = await this._reniecApplication.ConsultaNumDoc(oResult.Data.sNroDocumento);
                     if (oResultReniec.IsSuccess)
@@ -51,7 +54,6 @@ namespace SIROS.Web.Controllers
                         oResult.Data.sFoto = oResultReniec.Data.sFoto;
                     }
                 }
-
                 return Ok(oResult);
             }
             catch (Exception ex)

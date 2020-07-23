@@ -154,6 +154,7 @@ namespace SIROS.Web
             services.AddSingleton<ISunatApplication, SunatApplication>();
             services.AddSingleton<ISunarpApplication, SunarpApplication>();
             services.AddSingleton<IReniecApplication, ReniecApplication>();
+            services.AddSingleton<IOngeiApplication, OngeiApplication>();
         }
 
         private void LoadScopes(IServiceCollection services)

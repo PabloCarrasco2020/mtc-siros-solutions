@@ -25,8 +25,8 @@ export class OperadorEmpresaService {
         return this.oBaseService.CallPost(`api/${CONTROLLER}/Update`, oItem);
     }
 
-    Delete(nIdEstServicioEnt: number) {
-        const oRequest = { nIdEstServicioEnt };
+    Delete(nIdNominaXEmpresa: number) {
+        const oRequest = { nIdNominaXEmpresa };
         return this.oBaseService.CallPost(`api/${CONTROLLER}/Delete`, oRequest);
     }
 

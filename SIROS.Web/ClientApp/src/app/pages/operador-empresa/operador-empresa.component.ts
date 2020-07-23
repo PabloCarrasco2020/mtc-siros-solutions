@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { IndexModel } from '../../models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { ComboService, MessageService, ReniecService, SucursalEsService, OperadorEmpresaService} from 'src/app/services/services.index';
-import { OperadorEsService } from 'src/app/services/services.index';
+import { ComboService, MessageService, ReniecService, ONGEIService, OperadorEmpresaService} from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
 import { OperadorEmpresaModel } from 'src/app/models/operador-empresa.model';
 
@@ -30,13 +29,16 @@ export class OperadorEmpresaComponent implements OnInit {
 
   public COMBO_SIN_DATO = 0;
 
+  public TIPO_DOCUMENTO_INVALIDO = -1;
   public TIPO_DOCUMENTO_DNI = 1;
+  public TIPO_DOCUMENTO_CE = 2;
 
   // PRINCIPALES
   sTitlePage: string = 'Operador de Empresa';
   sDependencyName: string = '';
 
   oModel: OperadorEmpresaModel = new OperadorEmpresaModel();
+  nIdEmpresa: number = 0;
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
@@ -58,10 +60,12 @@ export class OperadorEmpresaComponent implements OnInit {
     private oOperadorEmpresaService: OperadorEmpresaService,
     private oComboService: ComboService,
     private oMessageService: MessageService,
-    private oReniecService: ReniecService
+    private oReniecService: ReniecService,
+    private oONGEIService: ONGEIService
     ) {
-      this.oModel.nIdEmpresa = Number(this.activatedRoute.snapshot.params.nIdEmpresa);
+      this.nIdEmpresa = Number(this.activatedRoute.snapshot.params.nIdEmpresa);
       this.sDependencyName = this.activatedRoute.snapshot.params.sEmpresa;
+      console.log('RUN CONSTRUCTOR');
       this.CargarOperadores();
       this.CargarTipoDocumento();
       this.CargarTipoOperador();
@@ -159,7 +163,7 @@ export class OperadorEmpresaComponent implements OnInit {
 
   CargarOperadores() {
     this.oBlockUI.start('Cargando Operadores de Empresa...');
-    this.oOperadorEmpresaService.GetAllByFilter(this.nCurrentPage, `${this.nTipoFiltro}@${this.sFilter}@${this.oModel.nIdEmpresa}`)
+    this.oOperadorEmpresaService.GetAllByFilter(this.nCurrentPage, `${this.nTipoFiltro}@${this.sFilter}@${this.nIdEmpresa}`)
     .then((response: ResponseModel<any>) => {
       if (response.IsSuccess) {
         this.oIndexData = response.Data;
@@ -173,9 +177,10 @@ export class OperadorEmpresaComponent implements OnInit {
   Guardar() {
     this.oBlockUI.start('Guardando Operador de Empresa...');
 
+    this.oModel.nIdEmpresa = this.nIdEmpresa;
     this.oModel.nIdNominaXEmpresa = Number(this.oModel.nIdNominaXEmpresa);
-    this.oModel.nIdEmpresa = Number(this.oModel.nIdEmpresa);
     this.oModel.nIdTpDocumento = Number(this.oModel.nIdTpDocumento);
+    this.oModel.nIdTipoOper = Number(this.oModel.nIdTipoOper);
 
     if (this.nCurrentOption === this.OPTION_NUEVO) {
       this.oOperadorEmpresaService.Insert(this.oModel).then((response: ResponseModel<any>) => {
@@ -214,7 +219,7 @@ export class OperadorEmpresaComponent implements OnInit {
   CargarTipoDocumento() {
     this.lstTipoDocumento = [];
     this.oComboService.GetTipoDoc('OPEEMP').then((response: ResponseModel<any>) => {
-      if ( response.IsSuccess) {
+      if (response.IsSuccess) {
         this.lstTipoDocumento = response.Data;
       }
     });
@@ -229,23 +234,60 @@ export class OperadorEmpresaComponent implements OnInit {
     });
   }
 
-  ConsultarDni() {
-    if (this.oModel.sNroDocumento.length !== 8) {
-      this.oMessageService.warning(this.sTitlePage, 'Ingrese Número de DNI de 8 dígitos');
-      return;
+  ConsultarNroDocumento() {
+    if (Number(this.oModel.nIdTpDocumento) === this.TIPO_DOCUMENTO_DNI) {
+
+      if (this.oModel.sNroDocumento.length !== 8) {
+        this.oMessageService.warning(this.sTitlePage, 'Ingrese Número de DNI de 8 dígitos');
+        return;
+      }
+      this.ConsultarDni();
+
+    } else if (Number(this.oModel.nIdTpDocumento) === this.TIPO_DOCUMENTO_CE) {
+
+      if (this.oModel.sNroDocumento.length !== 9) {
+        this.oMessageService.warning(this.sTitlePage, 'Ingrese Número de CE de 9 dígitos');
+        return;
+      }
+      this.ConsultarCE();
+
     }
+  }
+
+  ConsultarDni() {
     this.oBlockUI.start('Consultando DNI...');
     this.oModel.sNombre = '';
     this.oModel.sApeMaterno = '';
     this.oModel.sApePaterno = '';
     this.oModel.sFoto = '';
     this.oModel.sFecNacimiento = '';
+
     this.oReniecService.ConsultaNumDoc(this.oModel.sNroDocumento).then((response: ResponseModel<any>) => {
       if (response.IsSuccess) {
         this.oModel.sNombre = response.Data.sNombres;
-        this.oModel.sApeMaterno = response.Data.sApellidoMaterno;
         this.oModel.sApePaterno = response.Data.sApellidoPaterno;
+        this.oModel.sApeMaterno = response.Data.sApellidoMaterno;
         this.oModel.sFoto = `${response.Data.sFoto}`;
+      } else {
+        this.oMessageService.warning(this.sTitlePage, response.Message);
+      }
+      this.oBlockUI.stop();
+    });
+  }
+
+  ConsultarCE() {
+    this.oBlockUI.start('Consultando CE...');
+    this.oModel.sNombre = '';
+    this.oModel.sApeMaterno = '';
+    this.oModel.sApePaterno = '';
+    this.oModel.sFoto = '';
+    this.oModel.sFecNacimiento = '';
+
+    this.oONGEIService.ConsultaCarnetExt(this.oModel.sNroDocumento).then((response: ResponseModel<any>) => {
+      if (response.IsSuccess) {
+        this.oModel.sNombre = response.Data.sNombres;
+        this.oModel.sApePaterno = response.Data.sPrimerApellido;
+        this.oModel.sApeMaterno = response.Data.sSegundoApellido;
       } else {
         this.oMessageService.warning(this.sTitlePage, response.Message);
       }
@@ -255,6 +297,7 @@ export class OperadorEmpresaComponent implements OnInit {
 
   LimpiarCampos() {
     this.oModel.nIdNominaXEmpresa = 0;
+    this.oModel.nIdEmpresa = 0;
     this.oModel.nIdTpDocumento = -1;
     this.oModel.sNroDocumento = '';
     this.oModel.sApePaterno = '';

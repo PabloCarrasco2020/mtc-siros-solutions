@@ -1,0 +1,62 @@
+﻿{
+  "ProviderId": "Microsoft.VisualStudio.ConnectedService.Wcf",
+  "Version": "15.0.30730.948",
+  "GettingStartedDocument": {
+    "Uri": "https://go.microsoft.com/fwlink/?linkid=858517"
+  },
+  "ExtendedData": {
+    "inputs": [
+      "http://mtc-presb01.mtc.gob.pe:7804/consultas/ongei/servicios?wsdl"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, wsSoapONGEI"
+    ],
+    "references": [
+      "AutoMapper, {AutoMapper, 9.0.0}",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\Application.Core\\bin\\Debug\\netcoreapp3.0\\Application.Dto.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\Application.Core\\bin\\Debug\\netcoreapp3.0\\Application.Interface.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\Application.Core\\bin\\Debug\\netcoreapp3.0\\Domain.Entities.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\Application.Core\\bin\\Debug\\netcoreapp3.0\\Domain.Interface.dll",
+      "C:\\Users\\acisneros\\source\\repos\\mtc-siros-solution\\Application.Core\\bin\\Debug\\netcoreapp3.0\\Transversal.Common.dll",
+      "Dapper, {Dapper, 2.0.35}",
+      "Microsoft.AspNetCore.Http.Abstractions, {Microsoft.AspNetCore.Http.Abstractions, 2.2.0}",
+      "Microsoft.AspNetCore.Http.Features, {Microsoft.AspNetCore.Http.Features, 2.2.0}",
+      "Microsoft.Extensions.Configuration, {Microsoft.Extensions.Configuration, 3.1.5}",
+      "Microsoft.Extensions.Configuration.Abstractions, {Microsoft.Extensions.Configuration.Abstractions, 3.1.5}",
+      "Microsoft.Extensions.DependencyInjection.Abstractions, {Microsoft.Extensions.DependencyInjection.Abstractions, 3.1.5}",
+      "Microsoft.Extensions.Options, {Microsoft.Extensions.Options, 3.1.5}",
+      "Microsoft.Extensions.Primitives, {Microsoft.Extensions.Primitives, 3.1.5}",
+      "Microsoft.IdentityModel.JsonWebTokens, {Microsoft.IdentityModel.JsonWebTokens, 6.7.1}",
+      "Microsoft.IdentityModel.Logging, {Microsoft.IdentityModel.Logging, 6.7.1}",
+      "Microsoft.IdentityModel.Tokens, {Microsoft.IdentityModel.Tokens, 6.7.1}",
+      "Newtonsoft.Json, {Newtonsoft.Json, 12.0.3}",
+      "Oracle.ManagedDataAccess, {Oracle.ManagedDataAccess.Core, 2.19.70}",
+      "System.ComponentModel.Annotations, {System.ComponentModel.Annotations, 4.7.0}",
+      "System.Drawing.Common, {System.Drawing.Common, 4.7.0}",
+      "System.IdentityModel.Tokens.Jwt, {System.IdentityModel.Tokens.Jwt, 6.7.1}",
+      "System.IO, {System.IO, 4.3.0}",
+      "System.Reflection, {System.Reflection, 4.3.0}",
+      "System.Reflection.Emit, {System.Reflection.Emit, 4.3.0}",
+      "System.Reflection.Emit.ILGeneration, {System.Reflection.Emit.ILGeneration, 4.3.0}",
+      "System.Reflection.Primitives, {System.Reflection.Primitives, 4.3.0}",
+      "System.Runtime, {System.Runtime, 4.3.0}",
+      "System.Runtime.CompilerServices.Unsafe, {System.Runtime.CompilerServices.Unsafe, 4.7.1}",
+      "System.Security.Cryptography.Cng, {System.Security.Cryptography.Cng, 4.5.0}",
+      "System.ServiceModel, {System.ServiceModel.Primitives, 4.4.4}",
+      "System.ServiceModel.Duplex, {System.ServiceModel.Duplex, 4.4.4}",
+      "System.ServiceModel.Http, {System.ServiceModel.Http, 4.4.4}",
+      "System.ServiceModel.NetTcp, {System.ServiceModel.NetTcp, 4.4.4}",
+      "System.ServiceModel.Primitives, {System.ServiceModel.Primitives, 4.4.4}",
+      "System.ServiceModel.Security, {System.ServiceModel.Security, 4.4.4}",
+      "System.Text.Encoding, {System.Text.Encoding, 4.3.0}",
+      "System.Text.Encodings.Web, {System.Text.Encodings.Web, 4.5.0}",
+      "System.Threading.Tasks, {System.Threading.Tasks, 4.3.0}"
+    ],
+    "targetFramework": "netcoreapp3.0",
+    "typeReuseMode": "All"
+  }
+}
