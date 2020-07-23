@@ -5,6 +5,7 @@ using System;
 using System.Net;
 using System.Threading.Tasks;
 using Transversal.Common;
+using Transversal.Common.Extensions;
 using Transversal.Common.Helper;
 
 namespace Application.Core
@@ -48,7 +49,7 @@ namespace Application.Core
                                 oResult.sFoto = oClientResponse.Content.result.photo;
                                 oResult.nIdSexo = Convert.ToInt32(oClientResponse.Content.result.codeSex);
                                 oResult.sSexo = oClientResponse.Content.result.sex;
-                                oResult.sFechaNacimiento = oClientResponse.Content.result.birthDate;
+                                oResult.sFechaNacimiento = oClientResponse.Content.result.birthDate.ToAppSirosDate();
 
                                 oResponse.IsSuccess = true;
                                 oResponse.Data = oResult;
