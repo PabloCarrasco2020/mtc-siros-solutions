@@ -317,7 +317,6 @@ export class OperadorEsComponent implements OnInit {
     if (
         this.sNombre.length === 0 ||
         this.sApePaterno.length === 0 ||
-        this.sApeMaterno.length === 0 ||
         this.sFecNacimiento.length === 0
       ) {
       return  ' Completar los campos con (*),  son obligatorios';
