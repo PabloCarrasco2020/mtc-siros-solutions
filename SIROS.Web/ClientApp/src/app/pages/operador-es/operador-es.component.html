@@ -32,7 +32,7 @@
                                     <input appDigitOnly class="form-control" placeholder="Ingrese número de documento" [(ngModel)]="sNroDocumento" [disabled]="nCurrentOption===2" maxlength="15"  />
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                    <button type="button" class="btn btn-primary" (click)="ConsultarDni()" [disabled]="nIdTpDocumento == -1">
+                                    <button type="button" class="btn btn-primary" (click)="fnBuscarDocumento()" [disabled]="nIdTpDocumento == -1">
                                         <i class="fa fa-search"></i> Buscar
                                     </button>
                                 </div>
