@@ -136,11 +136,11 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Latitud (*)</label>
-                                    <input (keypress)="KeyUpNumber($event)" class="form-control" placeholder="Ingrese Latitud..." [(ngModel)]="sLatitud" maxlength=""/>
+                                    <input appDigitOnly decimal="true" decimalSeparator="," class="form-control" placeholder="Ingrese Latitud..." [(ngModel)]="sLatitud" maxlength=""/>
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Longitud (*)</label>
-                                    <input (keypress)="KeyUpNumber($event)" class="form-control" placeholder="Ingrese Longitud..." [(ngModel)]="sLongitud" maxlength=""/>
+                                    <input appDigitOnly decimal="true" decimalSeparator="," class="form-control" placeholder="Ingrese Longitud..." [(ngModel)]="sLongitud" maxlength=""/>
                                 </div>
                             </div>
 
@@ -180,7 +180,7 @@
                                 <div  class="form-group">
                                     <small [hidden]="(nTipoFiltro !== 1)">RUC:</small>
                                     <small [hidden]="(nTipoFiltro !== 2)">Razón Social:</small>
-                                    <div class="input-group" [hidden]="(nTipoFiltro !== 1)"><input (keypress)="KeyUpNumber($event)" [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="11"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
+                                    <div class="input-group" [hidden]="(nTipoFiltro !== 1)"><input appDigitOnly [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="11"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
                                     <div class="input-group" [hidden]="(nTipoFiltro !== 2)"><input [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="300"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
                     
                                 </div>

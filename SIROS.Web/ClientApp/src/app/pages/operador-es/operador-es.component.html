@@ -29,7 +29,7 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                    <input (keypress)="KeyUpNumber($event)" class="form-control" placeholder="Ingrese número de documento" [(ngModel)]="sNroDocumento" [disabled]="nCurrentOption===2" maxlength="15"  />
+                                    <input appDigitOnly class="form-control" placeholder="Ingrese número de documento" [(ngModel)]="sNroDocumento" [disabled]="nCurrentOption===2" maxlength="15"  />
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                     <button type="button" class="btn btn-primary" (click)="ConsultarDni()" [disabled]="nIdTpDocumento == -1">
@@ -112,7 +112,7 @@
                                 <div  class="form-group">
                                     <small [hidden]="(nTipoFiltro !== 1)">Nro Documento:</small>
                                     <small [hidden]="(nTipoFiltro !== 2)">Nombre:</small>
-                                    <div class="input-group" [hidden]="(nTipoFiltro !== 1)"><input (keypress)="KeyUpNumber($event)" [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="11"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
+                                    <div class="input-group" [hidden]="(nTipoFiltro !== 1)"><input appDigitOnly [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="11"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
                                     <div class="input-group" [hidden]="(nTipoFiltro !== 2)"><input [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="300"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
                     
                                 </div>
