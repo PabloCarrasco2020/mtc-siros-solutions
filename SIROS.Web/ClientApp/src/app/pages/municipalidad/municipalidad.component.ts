@@ -85,6 +85,14 @@ export class MunicipalidadComponent implements OnInit {
     $(document).prop('title', 'SIROS - Municipalidad');
   }
 
+  fnChangeTipoBusqueda(nOption: number) {
+    this.nTipoFiltro = nOption;
+    this.sFilter = '';
+    setTimeout(() => {
+      document.getElementById(`sFilter${nOption}`).focus();
+    }, 0);
+  }
+
   fnBuscar() {
     this.nCurrentPage = 1;
     this.CargarMunicipalidades();
@@ -644,11 +652,5 @@ export class MunicipalidadComponent implements OnInit {
       }
     }
     return null;
-  }
-  KeyUpLetter(event: any) {
-    const code: string = event.code;
-    if (code.startsWith('Digit')) {
-      event.preventDefault();
-    }
   }
 }

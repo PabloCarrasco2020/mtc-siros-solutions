@@ -85,6 +85,14 @@ export class EstacionesServicioComponent implements OnInit {
     $(document).prop('title', 'SIROS - Estación de Servicio');
   }
 
+  fnChangeTipoBusqueda(nOption: number) {
+    this.nTipoFiltro = nOption;
+    this.sFilter = '';
+    setTimeout(() => {
+      document.getElementById(`sFilter${nOption}`).focus();
+    }, 0);
+  }
+
   fnBuscar() {
     this.nCurrentPage = 1;
     this.CargarEstaciones();

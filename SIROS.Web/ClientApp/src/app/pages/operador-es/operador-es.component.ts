@@ -65,6 +65,13 @@ export class OperadorEsComponent implements OnInit {
   ngOnInit() {
     $(document).prop('title', 'SIROS - Operador de sucursal de estación de servicio');
   }
+  fnChangeTipoBusqueda(nOption: number) {
+    this.nTipoFiltro = nOption;
+    this.sFilter = '';
+    setTimeout(() => {
+      document.getElementById(`sFilter${nOption}`).focus();
+    }, 0);
+  }
   fnBuscar() {
     this.nCurrentPage = 1;
     this.CargarOperadores();

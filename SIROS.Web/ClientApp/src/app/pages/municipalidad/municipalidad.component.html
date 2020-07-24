@@ -224,8 +224,8 @@
                     </div>
                     <div class="ibox-content">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button (click)="nTipoFiltro = 1" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === 1, 'btn-white': nTipoFiltro === 2}">Ingresar por RUC</button>
-                            <button (click)="nTipoFiltro = 2" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === 2, 'btn-white': nTipoFiltro === 1}">Ingresar por Razón Social</button>
+                            <button (click)="fnChangeTipoBusqueda(1)" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === 1, 'btn-white': nTipoFiltro === 2}">Ingresar por RUC</button>
+                            <button (click)="fnChangeTipoBusqueda(2)" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === 2, 'btn-white': nTipoFiltro === 1}">Ingresar por Razón Social</button>
                           </div>
                         <div class="row">
                             <div class="col-sm-4">
@@ -233,8 +233,8 @@
                                 <div  class="form-group">
                                     <small [hidden]="(nTipoFiltro !== 1)">RUC:</small>
                                     <small [hidden]="(nTipoFiltro !== 2)">Razón Social:</small>
-                                    <div class="input-group" [hidden]="(nTipoFiltro !== 1)"><input appDigitOnly [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="11"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
-                                    <div class="input-group" [hidden]="(nTipoFiltro !== 2)"><input [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="300"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
+                                    <div class="input-group" [hidden]="(nTipoFiltro !== 1)"><input id="sFilter1" appDigitOnly [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="11"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
+                                    <div class="input-group" [hidden]="(nTipoFiltro !== 2)"><input id="sFilter2" [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="300"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
                                 </div>
                             </div>
                         </div>
