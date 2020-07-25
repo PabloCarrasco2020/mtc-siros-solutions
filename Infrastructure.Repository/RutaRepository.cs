@@ -25,7 +25,9 @@ namespace Infrastructure.Repository
                 var dyParam = new OracleDynamicParameters();
                 dyParam.Add("num_idruta_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDRUTA);
                 dyParam.Add("num_identidadusuario_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDENTIDADUSUARIO);
+                dyParam.Add("str_usuact_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUACT);
                 dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
+                
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
 
                 var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_EliminarRuta");
@@ -86,7 +88,7 @@ namespace Infrastructure.Repository
                 dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
 
-                var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_RegistrarRuta");
+                var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_RegistroRuta");
                 var result = await connection.QueryFirstOrDefaultAsync<TM_RUTA>(query, param: dyParam, commandType: CommandType.StoredProcedure);
                 return result;
             }
@@ -99,10 +101,10 @@ namespace Infrastructure.Repository
                 var dyParam = new OracleDynamicParameters();
                 dyParam.Add("num_idruta_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDRUTA);
                 dyParam.Add("str_itinerario_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_ITINERARIO); 
-                dyParam.Add("str_kilometro_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_ITINERARIO);
+                dyParam.Add("str_kilometro_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_KILOMETRO);
                 dyParam.Add("str_estado_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_ESTADO);
-                dyParam.Add("num_identidadusuario_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDENTIDADUSUARIO);
                 dyParam.Add("str_usuact_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUACT);
+                dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
 
                 var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_ActualizarRuta");

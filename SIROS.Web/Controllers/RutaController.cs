@@ -38,8 +38,7 @@ namespace SIROS.Web.Controllers
                 var oUserInfo = await this._jwtApplication.GetUserInfo(User);
                 if (oUserInfo.IsSuccess)
                 {
-                    //sFilter = $"{sFilter}@{oUserInfo.Data.nIdEmpresa}";
-                    sInput = $"{sInput}@1166";
+                    sInput = $"{sInput}@{oUserInfo.Data.nIdEmpresa}";
                 }
                 return await _rutaApplication.Get(sInput);
             }
@@ -62,8 +61,7 @@ namespace SIROS.Web.Controllers
                 var oUserInfo = await this._jwtApplication.GetUserInfo(User);
                 if (oUserInfo.IsSuccess)
                 {
-                    //sFilter = $"{sFilter}@{oUserInfo.Data.nIdEmpresa}";
-                    sFilter = $"{sFilter}@1166";
+                    sFilter = $"{sFilter}@{oUserInfo.Data.nIdEmpresa}";
                 }
                 return await _rutaApplication.GetAllByFilter(nCantidadXPagina, nPagina, sFilter);
             }
@@ -71,6 +69,34 @@ namespace SIROS.Web.Controllers
             {
                 _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Ruta-GetAllByFilter", ex, nPagina, sFilter);
                 return new Response<IndexTableModelDto>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+
+        [HttpPost]
+        public async Task<Response<int>> Insert([FromBody] RutaDto.RQInsert input)
+        {
+            try
+            {
+                input.nIdSession = 0;
+                input.sUsuario = "";
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
+                    input.sUsuario = oUserInfo.Data.sUsername;
+                    input.nIdentidadUsuario = oUserInfo.Data.nIdEmpresa;
+                }
+                var responseInsert = new Response<int>();
+
+                return await this._rutaApplication.Insert(input);
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "RutaController-Insert", ex, input);
+                return new Response<int>
                 {
                     Message = "ERR-Fallo en el servidor"
                 };
@@ -87,6 +113,8 @@ namespace SIROS.Web.Controllers
                 var oUserInfo = await this._jwtApplication.GetUserInfo(User);
                 if (oUserInfo.IsSuccess)
                 {
+                    //input.nIdentidadUsuario = oUserInfo.Data.nIdEmpresa;
+                    input.nIdentidadUsuario = 1166;
                     input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
                     input.sUsuario = oUserInfo.Data.sUsername;
                 }
@@ -112,6 +140,8 @@ namespace SIROS.Web.Controllers
                 var oUserInfo = await this._jwtApplication.GetUserInfo(User);
                 if (oUserInfo.IsSuccess)
                 {
+                    //input.nIdentidadUsuario = oUserInfo.Data.nIdEmpresa;
+                    input.nIdentidadUsuario = 1166;
                     input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
                     input.sUsuario = oUserInfo.Data.sUsername;
                 }
