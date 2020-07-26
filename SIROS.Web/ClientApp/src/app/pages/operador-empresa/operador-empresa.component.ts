@@ -268,6 +268,7 @@ export class OperadorEmpresaComponent implements OnInit {
         this.oModel.sApePaterno = response.Data.sApellidoPaterno;
         this.oModel.sApeMaterno = response.Data.sApellidoMaterno;
         this.oModel.sFoto = `${response.Data.sFoto}`;
+        this.oModel.sFecNacimiento = response.Data.sFechaNacimiento;
       } else {
         this.oMessageService.warning(this.sTitlePage, response.Message);
       }
@@ -318,7 +319,7 @@ export class OperadorEmpresaComponent implements OnInit {
     if (
         this.oModel.sNombre.length === 0 ||
         this.oModel.sApePaterno.length === 0 ||
-        this.oModel.sApeMaterno.length === 0 ||
+        // this.oModel.sApeMaterno.length === 0 ||
         this.oModel.sFecNacimiento.length === 0
       ) {
       return  ' Completar los campos con (*),  son obligatorios';

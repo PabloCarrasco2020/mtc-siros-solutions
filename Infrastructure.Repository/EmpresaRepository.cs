@@ -43,7 +43,7 @@ namespace Infrastructure.Repository
             {
                 var dyParam = new OracleDynamicParameters();
                 dyParam.Add("num_idempresa_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDEMPRESA);
-                dyParam.Add("num_identidadusuario_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDENTIDAD);
+                //dyParam.Add("num_identidadusuario_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDENTIDAD);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
                 var query = _connectionFactory.GetQueryForSIROS("PKG_EMPRESA.SP_GetListaEmpresaxId");
                 var result = await connection.QueryFirstOrDefaultAsync<TM_EMPRESA>(query, param: dyParam, commandType: CommandType.StoredProcedure);

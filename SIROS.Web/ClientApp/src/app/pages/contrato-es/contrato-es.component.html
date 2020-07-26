@@ -76,8 +76,8 @@
                     </div>
                     <div class="ibox-content">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button (click)="nTipoFiltro = FILTRO_X_RUC" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RUC, 'btn-white': nTipoFiltro === FILTRO_X_RAZON_SOCIAL}">Ingresar por RUC</button>
-                            <button (click)="nTipoFiltro = FILTRO_X_RAZON_SOCIAL" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RAZON_SOCIAL, 'btn-white': nTipoFiltro === FILTRO_X_RUC}">Ingresar por Razón Social</button>
+                            <button (click)="nTipoFiltro = FILTRO_X_RUC; sFilter = '';" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RUC, 'btn-white': nTipoFiltro === FILTRO_X_RAZON_SOCIAL}">Ingresar por RUC</button>
+                            <button (click)="nTipoFiltro = FILTRO_X_RAZON_SOCIAL; sFilter = '';" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RAZON_SOCIAL, 'btn-white': nTipoFiltro === FILTRO_X_RUC}">Ingresar por Razón Social</button>
                           </div>
                         <div class="row">
                             <div class="col-sm-4">

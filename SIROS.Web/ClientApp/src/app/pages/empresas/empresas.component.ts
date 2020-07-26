@@ -30,6 +30,7 @@ export class EmpresasComponent implements OnInit {
   public MODAL_PAGINA_02 = 2;
 
   public COMBO_SIN_DATO = 0;
+  public COMBO_SIN_SELECCIONAR = -1;
 
   // =============================
 
@@ -481,10 +482,6 @@ export class EmpresasComponent implements OnInit {
 
   fnEditarRepresentanteLegal() {
     const nIndex = this.lstResponsablesLegales.findIndex(x => x.sNroDoc === this.oModelRepLegal.sNroDoc);
-    if (nIndex !== -1) {
-      this.oMessageService.warning(this.sTitlePage, 'Representante legal ya se encuentra agregado en la lista inferior.');
-      return;
-    }
     if (nIndex === -1) {
       this.oMessageService.warning(this.sTitlePage, 'No se pudo editar al representante legal seleccionado.');
       return;
@@ -591,7 +588,7 @@ export class EmpresasComponent implements OnInit {
       return 'Seleccione cargo del representante legal.';
     }
     if (this.lstResponsablesLegales.length > 0) {
-      const oExiste = this.lstResponsablesLegales.find(representante => representante.sNroDocumento === this.oModelRepLegal.sNroDoc);
+      const oExiste = this.lstResponsablesLegales.find(x => x.sNroDoc === this.oModelRepLegal.sNroDoc);
       if (oExiste) {
         return 'Representante legal ya se encuentra agregado en la lista inferior.';
       }

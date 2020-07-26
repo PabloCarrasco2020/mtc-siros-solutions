@@ -9,8 +9,8 @@ export class EmpresaService {
 
     constructor(private oBaseService: BaseService) { }
 
-    Get(nIdEntidad: number) {
-        return this.oBaseService.CallGet(`api/${CONTROLLER}/Get?sInput=${nIdEntidad}`);
+    Get(nId: number) {
+        return this.oBaseService.CallGet(`api/${CONTROLLER}/Get?sInput=${nId}`);
     }
 
     GetAllByFilter(nPagina: number, sFilter: string = '') {
