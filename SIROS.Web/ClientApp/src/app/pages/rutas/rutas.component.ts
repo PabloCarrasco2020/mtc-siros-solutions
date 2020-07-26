@@ -21,36 +21,48 @@ export class RutasComponent implements OnInit {
 
   oIndexDataRepresentanteLegal: IndexModel = new IndexModel();
 
+  lstCoordenadas: any[] = [];
+
   // Busqueda
   nTipoFiltro: number = 1;
   sFilter: string = '';
 
   // FORMULARIO
-  nIdRuta: string = '0';
+  nIdRuta: number = 0;
+  sNroRuta: string = '0';
   sNombreRuta: string = '';
   sItinerario: string = '';
   sKilometro: string = '';
+  sEstado: string = '';
 
   @BlockUI() oBlockUI: NgBlockUI;
   constructor(
     private oRutaService: RutaService,
     private oMessageService: MessageService) {
 
-    this.CargarRuta();
+    this.CargarRutas();
   }
 
   ngOnInit() {
     $(document).prop('title', 'SIROS - Ruta');
   }
 
+  fnChangeTipoBusqueda(nOption: number) {
+    this.nTipoFiltro = nOption;
+    this.sFilter = '';
+    setTimeout(() => {
+      document.getElementById(`sFilter${nOption}`).focus();
+    }, 0);
+  }
+
   fnBuscar() {
     this.nCurrentPage = 1;
-    this.CargarRuta();
+    this.CargarRutas();
   }
 
   fnBefore(nPage: number) {
     this.nCurrentPage = nPage;
-    this.CargarRuta();
+    this.CargarRutas();
   }
 
   fnNew() {
@@ -59,7 +71,13 @@ export class RutasComponent implements OnInit {
     $('#myModalNew').modal({backdrop: 'static', keyboard: false});
   }
 
-  fnEdit(nId: string) {
+  fnCoordenadas(id: number) {
+    console.log(id);
+    //const dataSucursal = this.oIndexData.Items.find( suc => Number(suc.Id) === Number(id));
+    //this.oRouter.navigate(['/OGTU/operadorES/', id, `${dataSucursal.Column3} - ${dataSucursal.Column4}`]);
+  }
+
+  fnEdit(nId: number) {
     this.nCurrentOption = 2;
     this.LimpiarCampos();
     this.nIdRuta = nId;
@@ -68,23 +86,36 @@ export class RutasComponent implements OnInit {
   }
 
   fnDelete(nId: number) {
-    this.oMessageService.confirm(this.sTitlePage, '¿Está seguro de eliminar la sucursal de estación de servicio?')
+    this.oMessageService.confirm(this.sTitlePage, '¿Está seguro de eliminar la ruta?')
     .then((result) => {
       if (result.value) {
         this.oBlockUI.start('Eliminando Ruta.');
-        /*
-       
-        */
+        
+        this.oRutaService.Delete(nId).then((response: ResponseModel<any>) => {
+            if (response.IsSuccess) {
+              this.oMessageService.success(this.sTitlePage, response.Message);
+              this.oBlockUI.stop();
+              this.CargarRutas();
+            } else {
+              if (response.Message.startsWith('ERR-')) {
+                this.oMessageService.error(this.sTitlePage, response.Message);
+              } else {
+                this.oMessageService.warning(this.sTitlePage, response.Message);
+              }
+              this.oBlockUI.stop();
+            }
+          });
+        
       }
     });
   }
 
   fnNext(nPage: number) {
     this.nCurrentPage = nPage;
-    this.CargarRuta();
+    this.CargarRutas();
   }
 
-  CargarRuta() {
+  CargarRutas() {
     this.oBlockUI.start('Cargando Rutas...');
     console.log(this.sFilter);
     this.oRutaService.GetAllByFilter(this.nCurrentPage, `${this.nTipoFiltro}@${this.sFilter}`)
@@ -101,13 +132,15 @@ export class RutasComponent implements OnInit {
 
   CargarRutaXId() {
     this.oBlockUI.start('Cargando Ruta...');
-    console.log(this.nIdRuta);
     this.oRutaService.Get(this.nIdRuta).then((response: ResponseModel<any>) => {
       if ( response.IsSuccess) {
+        console.log(response.Data)
         this.nIdRuta = response.Data.nIdRuta;
+        this.sNroRuta = response.Data.sNroRuta;
         this.sNombreRuta = response.Data.sNombreRuta;
         this.sItinerario = response.Data.sItinerario === null ? '' : response.Data.sItinerario;
         this.sKilometro = response.Data.sKilometro === null ? '' : response.Data.sKilometro;
+        this.sEstado = response.Data.sEstado === null ? '' : response.Data.sEstado;
       } else {
 
       }
@@ -117,7 +150,8 @@ export class RutasComponent implements OnInit {
   }
 
   LimpiarCampos() {
-    this.nIdRuta = '0';
+    this.nIdRuta = 0;
+    this.sNroRuta = '0';
     this.sNombreRuta = '';
     this.sItinerario = '';
     this.sKilometro = '';
@@ -131,18 +165,61 @@ export class RutasComponent implements OnInit {
     }
     this.Guardar();
   }
+
   Guardar() {
     this.oBlockUI.start('Guardando Ruta..');
-    console.log('demo');
+    this.sEstado = '1';
     if (this.nCurrentOption === 1) {
 
+      this.oRutaService.Insert(
+        this.sNombreRuta,
+        this.sItinerario,
+        this.sKilometro,
+        this.sEstado
+      ).then((response: ResponseModel<any>) => {
+        if (response.IsSuccess) {
+          this.oBlockUI.stop();
+          this.LimpiarCampos();
+          this.oMessageService.success(this.sTitlePage, response.Message);
+          this.CargarRutas();
+        } else {
+          if (response.Message.startsWith('ERR-')) {
+            this.oMessageService.error(this.sTitlePage, response.Message);
+          } else {
+            this.oMessageService.warning(this.sTitlePage, response.Message);
+          }
+          this.oBlockUI.stop();
+        }
+      });
+      
     } else if (this.nCurrentOption === 2) {
 
+      this.oRutaService.Update(
+        this.nIdRuta,
+        this.sNroRuta,
+        this.sNombreRuta,
+        this.sItinerario,
+        this.sKilometro,
+        this.sEstado
+      ).then((response: ResponseModel<any>) => {
+        if (response.IsSuccess) {
+          this.oBlockUI.stop();
+          this.oMessageService.success(this.sTitlePage, response.Message);
+          this.CargarRutas();
+        } else {
+          if (response.Message.startsWith('ERR-')) {
+            this.oMessageService.error(this.sTitlePage, response.Message);
+          } else {
+            this.oMessageService.warning(this.sTitlePage, response.Message);
+          }
+          this.oBlockUI.stop();
+        }
+      });
+      //
+
     }
-    this.oBlockUI.stop();
   }
   ValidarDatos(): any {
-
     if (
         (this.sNombreRuta.length === 0 ) ||
         (this.sItinerario.length === 0) ||

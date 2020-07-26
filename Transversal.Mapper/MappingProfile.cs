@@ -222,8 +222,28 @@ namespace Transversal.Mapper
             #endregion
 
             #region Rutas
+            CreateMap<TM_RUTA,RutaDto.RQInsert>()
+                .ForMember(destination => destination.sNombreRuta, source => source.MapFrom(src => src.STR_NOMBRERUTA))
+                .ForMember(destination => destination.sItinerario, source => source.MapFrom(src => src.STR_ITINERARIO))
+                .ForMember(destination => destination.sKilometro, source => source.MapFrom(src => src.STR_KILOMETRO))
+                .ForMember(destination => destination.sEstado, source => source.MapFrom(src => src.STR_ESTADO))
+                .ForMember(destination => destination.nIdentidadUsuario, source => source.MapFrom(src => src.NUM_IDENTIDADUSUARIO))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_RUTA, RutaDto.RQUpdate>()
+                .ForMember(destination => destination.nIdRuta, source => source.MapFrom(src => src.NUM_IDRUTA))
+                .ForMember(destination => destination.sNroRuta, source => source.MapFrom(src => src.STR_NRORUTA))
+                .ForMember(destination => destination.sNombreRuta, source => source.MapFrom(src => src.STR_NOMBRERUTA))
+                .ForMember(destination => destination.sItinerario, source => source.MapFrom(src => src.STR_ITINERARIO))
+                .ForMember(destination => destination.sKilometro, source => source.MapFrom(src => src.STR_KILOMETRO))
+                .ForMember(destination => destination.sEstado, source => source.MapFrom(src => src.STR_ESTADO))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
             CreateMap<TM_RUTA, RutaDto.RQDelete>()
                 .ForMember(destination => destination.nIdRuta, source => source.MapFrom(src => src.NUM_IDRUTA))
+                .ForMember(destination => destination.nIdentidadUsuario, source => source.MapFrom(src => src.NUM_IDENTIDADUSUARIO))
                 .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
                 .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
                 .ReverseMap();
@@ -233,6 +253,7 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.sNombreRuta, source => source.MapFrom(src => src.STR_NOMBRERUTA))
                 .ForMember(destination => destination.sItinerario, source => source.MapFrom(src => src.STR_ITINERARIO))
                 .ForMember(destination => destination.sKilometro, source => source.MapFrom(src => src.STR_KILOMETRO))
+                .ForMember(destination => destination.sEstado, source => source.MapFrom(src => src.STR_ESTADO))
                 .ReverseMap();
             CreateMap<TM_RUTA, TableModel>()
                 .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDRUTA))
