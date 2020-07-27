@@ -195,6 +195,10 @@ namespace SIROS.Web
             services.AddScoped<IOperadorEmpresaDomain, OperadorEmpresaDomain>();
             services.AddScoped<IOperadorEmpresaRepository, OperadorEmpresaRepository>();
 
+            services.AddScoped<IRutaEmpresaApplication, RutaEmpresaApplication>();
+            services.AddScoped<IRutaEmpresaDomain, RutaEmpresaDomain>();
+            services.AddScoped<IRutaEmpresaRepository, RutaEmpresaRepository>();
+
             services.AddScoped<IGeneralApplication, GeneralApplication>();
             services.AddScoped<IGeneralDomain, GeneralDomain>();
             services.AddScoped<IGeneralRepository, GeneralRepository>();

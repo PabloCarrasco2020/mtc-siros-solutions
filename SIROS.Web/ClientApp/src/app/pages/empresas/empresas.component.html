@@ -44,8 +44,8 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6 mb-2">
-                                    <label class="titulo-Campos" for="">Nombre de vía <span [hidden]="oModel.nIdTipoVia === COMBO_SIN_DATO">(*)</span></label>
-                                    <input class="form-control" placeholder="Ingrese nombre de vía" [(ngModel)]="oModel.sNombreVia" maxlength="100" [disabled]="oModel.nIdTipoVia === COMBO_SIN_DATO"/>
+                                    <label class="titulo-Campos" for="">Nombre de vía <span [hidden]="oModel.nIdTipoVia == COMBO_SIN_DATO">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese nombre de vía" [(ngModel)]="oModel.sNombreVia" maxlength="100" [disabled]="oModel.nIdTipoVia == COMBO_SIN_DATO"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -61,8 +61,8 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6 mb-2">
-                                    <label class="titulo-Campos" for="">Nombre CCPP <span [hidden]="oModel.nIdCcpp === COMBO_SIN_DATO">(*)</span></label>
-                                    <input class="form-control" placeholder="Ingrese nombre de centro poblado" [(ngModel)]="oModel.sNombreCcpp" maxlength="100" [disabled]="oModel.nIdCcpp === COMBO_SIN_DATO"/>
+                                    <label class="titulo-Campos" for="">Nombre CCPP <span [hidden]="oModel.nIdCcpp == COMBO_SIN_DATO">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese nombre de centro poblado" [(ngModel)]="oModel.sNombreCcpp" maxlength="100" [disabled]="oModel.nIdCcpp == COMBO_SIN_DATO"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -78,8 +78,8 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6 mb-2">
-                                    <label class="titulo-Campos" for="">Nro <span [hidden]="oModel.nIdNroMzKm === COMBO_SIN_DATO">(*)</span></label>
-                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="oModel.sNroMzKm" maxlength="20" [disabled]="oModel.nIdNroMzKm === COMBO_SIN_DATO"/>
+                                    <label class="titulo-Campos" for="">Nro <span [hidden]="oModel.nIdNroMzKm == COMBO_SIN_DATO">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="oModel.sNroMzKm" maxlength="20" [disabled]="oModel.nIdNroMzKm == COMBO_SIN_DATO"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -95,8 +95,8 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-6 mb-2">
-                                    <label class="titulo-Campos" for="">Nro <span [hidden]="oModel.nIdLoteIntDpto === COMBO_SIN_DATO">(*)</span></label>
-                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="oModel.sLoteIntDpto" maxlength="50" [disabled]="oModel.nIdLoteIntDpto === COMBO_SIN_DATO"/>
+                                    <label class="titulo-Campos" for="">Nro <span [hidden]="oModel.nIdLoteIntDpto == COMBO_SIN_DATO">(*)</span></label>
+                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="oModel.sLoteIntDpto" maxlength="50" [disabled]="oModel.nIdLoteIntDpto == COMBO_SIN_DATO"/>
                                 </div>
                             </div>
                             <div class="row">
@@ -169,21 +169,21 @@
                                 </div>
                                 <div class="col-lg-12 mb-2">
                                     <span>&nbsp;</span>
-                                    <button (click)="fnBuscarPersonaxDNI()" [disabled]="oModelRepLegal.nIdTipDoc === -1" type="button" class="btn btn-primary btn-sm">
+                                    <button (click)="fnBuscarPersonaxDNI()" [disabled]="oModelRepLegal.nIdTipDoc == COMBO_SIN_SELECCIONAR" type="button" class="btn btn-primary btn-sm">
                                         <i class="fa fa-search"></i> Buscar
                                     </button>
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                     <label class="titulo-Campos" for="">Apellido Paterno (*)</label>
-                                    <input class="form-control" placeholder="Apellido Paterno" [disabled]="oModelRepLegal.nIdTipDoc === -1" [(ngModel)]="oModelRepLegal.sApePaterno"/>
+                                    <input class="form-control" placeholder="Apellido Paterno" [disabled]="oModelRepLegal.nIdTipDoc == COMBO_SIN_SELECCIONAR" [(ngModel)]="oModelRepLegal.sApePaterno"/>
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                     <label class="titulo-Campos" for="">Apellido Materno(*)</label>
-                                    <input class="form-control" placeholder="Apellido Materno" [disabled]="oModelRepLegal.nIdTipDoc === -1" [(ngModel)]="oModelRepLegal.sApeMaterno"/>
+                                    <input class="form-control" placeholder="Apellido Materno" [disabled]="oModelRepLegal.nIdTipDoc == COMBO_SIN_SELECCIONAR" [(ngModel)]="oModelRepLegal.sApeMaterno"/>
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                     <label class="titulo-Campos" for="">Nombres (*)</label>
-                                    <input class="form-control" placeholder="Nombres" [disabled]="oModelRepLegal.nIdTipDoc === -1"  [(ngModel)]="oModelRepLegal.sNombres"/>
+                                    <input class="form-control" placeholder="Nombres" [disabled]="oModelRepLegal.nIdTipDoc == COMBO_SIN_SELECCIONAR"  [(ngModel)]="oModelRepLegal.sNombres"/>
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                     <label class="titulo-Campos" for="">Cargo (*)</label>
@@ -250,8 +250,8 @@
                     </div>
                     <div class="ibox-content">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button (click)="nTipoFiltro = FILTRO_X_RUC" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RUC, 'btn-white': nTipoFiltro === FILTRO_X_RAZON_SOCIAL}">Ingresar por RUC</button>
-                            <button (click)="nTipoFiltro = FILTRO_X_RAZON_SOCIAL" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RAZON_SOCIAL, 'btn-white': nTipoFiltro === FILTRO_X_RUC}">Ingresar por Razón Social</button>
+                            <button (click)="nTipoFiltro = FILTRO_X_RUC; sFilter = '';" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RUC, 'btn-white': nTipoFiltro === FILTRO_X_RAZON_SOCIAL}">Ingresar por RUC</button>
+                            <button (click)="nTipoFiltro = FILTRO_X_RAZON_SOCIAL; sFilter = '';" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_RAZON_SOCIAL, 'btn-white': nTipoFiltro === FILTRO_X_RUC}">Ingresar por Razón Social</button>
                           </div>
                         <div class="row">
                             <div class="col-sm-4">

@@ -36,7 +36,7 @@ namespace Application.Core
                     {
                         if (oClientResponse.Content != null)
                         {
-                            if (oClientResponse.Content.result != null)
+                            if (oClientResponse.Content.result != null) 
                             {
                                 var oResult = new ReniecDto.ConsultaNumDocResponseModel();
                                 oResult.nPersonId = oClientResponse.Content.result.personId;

@@ -253,7 +253,7 @@ namespace SIROS.Web.Controllers
 
                 #endregion
 
-                oUser.Data.nIdSession = oRegistroSesion.Data; //Obtiene Id Sesion del SIRO
+                oUser.Data.nIdSession = oRegistroSesion.Data; //Obtiene Id Sesion del SIROS (DB)
 
                 #region GENERAR JWT
 
