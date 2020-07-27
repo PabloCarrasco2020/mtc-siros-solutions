@@ -172,14 +172,15 @@ namespace SIROS.Web.Controllers
                     oResponse.Message = Messages.SSO.Login.EX004;
                     return Ok(oResponse);
                 }
-               
+
 
 #if DEBUG
 
                 // ================================
                 // ===== SECCION PARA PRUEBAS =====
                 // ================================
-                oPerfiles.Data[0].NombreRol = "OGTU";
+                oPerfiles.Data[0].NombreRol = "OES";
+                //oPerfiles.Data[0].NombreRol = "OGTU";
                 //oPerfiles.Data[0].NombreRol = "Promovilidad";
 #endif
 

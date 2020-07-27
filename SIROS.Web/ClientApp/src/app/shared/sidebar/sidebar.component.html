@@ -98,8 +98,8 @@
             </li>
 
             <li *ngIf="hasProfileOES()">
-                <a href="#">
-                    <i class="fa fa-pie-chart"></i> <span class="nav-label">Reportes </span>
+                <a [routerLink]="['/OES/reporteDiario']" routerLinkActive="active">
+                    <i class="fa fa-pie-chart"></i> <span class="nav-label">Reporte de Monto Diario</span>
                 </a>
             </li>
            

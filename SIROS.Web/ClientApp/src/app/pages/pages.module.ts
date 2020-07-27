@@ -24,6 +24,7 @@ import { DigitOnlyDirective } from '../directives/digit-only.directive';
 import { OperadorEmpresaComponent } from './operador-empresa/operador-empresa.component';
 import { RutasEmpresaComponent } from './rutas-empresa/rutas-empresa.component';
 import { RutasVehiculoEmpresaComponent } from './rutas-vehiculo-empresa/rutas-vehiculo-empresa.component';
+import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { RutasVehiculoEmpresaComponent } from './rutas-vehiculo-empresa/rutas-ve
     DigitOnlyDirective,
     OperadorEmpresaComponent,
     RutasEmpresaComponent,
-    RutasVehiculoEmpresaComponent
+    RutasVehiculoEmpresaComponent,
+    ReporteDiarioComponent
   ],
   exports: [
     PagesComponent

@@ -18,7 +18,8 @@ import { OperadorEsComponent } from './operador-es/operador-es.component';
 import { OperadorEmpresaComponent } from './operador-empresa/operador-empresa.component';
 import { RutasEmpresaComponent } from './rutas-empresa/rutas-empresa.component';
 import { RutasVehiculoEmpresaComponent } from './rutas-vehiculo-empresa/rutas-vehiculo-empresa.component';
-
+import { OESGuard } from '../guards/oes.guard';
+import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.component';
 const pagesRoutes: Routes = [
     {
         path: 'pages',
@@ -50,29 +51,16 @@ const pagesRoutes: Routes = [
             { path: 'vehiculoSucursal', component: VehiculoSucursalComponent },
             { path: 'registrarControlIE', component: RegistrarControlIEComponent }
         ]
+    },
+    {
+        path: 'OES', component: PagesComponent, canActivate: [OESGuard],
+        children: [
+            //{ path: 'formulario', component: formularioComponent },
+            { path: 'reporteDiario', component: ReporteDiarioComponent }
+            
+        ]
     }
 
-    // {
-    //     path: 'OGTU',
-        // component: PagesComponent,
-        // children: [
-        //     {path: 'Municipalidad', component: MunicipalidadComponent},
-        //     ]
-    // }
-    // {
-    //     path: 'OET',
-        // component: PagesComponent,
-        // children: [
-        //     {path: 'Municipalidad', component: MunicipalidadComponent},
-        //     ]
-    // }
-    // {
-    //     path: 'OES',
-        // component: PagesComponent,
-        // children: [
-        //     {path: 'Municipalidad', component: MunicipalidadComponent},
-        //     ]
-    // }
 ];
 
 export const PAGES_ROUTES = RouterModule.forChild(pagesRoutes);
