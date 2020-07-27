@@ -77,9 +77,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ClientApp\src\assets\css\" />
-    <Folder Include="ClientApp\src\assets\js\" />
-    <Folder Include="ClientApp\src\assets\js\plugins\" />
     <Folder Include="ClientApp\src\assets\js\plugins\slimscroll\" />
     <Folder Include="ClientApp\src\assets\js\plugins\metisMenu\" />
     <Folder Include="ClientApp\src\assets\img\" />
@@ -88,7 +85,6 @@
     <Folder Include="ClientApp\src\assets\js\plugins\iCheck\" />
     <Folder Include="ClientApp\src\assets\js\plugins\peity\" />
     <Folder Include="ClientApp\src\assets\fonts\" />
-    <Folder Include="ClientApp\src\assets\css\plugins\" />
     <Folder Include="ClientApp\src\assets\css\plugins\steps\" />
     <Folder Include="ClientApp\src\assets\js\plugins\steps\" />
     <Folder Include="Connected Services\" />

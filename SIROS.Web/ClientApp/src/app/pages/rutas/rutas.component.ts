@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as XLSX from 'xlsx';
 import { IndexModel } from 'src/app/models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { RutaService, ComboService, MessageService } from 'src/app/services/services.index';
@@ -14,6 +15,9 @@ declare var $: any;
 })
 export class RutasComponent implements OnInit {
   sTitlePage: string = 'Ruta';
+  file: File;
+  arrayBuffer: any;
+  filelist: any;
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
@@ -73,6 +77,7 @@ export class RutasComponent implements OnInit {
 
   fnCoordenadas(id: number) {
     console.log(id);
+    $('#myModalPoint').modal({backdrop: 'static', keyboard: false});
     //const dataSucursal = this.oIndexData.Items.find( suc => Number(suc.Id) === Number(id));
     //this.oRouter.navigate(['/OGTU/operadorES/', id, `${dataSucursal.Column3} - ${dataSucursal.Column4}`]);
   }
@@ -229,5 +234,25 @@ export class RutasComponent implements OnInit {
     }
     return null;
   }
+
+  fnReadFile(event){
+    this.file= event.target.files[0];     
+    let fileReader = new FileReader();    
+    fileReader.readAsArrayBuffer(this.file);     
+    fileReader.onload = (e) => {    
+        this.arrayBuffer = fileReader.result;    
+        var data = new Uint8Array(this.arrayBuffer);    
+        var arr = new Array();    
+        for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);    
+        var bstr = arr.join("");    
+        var workbook = XLSX.read(bstr, {type:"binary"});    
+        var first_sheet_name = workbook.SheetNames[0];    
+        var worksheet = workbook.Sheets[first_sheet_name];    
+        console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));    
+          var arraylist = XLSX.utils.sheet_to_json(worksheet,{raw:true});     
+              this.filelist = [];    
+              console.log(this.filelist)  
+  }    
+} 
 
 }
