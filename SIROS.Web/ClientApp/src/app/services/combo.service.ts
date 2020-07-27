@@ -40,4 +40,7 @@ export class ComboService {
   GetEstacionServicio() {
     return this.oBaseService.CallGet(`api/Combo/GetEstacionServicio`);
   }
+  GetRutas() {
+    return this.oBaseService.CallGet(`api/Combo/GetRutas`);
+  }
 }

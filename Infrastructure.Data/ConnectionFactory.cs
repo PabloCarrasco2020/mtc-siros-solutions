@@ -1,6 +1,4 @@
-﻿using System;
-using System.Data;
-using Microsoft.Extensions.Configuration;
+﻿using System.Data;
 using Microsoft.Extensions.Options;
 using Oracle.ManagedDataAccess.Client;
 using Transversal.Common;

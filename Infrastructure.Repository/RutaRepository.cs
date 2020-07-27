@@ -69,9 +69,16 @@ namespace Infrastructure.Repository
             }
         }
 
-        public Task<List<TM_RUTA>> GetCombo(TM_RUTA input)
+        public async Task<List<TM_RUTA>> GetCombo(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+                var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_GetListaComboRutaxEmp");
+                var result = await connection.QueryAsync<TM_RUTA>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result.AsList();
+            }
         }
 
         public async Task<TM_RUTA> Insert(TM_RUTA input)

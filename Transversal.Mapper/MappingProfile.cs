@@ -263,6 +263,10 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_ITINERARIO))
                 .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.STR_KILOMETRO))
                 .ReverseMap();
+            CreateMap<TM_RUTA, ComboModelDto.XId>()
+                .ForMember(destination => destination.nId, source => source.MapFrom(src => src.NUM_IDRUTA))
+                .ForMember(destination => destination.sDescription, source => source.MapFrom(src => $"{src.STR_NRORUTA}-{src.STR_NOMBRERUTA}"))
+                .ReverseMap();
 
             #endregion
 

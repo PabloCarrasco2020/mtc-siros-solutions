@@ -18,15 +18,18 @@ namespace SIROS.Web.Controllers
     public class ComboController : ControllerBase
     {
         private readonly IEstacionServicioApplication _estacionServicioApplication;
+        private readonly IRutaApplication _rutaApplication;
         private readonly IGeneralApplication _generalApplication;
         private readonly ILogApplication _logApplication;
 
         public ComboController(
             IEstacionServicioApplication estacionServicioApplication,
+            IRutaApplication rutaApplication,
             IGeneralApplication generalApplication,
             ILogApplication logApplication)
         {
             this._estacionServicioApplication = estacionServicioApplication;
+            this._rutaApplication = rutaApplication;
             this._generalApplication = generalApplication;
             this._logApplication = logApplication;
         }
@@ -212,6 +215,7 @@ namespace SIROS.Web.Controllers
                 };
             }
         }
+
         [HttpGet]
         public async Task<Response<List<ComboModelDto.XId>>> GetEstacionServicio()
         {
@@ -222,6 +226,23 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetEstacionServicio", ex);
+                return new Response<List<ComboModelDto.XId>>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+
+        [HttpGet]
+        public async Task<Response<List<ComboModelDto.XId>>> GetRutas()
+        {
+            try
+            {
+                return await this._rutaApplication.GetCombo(null);
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetRutas", ex);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"

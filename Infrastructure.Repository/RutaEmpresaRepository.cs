@@ -66,7 +66,7 @@ namespace Infrastructure.Repository
             }
         }
 
-        public Task<List<TM_RUTA_EMPRESA>> GetCombo(TM_RUTA_EMPRESA input)
+        public async Task<List<TM_RUTA_EMPRESA>> GetCombo(TM_RUTA_EMPRESA input)
         {
             throw new NotImplementedException();
         }
