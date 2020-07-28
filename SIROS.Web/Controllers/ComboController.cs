@@ -20,19 +20,23 @@ namespace SIROS.Web.Controllers
         private readonly IEstacionServicioApplication _estacionServicioApplication;
         private readonly IRutaApplication _rutaApplication;
         private readonly IGeneralApplication _generalApplication;
+        private readonly IJwtApplication _jwtApplication;
         private readonly ILogApplication _logApplication;
 
         public ComboController(
             IEstacionServicioApplication estacionServicioApplication,
             IRutaApplication rutaApplication,
             IGeneralApplication generalApplication,
+            IJwtApplication jwtApplication,
             ILogApplication logApplication)
         {
             this._estacionServicioApplication = estacionServicioApplication;
             this._rutaApplication = rutaApplication;
             this._generalApplication = generalApplication;
+            this._jwtApplication = jwtApplication;
             this._logApplication = logApplication;
         }
+
         #region Ubigeo
         [HttpGet]
         public async Task<Response<List<ComboModelDto.XCodigo>>> GetDepartamento()
@@ -234,19 +238,21 @@ namespace SIROS.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<Response<List<ComboModelDto.XId>>> GetRutas()
+        public async Task<IActionResult> GetRutas()
         {
             try
             {
-                return await this._rutaApplication.GetCombo(null);
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (!oUserInfo.IsSuccess)
+                    return Ok(oUserInfo);
+
+                var oResult = await this._rutaApplication.GetCombo(oUserInfo.Data.nIdEmpresa.ToString());
+                return Ok(oResult);
             }
             catch (Exception ex)
             {
                 _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetRutas", ex);
-                return new Response<List<ComboModelDto.XId>>
-                {
-                    Message = "ERR-Fallo en el servidor"
-                };
+                return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
     }

@@ -14,7 +14,6 @@ namespace Application.Dto
             public string sNumDocAuto { get; set; }
             public string sFecIniVig { get; set; }
             public string sFecVenVig { get; set; }
-            public string sEstado { get; set; }
         }
 
         public class RQInsert
@@ -34,7 +33,6 @@ namespace Application.Dto
             public string sNumDocAuto { get; set; }
             public string sFecIniVig { get; set; }
             public string sFecVenVig { get; set; }
-            public string sEstado { get; set; }
             public string sUsuario { get; set; }
             public int? nIdSession { get; set; }
         }

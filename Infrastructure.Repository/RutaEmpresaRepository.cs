@@ -101,7 +101,6 @@ namespace Infrastructure.Repository
                 dyParam.Add("dte_fecinivig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECINIVIG.ToBDSirosDate());
                 dyParam.Add("dte_fecvenvig_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECVENVIG.ToBDSirosDate());
                 dyParam.Add("str_numdocauto_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMDOCAUTO);
-                dyParam.Add("str_estado_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_ESTADO);
                 dyParam.Add("str_usuact_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUACT);
                 dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);

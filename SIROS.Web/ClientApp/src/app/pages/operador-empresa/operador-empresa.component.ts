@@ -65,7 +65,6 @@ export class OperadorEmpresaComponent implements OnInit {
     ) {
       this.nIdEmpresa = Number(this.activatedRoute.snapshot.params.nIdEmpresa);
       this.sDependencyName = this.activatedRoute.snapshot.params.sEmpresa;
-      console.log('RUN CONSTRUCTOR');
       this.CargarOperadores();
       this.CargarTipoDocumento();
       this.CargarTipoOperador();

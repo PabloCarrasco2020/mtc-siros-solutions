@@ -108,7 +108,7 @@ namespace Application.Core
             try
             {
                 var responseGetCombo = new Response<List<ComboModelDto.XId>>();
-                var result = await this._rutaDomain.GetCombo(new TM_RUTA { });
+                var result = await this._rutaDomain.GetCombo(new TM_RUTA { NUM_IDENTIDADUSUARIO = Int32.Parse(input) });
                 if (result.Count > 0)
                 {
                     responseGetCombo.IsSuccess = true;

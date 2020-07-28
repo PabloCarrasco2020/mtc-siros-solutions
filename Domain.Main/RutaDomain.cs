@@ -54,9 +54,16 @@ namespace Domain.Main
             }
         }
 
-        public Task<List<TM_RUTA>> GetCombo(TM_RUTA input)
+        public async Task<List<TM_RUTA>> GetCombo(TM_RUTA input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this._rutaRepository.GetCombo(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<TM_RUTA> Insert(TM_RUTA input)
