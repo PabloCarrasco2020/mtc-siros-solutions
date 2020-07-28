@@ -74,6 +74,7 @@ namespace Infrastructure.Repository
             using (var connection = _connectionFactory.GetConnectionSIROS())
             {
                 var dyParam = new OracleDynamicParameters();
+                dyParam.Add("num_identidadusuario_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDENTIDADUSUARIO);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
                 var query = _connectionFactory.GetQueryForSIROS("PKG_RUTA.SP_GetListaComboRutaxEmp");
                 var result = await connection.QueryAsync<TM_RUTA>(query, param: dyParam, commandType: CommandType.StoredProcedure);

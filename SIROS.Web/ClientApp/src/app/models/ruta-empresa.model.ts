@@ -6,6 +6,5 @@ export class RutaEmpresaModel {
     sNumDocAuto: string;
     sFecIniVig: string;
     sFecVenVig: string;
-    sEstado: string;
 
 }
