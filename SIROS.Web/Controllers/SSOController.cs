@@ -179,8 +179,8 @@ namespace SIROS.Web.Controllers
                 // ================================
                 // ===== SECCION PARA PRUEBAS =====
                 // ================================
-                oPerfiles.Data[0].NombreRol = "OES";
-                //oPerfiles.Data[0].NombreRol = "OGTU";
+                //oPerfiles.Data[0].NombreRol = "OES";
+                oPerfiles.Data[0].NombreRol = "OGTU";
                 //oPerfiles.Data[0].NombreRol = "Promovilidad";
 #endif
 

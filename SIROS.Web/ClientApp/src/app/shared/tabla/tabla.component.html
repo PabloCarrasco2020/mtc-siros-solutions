@@ -1,27 +1,42 @@
     
     <div class="row">
-        <div class="col-sm-5 m-b-xs">
-            <small>Mostrando: {{IndexData.ActualPage}} / {{IndexData.TotalPage}} de {{IndexData.NroItems}} Registros</small>
-        </div>
         <div class="col-sm-4 m-b-xs">
+            <small>
+                Mostrando: <code>{{IndexData.ActualPage}} / {{IndexData.TotalPage}}</code> de {{IndexData.NroItems}} Registros
+            </small>
+        </div>
+        <div class="col-sm-2 m-b-xs">
             <div *ngIf="IndexData.Items.length > 0">
                 <span>
-                    <button class="btn btn-sm btn-white" [disabled]="1 >= IndexData.ActualPage" (click)="btnBefore()"><i class="fa  fa-chevron-left" aria-hidden="true"></i></button>
+                    <button class="btn btn-xs btn-white" [disabled]="1 >= IndexData.ActualPage" (click)="btnBefore()"><i class="fa  fa-chevron-left" aria-hidden="true"></i></button>
                   
-                    <button class="btn btn-sm btn-white" [disabled]="IndexData.ActualPage>=IndexData.TotalPage || 1>=IndexData.TotalPage" (click)="btnNext()"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
+                    <button class="btn btn-xs btn-white" [disabled]="IndexData.ActualPage>=IndexData.TotalPage || 1>=IndexData.TotalPage" (click)="btnNext()"><i class="fa fa-chevron-right" aria-hidden="true"></i></button>
                 </span>
             </div>
         </div>
         
-        <div class="col-sm-3">
-            <div *ngIf="CanNew" class="btn-group float-right">
-                <button class="btn btn-sm btn-primary" (click)="btnNew()"><i class="fa fa-file-text-o" aria-hidden="true"></i> Nuevo Registro</button>
+        <div class="col-sm-6 m-b-xs">
+            <div class="m-t-md">
+            <div class="float-right">
+                <button *ngIf="CanRefresh" class="btn btn-sm btn-white" (click)="btnRefresh()">
+                    <i class="fa fa-refresh"></i> Actualizar
+                </button>
+                <button *ngIf="CanNew" class="btn btn-sm btn-white" (click)="btnNew()">
+                    <i class="fa fa-file-text-o" aria-hidden="true"></i> Nuevo
+                </button>
+                <button *ngIf="CanExport" class="btn btn-sm btn-white" (click)="btnExport()">
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Exportar
+                </button>
+                <button *ngIf="CanPrint" class="btn btn-sm btn-white" (click)="btnPrint()">
+                    <i class="fa fa-print"></i> Imprimir
+                </button>
+            </div>
             </div>
         </div>
     </div>
 
     <div class="table-responsive">
-        <table class="table table-sm table-bordered">
+        <table class="table table-sm table-bordered table-striped table-hover">
             <thead>
                 <tr>
                     <th *ngIf="CanSelect"><i class="fa fa-list"></i></th>
@@ -56,13 +71,13 @@
                     <td *ngIf="Column8Name !== null">{{iLista.Column8}}</td>
                     <td *ngIf="Column9Name !== null">{{iLista.Column9}}</td>
                     <td *ngIf="Column10Name !== null">{{iLista.Column10}}</td>
-                    <th *ngIf="FunctionName1 !== null" style="text-align: center;"><a (click)="bntFunction1(iLista.Id)" class="btn  btn-default"><i  class="fa" [ngClass]="FunctionIcon1"></i></a></th>
-                    <th *ngIf="FunctionName2 !== null" style="text-align: center;"><a (click)="bntFunction2(iLista.Id)" class="btn  btn-default"><i  class="fa" [ngClass]="FunctionIcon2"></i></a></th>
-                    <th *ngIf="FunctionName3 !== null" style="text-align: center;"><a (click)="bntFunction3(iLista.Id)" class="btn  btn-default"><i  class="fa" [ngClass]="FunctionIcon3"></i></a></th>
+                    <th *ngIf="FunctionName1 !== null" style="text-align: center;"><a (click)="bntFunction1(iLista.Id)" class="btn btn-default btn-xs"><i  class="fa" [ngClass]="FunctionIcon1"></i></a></th>
+                    <th *ngIf="FunctionName2 !== null" style="text-align: center;"><a (click)="bntFunction2(iLista.Id)" class="btn btn-default btn-xs"><i  class="fa" [ngClass]="FunctionIcon2"></i></a></th>
+                    <th *ngIf="FunctionName3 !== null" style="text-align: center;"><a (click)="bntFunction3(iLista.Id)" class="btn btn-default btn-xs"><i  class="fa" [ngClass]="FunctionIcon3"></i></a></th>
                     <td *ngIf="CanEdit || CanView || CanDelete">
 
                         <div class="btn-group">
-                            <button data-toggle="dropdown" class="btn btn-default btn-sm dropdown-toggle" aria-expanded="false"><i class="fa fa-list"></i> </button>
+                            <button data-toggle="dropdown" class="btn btn-default btn-xs dropdown-toggle" aria-expanded="false"><i class="fa fa-list"></i> </button>
                             <ul class="dropdown-menu" x-placement="bottom-start" style="position: absolute; top: 29px; left: 0px; will-change: top, left;">
                                 <li *ngIf="CanView"><a class="dropdown-item" (click)="btnView(iLista.Id)"> <i class="fa fa-eye"></i> Ver</a></li>
                                 <li *ngIf="CanEdit"><a class="dropdown-item" (click)="btnEdit(iLista.Id)"> <i class="fa fa-pencil"></i> Editar</a></li>

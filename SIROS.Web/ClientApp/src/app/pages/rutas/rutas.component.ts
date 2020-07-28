@@ -69,6 +69,14 @@ export class RutasComponent implements OnInit {
     this.CargarRutas();
   }
 
+  fnRefresh(){
+    this.CargarRutas();
+  }
+  
+  fnExport(){
+    
+  }
+
   fnNew() {
     this.nCurrentOption = 1;
     this.LimpiarCampos();

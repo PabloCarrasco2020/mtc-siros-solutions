@@ -33,6 +33,9 @@ export class TablaComponent implements OnInit {
   @Input() CanView: boolean = false;
   @Input() CanDelete: boolean = false;
   @Input() CanSelect: boolean = false;
+  @Input() CanRefresh: boolean = false;
+  @Input() CanExport: boolean = false;
+  @Input() CanPrint: boolean = false;
 
   @Output() eventNew = new EventEmitter<null>();
   @Output() eventRegistrar = new EventEmitter<null>();
@@ -40,6 +43,9 @@ export class TablaComponent implements OnInit {
   @Output() eventDelete = new EventEmitter<number>();
   @Output() eventView = new EventEmitter<number>();
   @Output() eventSelect = new EventEmitter<number>();
+  @Output() eventRefresh = new EventEmitter<number>();
+  @Output() eventExport = new EventEmitter<number>();
+  @Output() eventPrint = new EventEmitter<number>();
 
   @Output() eventFunction1 = new EventEmitter<number>();
   @Output() eventFunction2 = new EventEmitter<number>();
@@ -67,6 +73,18 @@ export class TablaComponent implements OnInit {
 
   btnDelete(id: number) {
     this.eventDelete.emit(id);
+  }
+
+  btnRefresh() {
+    this.eventRefresh.emit(null);
+  }
+
+  btnExport() {
+    this.eventExport.emit(null);
+  }
+
+  btnPrint() {
+    this.eventPrint.emit(null);
   }
 
   chkSelect(id: number) {
