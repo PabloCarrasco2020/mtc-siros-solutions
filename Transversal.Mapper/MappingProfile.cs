@@ -187,6 +187,7 @@ namespace Transversal.Mapper
                 .ReverseMap();
             CreateMap<TM_CONTRATOES, ContratoEsDto.RQDelete>()
                 .ForMember(destination => destination.nIdEstServicioEnt, source => source.MapFrom(src => src.NUM_IDESTSERVICIOXENT))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
                 .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
                 .ReverseMap();
             CreateMap<TM_CONTRATOES, ContratoEsDto.RSGet>()

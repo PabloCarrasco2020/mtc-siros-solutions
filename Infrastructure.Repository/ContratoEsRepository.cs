@@ -28,6 +28,7 @@ namespace Infrastructure.Repository
                 var dyParam = new OracleDynamicParameters();
                 dyParam.Add("num_idestservicioxent_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDESTSERVICIOXENT);
                 dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
+                dyParam.Add("str_usuact_", OracleDbType.Int32, ParameterDirection.Input, input.STR_USUACT);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
 
                 var query = _connectionFactory.GetQueryForSIROS("PKG_CONTRATOES.SP_EliminarContratoES");
