@@ -3,7 +3,7 @@
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="container-fluid">
-        <!-- -->
+        <!-- NEW EDIT -->
         <div class="modal inmodal" id="myModalNew" tabindex="-1" role="dialog" aria-modal="true">
             <div class="modal-dialog">
                 <div class="modal-content animated flipInY">
@@ -21,21 +21,26 @@
                             <div class="row">
                                 <div class="col-lg-12 mb-2">
                                     <label class="titulo-Campos">Nombre de Ruta (*)</label>
-                                    <input type="text" placeholder="" class="form-control"  [(ngModel)]="sNombreRuta" maxlength="100">
+                                    <input type="text" class="form-control"
+                                    [(ngModel)]="sNombreRuta"
+                                    uppercase maxlength="4000">
                                 </div>
                                
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 mb-2">
                                     <label class="titulo-Campos">Itinerario de Ruta (*)</label>
-                                    <input type="text" placeholder="" class="form-control" [(ngModel)]="sItinerario" >
+                                    <input type="text" class="form-control" 
+                                    [(ngModel)]="sItinerario"
+                                    uppercase maxlength="3000">
                                 </div>
                                 
                             </div>
                             <div class="row">
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Kilometros por Ruta (*)</label>
-                                    <input type="text" placeholder="" class="form-control" [(ngModel)]="sKilometro" maxlength="100">
+                                    <input type="text" class="form-control" 
+                                    [(ngModel)]="sKilometro" appDigitOnly maxlength="10">
                                 </div>
                                 
                             </div>
@@ -50,7 +55,7 @@
         </div>
         <!-- -->
 
-        <!-- -->
+        <!-- MARKS -->
         <div class="modal inmodal" id="myModalPoint" tabindex="-1" role="dialog" aria-modal="true">
             <div class="modal-dialog">
                 <div class="modal-content animated flipInY">
@@ -68,12 +73,11 @@
                             <div class="row">
                                 <div class="col-lg-12 mb-2">
 
-                                    
                                     <div class="col-md-12 form-group">        
                                         <input type="file" class="form-control" 
                                         (change)="fnReadFile($event)" 
                                         placeholder="Upload file" 
-                                        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">        
+                                        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" disabled>        
                                     </div> 
 
                                 </div>
@@ -81,6 +85,29 @@
                             </div>
                            
                         </section>
+
+                        <section class="animated slideInLeft">
+                            <div class="input-group m-b">
+                                <h4>Listado de Coordenadas</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12 mb-2">
+                                    
+                                    <app-tabla 
+                                        (eventBefore)="fnBefore($event)" 
+                                        (eventNext)="fnNext($event)"   
+                                        [IndexData]="oIndexDataCoordenadas" 
+                                        Column1Name="Nro" 
+                                        Column2Name="Latitud" 
+                                        Column3Name="Longitud">
+                                    </app-tabla>
+                                
+                                </div>
+                               
+                            </div>
+                           
+                        </section>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn btn-white" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
@@ -107,8 +134,14 @@
                     </div>
                     <div class="ibox-content">
                         <div class="btn-group" role="group" aria-label="Basic example">
-                            <button (click)="fnChangeTipoBusqueda(1)" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === 1, 'btn-white': nTipoFiltro === 2}">Ingresar por Nombre de Ruta</button>
-                            <button (click)="fnChangeTipoBusqueda(2)" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === 2, 'btn-white': nTipoFiltro === 1}">Ingresar por Itinerario</button>
+                            <button (click)="fnChangeTipoBusqueda(1)" type="button" class="btn " 
+                            [ngClass]="{'btn-secondary': nTipoFiltro === 1, 'btn-white': nTipoFiltro === 2}">
+                            Ingresar por Nombre de Ruta
+                            </button>
+                            <button (click)="fnChangeTipoBusqueda(2)" type="button" class="btn " 
+                            [ngClass]="{'btn-secondary': nTipoFiltro === 2, 'btn-white': nTipoFiltro === 1}">
+                            Ingresar por Itinerario
+                            </button>
                           </div>
                         <div class="row">
                             <div class="col-sm-4">
@@ -116,7 +149,8 @@
                                     <small [hidden]="(nTipoFiltro !== 1)" class="text-navy">Nombre de Ruta:</small>
                                     <small [hidden]="(nTipoFiltro !== 2)" class="text-navy">Itinerario:</small>
                                     <div class="input-group">
-                                        <input [(ngModel)]="sFilter" class="form-control form-control-sm" type="text">
+                                        <input type="text" class="form-control form-control-sm"
+                                        [(ngModel)]="sFilter" uppercase>
                                         <span class="input-group-append">
                                             <button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary" >
                                                 <i class="fa fa-search"></i> Buscar
@@ -135,7 +169,6 @@
                             (eventNext)="fnNext($event)"   
                             [IndexData]="oIndexData" 
                             [CanRefresh]="true" (eventRefresh)="fnRefresh()"
-                            [CanExport]="true" (eventExport)="fnExport()"  
                             [CanNew]="true" (eventNew)="fnNew()" 
                             [CanEdit]="true"  (eventEdit)="fnEdit($event)" 
                             [CanDelete]="true" (eventDelete)="fnDelete($event)" 
