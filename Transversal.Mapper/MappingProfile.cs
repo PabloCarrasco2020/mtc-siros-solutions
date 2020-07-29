@@ -258,7 +258,7 @@ namespace Transversal.Mapper
                 .ReverseMap();
             CreateMap<TM_RUTA, TableModel>()
                 .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDRUTA))
-                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_IDRUTA))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NRORUTA))
                 .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_NOMBRERUTA))
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_ITINERARIO))

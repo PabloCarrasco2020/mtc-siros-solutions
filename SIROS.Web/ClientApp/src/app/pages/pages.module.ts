@@ -25,6 +25,9 @@ import { OperadorEmpresaComponent } from './operador-empresa/operador-empresa.co
 import { RutasEmpresaComponent } from './rutas-empresa/rutas-empresa.component';
 import { RutasVehiculoEmpresaComponent } from './rutas-vehiculo-empresa/rutas-vehiculo-empresa.component';
 import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.component';
+// DIRECTIVES
+import { UpperCaseDirective } from '../directives/upper-case.directive';
+import { LowerCaseDirective } from '../directives/lower-case.directive';
 
 @NgModule({
   declarations: [
@@ -45,7 +48,9 @@ import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.componen
     OperadorEmpresaComponent,
     RutasEmpresaComponent,
     RutasVehiculoEmpresaComponent,
-    ReporteDiarioComponent
+    ReporteDiarioComponent,
+    UpperCaseDirective,
+    LowerCaseDirective
   ],
   exports: [
     PagesComponent

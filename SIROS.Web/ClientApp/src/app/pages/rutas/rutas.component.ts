@@ -23,7 +23,7 @@ export class RutasComponent implements OnInit {
   nCurrentPage: number = 1;
   nCurrentOption: number = 0;
 
-  oIndexDataRepresentanteLegal: IndexModel = new IndexModel();
+  oIndexDataCoordenadas: IndexModel = new IndexModel();
 
   lstCoordenadas: any[] = [];
 
@@ -67,6 +67,14 @@ export class RutasComponent implements OnInit {
   fnBefore(nPage: number) {
     this.nCurrentPage = nPage;
     this.CargarRutas();
+  }
+
+  fnRefresh(){
+    this.CargarRutas();
+  }
+  
+  fnExport(){
+    
   }
 
   fnNew() {
