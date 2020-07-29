@@ -35,7 +35,8 @@
                                     </select>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                    <input appDigitOnly class="form-control" placeholder="Ingrese número de documento" [(ngModel)]="oModel.sNroDocumento" [disabled]="nCurrentOption === OPTION_EDITAR" maxlength="9"  />
+                                    <input appDigitOnly class="form-control" placeholder="Ingrese número de documento" [(ngModel)]="oModel.sNroDocumento" 
+                                        (keyup)="OnChangeNroDocumento()" [disabled]="nCurrentOption === OPTION_EDITAR" maxlength="9"  />
                                 </div>
                                 <div class="col-lg-4 mb-2">
                                     <button type="button" class="btn btn-primary" (click)="ConsultarNroDocumento()" [disabled]="oModel.nIdTpDocumento == TIPO_DOCUMENTO_INVALIDO || nCurrentOption === OPTION_EDITAR">

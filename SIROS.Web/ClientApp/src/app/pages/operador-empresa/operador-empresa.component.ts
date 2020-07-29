@@ -147,6 +147,15 @@ export class OperadorEmpresaComponent implements OnInit {
     this.oModel.sFoto = '';
   }
 
+  OnChangeNroDocumento() {
+    this.oModel.sApePaterno = '';
+    this.oModel.sApeMaterno = '';
+    this.oModel.sNombre = '';
+    this.oModel.nIdTipoOper = -1;
+    this.oModel.sFecNacimiento = '';
+    this.oModel.sFoto = '';
+  }
+
   CargarOperadorXId() {
     this.oBlockUI.start('Cargando Operador de Empresa...');
     this.oOperadorEmpresaService.Get(this.oModel.nIdNominaXEmpresa)

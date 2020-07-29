@@ -121,6 +121,7 @@ namespace SIROS.Web.Controllers
                     return Ok(oUserInfo);
 
                 oItem.nIdSession = int.Parse(oUserInfo.Data.sIdSession);
+                oItem.sUsuario = oUserInfo.Data.sUsername;
                 var oResult = await this._contratoEsApplication.Delete(oItem);
                 return Ok(oResult);
             }
