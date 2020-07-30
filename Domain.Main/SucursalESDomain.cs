@@ -53,9 +53,16 @@ namespace Domain.Main
             }
         }
 
-        public Task<List<TM_SUCURSAL_ES>> GetCombo(TM_SUCURSAL_ES input)
+        public async Task<List<TM_SUCURSAL_ES>> GetCombo(TM_SUCURSAL_ES input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this._sucursalESRepository.GetCombo(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public async Task<TM_SUCURSAL_ES> Insert(TM_SUCURSAL_ES input)

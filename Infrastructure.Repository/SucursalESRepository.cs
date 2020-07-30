@@ -66,9 +66,17 @@ namespace Infrastructure.Repository
             }
         }
 
-        public Task<List<TM_SUCURSAL_ES>> GetCombo(TM_SUCURSAL_ES input)
+        public async Task<List<TM_SUCURSAL_ES>> GetCombo(TM_SUCURSAL_ES input)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("num_idestservicio_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDESTSERVICIO);
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+                var query = _connectionFactory.GetQueryForSIROS("PKG_SUCURSAL.SP_GetListaComboSucursalxEst");
+                var result = await connection.QueryAsync<TM_SUCURSAL_ES>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result.AsList();
+            }
         }
 
         public async Task<TM_SUCURSAL_ES> Insert(TM_SUCURSAL_ES input)

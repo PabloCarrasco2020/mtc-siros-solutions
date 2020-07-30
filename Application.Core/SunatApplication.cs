@@ -32,14 +32,14 @@ namespace Application.Core
                 }
 
                 var oResp = new SunatDto.ConsultaRucResponseModel();
-                oResp.sTipoPersona = oResult.desc_identi.Trim();
-                oResp.sNombre = oResult.ddp_nombre.Trim();
-                oResp.sCodDepartamento = oResult.cod_dep.Trim();
-                oResp.sCodProvincia = oResult.cod_prov.Trim();
-                oResp.sCodDistrito = oResult.cod_dist.Trim();
-                oResp.sUbigeo = oResult.ddp_ubigeo.Trim();
-                oResp.sReferencia = oResult.ddp_refer1.Trim();
-                oResp.sEstado = oResult.desc_estado.Trim();
+                oResp.sTipoPersona = oResult.desc_identi ? .Trim();
+                oResp.sNombre = oResult.ddp_nombre ? .Trim();
+                oResp.sCodDepartamento = oResult.cod_dep ? .Trim();
+                oResp.sCodProvincia = oResult.cod_prov ? .Trim();
+                oResp.sCodDistrito = oResult.cod_dist ? .Trim();
+                oResp.sUbigeo = oResult.ddp_ubigeo ? .Trim();
+                oResp.sReferencia = oResult.ddp_refer1 ? .Trim();
+                oResp.sEstado = oResult.desc_estado ? .Trim();
                 oResp.bEstado = oResult.esActivo;
                 oResp.sDireccion = "";
 
@@ -47,19 +47,19 @@ namespace Application.Core
 
                 if (!string.IsNullOrEmpty(oResult.desc_tipvia))
                     if (!oResult.desc_tipvia.Trim().Equals("-"))
-                        lstDireccionValues.Add(oResult.desc_tipvia.Trim());
+                        lstDireccionValues.Add(oResult.desc_tipvia ? .Trim());
 
                 if (!string.IsNullOrEmpty(oResult.ddp_nomvia))
                     if (!oResult.ddp_nomvia.Trim().Equals("-"))
-                        lstDireccionValues.Add(oResult.ddp_nomvia.Trim());
+                        lstDireccionValues.Add(oResult.ddp_nomvia ? .Trim());
 
                 if (!string.IsNullOrEmpty(oResult.desc_tipzon))
                     if (!oResult.desc_tipzon.Trim().Equals("-"))
-                        lstDireccionValues.Add(oResult.desc_tipzon.Trim());
+                        lstDireccionValues.Add(oResult.desc_tipzon ? .Trim());
 
                 if (!string.IsNullOrEmpty(oResult.ddp_nomzon))
                     if (!oResult.ddp_nomzon.Trim().Equals("-"))
-                        lstDireccionValues.Add(oResult.ddp_nomzon.Trim());
+                        lstDireccionValues.Add(oResult.ddp_nomzon ? .Trim());
 
                 if (lstDireccionValues.Count > 0)
                 {

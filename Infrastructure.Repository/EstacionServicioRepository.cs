@@ -78,6 +78,19 @@ namespace Infrastructure.Repository
             }
         }
 
+        public async Task<List<TM_ESTACIONSERVICIO>> GetComboEstXEnt(TM_ESTACIONSERVICIO input)
+        {
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("num_identidadusuario_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDENTIDADSSO);
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+                var query = _connectionFactory.GetQueryForSIROS("PKG_ESTACIONSERVICIO.SP_GetListaComboEstacionxEnt");
+                var result = await connection.QueryAsync<TM_ESTACIONSERVICIO>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result.AsList();
+            }
+        }
+
         public async Task<TM_ESTACIONSERVICIO> Insert(TM_ESTACIONSERVICIO input)
         {
             using (var connection = _connectionFactory.GetConnectionSIROS())

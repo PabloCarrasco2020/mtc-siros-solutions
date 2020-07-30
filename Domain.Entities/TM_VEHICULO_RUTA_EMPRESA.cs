@@ -18,5 +18,6 @@ namespace Domain.Entities
         public string STR_MARCA { get; set; }
         public int? NUM_ASIENTOS { get; set; }
         public string STR_COMBUSTIBLE { get; set; }
+        public int? NUM_IDSESION { get; set; }
     }
 }

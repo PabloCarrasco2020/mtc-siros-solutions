@@ -11,28 +11,29 @@ using Transversal.Common;
 
 namespace Application.Core
 {
-    public class EstacionServicioApplication : IEstacionServicioApplication
+    public class VehiculoRutaEmpresaApplication : IVehiculoRutaEmpresaApplication
     {
-        private readonly IEstacionServicioDomain _estacionServicioDomain;
+        private readonly IVehiculoRutaEmpresaDomain _vehiculoRutaEmpresaDomain;
         private readonly IMapper _mapper;
 
-        public EstacionServicioApplication(IEstacionServicioDomain estacionServicioDomain,IMapper mapper)
+        public VehiculoRutaEmpresaApplication(IVehiculoRutaEmpresaDomain vehiculoRutaEmpresaDomain, IMapper mapper)
         {
-            this._estacionServicioDomain = estacionServicioDomain;
+            this._vehiculoRutaEmpresaDomain = vehiculoRutaEmpresaDomain;
             this._mapper = mapper;
         }
-        public async Task<Response<int>> Delete(EstacionServicioDto.RQDelete input)
+
+        public async Task<Response<int>> Delete(VehiculoRutaEmpresaDto.RQDelete input)
         {
             try
             {
                 var responseDelete = new Response<int>();
-                var modelReq = this._mapper.Map<TM_ESTACIONSERVICIO>(input);
-                var result = await this._estacionServicioDomain.Delete(modelReq);
+                var modelReq = this._mapper.Map<TM_VEHICULO_RUTA_EMPRESA>(input);
+                var result = await this._vehiculoRutaEmpresaDomain.Delete(modelReq);
                 var nestadoProceso = Int32.Parse(result.STR_ESTADOPROCESO);
                 if (nestadoProceso == 1)
                 {
                     responseDelete.IsSuccess = true;
-                    responseDelete.Data = result.NUM_IDESTSERVICIO.Value;
+                    responseDelete.Data = result.NUM_VEHXEMP.Value;
                     responseDelete.Message = result.STR_MENSAJE;
                 }
                 else if (nestadoProceso > 1)
@@ -51,19 +52,19 @@ namespace Application.Core
             }
         }
 
-        public async Task<Response<EstacionServicioDto.RSGet>> Get(string input)
+        public async Task<Response<VehiculoRutaEmpresaDto.RSGet>> Get(string input)
         {
             try
             {
-                var responseGet = new Response<EstacionServicioDto.RSGet>();
-                var result = await this._estacionServicioDomain.Get(new TM_ESTACIONSERVICIO { NUM_IDESTSERVICIO = Int32.Parse(input) });
+                var responseGet = new Response<VehiculoRutaEmpresaDto.RSGet>();
+                var result = await this._vehiculoRutaEmpresaDomain.Get(new TM_VEHICULO_RUTA_EMPRESA { NUM_VEHXEMP = Int32.Parse(input) });
                 if (result == null)
                 {
                     responseGet.Message = "No se encontró registro";
                     return responseGet;
                 }
                 responseGet.IsSuccess = true;
-                responseGet.Data = this._mapper.Map<EstacionServicioDto.RSGet>(result);
+                responseGet.Data = this._mapper.Map<VehiculoRutaEmpresaDto.RSGet>(result);
                 return responseGet;
             }
             catch (Exception ex)
@@ -77,7 +78,7 @@ namespace Application.Core
             try
             {
                 var responseGetAllByFilter = new Response<IndexTableModelDto>();
-                var result = await this._estacionServicioDomain.GetAllByFilter(cantidadXPagina, pagina, filter);
+                var result = await this._vehiculoRutaEmpresaDomain.GetAllByFilter(cantidadXPagina, pagina, filter);
                 if (result.Count > 0)
                 {
                     responseGetAllByFilter.IsSuccess = true;
@@ -99,65 +100,23 @@ namespace Application.Core
             }
         }
 
-        public async Task<Response<List<ComboModelDto.XId>>> GetCombo(string input)
+        public Task<Response<List<ComboModelDto.XId>>> GetCombo(string input)
         {
-            try
-            {
-                var responseGetCombo = new Response<List<ComboModelDto.XId>>();
-                var result = await this._estacionServicioDomain.GetCombo(new TM_ESTACIONSERVICIO { });
-                if (result.Count > 0)
-                {
-                    responseGetCombo.IsSuccess = true;
-                    responseGetCombo.Data = this._mapper.Map<List<ComboModelDto.XId>>(result);
-                }
-                else
-                {
-                    responseGetCombo.Message = "No se encontró registros";
-                }
-                return responseGetCombo;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            throw new NotImplementedException();
         }
 
-        public async Task<Response<List<ComboModelDto.XId>>> GetComboEstXEnt(string input)
-        {
-            try
-            {
-                var responseGetCombo = new Response<List<ComboModelDto.XId>>();
-                var result = await this._estacionServicioDomain.GetComboEstXEnt(new TM_ESTACIONSERVICIO { NUM_IDENTIDADSSO = Int32.Parse(input) });
-                if (result.Count > 0)
-                {
-                    responseGetCombo.IsSuccess = true;
-                    responseGetCombo.Data = this._mapper.Map<List<ComboModelDto.XId>>(result);
-                }
-                else
-                {
-                    responseGetCombo.Message = "No se encontró registros";
-                }
-                return responseGetCombo;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public async Task<Response<int>> Insert(EstacionServicioDto.RQInsert input)
+        public async Task<Response<int>> Insert(VehiculoRutaEmpresaDto.RQInsert input)
         {
             try
             {
                 var responseInsert = new Response<int>();
-                var modelReq = this._mapper.Map<TM_ESTACIONSERVICIO>(input);
-                var result = await this._estacionServicioDomain.Insert(modelReq);
+                var modelReq = this._mapper.Map<TM_VEHICULO_RUTA_EMPRESA>(input);
+                var result = await this._vehiculoRutaEmpresaDomain.Insert(modelReq);
                 var nestadoProceso = Int32.Parse(result.STR_ESTADOPROCESO);
-
                 if (nestadoProceso == 1)
                 {
                     responseInsert.IsSuccess = true;
-                    responseInsert.Data = result.NUM_IDESTSERVICIO.Value;
+                    responseInsert.Data = result.NUM_VEHXEMP.Value;
                     responseInsert.Message = result.STR_MENSAJE;
                 }
                 else if (nestadoProceso > 1)
@@ -176,18 +135,18 @@ namespace Application.Core
             }
         }
 
-        public async Task<Response<int>> Update(EstacionServicioDto.RQUpdate input)
+        public async Task<Response<int>> Update(VehiculoRutaEmpresaDto.RQUpdate input)
         {
             try
             {
                 var responseUpdate = new Response<int>();
-                var modelReq = this._mapper.Map<TM_ESTACIONSERVICIO>(input);
-                var result = await this._estacionServicioDomain.Update(modelReq);
+                var modelReq = this._mapper.Map<TM_VEHICULO_RUTA_EMPRESA>(input);
+                var result = await this._vehiculoRutaEmpresaDomain.Update(modelReq);
                 var nestadoProceso = Int32.Parse(result.STR_ESTADOPROCESO);
                 if (nestadoProceso == 1)
                 {
                     responseUpdate.IsSuccess = true;
-                    responseUpdate.Data = result.NUM_IDESTSERVICIO.Value;
+                    responseUpdate.Data = result.NUM_VEHXEMP.Value;
                     responseUpdate.Message = result.STR_MENSAJE;
                 }
                 else if (nestadoProceso > 1)

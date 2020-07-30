@@ -43,4 +43,13 @@ export class ComboService {
   GetRutas() {
     return this.oBaseService.CallGet(`api/Combo/GetRutas`);
   }
+  GetCombustibles() {
+    return this.oBaseService.CallGet(`api/Combo/GetCombustibles`);
+  }
+  GeEstacionServicioXEntidad() {
+    return this.oBaseService.CallGet(`api/Combo/GeEstacionServicioXEntidad`);
+  }
+  GeSucursalesXEst(nIdEstServicio: number) {
+    return this.oBaseService.CallGet(`api/Combo/GeSucursalesXEst?nIdEstServicio=${nIdEstServicio}`);
+  }
 }

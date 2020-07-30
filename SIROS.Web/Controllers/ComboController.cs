@@ -18,6 +18,8 @@ namespace SIROS.Web.Controllers
     public class ComboController : ControllerBase
     {
         private readonly IEstacionServicioApplication _estacionServicioApplication;
+        private readonly ISucursalESApplication _sucursalEsApplication;
+        private readonly ICombustibleApplication _combustibleApplication;
         private readonly IRutaApplication _rutaApplication;
         private readonly IGeneralApplication _generalApplication;
         private readonly IJwtApplication _jwtApplication;
@@ -25,12 +27,16 @@ namespace SIROS.Web.Controllers
 
         public ComboController(
             IEstacionServicioApplication estacionServicioApplication,
+            ISucursalESApplication sucursalEsApplication,
+            ICombustibleApplication combustibleApplication,
             IRutaApplication rutaApplication,
             IGeneralApplication generalApplication,
             IJwtApplication jwtApplication,
             ILogApplication logApplication)
         {
             this._estacionServicioApplication = estacionServicioApplication;
+            this._sucursalEsApplication = sucursalEsApplication;
+            this._combustibleApplication = combustibleApplication;
             this._rutaApplication = rutaApplication;
             this._generalApplication = generalApplication;
             this._jwtApplication = jwtApplication;
@@ -172,7 +178,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetTipoDoc", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetTipoDoc", ex, sTipoConsulta);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -196,7 +202,7 @@ namespace SIROS.Web.Controllers
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetTipoOperador", ex);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetTipoOperador", ex, sTipoConsulta);
                 return new Response<List<ComboModelDto.XId>>
                 {
                     Message = "ERR-Fallo en el servidor"
@@ -252,6 +258,55 @@ namespace SIROS.Web.Controllers
             catch (Exception ex)
             {
                 _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetRutas", ex);
+                return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetCombustibles()
+        {
+            try
+            {
+                var oResult = await this._combustibleApplication.GetCombo(null);
+                return Ok(oResult);
+            } 
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GetCombustibles", ex);
+                return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GeEstacionServicioXEntidad()
+        {
+            try
+            {
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (!oUserInfo.IsSuccess)
+                    return Ok(oUserInfo);
+
+                var oResult = await this._estacionServicioApplication.GetComboEstXEnt(oUserInfo.Data.nIdEmpresa.ToString());
+                return Ok(oResult);
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GeEstacionServicioXEntidad", ex);
+                return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
+            }
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GeSucursalesXEst(int nIdEstServicio)
+        {
+            try
+            {
+                var oResult = await this._sucursalEsApplication.GetCombo(nIdEstServicio.ToString());
+                return Ok(oResult);
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "Combo-GeSucursalesXEst", ex);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
