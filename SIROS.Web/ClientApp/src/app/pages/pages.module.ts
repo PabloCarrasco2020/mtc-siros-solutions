@@ -28,6 +28,7 @@ import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.componen
 import { UpperCaseDirective } from '../directives/upper-case.directive';
 import { LowerCaseDirective } from '../directives/lower-case.directive';
 import { VehiculoRutaEmpresaComponent } from './vehiculo-ruta-empresa/vehiculo-ruta-empresa.component';
+import { FormularioOgtuComponent } from './formulario-ogtu/formulario-ogtu.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { VehiculoRutaEmpresaComponent } from './vehiculo-ruta-empresa/vehiculo-r
     ReporteDiarioComponent,
     UpperCaseDirective,
     LowerCaseDirective,
-    VehiculoRutaEmpresaComponent
+    VehiculoRutaEmpresaComponent,
+    FormularioOgtuComponent
   ],
   exports: [
     PagesComponent
