@@ -619,6 +619,10 @@ namespace Transversal.Mapper
 
             #endregion
 
+            #region Formulario OGTU
+
+            #endregion
+
             #region General
             CreateMap<GENERAL.TIPO_VIA, ComboModelDto.XId>()
                 .ForMember(destination => destination.nId, source => source.MapFrom(src => src.NUM_IDTPVIA))
