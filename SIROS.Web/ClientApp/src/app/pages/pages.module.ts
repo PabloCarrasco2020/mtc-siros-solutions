@@ -23,11 +23,11 @@ import { OperadorEsComponent } from './operador-es/operador-es.component';
 import { DigitOnlyDirective } from '../directives/digit-only.directive';
 import { OperadorEmpresaComponent } from './operador-empresa/operador-empresa.component';
 import { RutasEmpresaComponent } from './rutas-empresa/rutas-empresa.component';
-import { RutasVehiculoEmpresaComponent } from './rutas-vehiculo-empresa/rutas-vehiculo-empresa.component';
 import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.component';
 // DIRECTIVES
 import { UpperCaseDirective } from '../directives/upper-case.directive';
 import { LowerCaseDirective } from '../directives/lower-case.directive';
+import { VehiculoRutaEmpresaComponent } from './vehiculo-ruta-empresa/vehiculo-ruta-empresa.component';
 
 @NgModule({
   declarations: [
@@ -47,10 +47,10 @@ import { LowerCaseDirective } from '../directives/lower-case.directive';
     DigitOnlyDirective,
     OperadorEmpresaComponent,
     RutasEmpresaComponent,
-    RutasVehiculoEmpresaComponent,
     ReporteDiarioComponent,
     UpperCaseDirective,
-    LowerCaseDirective
+    LowerCaseDirective,
+    VehiculoRutaEmpresaComponent
   ],
   exports: [
     PagesComponent
