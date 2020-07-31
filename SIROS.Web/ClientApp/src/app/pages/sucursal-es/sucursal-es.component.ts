@@ -82,7 +82,6 @@ export class SucursalESComponent implements OnInit {
       document.getElementById(`sFilter${nOption}`).focus();
     }, 0);
   }
-
   fnBuscar() {
     this.nCurrentPage = 1;
     this.CargarSucursales();

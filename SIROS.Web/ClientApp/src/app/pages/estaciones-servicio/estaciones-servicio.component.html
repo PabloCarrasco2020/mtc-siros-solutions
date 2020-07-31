@@ -235,8 +235,8 @@
                             <div class="col-sm-4">
                     
                                 <div  class="form-group">
-                                    <small [hidden]="(nTipoFiltro !== 1)">RUC:</small>
-                                    <small [hidden]="(nTipoFiltro !== 2)">Razón Social:</small>
+                                    <small class="text-navy" [hidden]="(nTipoFiltro !== 1)">RUC:</small>
+                                    <small class="text-navy" [hidden]="(nTipoFiltro !== 2)">Razón Social:</small>
                                     <div class="input-group" [hidden]="(nTipoFiltro !== 1)"><input id="sFilter1" appDigitOnly [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="11"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
                                     <div class="input-group" [hidden]="(nTipoFiltro !== 2)"><input id="sFilter2" [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="300"><span class="input-group-append"><button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Buscar</button></span></div>
                     

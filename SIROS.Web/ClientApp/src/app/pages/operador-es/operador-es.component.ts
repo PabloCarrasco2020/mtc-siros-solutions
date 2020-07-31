@@ -156,6 +156,14 @@ export class OperadorEsComponent implements OnInit {
     this.sFecNacimiento = '';
     this.sFoto = '';
   }
+  OnChangeNroDocumento() {
+    this.sApePaterno = '';
+    this.sApeMaterno = '';
+    this.sNombre = '';
+    this.nIdTipoOper = -1;
+    this.sFecNacimiento = '';
+    this.sFoto = '';
+  }
   CargarOperadorXId() {
     this.oBlockUI.start('Cargando operador...');
     this.oOperadorEsService.Get(this.nIdNominaXSucursal).then((response: ResponseModel<any>) => {
