@@ -15,18 +15,18 @@ namespace SIROS.Web.Controllers
     [Authorize(Roles = "OGTU")]
     [Route("api/[controller]")]
     [ApiController]
-    public class ContratoEsController : ControllerBase
+    public class VehiculoRutaEmpresaController : ControllerBase
     {
-        private readonly IContratoEsApplication _contratoEsApplication;
+        private readonly IVehiculoRutaEmpresaApplication _vehiculoRutaEmpresaApplication;
         private readonly ILogApplication _logApplication;
         private readonly IJwtApplication _jwtApplication;
 
-        public ContratoEsController(
-            IContratoEsApplication contratoEsApplication,
+        public VehiculoRutaEmpresaController(
+            IVehiculoRutaEmpresaApplication vehiculoRutaEmpresaApplication,
             ILogApplication logApplication,
             IJwtApplication jwtApplication)
         {
-            this._contratoEsApplication = contratoEsApplication;
+            this._vehiculoRutaEmpresaApplication = vehiculoRutaEmpresaApplication;
             this._logApplication = logApplication;
             this._jwtApplication = jwtApplication;
         }
@@ -36,12 +36,12 @@ namespace SIROS.Web.Controllers
         {
             try
             {
-                var oResult = await this._contratoEsApplication.Get(sInput);
+                var oResult = await this._vehiculoRutaEmpresaApplication.Get(sInput);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-Get", ex, sInput);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "VehiculoRutaEmpresa-Get", ex, sInput);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
@@ -57,41 +57,40 @@ namespace SIROS.Web.Controllers
                     return Ok(oUserInfo);
 
                 sFilter = $"{sFilter}@{oUserInfo.Data.nIdEmpresa}";
-                var oResult = await this._contratoEsApplication.GetAllByFilter(nCantidadXPagina,nPagina,sFilter);
+                var oResult = await this._vehiculoRutaEmpresaApplication.GetAllByFilter(nCantidadXPagina, nPagina, sFilter);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-GetAllByFilter", ex, nPagina, sFilter);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "VehiculoRutaEmpresa-GetAllByFilter", ex, nPagina, sFilter);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
 
         [HttpPost("Insert")]
-        public async Task<IActionResult> Insert(ContratoEsDto.RQInsert oItem)
+        public async Task<IActionResult> Insert(VehiculoRutaEmpresaDto.RQInsert oItem)
         {
             try
             {
                 var oUserInfo = await this._jwtApplication.GetUserInfo(User);
                 if (!oUserInfo.IsSuccess)
                     return Ok(oUserInfo);
-                
+
                 oItem.nIdSession = int.Parse(oUserInfo.Data.sIdSession);
                 oItem.sUsuario = oUserInfo.Data.sUsername;
-                oItem.nIdEntidad = oUserInfo.Data.nIdEmpresa;
 
-                var oResult = await this._contratoEsApplication.Insert(oItem);
+                var oResult = await this._vehiculoRutaEmpresaApplication.Insert(oItem);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-Insert", ex, oItem);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "VehiculoRutaEmpresa-Insert", ex, oItem);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
 
         [HttpPost("Update")]
-        public async Task<IActionResult> Update(ContratoEsDto.RQUpdate oItem)
+        public async Task<IActionResult> Update(VehiculoRutaEmpresaDto.RQUpdate oItem)
         {
             try
             {
@@ -101,18 +100,18 @@ namespace SIROS.Web.Controllers
 
                 oItem.nIdSession = int.Parse(oUserInfo.Data.sIdSession);
                 oItem.sUsuario = oUserInfo.Data.sUsername;
-                var oResult = await this._contratoEsApplication.Update(oItem);
+                var oResult = await this._vehiculoRutaEmpresaApplication.Update(oItem);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-Update", ex, oItem);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "VehiculoRutaEmpresa-Update", ex, oItem);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }
 
         [HttpPost("Delete")]
-        public async Task<IActionResult> Delete(ContratoEsDto.RQDelete oItem)
+        public async Task<IActionResult> Delete(VehiculoRutaEmpresaDto.RQDelete oItem)
         {
             try
             {
@@ -122,12 +121,12 @@ namespace SIROS.Web.Controllers
 
                 oItem.nIdSession = int.Parse(oUserInfo.Data.sIdSession);
                 oItem.sUsuario = oUserInfo.Data.sUsername;
-                var oResult = await this._contratoEsApplication.Delete(oItem);
+                var oResult = await this._vehiculoRutaEmpresaApplication.Delete(oItem);
                 return Ok(oResult);
             }
             catch (Exception ex)
             {
-                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "ContratoEs-Delete", ex, oItem);
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "VehiculoRutaEmpresa-Delete", ex, oItem);
                 return Ok(new Response<string> { Message = "ERR-Fallo en el servidor" });
             }
         }

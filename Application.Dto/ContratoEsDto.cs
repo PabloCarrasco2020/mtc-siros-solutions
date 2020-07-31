@@ -43,6 +43,7 @@ namespace Application.Dto
         public class RQDelete
         {
             public int? nIdEstServicioEnt { get; set; }
+            public string sUsuario { get; set; }
             public int? nIdSession { get; set; }
         }
     }

@@ -65,6 +65,18 @@ namespace Domain.Main
             }
         }
 
+        public async Task<List<TM_ESTACIONSERVICIO>> GetComboEstXEnt(TM_ESTACIONSERVICIO input)
+        {
+            try
+            {
+                return await this._estacionServicioRepository.GetComboEstXEnt(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<TM_ESTACIONSERVICIO> Insert(TM_ESTACIONSERVICIO input)
         {
             try
