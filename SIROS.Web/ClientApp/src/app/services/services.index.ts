@@ -19,3 +19,4 @@ export { OperadorEmpresaService } from './operador-empresa.service';
 export { DateService } from './date.service';
 export { ONGEIService } from './ongei.service';
 export { RutaEmpresaService } from './ruta-empresa.service';
+export { VehiculoRutaEmpresaService } from './vehiculo-ruta-empresa.service';

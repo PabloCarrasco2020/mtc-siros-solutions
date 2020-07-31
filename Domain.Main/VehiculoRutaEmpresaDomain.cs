@@ -12,7 +12,7 @@ namespace Domain.Main
     {
         private readonly IVehiculoRutaEmpresaRepository _vehiculoRutaEmpresaRepository;
 
-        public VehiculoRutaEmpresaDomain(IRutaEmpresaRepository vehiculoRutaEmpresaRepository)
+        public VehiculoRutaEmpresaDomain(IVehiculoRutaEmpresaRepository vehiculoRutaEmpresaRepository)
         {
             this._vehiculoRutaEmpresaRepository = vehiculoRutaEmpresaRepository;
         }
