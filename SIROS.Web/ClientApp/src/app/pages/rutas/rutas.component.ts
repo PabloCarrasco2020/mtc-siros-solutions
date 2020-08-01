@@ -25,7 +25,7 @@ export class RutasComponent implements OnInit {
 
   oIndexDataCoordenadas: IndexModel = new IndexModel();
 
-  lstCoordenadas: any[] = [];
+  public lstCoordenadas: any[] = [];
 
   // Busqueda
   nTipoFiltro: number = 1;
@@ -86,8 +86,6 @@ export class RutasComponent implements OnInit {
   fnCoordenadas(id: number) {
     console.log(id);
     $('#myModalPoint').modal({backdrop: 'static', keyboard: false});
-    //const dataSucursal = this.oIndexData.Items.find( suc => Number(suc.Id) === Number(id));
-    //this.oRouter.navigate(['/OGTU/operadorES/', id, `${dataSucursal.Column3} - ${dataSucursal.Column4}`]);
   }
 
   fnEdit(nId: number) {
@@ -257,10 +255,34 @@ export class RutasComponent implements OnInit {
         var first_sheet_name = workbook.SheetNames[0];    
         var worksheet = workbook.Sheets[first_sheet_name];    
         console.log(XLSX.utils.sheet_to_json(worksheet,{raw:true}));    
-          var arraylist = XLSX.utils.sheet_to_json(worksheet,{raw:true});     
-              this.filelist = [];    
-              console.log(this.filelist)  
-  }    
-} 
+          this.lstCoordenadas = XLSX.utils.sheet_to_json(worksheet,{raw:true});     
+              //this.filelist = [];    
+              //console.log(this.filelist)
+              
+    }    
+  } 
+
+  fnLoadCoordenadas(){
+    this.ParseListToIndexCoordenadas();
+  }
+
+  ParseListToIndexCoordenadas() {
+    this.oIndexDataCoordenadas = new IndexModel();
+    this.oIndexDataCoordenadas.NroItems = this.lstCoordenadas.length;
+    this.oIndexDataCoordenadas.TotalPage = 1;
+    this.oIndexDataCoordenadas.ActualPage = 1;
+    this.oIndexDataCoordenadas.Items = [];
+    let iCoordenada = 0;
+    this.lstCoordenadas.forEach(item => {
+      iCoordenada++;
+      this.oIndexDataCoordenadas.Items.push(
+        {
+          Id: iCoordenada,
+          Column1: item.number,
+          Column2: item.latitude,
+         // Column3: `${item.sNombres} ${responsableLegal.sApePaterno} ${responsableLegal.sApeMaterno}`,
+          Column3: item.longitude});
+    });
+  }
 
 }
