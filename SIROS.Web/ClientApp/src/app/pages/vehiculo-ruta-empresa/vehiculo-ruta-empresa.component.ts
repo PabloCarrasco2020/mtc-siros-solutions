@@ -36,6 +36,7 @@ export class VehiculoRutaEmpresaComponent implements OnInit {
   nIdEmpresa: number = 0;
   sEmpresa: string = '';
   nIdRutaXEmp: number = 0;
+  sRutaXEmp: string = '';
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
@@ -63,7 +64,8 @@ export class VehiculoRutaEmpresaComponent implements OnInit {
       this.nIdEmpresa = Number(this.activatedRoute.snapshot.params.nIdEmpresa);
       this.sEmpresa = this.activatedRoute.snapshot.params.sEmpresa;
       this.nIdRutaXEmp = Number(this.activatedRoute.snapshot.params.nIdRutaXEmp);
-      this.sDependencyName = this.activatedRoute.snapshot.params.sRutaXEmp;
+      this.sRutaXEmp = this.activatedRoute.snapshot.params.sRutaXEmp;
+      this.sDependencyName = `${this.sEmpresa} | ${this.sRutaXEmp}`;
       this.CargarEstacionesServicio();
       this.CargarSucursales();
       this.CargarCombustibles();
@@ -160,6 +162,7 @@ export class VehiculoRutaEmpresaComponent implements OnInit {
     .then((oResponse: ResponseModel<VehiculoRutaEmpresaModel>) => {
       if (oResponse.IsSuccess) {
         this.oModel = oResponse.Data;
+        this.CargarSucursales();
       } else {
 
       }
@@ -172,7 +175,7 @@ export class VehiculoRutaEmpresaComponent implements OnInit {
 
     this.oModel.nIdVehXEmp = Number(this.oModel.nIdVehXEmp);
     this.oModel.nIdEmpresa = Number(this.nIdEmpresa);
-    this.oModel.nIdRutaXEmp = Number(this.oModel.nIdRutaXEmp);
+    this.oModel.nIdRutaXEmp = Number(this.nIdRutaXEmp);
     this.oModel.nIdEstServicio = Number(this.oModel.nIdEstServicio);
     this.oModel.nIdSucursalXEs = Number(this.oModel.nIdSucursalXEs);
     this.oModel.nIdCombustible = Number(this.oModel.nIdCombustible);
@@ -222,8 +225,6 @@ export class VehiculoRutaEmpresaComponent implements OnInit {
 
     this.oSunarpService.ConsultaPlaca(this.oModel.sPlaca).then((response: ResponseModel<any>) => {
       if (response.IsSuccess) {
-        console.log('PLACAAA', response);
-
         if (response.Data.Vehiculo) {
           this.oModel.sAnioFab = response.Data.Vehiculo.ano_fabricacion;
           this.oModel.sAnioModelo = response.Data.Vehiculo.an_titu;
@@ -235,6 +236,18 @@ export class VehiculoRutaEmpresaComponent implements OnInit {
       }
       this.oBlockUI.stop();
     });
+  }
+
+  OnEstacionServicioChange() {
+    this.CargarSucursales();
+    this.oModel.nIdSucursalXEs = -1;
+  }
+
+  OnPlacaChange() {
+    this.oModel.sAnioFab = '';
+    this.oModel.sAnioModelo = '';
+    this.oModel.sMarca = '';
+    this.oModel.nAsientos = 0;
   }
 
   /***** CARGAR COMBOS *****/

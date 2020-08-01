@@ -1,13 +1,13 @@
 <block-ui></block-ui>
 <app-breadcrumb 
-    CurrentPage="Rutas de Empresa" 
+    CurrentPage="Vehiculos de la Ruta de Empresa" 
     [DependencyName]="sDependencyName" 
     RouterName1="Empresas" 
     RouteTo1="/OGTU/empresas" 
     RouterName2="Rutas de Empresa" 
     RouteTo2="/OGTU/rutasEmpresa/{{nIdEmpresa}}/{{sEmpresa}}"
-    RouterName3="Vehiculos de Ruta de Empresa" 
-    RouteTo3="/OGTU/vehiculoRutaEmpresa/{{nIdEmpresa}}/{{sEmpresa}}/{{nIdRutaXEmp}}/{{sDependencyName}}"></app-breadcrumb>
+    RouterName3="Vehiculos de la Ruta de Empresa" 
+    RouteTo3="/OGTU/vehiculoRutaEmpresa/{{nIdEmpresa}}/{{sEmpresa}}/{{nIdRutaXEmp}}/{{sRutaXEmp}}"></app-breadcrumb>
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="container-fluid">
@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-lg-4 mb-2">
                                     <label class="titulo-Campos">Placa (*)</label>
-                                    <input type="text" class="form-control" [(ngModel)]="oModel.sPlaca" maxlength="8">
+                                    <input type="text" class="form-control" [(ngModel)]="oModel.sPlaca" uppercase (keyup)="OnPlacaChange()" maxlength="8" [disabled]="nCurrentOption === OPTION_EDITAR">
                                 </div>
                                 <div class="col-lg-4 mb-2 mt-2">
                                     <button type="button" class="btn btn-primary" (click)="ConsultarPlaca()" [disabled]="nCurrentOption === OPTION_EDITAR">
@@ -59,7 +59,7 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Estación de Servicio (*)</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.nIdEstServicio" (change)="CargarSucursales()">
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.nIdEstServicio" (change)="OnEstacionServicioChange()">
                                         <option value="-1">
                                             [ Seleccione ]
                                         </option>

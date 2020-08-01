@@ -609,7 +609,7 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.nAsientos, source => source.MapFrom(src => src.NUM_ASIENTOS))
                 .ReverseMap();
             CreateMap<TM_VEHICULO_RUTA_EMPRESA, TableModel>()
-                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDRUTAXEMP))
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_VEHXEMP))
                 .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_PLACA))
                 .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_ANOFAB))
