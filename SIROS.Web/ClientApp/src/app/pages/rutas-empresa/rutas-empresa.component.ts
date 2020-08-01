@@ -4,8 +4,7 @@ import { IndexModel } from '../../models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ComboService, MessageService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
-import { ContratoEsModel } from 'src/app/models/contrato-es.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { RutaEmpresaService } from '../../services/ruta-empresa.service';
 
 declare var $: any;
@@ -55,7 +54,8 @@ export class RutasEmpresaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private oRutaEmpresaService: RutaEmpresaService,
     private oComboService: ComboService,
-    private oMessageService: MessageService
+    private oMessageService: MessageService,
+    private oRouter: Router
     ) {
       this.nIdEmpresa = Number(this.activatedRoute.snapshot.params.nIdEmpresa);
       this.sDependencyName = this.activatedRoute.snapshot.params.sEmpresa;
@@ -244,7 +244,7 @@ export class RutasEmpresaComponent implements OnInit {
   }
 
   fnVehiculos(nIdRutaXEmp: number) {
-    /*const oData = this.oIndexData.Items.find(x => Number(x.Id) === Number(nIdEmpresa));
-    this.oRouter.navigate(['/OGTU/rutasEmpresa/', nIdEmpresa, `${oData.Column2} — ${oData.Column3}`]);*/
+    const oData = this.oIndexData.Items.find(x => Number(x.Id) === Number(nIdRutaXEmp));
+    this.oRouter.navigate(['/OGTU/vehiculoRutaEmpresa/', this.nIdEmpresa, this.sDependencyName, nIdRutaXEmp, oData.Column3]);
   }
 }

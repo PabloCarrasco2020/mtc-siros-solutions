@@ -1,3 +1,4 @@
+import { VehiculoRutaEmpresaComponent } from './vehiculo-ruta-empresa/vehiculo-ruta-empresa.component';
 import { Routes, RouterModule } from '@angular/router';
 import { PagesComponent } from './pages.component';
 import { HomeComponent } from './home/home.component';
@@ -17,9 +18,9 @@ import { InGuard } from '../guards/in.guard';
 import { OperadorEsComponent } from './operador-es/operador-es.component';
 import { OperadorEmpresaComponent } from './operador-empresa/operador-empresa.component';
 import { RutasEmpresaComponent } from './rutas-empresa/rutas-empresa.component';
-import { RutasVehiculoEmpresaComponent } from './rutas-vehiculo-empresa/rutas-vehiculo-empresa.component';
 import { OESGuard } from '../guards/oes.guard';
 import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.component';
+import { FormularioOgtuComponent } from './formulario-ogtu/formulario-ogtu.component';
 const pagesRoutes: Routes = [
     {
         path: 'pages',
@@ -47,9 +48,10 @@ const pagesRoutes: Routes = [
             { path: 'empresas', component: EmpresasComponent },
             { path: 'operadorEmpresa/:nIdEmpresa/:sEmpresa', component: OperadorEmpresaComponent },
             { path: 'rutasEmpresa/:nIdEmpresa/:sEmpresa', component: RutasEmpresaComponent },
-            { path: 'rutasVehiculoEmpresa', component: RutasVehiculoEmpresaComponent },
+            { path: 'vehiculoRutaEmpresa/:nIdEmpresa/:sEmpresa/:nIdRutaXEmp/:sRutaXEmp', component: VehiculoRutaEmpresaComponent },
             { path: 'vehiculoSucursal', component: VehiculoSucursalComponent },
-            { path: 'registrarControlIE', component: RegistrarControlIEComponent }
+            { path: 'registrarControlIE', component: RegistrarControlIEComponent },
+            { path: 'formularioOGTU', component: FormularioOgtuComponent }
         ]
     },
     {

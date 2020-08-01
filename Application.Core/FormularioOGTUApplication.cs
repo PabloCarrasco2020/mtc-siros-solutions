@@ -5,34 +5,33 @@ using Domain.Entities;
 using Domain.Interface;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Transversal.Common;
 
 namespace Application.Core
 {
-    public class EstacionServicioApplication : IEstacionServicioApplication
+    public class FormularioOGTUApplication : IFormularioOGTUApplication
     {
-        private readonly IEstacionServicioDomain _estacionServicioDomain;
+        private readonly IFormularioOGTUDomain _formularioOGTUDomain;
         private readonly IMapper _mapper;
 
-        public EstacionServicioApplication(IEstacionServicioDomain estacionServicioDomain,IMapper mapper)
+        public FormularioOGTUApplication(IFormularioOGTUDomain formularioOGTUDomain,IMapper mapper)
         {
-            this._estacionServicioDomain = estacionServicioDomain;
+            this._formularioOGTUDomain = formularioOGTUDomain;
             this._mapper = mapper;
         }
-        public async Task<Response<int>> Delete(EstacionServicioDto.RQDelete input)
+        public async Task<Response<int>> Delete(FormularioOGTUDto.RQDelete input)
         {
             try
             {
                 var responseDelete = new Response<int>();
-                var modelReq = this._mapper.Map<TM_ESTACIONSERVICIO>(input);
-                var result = await this._estacionServicioDomain.Delete(modelReq);
+                var modelReq = this._mapper.Map<TM_FORMULARIO_OGTU>(input);
+                var result = await this._formularioOGTUDomain.Delete(modelReq);
                 var nestadoProceso = Int32.Parse(result.STR_ESTADOPROCESO);
                 if (nestadoProceso == 1)
                 {
                     responseDelete.IsSuccess = true;
-                    responseDelete.Data = result.NUM_IDESTSERVICIO.Value;
+                    responseDelete.Data = result.NUM_IDFORMULARIOTU.Value;
                     responseDelete.Message = result.STR_MENSAJE;
                 }
                 else if (nestadoProceso > 1)
@@ -51,19 +50,20 @@ namespace Application.Core
             }
         }
 
-        public async Task<Response<EstacionServicioDto.RSGet>> Get(string input)
+        public async Task<Response<FormularioOGTUDto.RSGet>> Get(string input)
         {
             try
             {
-                var responseGet = new Response<EstacionServicioDto.RSGet>();
-                var result = await this._estacionServicioDomain.Get(new TM_ESTACIONSERVICIO { NUM_IDESTSERVICIO = Int32.Parse(input) });
+                var splInput = input.Split('@');
+                var responseGet = new Response<FormularioOGTUDto.RSGet>();
+                var result = await this._formularioOGTUDomain.Get(new TM_FORMULARIO_OGTU { NUM_IDFORMULARIOTU = Int32.Parse(splInput[0]),NUM_IDENTIDADUSUARIO = Int32.Parse(splInput[1]) });
                 if (result == null)
                 {
                     responseGet.Message = "No se encontró registro";
                     return responseGet;
                 }
                 responseGet.IsSuccess = true;
-                responseGet.Data = this._mapper.Map<EstacionServicioDto.RSGet>(result);
+                responseGet.Data = this._mapper.Map<FormularioOGTUDto.RSGet>(result);
                 return responseGet;
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace Application.Core
             try
             {
                 var responseGetAllByFilter = new Response<IndexTableModelDto>();
-                var result = await this._estacionServicioDomain.GetAllByFilter(cantidadXPagina, pagina, filter);
+                var result = await this._formularioOGTUDomain.GetAllByFilter(cantidadXPagina, pagina, filter);
                 if (result.Count > 0)
                 {
                     responseGetAllByFilter.IsSuccess = true;
@@ -101,63 +101,22 @@ namespace Application.Core
 
         public async Task<Response<List<ComboModelDto.XId>>> GetCombo(string input)
         {
-            try
-            {
-                var responseGetCombo = new Response<List<ComboModelDto.XId>>();
-                var result = await this._estacionServicioDomain.GetCombo(new TM_ESTACIONSERVICIO { });
-                if (result.Count > 0)
-                {
-                    responseGetCombo.IsSuccess = true;
-                    responseGetCombo.Data = this._mapper.Map<List<ComboModelDto.XId>>(result);
-                }
-                else
-                {
-                    responseGetCombo.Message = "No se encontró registros";
-                }
-                return responseGetCombo;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
+            throw new NotImplementedException();
         }
 
-        public async Task<Response<List<ComboModelDto.XId>>> GetComboEstXEnt(string input)
-        {
-            try
-            {
-                var responseGetCombo = new Response<List<ComboModelDto.XId>>();
-                var result = await this._estacionServicioDomain.GetComboEstXEnt(new TM_ESTACIONSERVICIO { NUM_IDENTIDADSSO = Int32.Parse(input) });
-                if (result.Count > 0)
-                {
-                    responseGetCombo.IsSuccess = true;
-                    responseGetCombo.Data = this._mapper.Map<List<ComboModelDto.XId>>(result);
-                }
-                else
-                {
-                    responseGetCombo.Message = "No se encontró registros";
-                }
-                return responseGetCombo;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        public async Task<Response<int>> Insert(EstacionServicioDto.RQInsert input)
+        public async Task<Response<int>> Insert(FormularioOGTUDto.RQInsert input)
         {
             try
             {
                 var responseInsert = new Response<int>();
-                var modelReq = this._mapper.Map<TM_ESTACIONSERVICIO>(input);
-                var result = await this._estacionServicioDomain.Insert(modelReq);
+                var modelReq = this._mapper.Map<TM_FORMULARIO_OGTU>(input);
+                var result = await this._formularioOGTUDomain.Insert(modelReq);
                 var nestadoProceso = Int32.Parse(result.STR_ESTADOPROCESO);
 
                 if (nestadoProceso == 1)
                 {
                     responseInsert.IsSuccess = true;
-                    responseInsert.Data = result.NUM_IDESTSERVICIO.Value;
+                    responseInsert.Data = result.NUM_IDFORMULARIOTU.Value;
                     responseInsert.Message = result.STR_MENSAJE;
                 }
                 else if (nestadoProceso > 1)
@@ -176,18 +135,18 @@ namespace Application.Core
             }
         }
 
-        public async Task<Response<int>> Update(EstacionServicioDto.RQUpdate input)
+        public async Task<Response<int>> Update(FormularioOGTUDto.RQUpdate input)
         {
             try
             {
                 var responseUpdate = new Response<int>();
-                var modelReq = this._mapper.Map<TM_ESTACIONSERVICIO>(input);
-                var result = await this._estacionServicioDomain.Update(modelReq);
+                var modelReq = this._mapper.Map<TM_FORMULARIO_OGTU>(input);
+                var result = await this._formularioOGTUDomain.Update(modelReq);
                 var nestadoProceso = Int32.Parse(result.STR_ESTADOPROCESO);
                 if (nestadoProceso == 1)
                 {
                     responseUpdate.IsSuccess = true;
-                    responseUpdate.Data = result.NUM_IDESTSERVICIO.Value;
+                    responseUpdate.Data = result.NUM_IDFORMULARIOTU.Value;
                     responseUpdate.Message = result.STR_MENSAJE;
                 }
                 else if (nestadoProceso > 1)

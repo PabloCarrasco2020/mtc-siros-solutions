@@ -39,9 +39,16 @@ namespace Domain.Main
             }
         }
 
-        public Task<List<TM_COMBUSTIBLE>> GetCombo(TM_COMBUSTIBLE input)
+        public async Task<List<TM_COMBUSTIBLE>> GetCombo(TM_COMBUSTIBLE input)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return await this._combustibleRepository.GetCombo(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Task<TM_COMBUSTIBLE> Insert(TM_COMBUSTIBLE input)

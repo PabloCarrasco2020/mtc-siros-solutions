@@ -60,7 +60,7 @@ namespace Infrastructure.Repository
                 dyParam.Add("num_registros_", OracleDbType.Varchar2, ParameterDirection.Input, cantidadXPagina);
                 dyParam.Add("num_idempresa_", OracleDbType.Int32, ParameterDirection.Input, splFilter[2]);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
-                var query = _connectionFactory.GetQueryForSIROS("PKG_RUTAXEMP.SP_GetListaRutaxEmpId");
+                var query = _connectionFactory.GetQueryForSIROS("PKG_RUTAXEMP.SP_GetListaRutaxEmp");
                 var result = await connection.QueryAsync<TM_RUTA_EMPRESA>(query, param: dyParam, commandType: CommandType.StoredProcedure);
                 return result.AsList();
             }

@@ -46,9 +46,16 @@ namespace Infrastructure.Repository
             }
         }
 
-        public Task<List<TM_COMBUSTIBLE>> GetCombo(TM_COMBUSTIBLE input)
+        public async Task<List<TM_COMBUSTIBLE>> GetCombo(TM_COMBUSTIBLE input)
         {
-            throw new NotImplementedException();
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+                var query = _connectionFactory.GetQueryForSIROS("PKG_COMBUSTIBLE.SP_GetListaComboCombustible");
+                var result = await connection.QueryAsync<TM_COMBUSTIBLE>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result.AsList();
+            }
         }
 
         public Task<TM_COMBUSTIBLE> Insert(TM_COMBUSTIBLE input)

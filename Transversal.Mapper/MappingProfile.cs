@@ -220,6 +220,10 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_IDCOMBUSTIBLE))
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_DSCOMBUSTIBLE))
                 .ReverseMap();
+            CreateMap<TM_COMBUSTIBLE, ComboModelDto.XId>()
+                .ForMember(destination => destination.nId, source => source.MapFrom(src => src.NUM_IDCOMBUSTIBLE))
+                .ForMember(destination => destination.sDescription, source => source.MapFrom(src => src.STR_DSCOMBUSTIBLE))
+                .ReverseMap();
             #endregion
 
             #region Rutas
@@ -342,6 +346,10 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NUMRUC))
                 .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_RAZONSOCIAL))
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_DIRECCION))
+                .ReverseMap();
+            CreateMap<TM_SUCURSAL_ES, ComboModelDto.XId>()
+                .ForMember(destination => destination.nId, source => source.MapFrom(src => src.NUM_IDSUCURSALXES))
+                .ForMember(destination => destination.sDescription, source => source.MapFrom(src => $"{src.STR_DIRECCION}"))
                 .ReverseMap();
             #endregion
 
@@ -557,9 +565,123 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NRORUTA))
                 .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_NOMBRERUTA))
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_ITINERARIO))
-                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_NUMDOCAUTO))
+                .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.STR_NUMDOCAUTO))
                 .ReverseMap();
 
+            #endregion
+
+            #region Vehiculo Ruta Empresa
+
+            CreateMap<TM_VEHICULO_RUTA_EMPRESA, VehiculoRutaEmpresaDto.RQInsert>()
+              .ForMember(destination => destination.nIdEmpresa, source => source.MapFrom(src => src.NUM_IDEMPRESA))
+              .ForMember(destination => destination.nIdRutaXEmp, source => source.MapFrom(src => src.NUM_IDRUTAXEMP))
+              .ForMember(destination => destination.nIdSucursalXEs, source => source.MapFrom(src => src.NUM_IDSUCURSALXES))
+              .ForMember(destination => destination.nIdCombustible, source => source.MapFrom(src => src.NUM_IDCOMBUSTIBLE))
+              .ForMember(destination => destination.sPlaca, source => source.MapFrom(src => src.STR_PLACA))
+              .ForMember(destination => destination.sAnioFab, source => source.MapFrom(src => src.STR_ANOFAB))
+              .ForMember(destination => destination.sAnioModelo, source => source.MapFrom(src => src.STR_ANOMODELO))
+              .ForMember(destination => destination.sMarca, source => source.MapFrom(src => src.STR_MARCA))
+              .ForMember(destination => destination.nAsientos, source => source.MapFrom(src => src.NUM_ASIENTOS))
+              .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+              .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+              .ReverseMap();
+            CreateMap<TM_VEHICULO_RUTA_EMPRESA, VehiculoRutaEmpresaDto.RQUpdate>()
+                .ForMember(destination => destination.nIdVehXEmp, source => source.MapFrom(src => src.NUM_VEHXEMP))
+                .ForMember(destination => destination.nIdSucursalXEs, source => source.MapFrom(src => src.NUM_IDSUCURSALXES))
+                .ForMember(destination => destination.nIdCombustible, source => source.MapFrom(src => src.NUM_IDCOMBUSTIBLE))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_VEHICULO_RUTA_EMPRESA, VehiculoRutaEmpresaDto.RQDelete>()
+                .ForMember(destination => destination.nIdVehXEmp, source => source.MapFrom(src => src.NUM_VEHXEMP))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUACT))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_VEHICULO_RUTA_EMPRESA, VehiculoRutaEmpresaDto.RSGet>()
+                .ForMember(destination => destination.nIdVehXEmp, source => source.MapFrom(src => src.NUM_VEHXEMP))
+                .ForMember(destination => destination.nIdEstServicio, source => source.MapFrom(src => src.NUM_IDESTSERVICIO))
+                .ForMember(destination => destination.nIdSucursalXEs, source => source.MapFrom(src => src.NUM_IDSUCURSALXES))
+                .ForMember(destination => destination.nIdCombustible, source => source.MapFrom(src => src.NUM_IDCOMBUSTIBLE))
+                .ForMember(destination => destination.sPlaca, source => source.MapFrom(src => src.STR_PLACA))
+                .ForMember(destination => destination.sAnioFab, source => source.MapFrom(src => src.STR_ANOFAB))
+                .ForMember(destination => destination.sAnioModelo, source => source.MapFrom(src => src.STR_ANOMODELO))
+                .ForMember(destination => destination.sMarca, source => source.MapFrom(src => src.STR_MARCA))
+                .ForMember(destination => destination.nAsientos, source => source.MapFrom(src => src.NUM_ASIENTOS))
+                .ReverseMap();
+            CreateMap<TM_VEHICULO_RUTA_EMPRESA, TableModel>()
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_VEHXEMP))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_PLACA))
+                .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_ANOFAB))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_ANOMODELO))
+                .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.STR_COMBUSTIBLE))
+                .ReverseMap();
+
+            #endregion
+
+            #region Formulario OGTU
+            CreateMap<TM_FORMULARIO_OGTU, FormularioOGTUDto.RQInsert>()
+                .ForMember(destination => destination.sPlaca, source => source.MapFrom(src => src.STR_PLACA))
+                .ForMember(destination => destination.nIdEmpresa, source => source.MapFrom(src => src.NUM_IDEMPRESA))
+                .ForMember(destination => destination.nIdSucursalXES, source => source.MapFrom(src => src.NUM_IDSUCURSALXES))
+                .ForMember(destination => destination.nIdVehXEmp, source => source.MapFrom(src => src.NUM_IDVEHXEMP))
+                .ForMember(destination => destination.nMonto, source => source.MapFrom(src => src.NUM_MONTO))
+                .ForMember(destination => destination.sFecSum, source => source.MapFrom(src => src.DTE_FECSUM))
+                .ForMember(destination => destination.sHoraSum, source => source.MapFrom(src => src.STR_HORASUM))
+                .ForMember(destination => destination.sMinutoSum, source => source.MapFrom(src => src.STR_MINUTOSUM))
+                .ForMember(destination => destination.sNombreArchivo, source => source.MapFrom(src => src.STR_NOMBREARCHIVO))
+                .ForMember(destination => destination.nIdTpDocumentoOpeXEmp, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTOOPEXEMP))
+                .ForMember(destination => destination.sNumDocumentoOpeXEmp, source => source.MapFrom(src => src.STR_NUMDOCUMENTOOPEXEMP))
+                .ForMember(destination => destination.nIdTpDocumentoOpEXEst, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTOOPEXEST))
+                .ForMember(destination => destination.sNumDocumentoOpeXEst, source => source.MapFrom(src => src.STR_NUMDOCUMENTOOPEXEST))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_FORMULARIO_OGTU, FormularioOGTUDto.RQUpdate>()
+                .ForMember(destination => destination.nIdFormularioTU, source => source.MapFrom(src => src.NUM_IDFORMULARIOTU))
+                .ForMember(destination => destination.sPlaca, source => source.MapFrom(src => src.STR_PLACA))
+                .ForMember(destination => destination.nIdEmpresa, source => source.MapFrom(src => src.NUM_IDEMPRESA))
+                .ForMember(destination => destination.nIdSucursalXES, source => source.MapFrom(src => src.NUM_IDSUCURSALXES))
+                .ForMember(destination => destination.nMonto, source => source.MapFrom(src => src.NUM_MONTO))
+                .ForMember(destination => destination.sFecSum, source => source.MapFrom(src => src.DTE_FECSUM))
+                .ForMember(destination => destination.sHoraSum, source => source.MapFrom(src => src.STR_HORASUM))
+                .ForMember(destination => destination.sMinutoSum, source => source.MapFrom(src => src.STR_MINUTOSUM))
+                .ForMember(destination => destination.sNombreArchivo, source => source.MapFrom(src => src.STR_NOMBREARCHIVO))
+                .ForMember(destination => destination.nIdTpDocumentoOpeXEmp, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTOOPEXEMP))
+                .ForMember(destination => destination.sNumDocumentoOpeXEmp, source => source.MapFrom(src => src.STR_NUMDOCUMENTOOPEXEMP))
+                .ForMember(destination => destination.nIdTpDocumentoOpEXEst, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTOOPEXEST))
+                .ForMember(destination => destination.sNumDocumentoOpeXEst, source => source.MapFrom(src => src.STR_NUMDOCUMENTOOPEXEST))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_FORMULARIO_OGTU, FormularioOGTUDto.RQDelete>()
+                .ForMember(destination => destination.nIdFormularioTU, source => source.MapFrom(src => src.NUM_IDFORMULARIOTU))
+                .ForMember(destination => destination.sUsuario, source => source.MapFrom(src => src.STR_USUCREACION))
+                .ForMember(destination => destination.nIdSession, source => source.MapFrom(src => src.NUM_IDSESION))
+                .ReverseMap();
+            CreateMap<TM_FORMULARIO_OGTU, FormularioOGTUDto.RSGet>()
+                .ForMember(destination => destination.nIdFormularioTU, source => source.MapFrom(src => src.NUM_IDFORMULARIOTU))
+                .ForMember(destination => destination.sPlaca, source => source.MapFrom(src => src.STR_PLACA))
+                .ForMember(destination => destination.nIdEmpresa, source => source.MapFrom(src => src.NUM_IDEMPRESA))
+                .ForMember(destination => destination.nIdSucursalXES, source => source.MapFrom(src => src.NUM_IDSUCURSALXES))
+                .ForMember(destination => destination.nIdVehXEmp, source => source.MapFrom(src => src.NUM_IDVEHXEMP))
+                .ForMember(destination => destination.nMonto, source => source.MapFrom(src => src.NUM_MONTO))
+                .ForMember(destination => destination.sFecSum, source => source.MapFrom(src => src.DTE_FECSUM.ToAppSirosDate()))
+                .ForMember(destination => destination.sHoraSum, source => source.MapFrom(src => src.STR_HORASUM))
+                .ForMember(destination => destination.sMinutoSum, source => source.MapFrom(src => src.STR_MINUTOSUM))
+                .ForMember(destination => destination.sNombreArchivo, source => source.MapFrom(src => src.STR_NOMBREARCHIVO))
+                .ForMember(destination => destination.nIdTpDocumentoOpeXEmp, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTOOPEXEMP))
+                .ForMember(destination => destination.sNumDocumentoOpeXEmp, source => source.MapFrom(src => src.STR_NUMDOCUMENTOOPEXEMP))
+                .ForMember(destination => destination.nIdTpDocumentoOpEXEst, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTOOPEXEST))
+                .ForMember(destination => destination.sNumDocumentoOpeXEst, source => source.MapFrom(src => src.STR_NUMDOCUMENTOOPEXEST))
+                .ReverseMap();
+            CreateMap<TM_OPERADOR_ES, TableModel>()
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDNOMINAXSUCURSAL))
+                .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NUMDOCUMENTO))
+                .ForMember(destination => destination.Column3, source => source.MapFrom(src => $"{src.STR_NOMBRE} {src.STR_APEPATERNO} {src.STR_APEMATERNO}"))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_DSTIPOOPER))
+                .ReverseMap();
             #endregion
 
             #region General

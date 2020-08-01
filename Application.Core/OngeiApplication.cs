@@ -22,6 +22,12 @@ namespace Application.Core
                 var oResponse = new Response<OngeiDto.OngeiResponseModel>();
                 oResponse.IsSuccess = false;
 
+                if (string.IsNullOrEmpty(sNumDoc))
+                {
+                    oResponse.Message = "El Numero de Documento no puede estar vacio.";
+                    return oResponse;
+                }
+
                 var wsOngei = new wsSoapONGEI.ServiciosOngeiMTCClient();
                 var oResult = await wsOngei.MigraciogetCarnetExtAsync(sNumDoc, "CE");
 
