@@ -8,6 +8,7 @@ using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using Transversal.Common;
+using Transversal.Common.Extensions;
 
 namespace Infrastructure.Repository
 {
@@ -79,17 +80,17 @@ namespace Infrastructure.Repository
             {
                 var dyParam = new OracleDynamicParameters();
                 dyParam.Add("str_placa_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_PLACA);
-                dyParam.Add("num_idempresa_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDEMPRESA);
+                dyParam.Add("num_idempresa_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDEMPRESA);
                 dyParam.Add("num_idsucursalxes_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSUCURSALXES);
-                dyParam.Add("num_idvehxemp_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDVEHXEMP);
-                dyParam.Add("num_monto_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_MONTO);
-                dyParam.Add("dte_fecsum_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECSUM);
-                dyParam.Add("str_horasum_", OracleDbType.Int32, ParameterDirection.Input, input.STR_HORASUM);
+                dyParam.Add("num_idvehxemp_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDVEHXEMP);
+                dyParam.Add("num_monto_", OracleDbType.Decimal, ParameterDirection.Input, input.NUM_MONTO);
+                dyParam.Add("dte_fecsum_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECSUM.ToBDSirosDate());
+                dyParam.Add("str_horasum_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_HORASUM);
                 dyParam.Add("str_minutosum_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_MINUTOSUM);
-                dyParam.Add("str_nombrearchivo_", OracleDbType.Int32, ParameterDirection.Input, input.STR_NOMBREARCHIVO);
-                dyParam.Add("num_idtpdocumentoopexemp_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDTPDOCUMENTOOPEXEMP);
+                dyParam.Add("str_nombrearchivo_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NOMBREARCHIVO);
+                dyParam.Add("num_idtpdocumentoopexemp_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDTPDOCUMENTOOPEXEMP);
                 dyParam.Add("str_numdocumentoopexemp_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMDOCUMENTOOPEXEMP);
-                dyParam.Add("num_idtpdocumentoopexest_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDTPDOCUMENTOOPEXEST);
+                dyParam.Add("num_idtpdocumentoopexest_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDTPDOCUMENTOOPEXEST);
                 dyParam.Add("str_numdocumentoopexest_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMDOCUMENTOOPEXEST);
                 dyParam.Add("str_usucreacion_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUCREACION);
                 dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);
@@ -108,17 +109,17 @@ namespace Infrastructure.Repository
             {
                 var dyParam = new OracleDynamicParameters();
                 dyParam.Add("num_idformulariotu_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDFORMULARIOTU);
-                dyParam.Add("num_idempresa_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDEMPRESA);
+                dyParam.Add("num_idempresa_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDEMPRESA);
                 dyParam.Add("num_idsucursalxes_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSUCURSALXES);
                 dyParam.Add("str_placa_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_PLACA);
-                dyParam.Add("num_monto_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_MONTO);
-                dyParam.Add("dte_fecsum_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECSUM);
-                dyParam.Add("str_horasum_", OracleDbType.Int32, ParameterDirection.Input, input.STR_HORASUM);
+                dyParam.Add("num_monto_", OracleDbType.Decimal, ParameterDirection.Input, input.NUM_MONTO);
+                dyParam.Add("dte_fecsum_", OracleDbType.Varchar2, ParameterDirection.Input, input.DTE_FECSUM.ToBDSirosDate());
+                dyParam.Add("str_horasum_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_HORASUM);
                 dyParam.Add("str_minutosum_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_MINUTOSUM);
-                dyParam.Add("str_nombrearchivo_", OracleDbType.Int32, ParameterDirection.Input, input.STR_NOMBREARCHIVO);
-                dyParam.Add("num_idtpdocumentoopexemp_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDTPDOCUMENTOOPEXEMP);
+                dyParam.Add("str_nombrearchivo_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NOMBREARCHIVO);
+                dyParam.Add("num_idtpdocumentoopexemp_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDTPDOCUMENTOOPEXEMP);
                 dyParam.Add("str_numdocumentoopexemp_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMDOCUMENTOOPEXEMP);
-                dyParam.Add("num_idtpdocumentoopexest_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDTPDOCUMENTOOPEXEST);
+                dyParam.Add("num_idtpdocumentoopexest_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDTPDOCUMENTOOPEXEST);
                 dyParam.Add("str_numdocumentoopexest_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMDOCUMENTOOPEXEST);
                 dyParam.Add("str_usuact_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_USUACT);
                 dyParam.Add("num_idsesion_", OracleDbType.Int32, ParameterDirection.Input, input.NUM_IDSESION);

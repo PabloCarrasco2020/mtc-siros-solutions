@@ -5,6 +5,7 @@ import { Directive, Input, ElementRef, HostListener, OnChanges, SimpleChanges } 
 export class DigitOnlyDirective implements OnChanges {
 
   private hasDecimalPoint = false;
+  private hasNegative = false;
   private navigationKeys = [
     'Backspace',
     'Delete',
@@ -22,6 +23,8 @@ export class DigitOnlyDirective implements OnChanges {
 
   @Input() decimal = false;
   @Input() decimalSeparator = '.';
+  @Input() decimalSeparator2 = ',';
+  @Input() negative = false;
   @Input() min = -Infinity;
   @Input() max = Infinity;
   @Input() pattern?: string | RegExp;
@@ -61,8 +64,12 @@ export class DigitOnlyDirective implements OnChanges {
       (e.key === 'c' && e.metaKey === true) || // Allow: Cmd+C (Mac)
       (e.key === 'v' && e.metaKey === true) || // Allow: Cmd+V (Mac)
       (e.key === 'x' && e.metaKey === true) || // Allow: Cmd+X (Mac)
-      (this.decimal && e.key === this.decimalSeparator && !this.hasDecimalPoint) // Allow: only one decimal point
-    ) {
+      (this.negative && e.key === '-' && !this.hasNegative) ||
+      (
+        this.decimal &&
+        (e.key === this.decimalSeparator || e.key === this.decimalSeparator2) &&
+        !this.hasDecimalPoint) // Allow: only one decimal point
+      ) {
       // let it happen, don't do anything
       return;
     }
@@ -194,7 +201,10 @@ export class DigitOnlyDirective implements OnChanges {
   updateDecimalPoint(): void {
     if (this.decimal) {
       this.hasDecimalPoint =
-        this.inputElement.value.indexOf(this.decimalSeparator) > -1;
+      this.inputElement.value.indexOf(this.decimalSeparator) > -1 || this.inputElement.value.indexOf(this.decimalSeparator2) > -1;
+    }
+    if (this.negative) {
+      this.hasNegative = this.inputElement.value.indexOf('-') > -1;
     }
   }
 

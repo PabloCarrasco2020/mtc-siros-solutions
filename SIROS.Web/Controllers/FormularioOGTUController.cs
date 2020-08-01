@@ -34,6 +34,11 @@ namespace SIROS.Web.Controllers
         {
             try
             {
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    sInput = $"{sInput}@{oUserInfo.Data.nIdEmpresa}";
+                }
                 return await this._formularioOGTUApplication.Get(sInput);
             }
             catch (Exception ex)
@@ -51,6 +56,11 @@ namespace SIROS.Web.Controllers
             try
             {
                 int nCantidadXPagina = 10;
+                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
+                if (oUserInfo.IsSuccess)
+                {
+                    sFilter = $"{sFilter}@{oUserInfo.Data.nIdEmpresa}";
+                }
                 return await this._formularioOGTUApplication.GetAllByFilter(nCantidadXPagina, nPagina, sFilter);
             }
             catch (Exception ex)
@@ -75,6 +85,7 @@ namespace SIROS.Web.Controllers
                 {
                     input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
                     input.sUsuario = oUserInfo.Data.sUsername;
+                    input.nIdEmpresa = oUserInfo.Data.nIdEmpresa;
                 }
                 var responseInsert = new Response<int>();
                 return await this._formularioOGTUApplication.Insert(input);
@@ -100,6 +111,7 @@ namespace SIROS.Web.Controllers
                 {
                     input.nIdSession = Int32.Parse(oUserInfo.Data.sIdSession);
                     input.sUsuario = oUserInfo.Data.sUsername;
+                    input.nIdEmpresa = oUserInfo.Data.nIdEmpresa;
                 }
                 return await this._formularioOGTUApplication.Update(input);
             }

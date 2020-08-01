@@ -20,6 +20,7 @@ import { OperadorEmpresaComponent } from './operador-empresa/operador-empresa.co
 import { RutasEmpresaComponent } from './rutas-empresa/rutas-empresa.component';
 import { OESGuard } from '../guards/oes.guard';
 import { ReporteDiarioComponent } from './reporte-diario/reporte-diario.component';
+import { FormularioOgtuComponent } from './formulario-ogtu/formulario-ogtu.component';
 const pagesRoutes: Routes = [
     {
         path: 'pages',
@@ -49,7 +50,8 @@ const pagesRoutes: Routes = [
             { path: 'rutasEmpresa/:nIdEmpresa/:sEmpresa', component: RutasEmpresaComponent },
             { path: 'vehiculoRutaEmpresa/:nIdEmpresa/:sEmpresa/:nIdRutaXEmp/:sRutaXEmp', component: VehiculoRutaEmpresaComponent },
             { path: 'vehiculoSucursal', component: VehiculoSucursalComponent },
-            { path: 'registrarControlIE', component: RegistrarControlIEComponent }
+            { path: 'registrarControlIE', component: RegistrarControlIEComponent },
+            { path: 'formularioOGTU', component: FormularioOgtuComponent }
         ]
     },
     {
