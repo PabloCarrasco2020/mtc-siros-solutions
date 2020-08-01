@@ -4,7 +4,6 @@ import { IndexModel } from '../../models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { ComboService, MessageService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
-import { ContratoEsModel } from 'src/app/models/contrato-es.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RutaEmpresaService } from '../../services/ruta-empresa.service';
 

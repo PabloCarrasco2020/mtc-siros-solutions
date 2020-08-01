@@ -33,15 +33,31 @@ namespace Application.Core
                 var oResponse = new Response<SunarpDto.SunarpMtcResponseModel>();
                 oResponse.IsSuccess = false;
 
+                if (string.IsNullOrEmpty(sPlaca))
+                {
+                    oResponse.Message = "El valor de la Placa no puede estar vacio.";
+                    return oResponse;
+                }
+
                 var wsSunarp = new wsSoapSUNARP.WSVehicularMtcDelegateClient();
-                var oResult = await wsSunarp.getConsultaxPlacaMTCAsync(sPlaca);
+                var oResult = await wsSunarp.getConsultaxPlacaMTCAsync(sPlaca.Replace("-",""));
 
                 if (oResult == null)
                 {
                     oResponse.Message = "No se encontro información de la PLACA ingresada.";
                     return oResponse;
                 }
-                
+                if (oResult.Body == null)
+                {
+                    oResponse.Message = "No se encontro información de la PLACA ingresada.";
+                    return oResponse;
+                }
+                if (string.IsNullOrEmpty(oResult.Body.@return))
+                {
+                    oResponse.Message = "No se encontro información de la PLACA ingresada.";
+                    return oResponse;
+                }
+
                 var sJson = FuncConvert.XmlToJson(oResult.Body.@return);
 
                 // DEBIDO A QUE EL SERVICIO RESPONDE DE DOS MANERAS SE ESTA USANDO UN METODO QUE NOS AYUDA A CONVERTIR DE JSON A OBJETO

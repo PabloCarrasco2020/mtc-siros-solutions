@@ -22,6 +22,12 @@ namespace Application.Core
                 var oResponse = new Response<SunatDto.ConsultaRucResponseModel>();
                 oResponse.IsSuccess = false;
 
+                if (string.IsNullOrEmpty(sRuc))
+                {
+                    oResponse.Message = "El RUC no puede estar vacio.";
+                    return oResponse;
+                }
+
                 var wsSunat = new wsSoapSUNAT.DatosRucWSFacadeRemoteClient();
                 var oResult = await wsSunat.getDatosPrincipalesAsync(sRuc);
 

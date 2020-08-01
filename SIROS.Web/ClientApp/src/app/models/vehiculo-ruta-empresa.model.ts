@@ -10,6 +10,6 @@ export class VehiculoRutaEmpresaModel {
     sAnioFab: string;
     sAnioModelo: string;
     sMarca: string;
-    nAsientos: string;
+    nAsientos?: number;
 
 }

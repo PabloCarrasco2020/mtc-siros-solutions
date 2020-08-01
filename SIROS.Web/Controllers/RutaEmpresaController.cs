@@ -52,11 +52,6 @@ namespace SIROS.Web.Controllers
             try
             {
                 int nCantidadXPagina = 10;
-                var oUserInfo = await this._jwtApplication.GetUserInfo(User);
-                if (!oUserInfo.IsSuccess)
-                    return Ok(oUserInfo);
-
-                sFilter = $"{sFilter}@{oUserInfo.Data.nIdEmpresa}";
                 var oResult = await this._rutaEmpresaApplication.GetAllByFilter(nCantidadXPagina, nPagina, sFilter);
                 return Ok(oResult);
             }

@@ -565,7 +565,7 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NRORUTA))
                 .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_NOMBRERUTA))
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_ITINERARIO))
-                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_NUMDOCAUTO))
+                .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.STR_NUMDOCAUTO))
                 .ReverseMap();
 
             #endregion
@@ -614,7 +614,7 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_PLACA))
                 .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_ANOFAB))
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_ANOMODELO))
-                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_COMBUSTIBLE))
+                .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.STR_COMBUSTIBLE))
                 .ReverseMap();
 
             #endregion
