@@ -18,9 +18,9 @@
                                 <h4>Datos del vehículo</h4>
                             </div>
                             <div class="input-group m-b">
-                                <input type="text" class="form-control" placeholder="Ingrese Nro placa..." [(ngModel)]="sRuc" maxlength="7">
+                                <input type="text" class="form-control" placeholder="Ingrese Nro placa..." [(ngModel)]="sRuc" maxlength="7" (change)="onChangePlaca()">
                                 <div class="input-group-append">
-                                    <button type="button" class="btn btn-primary" (click)="fnBuscarRuc()">
+                                    <button type="button" class="btn btn-primary" (click)="fnBuscarVehiculo()">
                                             <i class="fa fa-search"></i> Buscar
                                         </button>
                                 </div>
@@ -28,164 +28,135 @@
                             <div class="row">
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Empresa</label>
-                                    <input type="text" placeholder="Nombre Razón Social" class="form-control" disabled [(ngModel)]="sRazonSocial">
+                                    <input type="text" class="form-control" disabled [(ngModel)]="sRazonSocial">
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Ruta</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="nTipoVia" (change)="onChangeSinDato()">
-                                        <option value="-1">
-                                            Seleccione tipo de vía
-                                        </option>
-                                        <option *ngFor="let iTipoVia of lstTipoVia" [value]="iTipoVia.nId">
-                                            {{iTipoVia.sDescription}}
-                                        </option>
-                                    </select>
+                                    <input type="text" class="form-control" disabled [(ngModel)]="sRazonSocial">
                                 </div>
                                 <div class="col-lg-6 mb-2">
-                                    <label class="titulo-Campos" for="">Estación de servicio <span [hidden]="nTipoVia == 0">(*)</span></label>
-                                    <input class="form-control" placeholder="Ingrese nombre de vía" [(ngModel)]="sVia" maxlength="100" [disabled]="nTipoVia == 0"/>
+                                    <label class="titulo-Campos" for="">Estación de servicio </label>
+                                    <input type="text"  class="form-control" disabled [(ngModel)]="sRazonSocial">
                                 </div>
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos" for="">Sucursal</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="nCentroPoblado" (change)="onChangeSinDato()">
-                                        <option value="-1">
-                                            Seleccione tipo de centro poblado
-                                        </option>
-                                        <option *ngFor="let iCentroPoblado of lstCentroPoblado" [value]="iCentroPoblado.nId">
-                                            {{iCentroPoblado.sDescription}}
-                                        </option>
-                                    </select>
+                                    <input type="text"  class="form-control" disabled [(ngModel)]="sRazonSocial">
                                 </div>
                                 <div class="col-lg-3 mb-2">
                                     <label class="titulo-Campos" for="">Monto <span [hidden]="nCentroPoblado == 0">(*)</span></label>
-                                    <input class="form-control" placeholder="Ingrese nombre de centro poblado" [(ngModel)]="sCentroPoblado" maxlength="100" [disabled]="nCentroPoblado == 0"/>
+                                    <input class="form-control" appDigitOnly placeholder="Ingrese monto"  [(ngModel)]="sCentroPoblado" maxlength="100" />
                                 </div>
                                 <div class="col-lg-3 mb-2">
-                                    <label class="titulo-Campos" for="">Fecha <span [hidden]="nIdNumeroManzana == 0">(*)</span></label>
-                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sNumeroManzana" maxlength="20" [disabled]="nIdNumeroManzana == 0"/>
+                                    <label class="titulo-Campos" for="">Fecha (*)</label>
+                                    <input class="form-control" [(ngModel)]="sNumeroManzana" type="date" min='1900-01-01' max='9999-12-31'/>
                                 </div>
                                 <div class="col-lg-3 mb-2">
-                                    <label class="titulo-Campos" for="">Hora</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="nIdLoteInterior" (change)="onChangeSinDato()">
+                                    <label class="titulo-Campos" for="">Hora (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="nIdLoteInterior" >
                                         <option value="-1">
                                             Seleccione
                                         </option>
-                                        <option *ngFor="let iLtInt of lstLoteInterior" [value]="iLtInt.nId">
-                                            {{iLtInt.sDescription}}
+                                        <option *ngFor="let iHora of lstHoras" [value]="iHora.sCodigo">
+                                            {{iHora.sDescription}}
                                         </option>
                                     </select>
                                 </div>
                                 <div class="col-lg-3 mb-2">
-                                    <label class="titulo-Campos" for="">Minuto <span [hidden]="nIdLoteInterior == 0">(*)</span></label>
-                                    <input class="form-control" placeholder="Ingrese Nro." [(ngModel)]="sLoteInterior" maxlength="50" [disabled]="nIdLoteInterior == 0"/>
-                                </div>
-                                <div class="col-lg-12 mb-2">
-                                    <label class="titulo-Campos" for="">Referencia (*)</label>
-                                    <input class="form-control" placeholder="Ingrese referencia..." [(ngModel)]="sReferencia"  maxlength="150"/>
-                                </div>
-                                <div class="col-lg-4 mb-2">
-                                    <label class="titulo-Campos" for="">Departamento (*)</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="sCodDepartamento" (change)="onChangeDepartamento()">
-                                        <option value="00">
-                                            Seleccione Departamento
+                                    <label class="titulo-Campos" for="">Minuto (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="nIdLoteInterior" >
+                                        <option value="-1">
+                                            Seleccione
                                         </option>
-                                        <option *ngFor="let iDepartamento of lstDepartamento" [value]="iDepartamento.sCodigo">
-                                            {{iDepartamento.sDescription}}
+                                        <option *ngFor="let iMinuto of lstMinutos" [value]="iMinuto.sCodigo">
+                                            {{iMinuto.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="input-group m-b">
+                                <h4>Datos del conductor</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 mb-2">
+                                    <select class="form-control form-control-sm" [(ngModel)]="nIdLoteInterior" (change)="onChangeTipoDocOEMP()">
+                                        <option value="-1">
+                                            Seleccione
+                                        </option>
+                                        <option *ngFor="let iTipDocOEMP of lstTipoDocumentoOEMP" [value]="iTipDocOEMP.nId">
+                                            {{iTipDocOEMP.sDescription}}
                                         </option>
                                     </select>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                    <label class="titulo-Campos" for="">Provincia (*)</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="sCodProvincia"  (change)="onChangeProvincia()">
-                                        <option value="00">
-                                            Seleccione Provincia
+                                    <input appDigitOnly class="form-control" placeholder="Ingrese Nro. doc" [(ngModel)]="sReferencia" (change)="onChangeNroDocOEMP()"/>
+                                </div>
+                                <div class="col-lg-2 mb-2">
+                                    <button type="button" class="btn btn-primary" (click)="fnBuscarOperadorEmpresa()">
+                                        <i class="fa fa-search"></i> Buscar
+                                    </button>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Apellido Paterno </label>
+                                    <input class="form-control" [(ngModel)]="sCentroPoblado" maxlength="100" disabled/>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Apellido Materno </label>
+                                    <input class="form-control" [(ngModel)]="sNumeroManzana" maxlength="100" disabled/>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Nombres</label>
+                                    <input class="form-control"  [(ngModel)]="sNumeroManzana" maxlength="100" disabled/>
+                                </div>
+                            </div>
+                            <div class="input-group m-b">
+                                <h4>Datos del operario de transporte urbano</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 mb-2">
+                                    <select class="form-control form-control-sm" [(ngModel)]="nIdLoteInterior" (change)="onChangeTipoDocOGTU()">
+                                        <option value="-1">
+                                            Seleccione
                                         </option>
-                                        <option *ngFor="let iProvincia of lstProvincia" [value]="iProvincia.sCodigo">
-                                            {{iProvincia.sDescription}}
+                                        <option *ngFor="let iTipDocOGTU of lstTipoDocumentoOGTU" [value]="iTipDocOGTU.nId">
+                                            {{iTipDocOGTU.sDescription}}
                                         </option>
                                     </select>
                                 </div>
                                 <div class="col-lg-4 mb-2">
-                                    <label class="titulo-Campos" for="">Distrito (*)</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="sCodDistrito">
-                                        <option value="00">
-                                            Seleccione Distrito
-                                        </option>
-                                        <option *ngFor="let iDistrito of lstDistrito" [value]="iDistrito.sCodigo">
-                                            {{iDistrito.sDescription}}
-                                        </option>
-                                    </select>
+                                    <input appDigitOnly class="form-control" placeholder="Ingrese Nro. Doc" [(ngModel)]="sReferencia"  maxlength="150" (change)="onChangeNroDocOGTU()"/>
+                                </div>
+                                <div class="col-lg-2 mb-2">
+                                    <button type="button" class="btn btn-primary" (click)="fnBuscarOperadorGTU()">
+                                        <i class="fa fa-search"></i> Buscar
+                                    </button>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Apellido Paterno </label>
+                                    <input class="form-control" [(ngModel)]="sCentroPoblado" maxlength="100" disabled/>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Apellido Materno </label>
+                                    <input class="form-control" [(ngModel)]="sNumeroManzana" maxlength="100" disabled/>
+                                </div>
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos" for="">Nombres</label>
+                                    <input class="form-control"  [(ngModel)]="sNumeroManzana" maxlength="100" disabled/>
                                 </div>
                             </div>
                         </section>
                         <section [hidden]="(nCurrentSectionModal!==2)" class="animated slideInRight">
                             <div class="input-group m-b">
-                                <h4>Datos del responsable legal</h4>
+                                <h4>Archivo</h4>
                             </div>
                             <div class="row">
-                                <div class="col-lg-4 mb-2">
-                                    <label class="titulo-Campos">Tipo de Documento (*)</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="nTipDocRepresentanteLegal" >
-                                        <option value="0">
-                                            Seleccione tipo de documento
-                                        </option>
-                                        <option *ngFor="let iTipoDocReprLegal of lstTipoDocReprLegal" [value]="iTipoDocReprLegal.nId">
-                                            {{iTipoDocReprLegal.sDescription}}
-                                        </option>
-                                    </select>
-                                </div>
+                                
                                 <div class="col-lg-4 mb-2">
                                     <label class="titulo-Campos" for="">Nro (*)</label>
                                     <input appDigitOnly class="form-control" placeholder="Ingrese Nro de documento" [(ngModel)]="sNroDocRepresentanteLegal" maxlength="8"/>
                                 </div>
-                                <div class="col-lg-12 mb-2">
-                                    <span>&nbsp;</span>
-                                    <button (click)="fnBuscarPersonaxDNI()" [disabled]="nTipDocRepresentanteLegal != 1" type="button" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-search"></i> Buscar
-                                    </button>
-                                </div>
-                                <div class="col-lg-4 mb-2">
-                                    <label class="titulo-Campos" for="">Apellido Paterno (*)</label>
-                                    <input class="form-control" placeholder="Apellido Paterno" [disabled]="nTipDocRepresentanteLegal == 1 || nTipDocRepresentanteLegal == 0" [(ngModel)]="sApePaternoRepresentanteLegal"/>
-                                </div>
-                                <div class="col-lg-4 mb-2">
-                                    <label class="titulo-Campos" for="">Apellido Materno(*)</label>
-                                    <input class="form-control" placeholder="Apellido Materno" [disabled]="nTipDocRepresentanteLegal == 1 || nTipDocRepresentanteLegal == 0" [(ngModel)]="sApeMaternoRepresentanteLegal"/>
-                                </div>
-                                <div class="col-lg-4 mb-2">
-                                    <label class="titulo-Campos" for="">Nombres (*)</label>
-                                    <input class="form-control" placeholder="Nombres" [disabled]="nTipDocRepresentanteLegal == 1 || nTipDocRepresentanteLegal == 0"  [(ngModel)]="sNombresRepresentanteLegal"/>
-                                </div>
-                                <div class="col-lg-4 mb-2">
-                                    <label class="titulo-Campos" for="">Cargo (*)</label>
-                                    <select class="form-control form-control-sm" [(ngModel)]="nCargoRepresentanteLegal">
-                                        <option value="0">
-                                            Seleccione Cargo...
-                                        </option>
-                                        <option *ngFor="let iCargo of lstTipoCargoReprLegal" [value]="iCargo.nId">
-                                            {{iCargo.sDescription}}
-                                        </option>
-                                    </select>
-                                </div>
-                                <div class="col-lg-12 mb-2">
-                                    <button [hidden]="!(nIdRepresentanteLegal===0)" (click)="fnAgregarRepresentanteLegal()" type="button" class="btn btn-primary btn-sm">
-                                        <i class="fa fa-user-plus"></i> Agregar
-                                    </button>
-                                    <button [hidden]="(nIdRepresentanteLegal===0)" (click)="fnEditarRepresentanteLegal()" type="button" class="btn btn-primary btn-sm mr-2">
-                                        <i class="fa fa-save"></i> Guardar 
-                                    </button>
-                                    <button [hidden]="(nIdRepresentanteLegal===0)" (click)="fnCancelarRepresentanteLegal()" type="button" class="btn btn-secondary btn-sm">
-                                        <i class="fa fa-user-plus"></i> Cancelar
-                                    </button>
-                                </div>
+                                
                             </div>
-                            <hr/>
-                            <div class="input-group m-b">
-                                <h4>Lista de Representante Legal</h4>
-                            </div>
-                            <app-tabla [IndexData]="oIndexDataRepresentanteLegal" Column1Name="Nro" Column2Name="Tipo Documento" Column3Name="Representante" Column4Name="Cargo" CanDelete="true" (eventDelete)="fnDeleteRepresentante($event)" CanEdit="true" (eventEdit)="fnUpdateRepresentante($event)"></app-tabla>
                         </section>
-
                     </div>
                     <div class="modal-footer">
                         <button type="button" [hidden]="nCurrentSectionModal!==1" class="btn btn-white" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>

@@ -686,12 +686,14 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.nIdTpDocumentoOpEXEst, source => source.MapFrom(src => src.NUM_IDTPDOCUMENTOOPEXEST))
                 .ForMember(destination => destination.sNumDocumentoOpeXEst, source => source.MapFrom(src => src.STR_NUMDOCUMENTOOPEXEST))
                 .ReverseMap();
-            CreateMap<TM_OPERADOR_ES, TableModel>()
-                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDNOMINAXSUCURSAL))
+            CreateMap<TM_FORMULARIO_OGTU, TableModel>()
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDFORMULARIOTU))
                 .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
-                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NUMDOCUMENTO))
-                .ForMember(destination => destination.Column3, source => source.MapFrom(src => $"{src.STR_NOMBRE} {src.STR_APEPATERNO} {src.STR_APEMATERNO}"))
-                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_DSTIPOOPER))
+                .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.DTE_FECSUM.ToAppSirosDate()))
+                .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_PLACA))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.NUM_MONTO))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.NOMBREOPEXEST))
+                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.NOMBREOPEXEMP))
                 .ReverseMap();
             #endregion
 

@@ -22,5 +22,9 @@ namespace Domain.Entities
         public string STR_NUMDOCUMENTOOPEXEST {get;set;}
         public int? NUM_IDSESION { get; set; }
         public int? NUM_IDENTIDADUSUARIO { get; set; }
+        public string NOMBREOPEXEST { get; set; }
+        public string NOMBREOPEXEMP { get; set; }
+        public string NUM_IDCOMBUSTIBLE { get; set; }
+
     }
 }
