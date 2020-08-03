@@ -46,10 +46,10 @@ export class ComboService {
   GetCombustibles() {
     return this.oBaseService.CallGet(`api/Combo/GetCombustibles`);
   }
-  GeEstacionServicioXEntidad() {
+  GetEstacionServicioXEntidad() {
     return this.oBaseService.CallGet(`api/Combo/GeEstacionServicioXEntidad`);
   }
-  GeSucursalesXEst(nIdEstServicio: number) {
+  GetSucursalesXEst(nIdEstServicio: number) {
     return this.oBaseService.CallGet(`api/Combo/GeSucursalesXEst?nIdEstServicio=${nIdEstServicio}`);
   }
 }

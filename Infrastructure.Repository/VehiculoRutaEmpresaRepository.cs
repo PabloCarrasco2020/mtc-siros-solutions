@@ -58,8 +58,8 @@ namespace Infrastructure.Repository
                 dyParam.Add("str_filtrovalor_", OracleDbType.Varchar2, ParameterDirection.Input, splFilter[1].ToUpper());
                 dyParam.Add("num_pagina_", OracleDbType.Varchar2, ParameterDirection.Input, pagina);
                 dyParam.Add("num_registros_", OracleDbType.Varchar2, ParameterDirection.Input, cantidadXPagina);
-                dyParam.Add("num_idrutaxemp_", OracleDbType.Int32, ParameterDirection.Input, splFilter[2]);
-                dyParam.Add("num_idempresa_", OracleDbType.Int32, ParameterDirection.Input, splFilter[3]);
+                dyParam.Add("num_idempresa_", OracleDbType.Int32, ParameterDirection.Input, splFilter[2]);
+                dyParam.Add("num_idrutaxemp_", OracleDbType.Int32, ParameterDirection.Input, splFilter[3]);
                 dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
                 var query = _connectionFactory.GetQueryForSIROS("PKG_VEHXEMP.SP_GetListaVehxEmp");
                 var result = await connection.QueryAsync<TM_VEHICULO_RUTA_EMPRESA>(query, param: dyParam, commandType: CommandType.StoredProcedure);

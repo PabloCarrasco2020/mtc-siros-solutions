@@ -1,1 +1,158 @@
-<p>vehiculo-ruta-empresa works!</p>
+<block-ui></block-ui>
+<app-breadcrumb 
+    CurrentPage="Vehiculos de la Ruta de Empresa" 
+    [DependencyName]="sDependencyName" 
+    RouterName1="Empresas" 
+    RouteTo1="/OGTU/empresas" 
+    RouterName2="Rutas de Empresa" 
+    RouteTo2="/OGTU/rutasEmpresa/{{nIdEmpresa}}/{{sEmpresa}}"
+    RouterName3="Vehiculos de la Ruta de Empresa" 
+    RouteTo3="/OGTU/vehiculoRutaEmpresa/{{nIdEmpresa}}/{{sEmpresa}}/{{nIdRutaXEmp}}/{{sRutaXEmp}}"></app-breadcrumb>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="container-fluid">
+        <div class="modal inmodal" id="myModalNew" tabindex="-1" role="dialog" aria-modal="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content animated flipInY">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title">Vehiculo de la Ruta de Empresa</h4>
+                        <small class="font-bold" *ngIf="nCurrentOption === OPTION_NUEVO">Nuevo Registro</small>
+                        <small class="font-bold" *ngIf="nCurrentOption === OPTION_EDITAR">Editar Registro</small>
+                    </div>
+                    <div class="modal-body">
+                        <section class="animated slideInLeft">
+                            <div class="input-group m-b">
+                                <h4>Datos del Vehiculo de la Ruta de Empresa</h4>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-4 mb-2">
+                                    <label class="titulo-Campos">Placa (*)</label>
+                                    <input type="text" class="form-control" [(ngModel)]="oModel.sPlaca" uppercase (keyup)="OnPlacaChange()" maxlength="8" [disabled]="nCurrentOption === OPTION_EDITAR">
+                                </div>
+                                <div class="col-lg-4 mb-2 mt-2">
+                                    <button type="button" class="btn btn-primary" (click)="ConsultarPlaca()" [disabled]="nCurrentOption === OPTION_EDITAR">
+                                        <i class="fa fa-search"></i> Buscar
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos">Año de Fabricación</label>
+                                    <input type="text" class="form-control" [(ngModel)]="oModel.sAnioFab" disabled>
+                                </div>
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos">Año Modelo</label>
+                                    <input type="text" class="form-control" [(ngModel)]="oModel.sAnioModelo" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos">Marca</label>
+                                    <input type="text" class="form-control" [(ngModel)]="oModel.sMarca" disabled>
+                                </div>
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos">Número de Asientos</label>
+                                    <input type="text" class="form-control" [(ngModel)]="oModel.nAsientos" disabled>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos">Estación de Servicio (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.nIdEstServicio" (change)="OnEstacionServicioChange()">
+                                        <option value="-1">
+                                            [ Seleccione ]
+                                        </option>
+                                        <option *ngFor="let item of lstEstacionesServicio" [value]="item.nId">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos">Sucursal (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.nIdSucursalXEs">
+                                        <option value="-1">
+                                            [ Seleccione ]
+                                        </option>
+                                        <option *ngFor="let item of lstSucursales" [value]="item.nId">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6 mb-2">
+                                    <label class="titulo-Campos">Combustible (*)</label>
+                                    <select class="form-control form-control-sm" [(ngModel)]="oModel.nIdCombustible">
+                                        <option value="-1">
+                                            [ Seleccione ]
+                                        </option>
+                                        <option *ngFor="let item of lstCombustibles" [value]="item.nId">
+                                            {{item.sDescription}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal"><i class="fa fa-ban"></i> Cancelar</button>
+                        <button type="button" (click)="fnGuardar()" class="btn btn-primary"><i class="fa fa-save"></i> Guardar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ibox ">
+                    <div class="ibox-title">
+                        <h5>Listado de Vehiculos de la Ruta de Empresa</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                            <a *ngIf="false" class="close-link">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content">
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button (click)="nTipoFiltro = FILTRO_X_PLACA; sFilter = '';" type="button" class="btn " [ngClass]="{'btn-secondary': nTipoFiltro === FILTRO_X_PLACA, 'btn-white': nTipoFiltro !== FILTRO_X_PLACA}">Ingresar Placa del Vehiculo</button>
+                          </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div  class="form-group">
+                                    <small [hidden]="(nTipoFiltro !== FILTRO_X_PLACA)">Placa del Vehiculo:</small>
+                                    <div class="input-group">
+                                        <input *ngIf="(nTipoFiltro === FILTRO_X_PLACA)" [(ngModel)]="sFilter" class="form-control form-control-sm" type="text" maxlength="8">
+                                        <span class="input-group-append">
+                                            <button type="button" (click)="fnBuscar()" class="btn btn-sm btn-primary" >
+                                                <i class="fa fa-search"></i> Buscar
+                                            </button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <app-tabla 
+                            (eventBefore)="fnBefore($event)" 
+                            (eventNext)="fnNext($event)"   
+                            [IndexData]="oIndexData"  
+                            [CanNew]="true" (eventNew)="fnNew()" 
+                            [CanEdit]="true"  (eventEdit)="fnEdit($event)" 
+                            [CanDelete]="true" (eventDelete)="fnDelete($event)" 
+                            Column1Name="Nro"
+                            Column2Name="Placa del Vehiculo" 
+                            Column3Name="Año de Fabricación" 
+                            Column4Name="Año Modelo" 
+                            Column5Name="Combustible">
+                        </app-tabla>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

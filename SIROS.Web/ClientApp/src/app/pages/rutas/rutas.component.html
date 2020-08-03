@@ -23,7 +23,7 @@
                                     <label class="titulo-Campos">Nombre de Ruta (*)</label>
                                     <input type="text" class="form-control"
                                     [(ngModel)]="sNombreRuta"
-                                    uppercase maxlength="4000">
+                                    uppercase maxlength="100">
                                 </div>
                                
                             </div>
@@ -32,7 +32,7 @@
                                     <label class="titulo-Campos">Itinerario de Ruta (*)</label>
                                     <input type="text" class="form-control" 
                                     [(ngModel)]="sItinerario"
-                                    uppercase maxlength="3000">
+                                    uppercase maxlength="500">
                                 </div>
                                 
                             </div>
@@ -40,7 +40,7 @@
                                 <div class="col-lg-6 mb-2">
                                     <label class="titulo-Campos">Kilometros por Ruta (*)</label>
                                     <input type="text" class="form-control" 
-                                    [(ngModel)]="sKilometro" appDigitOnly maxlength="10">
+                                    [(ngModel)]="sKilometro" appDigitOnly maxlength="4">
                                 </div>
                                 
                             </div>
@@ -71,15 +71,24 @@
                                 <h4>Seleccionar Archivos</h4>
                             </div>
                             <div class="row">
-                                <div class="col-lg-12 mb-2">
+                                <div class="col-lg-12 mb-2" >
 
-                                    <div class="col-md-12 form-group">        
+                                    <div class="input-group">  
+                                        <!-- (change)="fnReadFile($event)"  -->      
                                         <input type="file" class="form-control" 
+                                        [(ngModel)]="filetext" 
                                         (change)="fnReadFile($event)" 
                                         placeholder="Upload file" 
-                                        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" disabled>        
+                                        accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                        <!-- (click)="fnLoadCoordenadas()" -->
+                                        <button type="button" class="btn btn-sm btn-primary" 
+                                        (click)="fnUploadFile()" >
+                                            <i class="fa fa-cog fa-spin" aria-hidden="true"></i> Procesar
+                                        </button>
+        
                                     </div> 
 
+                                    
                                 </div>
                                
                             </div>
@@ -92,10 +101,10 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12 mb-2">
-                                    
                                     <app-tabla 
-                                        (eventBefore)="fnBefore($event)" 
-                                        (eventNext)="fnNext($event)"   
+                                        [CanRefresh]="true" (eventRefresh)="fnRefreshModal()"
+                                        (eventBefore)="fnBeforeModal($event)" 
+                                        (eventNext)="fnNextModal($event)"   
                                         [IndexData]="oIndexDataCoordenadas" 
                                         Column1Name="Nro" 
                                         Column2Name="Latitud" 

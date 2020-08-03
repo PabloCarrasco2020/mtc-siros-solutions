@@ -27,6 +27,12 @@ namespace Application.Core
             {
                 var oResponse = new Response<ReniecDto.ConsultaNumDocResponseModel>();
                 oResponse.IsSuccess = false;
+
+                if (string.IsNullOrEmpty(sNumDoc))
+                {
+                    oResponse.Message = "El Numero de Documento no puede estar vacio.";
+                    return oResponse;
+                }
                 
                 using (WebApiClient oHttpClient = new WebApiClient())
                 {

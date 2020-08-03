@@ -22,3 +22,5 @@ export { RutaEmpresaService } from './ruta-empresa.service';
 export { VehiculoRutaEmpresaService } from './vehiculo-ruta-empresa.service';
 export { SunarpService } from './sunarp.service';
 export { FormularioOGTUService } from './formulario-ogtu.service';
+export { CoordenadaRutaService } from './coordenada-ruta.service';
+export { NotificationService } from './notification.service';

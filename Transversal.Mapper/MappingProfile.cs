@@ -275,6 +275,17 @@ namespace Transversal.Mapper
 
             #endregion
 
+            #region Rutas <- Coordenadas
+
+            CreateMap<TM_COORDENADA_RUTA, TableModel>()
+             .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDRUTA))
+             .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
+             .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_LATITUD))
+             .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_LONGITUD))
+             .ReverseMap();
+
+            #endregion
+
             #region Sucursal Estacion de Servicio
             CreateMap<TM_SUCURSAL_ES, SucursalESDto.RQInsert>()
               .ForMember(destination => destination.nIdEstServicio, source => source.MapFrom(src => src.NUM_IDESTSERVICIO))
@@ -565,7 +576,7 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_NRORUTA))
                 .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_NOMBRERUTA))
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_ITINERARIO))
-                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_NUMDOCAUTO))
+                .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.STR_NUMDOCAUTO))
                 .ReverseMap();
 
             #endregion
@@ -609,12 +620,12 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.nAsientos, source => source.MapFrom(src => src.NUM_ASIENTOS))
                 .ReverseMap();
             CreateMap<TM_VEHICULO_RUTA_EMPRESA, TableModel>()
-                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDRUTAXEMP))
+                .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_VEHXEMP))
                 .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
                 .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_PLACA))
                 .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_ANOFAB))
                 .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_ANOMODELO))
-                .ForMember(destination => destination.Column4, source => source.MapFrom(src => src.STR_COMBUSTIBLE))
+                .ForMember(destination => destination.Column5, source => source.MapFrom(src => src.STR_COMBUSTIBLE))
                 .ReverseMap();
 
             #endregion
