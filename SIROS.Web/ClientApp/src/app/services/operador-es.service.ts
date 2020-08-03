@@ -10,6 +10,14 @@ export class OperadorEsService {
   Get(nIdEntidad: number) {
     return this.oBaseService.CallGet(`api/OperadorES/Get?sInput=${nIdEntidad}`);
   }
+  GetXDoc(
+    nIdSucursalxES: number,
+    nIdTpDocumento: number,
+    sNroDocumento: string
+    ) {
+    // tslint:disable-next-line: max-line-length
+    return this.oBaseService.CallGet(`api/OperadorES/GetXDoc?nIdSucursalxES=${nIdSucursalxES}&nIdTpDocumento=${nIdTpDocumento}&sNroDocumento=${sNroDocumento}`);
+  }
   GetAllByFilter(nPagina: number, sFilter: string = '') {
     return this.oBaseService.CallGet(`api/OperadorES/GetAllByFilter?nPagina=${nPagina}&sFilter=${sFilter}`);
   }

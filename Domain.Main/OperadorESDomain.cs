@@ -59,6 +59,18 @@ namespace Domain.Main
             throw new NotImplementedException();
         }
 
+        public async Task<TM_OPERADOR_ES> GetXDoc(TM_OPERADOR_ES input)
+        {
+            try
+            {
+                return await this._operadorESRepository.GetXDoc(input);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<TM_OPERADOR_ES> Insert(TM_OPERADOR_ES input)
         {
             try

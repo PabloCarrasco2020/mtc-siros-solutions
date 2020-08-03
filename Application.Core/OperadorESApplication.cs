@@ -104,6 +104,31 @@ namespace Application.Core
             throw new NotImplementedException();
         }
 
+        public async Task<Response<OperadorESDto.RSGetXDoc>> GetXDoc(int nIdSucursalxES, int nIdTpDocumento, string sNroDocumento)
+        {
+            try
+            {
+                var responseGetXDoc = new Response<OperadorESDto.RSGetXDoc>();
+                var result = await this._operadorESDomain.GetXDoc(new TM_OPERADOR_ES { 
+                    NUM_IDSUCURSALXES = nIdSucursalxES,
+                    NUM_IDTPDOCUMENTO = nIdTpDocumento,
+                    STR_NUMDOCUMENTO = sNroDocumento
+                });
+                if (result == null)
+                {
+                    responseGetXDoc.Message = "No se encontró registro";
+                    return responseGetXDoc;
+                }
+                responseGetXDoc.IsSuccess = true;
+                responseGetXDoc.Data = this._mapper.Map<OperadorESDto.RSGetXDoc>(result);
+                return responseGetXDoc;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
         public async Task<Response<int>> Insert(OperadorESDto.RQInsert input)
         {
             try

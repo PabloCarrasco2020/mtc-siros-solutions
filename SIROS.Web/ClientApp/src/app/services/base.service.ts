@@ -44,8 +44,13 @@ export class BaseService {
   }
   handleError(error: HttpErrorResponse): ResponseModel<any> {
     const responseError = new ResponseModel();
-    responseError.IsSuccess = false;
-    responseError.Message = error.message;
+    if (error.status === undefined) {
+      responseError.IsSuccess = false;
+      responseError.Message = `ERR- ${error}`;
+    } else {
+      responseError.IsSuccess = false;
+      responseError.Message = error.message;
+    }
     this.DebugLog('handleError', responseError);
     return responseError;
   }

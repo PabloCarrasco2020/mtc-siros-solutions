@@ -64,6 +64,23 @@ namespace SIROS.Web.Controllers
             }
         }
         [HttpGet]
+        public async Task<Response<OperadorESDto.RSGetXDoc>> GetXDoc(int nIdSucursalxES, int nIdTpDocumento, string sNroDocumento)
+        {
+            try
+            {
+                return await this._operadorESApplication.GetXDoc(nIdSucursalxES,nIdTpDocumento,sNroDocumento);
+                
+            }
+            catch (Exception ex)
+            {
+                _ = this._logApplication.SetLog(EnumLogType.TEXT_N_EMAIL, EnumLogCategory.ERROR, "OperadorES-GetXDoc", ex, $"nIdSucursalxES: {nIdSucursalxES},nIdTpDocumento: {nIdTpDocumento}, sNroDocumento: {sNroDocumento}");
+                return new Response<OperadorESDto.RSGetXDoc>
+                {
+                    Message = "ERR-Fallo en el servidor"
+                };
+            }
+        }
+        [HttpGet]
         public async Task<Response<IndexTableModelDto>> GetAllByFilter(int nPagina, string sFilter)
         {
             try

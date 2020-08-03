@@ -400,6 +400,11 @@ namespace Transversal.Mapper
                 .ForMember(destination => destination.nIdTipoOper, source => source.MapFrom(src => src.NUM_IDTIPOOPER))
                 .ForMember(destination => destination.sFecNacimiento, source => source.MapFrom(src => src.DTE_FECNACIMIENTO.ToAppSirosDate()))
                 .ReverseMap();
+            CreateMap<TM_OPERADOR_ES, OperadorESDto.RSGetXDoc>()
+                .ForMember(destination => destination.sApePaterno, source => source.MapFrom(src => src.STR_APEPATERNO))
+                .ForMember(destination => destination.sApeMaterno, source => source.MapFrom(src => src.STR_APEMATERNO))
+                .ForMember(destination => destination.sNombre, source => source.MapFrom(src => src.STR_NOMBRE))
+                .ReverseMap();
             CreateMap<TM_OPERADOR_ES, TableModel>()
                 .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDNOMINAXSUCURSAL))
                 .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))

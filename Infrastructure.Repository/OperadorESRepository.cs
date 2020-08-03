@@ -70,6 +70,20 @@ namespace Infrastructure.Repository
         {
             throw new NotImplementedException();
         }
+        public async Task<TM_OPERADOR_ES> GetXDoc(TM_OPERADOR_ES input)
+        {
+            using (var connection = _connectionFactory.GetConnectionSIROS())
+            {
+                var dyParam = new OracleDynamicParameters();
+                dyParam.Add("num_idsucursalxes_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDSUCURSALXES);
+                dyParam.Add("num_idtpdocumento_", OracleDbType.Varchar2, ParameterDirection.Input, input.NUM_IDTPDOCUMENTO);
+                dyParam.Add("str_numdocumento_", OracleDbType.Varchar2, ParameterDirection.Input, input.STR_NUMDOCUMENTO);
+                dyParam.Add("p_cursor_", OracleDbType.RefCursor, ParameterDirection.Output);
+                var query = _connectionFactory.GetQueryForSIROS("PKG_FORMULARIOGTU.SP_GetDatosOperadorXESGTU");
+                var result = await connection.QueryFirstOrDefaultAsync<TM_OPERADOR_ES>(query, param: dyParam, commandType: CommandType.StoredProcedure);
+                return result;
+            }
+        }
 
         public async Task<TM_OPERADOR_ES> Insert(TM_OPERADOR_ES input)
         {

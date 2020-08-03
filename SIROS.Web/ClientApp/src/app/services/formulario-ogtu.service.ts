@@ -15,84 +15,74 @@ export class FormularioOGTUService {
     return this.oBaseService.CallGet(`api/FormularioOGTU/GetAllByFilter?nPagina=${nPagina}&sFilter=${sFilter}`);
   }
   Insert(
-    sRuc: string = '',
-    sRazonSocial: string = '',
-    nTipoVia: number = 0,
-    sVia: string = '',
-    nCentroPoblado: number = 0,
-    sCentroPoblado: string = '',
-    nIdNumeroManzana: number = 0,
-    sNumeroManzana: string = '',
-    nIdLoteInterior: number = 0,
-    sLoteInterior: string = '',
-    sReferencia: string = '',
-    sCodDepartamento: string = '',
-    sCodProvincia: string = '',
-    sCodDistrito: string = '',
-    sRepresentante: string = ''
+    sPlaca: string,
+    nIdEmpresa: number,
+    nIdSucursalXES: number,
+    nIdVehXEmp: number,
+    nMonto: number,
+    sFecSum: string,
+    sHoraSum: string,
+    sMinutoSum: string,
+    sNombreArchivo: string,
+    nIdTpDocumentoOpeXEmp: number,
+    sNumDocumentoOpeXEmp: string,
+    nIdTpDocumentoOpEXEst: number,
+    sNumDocumentoOpeXEst: string
   ) {
     const req = {
-      sRuc,
-      sRazonSocial,
-      nTipoVia,
-      sVia,
-      nCentroPoblado,
-      sCentroPoblado,
-      nIdNumeroManzana,
-      sNumeroManzana,
-      nIdLoteInterior,
-      sLoteInterior,
-      sReferencia,
-      sCodDepartamento,
-      sCodProvincia,
-      sCodDistrito,
-      sRepresentante
+      sPlaca,
+      nIdEmpresa,
+      nIdSucursalXES,
+      nIdVehXEmp,
+      nMonto,
+      sFecSum,
+      sHoraSum,
+      sMinutoSum,
+      sNombreArchivo,
+      nIdTpDocumentoOpeXEmp,
+      sNumDocumentoOpeXEmp,
+      nIdTpDocumentoOpEXEst,
+      sNumDocumentoOpeXEst
     };
     return this.oBaseService.CallPost(`api/FormularioOGTU/Insert`, req);
   }
   Update(
-    nIdEntidad: number = 0,
-    sRuc: string = '',
-    sRazonSocial: string = '',
-    nTipoVia: number = 0,
-    sVia: string = '',
-    nCentroPoblado: number = 0,
-    sCentroPoblado: string = '',
-    nIdNumeroManzana: number = 0,
-    sNumeroManzana: string = '',
-    nIdLoteInterior: number = 0,
-    sLoteInterior: string = '',
-    sReferencia: string = '',
-    sCodDepartamento: string = '',
-    sCodProvincia: string = '',
-    sCodDistrito: string = '',
-    sRepresentante: string = ''
+    nIdFormularioTU: number,
+    sPlaca: string,
+    nIdEmpresa: number,
+    nIdSucursalXES: number,
+    nMonto: number,
+    sFecSum: string,
+    sHoraSum: string,
+    sMinutoSum: string,
+    sNombreArchivo: string,
+    nIdTpDocumentoOpeXEmp: number,
+    sNumDocumentoOpeXEmp: string,
+    nIdTpDocumentoOpEXEst: number,
+    sNumDocumentoOpeXEst: string
   ) {
     const req = {
-      nIdEntidad,
-      sRuc,
-      sRazonSocial,
-      nTipoVia,
-      sVia,
-      nCentroPoblado,
-      sCentroPoblado,
-      nIdNumeroManzana,
-      sNumeroManzana,
-      nIdLoteInterior,
-      sLoteInterior,
-      sReferencia,
-      sCodDepartamento,
-      sCodProvincia,
-      sCodDistrito,
-      sRepresentante
+      nIdFormularioTU,
+      sPlaca,
+      nIdEmpresa,
+      nIdSucursalXES,
+      nMonto,
+      sFecSum,
+      sHoraSum,
+      sMinutoSum,
+      sNombreArchivo,
+      nIdTpDocumentoOpeXEmp,
+      sNumDocumentoOpeXEmp,
+      nIdTpDocumentoOpEXEst,
+      sNumDocumentoOpeXEst
     };
     return this.oBaseService.CallPost(`api/FormularioOGTU/Update`, req);
   }
   Delete(
-    nIdEntidad: number = 0
+    nIdFormularioTU: number
   ) {
     const req = {
-      nIdEntidad
+      nIdFormularioTU
     };
     return this.oBaseService.CallPost(`api/FormularioOGTU/Delete`, req);
   }

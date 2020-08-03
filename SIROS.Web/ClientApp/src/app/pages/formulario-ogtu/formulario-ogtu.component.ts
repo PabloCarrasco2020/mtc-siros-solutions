@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IndexModel } from 'src/app/models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { MunicipalidadService, ComboService, SunatService, MessageService, ReniecService } from 'src/app/services/services.index';
+import { MunicipalidadService, ComboService, OperadorEsService, MessageService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
 
 declare var $: any;
@@ -46,6 +46,12 @@ export class FormularioOgtuComponent implements OnInit {
   sCodProvincia: string = '00';
   sCodDistrito: string = '00';
   sRepresentante: string = '';
+  // VEHICULO
+  nIdSucursalxES: number = 0;
+  // OPERADOR OGTU
+  sApellidoPaternoOGTU: string = '';
+  sApellidoMaternoOGTU: string = '';
+  sNombresOGTU: string = '';
 
   nIdRepresentanteLegal: number = 0;
   nTipDocRepresentanteLegal: number = 0;
@@ -59,6 +65,7 @@ export class FormularioOgtuComponent implements OnInit {
 
   constructor(
     private oMunicipalidadService: MunicipalidadService,
+    private oOperadorEsService: OperadorEsService,
     private oComboService: ComboService,
     private oMessageService: MessageService,
     ) {
@@ -155,6 +162,23 @@ export class FormularioOgtuComponent implements OnInit {
   fnBuscarOperadorEmpresa() {
   }
   fnBuscarOperadorGTU() {
+    this.oBlockUI.start('Buscando operador...');
+    this.LimpiarOperadorOgtu();
+    this.oOperadorEsService.GetXDoc(this.nIdSucursalxES, 2, '32')
+    .then((response: ResponseModel<any>) => {
+      this.oBlockUI.stop();
+      if (!response.IsSuccess) {
+        if (response.Message.startsWith('ERR-')) {
+          this.oMessageService.error(this.sTitlePage, response.Message);
+        } else {
+          this.oMessageService.warning(this.sTitlePage, response.Message);
+        }
+        return;
+      }
+      this.sApellidoPaternoOGTU = '';
+      this.sApellidoMaternoOGTU = '';
+      this.sNombresOGTU = '';
+    });
   }
   fnSiguienteModal() {
     const warningFormulario = this.ValidarFormulario();
@@ -332,7 +356,7 @@ export class FormularioOgtuComponent implements OnInit {
 
   }
   LimpiarOperadorOgtu() {
-    
+
   }
   LimpiarOperadorEmpresa() {
 

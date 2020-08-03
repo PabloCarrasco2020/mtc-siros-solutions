@@ -43,5 +43,11 @@
             public string sUsuario { get; set; }
             public int? nIdSession { get; set; }
         }
+        public class RSGetXDoc
+        {
+            public string sApePaterno { get; set; }
+            public string sApeMaterno { get; set; }
+            public string sNombre { get; set; }
+        }
     }
 }
