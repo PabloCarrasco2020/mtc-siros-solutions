@@ -203,6 +203,10 @@ namespace SIROS.Web
             services.AddScoped<IVehiculoRutaEmpresaDomain, VehiculoRutaEmpresaDomain>();
             services.AddScoped<IVehiculoRutaEmpresaRepository, VehiculoRutaEmpresaRepository>();
 
+            services.AddScoped<IFormularioOGTUApplication, FormularioOGTUApplication>();
+            services.AddScoped<IFormularioOGTUDomain, FormularioOGTUDomain>();
+            services.AddScoped<IFormularioOGTURepository, FormularioOGTURepository>();
+
             services.AddScoped<IGeneralApplication, GeneralApplication>();
             services.AddScoped<IGeneralDomain, GeneralDomain>();
             services.AddScoped<IGeneralRepository, GeneralRepository>();
