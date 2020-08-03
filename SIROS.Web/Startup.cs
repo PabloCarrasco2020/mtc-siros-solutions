@@ -187,6 +187,10 @@ namespace SIROS.Web
             services.AddScoped<IRutaDomain, RutaDomain>();
             services.AddScoped<IRutaRepository, RutaRepository>();
 
+            services.AddScoped<ICoordenadaRutaApplication, CoordenadaRutaApplication>();
+            services.AddScoped<ICoordenadaRutaDomain, CoordenadaRutaDomain>();
+            services.AddScoped<ICoordenadaRutaRepository, CoordenadaRutaRepository>();
+
             services.AddScoped<IEmpresaApplication, EmpresaApplication>();
             services.AddScoped<IEmpresaDomain, EmpresaDomain>();
             services.AddScoped<IEmpresaRepository, EmpresaRepository>();

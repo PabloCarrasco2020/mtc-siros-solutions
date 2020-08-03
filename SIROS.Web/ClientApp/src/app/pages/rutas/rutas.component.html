@@ -74,15 +74,16 @@
                                 <div class="col-lg-12 mb-2" >
 
                                     <div class="input-group">  
-                                        <!--  -->      
+                                        <!-- (change)="fnReadFile($event)"  -->      
                                         <input type="file" class="form-control" 
-                                        (change)="fnReadFile($event)"
+                                        [(ngModel)]="filetext" 
+                                        (change)="fnReadFile($event)" 
                                         placeholder="Upload file" 
                                         accept=".csv,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
-
+                                        <!-- (click)="fnLoadCoordenadas()" -->
                                         <button type="button" class="btn btn-sm btn-primary" 
-                                        (click)="fnLoadCoordenadas()" >
-                                            <i class="fa fa-thumb-tack" aria-hidden="true"></i> Actualizar
+                                        (click)="fnUploadFile()" >
+                                            <i class="fa fa-cog fa-spin" aria-hidden="true"></i> Procesar
                                         </button>
         
                                     </div> 
@@ -101,8 +102,9 @@
                             <div class="row">
                                 <div class="col-lg-12 mb-2">
                                     <app-tabla 
-                                        (eventBefore)="fnBefore($event)" 
-                                        (eventNext)="fnNext($event)"   
+                                        [CanRefresh]="true" (eventRefresh)="fnRefreshModal()"
+                                        (eventBefore)="fnBeforeModal($event)" 
+                                        (eventNext)="fnNextModal($event)"   
                                         [IndexData]="oIndexDataCoordenadas" 
                                         Column1Name="Nro" 
                                         Column2Name="Latitud" 

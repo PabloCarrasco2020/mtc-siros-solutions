@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ɵConsole } from '@angular/core';
 import * as XLSX from 'xlsx';
 import { IndexModel } from 'src/app/models/IndexModel';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
-import { RutaService, ComboService, MessageService } from 'src/app/services/services.index';
+import { CoordenadaRutaService, RutaService, MessageService, NotificationService } from 'src/app/services/services.index';
 import { ResponseModel } from 'src/app/models/ResponseModel';
 import { timeStamp } from 'console';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
@@ -15,9 +15,6 @@ declare var $: any;
 })
 export class RutasComponent implements OnInit {
   sTitlePage: string = 'Ruta';
-  file: File;
-  arrayBuffer: any;
-  filelist: any;
 
   oIndexData: IndexModel = new IndexModel();
   nCurrentPage: number = 1;
@@ -25,9 +22,7 @@ export class RutasComponent implements OnInit {
 
   oIndexDataCoordenadas: IndexModel = new IndexModel();
 
-  public lstCoordenadas: any[] = [];
-
-  // Busqueda
+  // BUSQUEDA
   nTipoFiltro: number = 1;
   sFilter: string = '';
 
@@ -39,10 +34,30 @@ export class RutasComponent implements OnInit {
   sKilometro: string = '';
   sEstado: string = '';
 
+  // UPLOAD
+  nIdRutaModal: number = 0; 
+  file: File;
+  filetext: string ='';
+  arrayBuffer: any;
+  //filelist: any;
+  MAX_FILE_SIZE_MB = 1;
+  MAX_EXCEL_ROWS = 5000;
+
+  lstCoordenadas: any[] = [];
+  lstDatos = [];
+
+  EXCEL_COLUMNS_REGISTROS = [
+    "number",
+    "latitude",
+    "longitude"
+  ];
+
   @BlockUI() oBlockUI: NgBlockUI;
   constructor(
     private oRutaService: RutaService,
-    private oMessageService: MessageService) {
+    private oCoordenadaRutaService: CoordenadaRutaService,
+    private oMessageService: MessageService,
+    private toastr : NotificationService) {
 
     this.CargarRutas();
   }
@@ -64,28 +79,38 @@ export class RutasComponent implements OnInit {
     this.CargarRutas();
   }
 
+  //PAGINADO
   fnBefore(nPage: number) {
     this.nCurrentPage = nPage;
     this.CargarRutas();
   }
+  fnNext(nPage: number) {
+    this.nCurrentPage = nPage;
+    this.CargarRutas();
+  }
+  fnBeforeModal(nPage: number) {
+    this.nCurrentPage = nPage;
+    this.CargarRutas();
+    this.fnCoordenadas(this.nIdRutaModal);
+  }
+  fnNextModal(nPage: number){
+    this.nCurrentPage = nPage;
+    this.fnCoordenadas(this.nIdRutaModal);
+  }
+  //------------------------------------
 
+  // CRUD
   fnRefresh(){
     this.CargarRutas();
   }
-  
-  fnExport(){
-    
+  fnRefreshModal(){
+    this.fnCoordenadas(this.nIdRutaModal);
   }
 
   fnNew() {
     this.nCurrentOption = 1;
     this.LimpiarCampos();
     $('#myModalNew').modal({backdrop: 'static', keyboard: false});
-  }
-
-  fnCoordenadas(id: number) {
-    console.log(id);
-    $('#myModalPoint').modal({backdrop: 'static', keyboard: false});
   }
 
   fnEdit(nId: number) {
@@ -121,11 +146,18 @@ export class RutasComponent implements OnInit {
     });
   }
 
-  fnNext(nPage: number) {
-    this.nCurrentPage = nPage;
-    this.CargarRutas();
+  fnGuardar() {
+    const warningDatos = this.ValidarDatos();
+    if (warningDatos !== null) {
+      this.oMessageService.warning(this.sTitlePage, warningDatos);
+      return;
+    }
+    this.Guardar();
   }
 
+  //------------------------------------
+
+  //METODOS
   CargarRutas() {
     this.oBlockUI.start('Cargando Rutas...');
     console.log(this.sFilter);
@@ -133,6 +165,7 @@ export class RutasComponent implements OnInit {
       .then((response: ResponseModel<any>) => {
 
         if (response.IsSuccess) {
+          this.toastr.success(`${response.Data.NroItems} Registros Encontrados`,this.sTitlePage);
           this.oIndexData = response.Data;
         } else {
           this.oIndexData = new IndexModel();
@@ -158,23 +191,6 @@ export class RutasComponent implements OnInit {
       this.oBlockUI.stop();
     });
     
-  }
-
-  LimpiarCampos() {
-    this.nIdRuta = 0;
-    this.sNroRuta = '0';
-    this.sNombreRuta = '';
-    this.sItinerario = '';
-    this.sKilometro = '';
-  }
-
-  fnGuardar() {
-    const warningDatos = this.ValidarDatos();
-    if (warningDatos !== null) {
-      this.oMessageService.warning(this.sTitlePage, warningDatos);
-      return;
-    }
-    this.Guardar();
   }
 
   Guardar() {
@@ -230,6 +246,35 @@ export class RutasComponent implements OnInit {
 
     }
   }
+
+  fnCoordenadas(id: number) {
+    this.nIdRutaModal = id;
+    this.oBlockUI.start('Cargando Coordenadas...');
+    this.filetext = "";
+    this.oCoordenadaRutaService.GetAllByFilter(this.nCurrentPage, `${id}`)
+      .then((response: ResponseModel<any>) => {
+
+        if (response.IsSuccess) {
+          this.toastr.success(`${response.Data.NroItems} Registros Encontrados`,this.sTitlePage);
+          this.oIndexDataCoordenadas = response.Data;
+        } else {
+          this.oIndexDataCoordenadas = new IndexModel();
+        }
+        this.oBlockUI.stop();
+      });
+
+
+    $('#myModalPoint').modal({backdrop: 'static', keyboard: false});
+  }
+
+  LimpiarCampos() {
+    this.nIdRuta = 0;
+    this.sNroRuta = '0';
+    this.sNombreRuta = '';
+    this.sItinerario = '';
+    this.sKilometro = '';
+  }
+
   ValidarDatos(): any {
     if (
         (this.sNombreRuta.length === 0 ) ||
@@ -242,7 +287,8 @@ export class RutasComponent implements OnInit {
   }
 
   fnReadFile(event){
-    this.file= event.target.files[0];     
+    this.file= event.target.files[0]; 
+    /*    
     let fileReader = new FileReader();    
     fileReader.readAsArrayBuffer(this.file);     
     fileReader.onload = (e) => {    
@@ -259,7 +305,8 @@ export class RutasComponent implements OnInit {
               //this.filelist = [];    
               //console.log(this.filelist)
               
-    }    
+    } 
+    */   
   } 
 
   fnLoadCoordenadas(){
@@ -280,9 +327,131 @@ export class RutasComponent implements OnInit {
           Id: iCoordenada,
           Column1: item.number,
           Column2: item.latitude,
-         // Column3: `${item.sNombres} ${responsableLegal.sApePaterno} ${responsableLegal.sApeMaterno}`,
           Column3: item.longitude});
     });
   }
+
+  fnUploadFile(){
+    
+    if (this.file == null) {
+      this.oMessageService.error('Error al Cargar', 'Debe seleccionar un archivo valido para importar');
+      return;
+    }
+    
+    let filename = this.file.name;
+    let regex = /^([a-zA-Z0-9 _-])+(.xls|.xlsx|.csv)$/;
+    console.log(filename);
+    if (!regex.test(filename)) {
+      this.oMessageService.error('Error al Cargar', 'El nombre del archivo debe ser alfanumerico, de formato ".xls/.xlsx/.csv" Ejemplo: MI_ARCHIVO.xlsx');
+        return;
+    }
+
+    let maxSize = this.MAX_FILE_SIZE_MB;
+    let sizeBytes = Number(this.file.size);
+    let sizeKb = (sizeBytes / 1024);
+    let sizeMb = (sizeKb / 1024);
+    console.log(sizeMb);
+    if (sizeMb > maxSize) {
+        this.oMessageService.error('Error al Cargar', `El tamaño del archivo no puede ser mayor a ${maxSize}MB.`);
+        return;
+    }
+
+    this.oMessageService.confirm('¿Está seguro de cargar este archivo?',"Las coordenadas cargadas serán reemplazadas por los nuevos registros de este archivo")
+    .then((result) => {
+      if (result.value) {
+        this.oBlockUI.start('Procesando Archivo...');
+        this.PreLoadExcel();
+        this.oBlockUI.stop();
+      }
+
+    });
+
+  }
+
+  get_header_row(sheet) {
+    var headers = [];
+    var range = XLSX.utils.decode_range(sheet['!ref']);
+    var C, R = range.s.r; 
+    /* start in the first row * /
+    /* walk every column in the range */
+    for (C = range.s.c; C <= range.e.c; ++C) {
+        var cell = sheet[XLSX.utils.encode_cell({ c: C, r: R })]
+
+        /* find the cell in the first row */
+        var hdr = "UNKNOWN " + C; // <-- replace with your desired default 
+        if (cell && cell.t)
+            hdr = XLSX.utils.format_cell(cell);
+
+        headers.push(hdr);
+    }
+    return headers;
+  }
+
+  PreLoadExcel(){
+
+    this.lstDatos = [];
+  
+    let fileReader = new FileReader();    
+    fileReader.readAsArrayBuffer(this.file);     
+    fileReader.onload = (e) => {    
+        this.arrayBuffer = fileReader.result;    
+        var data = new Uint8Array(this.arrayBuffer);    
+        var arr = new Array();    
+        for(var i = 0; i != data.length; ++i) arr[i] = String.fromCharCode(data[i]);    
+        var bstr = arr.join("");   
+        
+        
+        //LEER XLS FILE DATA
+        //------------------------------------
+        var workbook = XLSX.read(bstr, {type:"binary"});
+        if (workbook.SheetNames == null) {
+          this.oMessageService.error('Error al Cargar', `El archivo no tiene el formato correcto, debe usar la plantilla`,);
+          return;
+        }
+
+        if (workbook.SheetNames.length != 1) {
+          this.oMessageService.error('Error al Cargar', `El archivo no tiene el formato correcto, debe usar la plantilla`,);
+          return;
+        }
+        //------------------------------------
+        // VALIDAR FORMATO DE HOJA
+        //------------------------------------
+        var first_sheet_name = workbook.SheetNames[0];    
+        var worksheet = workbook.Sheets[first_sheet_name];
+        let excelColumnsREGISTROS = this.get_header_row(workbook.Sheets[first_sheet_name]);
+        let columnsLengthREGISTROS = this.EXCEL_COLUMNS_REGISTROS.length;
+        if (excelColumnsREGISTROS.length != columnsLengthREGISTROS) {
+            this.oMessageService.error('Error al Cargar', `El numero de columnas del formato de carga no es valido. Debe tener ${columnsLengthREGISTROS} columnas.`);
+            return;
+        }
+
+        let listColumnsInvalidREGISTROS = [];
+        for (let i = 0; i < columnsLengthREGISTROS; i++) {
+            if (excelColumnsREGISTROS[i] != this.EXCEL_COLUMNS_REGISTROS[i])
+                listColumnsInvalidREGISTROS.push(excelColumnsREGISTROS[i]);
+        }
+
+        if (listColumnsInvalidREGISTROS.length > 0) {
+            this.oMessageService.error('Error al Cargar',`El formato de carga no es el correcto. columnas invalidas: ${listColumnsInvalidREGISTROS}`);
+            return;
+        }
+        //------------------------------------
+        // VALIDAR NUMERO DE FILAS
+        //------------------------------------
+        var excelRows = XLSX.utils.sheet_to_json(worksheet,{raw:true});  
+        let maxRowsCount = this.MAX_EXCEL_ROWS;
+        if (excelRows.length > maxRowsCount) {
+            this.oMessageService.error('Error al Cargar',`La cantidad de registros de carga no puede ser mayor de ${maxRowsCount} filas.`);
+            return;
+        }
+        console.log(excelRows);
+        //------------------------------------
+        //this.lstCoordenadas = XLSX.utils.sheet_to_json(worksheet,{raw:true});  
+        this.lstDatos = excelRows;
+    } 
+    
+
+  }
+
 
 }

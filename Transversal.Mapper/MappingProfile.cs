@@ -275,6 +275,17 @@ namespace Transversal.Mapper
 
             #endregion
 
+            #region Rutas <- Coordenadas
+
+            CreateMap<TM_COORDENADA_RUTA, TableModel>()
+             .ForMember(destination => destination.Id, source => source.MapFrom(src => src.NUM_IDRUTA))
+             .ForMember(destination => destination.Column1, source => source.MapFrom(src => src.NUM_FILA))
+             .ForMember(destination => destination.Column2, source => source.MapFrom(src => src.STR_LATITUD))
+             .ForMember(destination => destination.Column3, source => source.MapFrom(src => src.STR_LONGITUD))
+             .ReverseMap();
+
+            #endregion
+
             #region Sucursal Estacion de Servicio
             CreateMap<TM_SUCURSAL_ES, SucursalESDto.RQInsert>()
               .ForMember(destination => destination.nIdEstServicio, source => source.MapFrom(src => src.NUM_IDESTSERVICIO))
